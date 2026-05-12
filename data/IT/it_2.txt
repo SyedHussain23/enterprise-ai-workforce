@@ -1,0 +1,9 @@
+
+IT Policy Document
+
+Topic: VPN
+
+Details:
+VPN required for remote access.
+
+Document ID: IT_2

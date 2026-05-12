@@ -1,0 +1,9 @@
+
+IT Policy Document
+
+Topic: Monitoring
+
+Details:
+System monitored 24/7.
+
+Document ID: IT_10

@@ -1,0 +1,9 @@
+
+IT Policy Document
+
+Topic: Data Protection
+
+Details:
+Data must be encrypted.
+
+Document ID: IT_13

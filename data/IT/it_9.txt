@@ -1,0 +1,9 @@
+
+IT Policy Document
+
+Topic: Firewall
+
+Details:
+Firewall protects system.
+
+Document ID: IT_9

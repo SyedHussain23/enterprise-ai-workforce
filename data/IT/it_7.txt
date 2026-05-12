@@ -1,0 +1,9 @@
+
+IT Policy Document
+
+Topic: Backup
+
+Details:
+Data backup done daily.
+
+Document ID: IT_7

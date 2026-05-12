@@ -1,0 +1,128 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ── Backend: lint + type check + unit tests ──────────────────────────────────
+  backend:
+    name: Backend (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: enterprise_ai_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      OPENAI_API_KEY:      ${{ secrets.OPENAI_API_KEY || 'sk-test-placeholder' }}
+      SECRET_KEY:          test-secret-key-32-chars-minimum!
+      DATABASE_URL:        postgresql+asyncpg://postgres:postgres@localhost:5432/enterprise_ai_test
+      DATABASE_URL_SYNC:   postgresql+psycopg2://postgres:postgres@localhost:5432/enterprise_ai_test
+      REDIS_URL:           redis://localhost:6379
+      LANGCHAIN_TRACING_V2: false
+      PYTHONPATH:          .
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run unit tests (no DB required)
+        run: |
+          python -m pytest tests/test_evaluation.py tests/test_guardrails.py \
+                           tests/test_confidence.py -v --tb=short
+
+      - name: Import smoke test
+        run: |
+          python -c "from app.api.server import app; print('Server OK, routes:', len(app.routes))"
+          python -c "from app.workflows.workflow_graph import build_workflow; wf=build_workflow(); print('Workflow OK, nodes:', list(wf.get_graph().nodes.keys()))"
+
+  # ── Frontend: type check + build ─────────────────────────────────────────────
+  frontend:
+    name: Frontend (Node 22)
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript type check
+        run: npx tsc --noEmit
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload build artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist/
+          retention-days: 7
+
+  # ── Docker build check ────────────────────────────────────────────────────────
+  docker:
+    name: Docker build
+    runs-on: ubuntu-latest
+    needs: [backend]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t enterprise-ai:ci .
+
+      - name: Verify image starts
+        run: |
+          docker run --rm -d \
+            -e OPENAI_API_KEY=sk-test \
+            -e SECRET_KEY=test-secret-key-32-chars-minimum! \
+            -e DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/enterprise_ai \
+            -e REDIS_URL=redis://localhost:6379 \
+            --entrypoint python \
+            enterprise-ai:ci \
+            -c "from app.api.server import app; print('Docker import OK')"

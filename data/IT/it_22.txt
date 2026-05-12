@@ -1,0 +1,9 @@
+
+IT Policy Document
+
+Topic: Storage
+
+Details:
+Data stored securely.
+
+Document ID: IT_22

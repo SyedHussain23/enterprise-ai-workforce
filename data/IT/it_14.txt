@@ -1,0 +1,9 @@
+
+IT Policy Document
+
+Topic: Cloud
+
+Details:
+Cloud storage used.
+
+Document ID: IT_14

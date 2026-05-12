@@ -1,0 +1,121 @@
+version: "3.9"
+
+# Enterprise AI Workforce — Full local stack
+# Usage: docker compose up --build
+# First run: docker compose run --rm api alembic upgrade head
+
+services:
+
+  # ── PostgreSQL ───────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: enterprise-ai-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER:     ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB:       ${POSTGRES_DB:-enterprise_ai}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-enterprise_ai}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Redis ────────────────────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: enterprise-ai-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── FastAPI backend ───────────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: enterprise-ai-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      PORT:             "8000"
+      DEBUG:            "false"
+      OPENAI_API_KEY:   ${OPENAI_API_KEY}
+      SECRET_KEY:       ${SECRET_KEY:-change-me-use-32-char-minimum}
+      DATABASE_URL:     postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}
+      DATABASE_URL_SYNC: postgresql+psycopg2://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}
+      REDIS_URL:        redis://redis:6379
+      # LangSmith (optional)
+      LANGCHAIN_TRACING_V2: ${LANGCHAIN_TRACING_V2:-false}
+      LANGCHAIN_API_KEY:    ${LANGCHAIN_API_KEY:-}
+      LANGCHAIN_PROJECT:    ${LANGCHAIN_PROJECT:-enterprise-ai-workforce}
+      # WhatsApp (optional)
+      WHATSAPP_TOKEN:           ${WHATSAPP_TOKEN:-}
+      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID:-}
+      WHATSAPP_VERIFY_TOKEN:    ${WHATSAPP_VERIFY_TOKEN:-enterprise_ai_verify}
+    volumes:
+      - vector_db_data:/app/vector_db     # ChromaDB persisted
+      - api_logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+
+  # ── DB migration runner (one-shot, exits after running) ──────────────────────
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: enterprise-ai-migrate
+    command: alembic upgrade head
+    environment:
+      DATABASE_URL:      postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}
+      DATABASE_URL_SYNC: postgresql+psycopg2://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+    profiles: ["migrate"]   # only runs with: docker compose --profile migrate up
+
+  # ── Frontend (dev mode with hot reload) ──────────────────────────────────────
+  frontend:
+    image: node:22-alpine
+    container_name: enterprise-ai-frontend
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules   # anonymous volume so host node_modules don't override
+    environment:
+      VITE_API_URL: http://localhost:8000
+    profiles: ["dev"]       # only runs with: docker compose --profile dev up
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  redis_data:
+  vector_db_data:
+  api_logs:

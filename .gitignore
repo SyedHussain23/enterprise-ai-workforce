@@ -1,0 +1,37 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Secrets
+.env
+*.env
+!.env.example
+
+# Runtime artefacts
+logs/
+outputs/
+dump.rdb
+tests/load/results/
+
+# Vector DB (rebuilt from source PDFs)
+vector_db/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Node
+frontend/node_modules/
+frontend/dist/
+.claude/
+.claude/

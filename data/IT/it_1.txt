@@ -1,0 +1,9 @@
+
+IT Policy Document
+
+Topic: Password
+
+Details:
+Passwords must change every 90 days.
+
+Document ID: IT_1

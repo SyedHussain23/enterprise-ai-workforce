@@ -1,0 +1,9 @@
+
+Finance Policy Document
+
+Topic: Vendor Payment
+
+Details:
+Vendor payments within 15 days.
+
+Document ID: Finance_15

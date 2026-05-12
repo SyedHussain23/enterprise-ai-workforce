@@ -1,0 +1,9 @@
+
+Finance Policy Document
+
+Topic: Invoice
+
+Details:
+Invoices processed within 10 days.
+
+Document ID: Finance_5
