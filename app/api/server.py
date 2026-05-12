@@ -494,7 +494,7 @@ async def upload_document(
 
     try:
         from pypdf import PdfReader
-        from langchain.text_splitter import RecursiveCharacterTextSplitter
+        from langchain_text_splitters import RecursiveCharacterTextSplitter
         from app.rag.client import get_chroma_client
 
         contents = await file.read()
@@ -520,7 +520,7 @@ async def upload_document(
         from app.rag.hybrid_retriever import invalidate_bm25_cache
         invalidate_bm25_cache()
 
-        logger.info("document.uploaded", filename=file.filename, chunks=len(chunks), company_id=company_id_str)
+        logger.info("document.uploaded", doc_filename=file.filename, chunks=len(chunks), company_id=company_id_str)
         return {
             "doc_id": doc_id,
             "filename": file.filename,
@@ -548,13 +548,18 @@ async def admin_stats(user: dict = Depends(require_admin), db: AsyncSession = De
     total  = (await db.execute(select(func.count()).where(WorkflowLog.company_id == company_uuid))).scalar() or 0
     avg_c  = round(float((await db.execute(select(func.avg(WorkflowLog.confidence)).where(WorkflowLog.company_id == company_uuid))).scalar() or 0), 1)
 
-    # avg response time from execution_metadata — fallback to 0 if not stored
-    avg_rt_result = await db.execute(
-        select(func.avg(
-            func.cast(WorkflowLog.execution_metadata["response_time"].astext, func.Float())
-        )).where(WorkflowLog.company_id == company_uuid)
-    )
-    avg_rt = round(float(avg_rt_result.scalar() or 0), 3)
+    # avg response time — pull raw rows and average in Python to avoid JSON cast issues
+    rt_rows = (await db.execute(
+        select(WorkflowLog.execution_metadata)
+        .where(WorkflowLog.company_id == company_uuid)
+        .limit(500)
+    )).scalars().all()
+    rt_values = [
+        float(r["response_time"])
+        for r in rt_rows
+        if isinstance(r, dict) and "response_time" in r
+    ]
+    avg_rt = round(sum(rt_values) / len(rt_values), 3) if rt_values else 0.0
 
     dept_r = await db.execute(
         select(WorkflowLog.department, func.count().label("count"))
