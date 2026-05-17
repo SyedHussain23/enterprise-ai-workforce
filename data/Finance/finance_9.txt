@@ -1,9 +1,62 @@
-
 Finance Policy Document
 
-Topic: Payroll
+Topic: Payroll Processing and Salary Deductions
 
 Details:
-Payroll managed monthly.
+Detailed breakdown of how payroll is processed and what deductions may apply.
+
+PAYROLL PROCESSING CALENDAR:
+- Payroll data cutoff: 20th of each month
+- Payroll processing: 21st–24th of each month
+- Payslips available: 25th of each month
+- Payment to bank: Last working day of month
+
+PAYROLL TEAM CONTACTS:
+- Payroll queries: payroll@company.com
+- Payroll Manager: payroll.manager@company.com
+- Query submission deadline: 20th of month for same-month correction
+- After 20th: Correction in next month's payroll
+
+SALARY COMPONENTS TAXED (UAE — No income tax):
+- UAE has no personal income tax
+- Employees receive 100% of gross salary package
+- Social insurance: No mandatory social insurance for non-UAE nationals (expatriates)
+- UAE Nationals: Enrolled in GPSSA (General Pension and Social Security Authority)
+  * Employee contribution: 5% of basic salary
+  * Employer contribution: 12.5% of basic salary
+  * Total: 17.5% — deducted from Emirati employees' payroll
+
+TYPES OF DEDUCTIONS:
+1. Absence deduction: Unpaid leave days × daily rate
+2. Late arrival deduction: Per attendance policy
+3. Salary advance repayment: Agreed installments
+4. Company loan repayment: Per signed loan agreement
+5. GPSSA contributions: UAE Nationals only (5% employee share)
+6. DEWS contributions: If enrolled in Dubai Employee Workplace Savings Scheme
+7. Training bond recovery: If resigning during bond period
+
+HOW DEDUCTIONS ARE CALCULATED:
+- Daily rate = Monthly basic salary / 30 days (or actual calendar days if specified in contract)
+- Hourly rate = Daily rate / 9 hours
+- Late deduction: Only applied after 3 occurrences of lateness per month
+- Absence: Full day deducted for unauthorized absence
+
+OVERPAYMENT RECOVERY:
+- If overpaid by Finance error: Employee notified in writing
+- Recovery: Maximum 20% of net monthly salary per month (not one lump deduction)
+- Employee must acknowledge and agree recovery plan
+- Recovery in 3–6 installments for larger amounts
+
+FINAL SETTLEMENT PAYMENT:
+- Paid within 14 days of last working day (UAE Labour Law requirement)
+- Includes: Final salary, leave encashment, gratuity, any outstanding bonuses
+- Any deductions: Loans, company advances, damage to company property
+- Final settlement statement issued in writing
+
+PAYROLL RECORDS:
+- Payslips retained for 7 years (UAE legal requirement)
+- Always available via HR Portal — download copies for personal records
+- Salary certificates (for visa, bank, school enrollment): Ordered via HR Portal
 
 Document ID: Finance_9
+Keywords: payroll, salary deductions, payroll processing, GPSSA, UAE nationals, deductions, payroll calendar, overpayment, payslip, final settlement payroll

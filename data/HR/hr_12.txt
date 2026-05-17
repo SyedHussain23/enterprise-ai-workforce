@@ -1,9 +1,73 @@
-
 HR Policy Document
 
-Topic: Appraisal
+Topic: Disciplinary Procedure
 
 Details:
-Annual performance review conducted.
+The company applies a fair and consistent disciplinary procedure to address employee misconduct and performance issues.
+
+GROUNDS FOR DISCIPLINARY ACTION:
+Minor offences:
+- Repeated late arrival
+- Excessive personal calls/internet use
+- Not following reasonable management instructions
+- Poor timekeeping or attendance
+
+Moderate offences:
+- Unauthorized absence
+- Failure to meet performance targets without valid reason
+- Breach of company policies (dress code, safety rules)
+- Inappropriate conduct with colleagues
+
+Serious offences:
+- Theft or fraud (immediate termination)
+- Harassment, bullying, or discrimination
+- Violence or threat of violence in the workplace
+- Gross insubordination
+- Misuse or disclosure of confidential company information
+- Competing with the employer
+- Working for a competitor without disclosure
+
+DISCIPLINARY STAGES:
+
+Stage 1 — Verbal Warning:
+- Given by direct manager for minor first offence
+- Documented in HR system
+- Remains on record for 6 months (then removed if no recurrence)
+
+Stage 2 — Written Warning:
+- Issued after second offence or more serious breach
+- Employee may respond in writing within 5 days
+- Remains on record for 12 months
+
+Stage 3 — Final Written Warning:
+- Given for repeated misconduct or serious offence
+- Specific improvement targets set with timeline
+- Remains on record for 18 months
+
+Stage 4 — Termination:
+- After exhausting warnings or for gross misconduct
+- UAE Labour Law Article 44 permits immediate termination without notice or gratuity for:
+  * Fraud or impersonation
+  * Causing financial damage to employer
+  * Drunk on duty
+  * Physical assault of employer or colleagues
+  * Disclosing trade secrets
+  * Absent without leave for 7+ days in a year
+
+DISCIPLINARY INVESTIGATION PROCESS:
+1. Manager reports incident to HR with written account
+2. HR suspends employee (with pay) pending investigation for serious offences
+3. Investigation committee formed (HR, manager's manager, neutral party)
+4. Employee given opportunity to present their case
+5. Decision made within 10 working days
+6. Decision communicated in writing
+7. Right to appeal within 7 days of receiving decision
+
+EMPLOYEE RIGHTS DURING DISCIPLINARY:
+- Right to be accompanied by a colleague to any disciplinary meeting
+- Right to see all evidence presented against them
+- Right to respond before any decision is made
+- Right to appeal any decision
 
 Document ID: HR_12
+Keywords: disciplinary, misconduct, warning, termination, violation, behavior, discipline, conduct, verbal warning, written warning

@@ -1,9 +1,61 @@
-
 Finance Policy Document
 
-Topic: Expense
+Topic: Expense Reimbursement Policy
 
 Details:
-Travel expenses reimbursed.
+The company reimburses legitimate business expenses incurred by employees in performing their duties.
+
+ELIGIBLE EXPENSES:
+- Business meals and client entertainment (with client present)
+- Local taxi/Uber for business travel (not commuting)
+- Office supplies purchased for urgent business need
+- Business phone calls on personal phone (see Communication Allowance)
+- Conference and training registration fees (see Training Policy)
+- Business travel (see Travel and Entertainment Policy)
+
+NON-REIMBURSABLE EXPENSES:
+- Personal meals (unless on approved business travel away from base city)
+- Alcohol (UAE is a Muslim country — alcohol may be consumed in licensed venues but company does not reimburse)
+- Personal transportation (commuting from home to office)
+- Personal items (clothing, grooming, personal care)
+- Fines (parking, traffic, etc.)
+- Personal entertainment
+- Expenses without proper VAT invoice
+
+EXPENSE LIMITS (Without pre-approval):
+- Business meal (client): Up to AED 300 per person per meal
+- Business meal (team internal): Up to AED 150 per person per meal
+- Taxi/Uber (local): Up to AED 100 per trip
+- Stationery/office supplies: Up to AED 200 per purchase
+- Over these limits: Require manager pre-approval before spending
+
+EXPENSE SUBMISSION PROCESS:
+1. Incur expense for legitimate business purpose
+2. Collect VAT invoice/receipt (not just credit card slip)
+3. Submit within 30 days of incurring expense (expenses older than 30 days may be declined)
+4. Go to Finance Portal → Expense Claims → New Claim
+5. Fill in: Date, category, amount, purpose, client/project name
+6. Upload clear photo/scan of VAT invoice
+7. Submit — claim goes to manager for approval
+8. Manager approved → Finance reviews → Processed in next payroll cycle
+
+PROCESSING TIMELINE:
+- Manager approval: Within 48 hours
+- Finance review: Within 3 business days
+- Payment: Included in monthly payroll (or separate mid-month payment for claims > AED 1,000)
+- Reimbursement directly to bank account (not cash)
+
+CORPORATE CREDIT CARD:
+- Available to Grade 5+ employees and frequent business travelers
+- Must reconcile card expenses monthly (Finance Portal → Corporate Cards → Monthly Reconciliation)
+- Personal expenses on company card: Must be repaid immediately — disciplinary action for misuse
+- Card limit: AED 5,000–25,000 based on role and usage pattern
+
+CASH ADVANCE FOR TRAVEL:
+- Request cash advance for travel via Finance Portal → Travel → Cash Advance Request
+- Advance issued up to 5 days before travel
+- Reconcile within 5 days of returning (submit receipts for all spending)
+- Unused advance returned to Finance immediately upon return
 
 Document ID: Finance_4
+Keywords: expense, reimbursement, expense claim, business expense, receipt, reimburse, expense report, corporate card, petty cash, expense submission

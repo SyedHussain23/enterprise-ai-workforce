@@ -1,9 +1,75 @@
-
 Company Policy Document
 
-Topic: Meetings
+Topic: Meetings, Collaboration & Communication Standards
 
 Details:
-Weekly team meetings.
+Best practices for running effective meetings and collaborating across teams.
+
+MEETING STANDARDS:
+
+Types of Meetings:
+- 1-on-1: Employee and manager (bi-weekly minimum; private, developmental)
+- Team Stand-up: Daily 15-minute sync (scrum-style): What did I do? What will I do? Blockers?
+- Department Meeting: Weekly 30–60 minutes; structured agenda; action items recorded
+- All-Hands / Town Hall: Quarterly; CEO-led; full company; recorded and shared
+- Client Meeting: Formal; agenda distributed 48 hours in advance; follow-up minutes within 24 hours
+- Project Kickoff / Retrospective: At start and end of each project
+
+BEFORE EVERY MEETING:
+- Send calendar invite with agenda at least 24 hours in advance
+- Define the meeting objective: Decision? Information sharing? Problem-solving?
+- Invite only essential participants — no "just in case" invites
+- Share pre-reading materials if required
+
+DURING MEETINGS:
+- Start and end on time — always
+- Designate a note-taker at the start
+- No phones except for emergencies; cameras on for video calls
+- One person speaks at a time — respect all contributors
+- Decisions and action items captured in real-time
+- If a topic runs over: "Parking lot" it for a separate meeting
+
+AFTER MEETINGS:
+- Minutes sent within 24 hours (via email or SharePoint document)
+- Action items: Owner, deliverable, and due date clearly specified
+- Follow up on open action items at next meeting
+
+NO-MEETING ZONES:
+- Wednesday: No internal meetings 12:00 PM–2:00 PM (focus time)
+- First Sunday of each month: No meetings 9:00 AM–11:00 AM (strategy reflection time)
+
+VIRTUAL MEETING STANDARDS (Microsoft Teams / Zoom):
+- Camera on unless bandwidth prevents it (notify team verbally)
+- Mute when not speaking to avoid background noise
+- Use "raise hand" feature to signal you want to speak
+- Meetings recorded only with all participants' consent
+- Recordings stored on SharePoint; auto-deleted after 90 days
+
+MEETING TOOLS:
+- Internal: Microsoft Teams (primary)
+- Client video: Teams or Zoom (client preference)
+- Calendar: Microsoft Outlook — all meetings must be in Outlook calendar
+- Notes: Microsoft OneNote or SharePoint document library
+- Whiteboards: Microsoft Whiteboard (integrated with Teams)
+
+COLLABORATION TOOLS:
+- Microsoft Teams: All internal communication, chat, file sharing
+- SharePoint: Document management, team sites, knowledge base
+- OneDrive: Personal file storage (synced to cloud automatically)
+- Outlook: Email (formal communications, external parties)
+- Microsoft Planner: Task and project management
+
+MEETING ROOM BOOKING:
+- Book via Outlook Calendar → Rooms → Select available room
+- Rooms must be booked in advance (walk-in booking is not reliable)
+- Cancel bookings you don't need — "ghost rooms" are a waste of space
+- Leave meeting rooms clean and tidy; reset AV equipment after use
+- Hybrid rooms: Cameras and microphones installed — test before client meetings
+
+CONTACTS:
+- IT (AV issues): it-support@company.com | Ext. 1001
+- Facilities (room queries): facilities@company.com
+- Team collaboration: Microsoft Teams
 
 Document ID: Company_7
+Keywords: meetings, collaboration, Microsoft Teams, video meetings, meeting standards, agenda, minutes, action items, communication, Zoom, virtual meetings

@@ -1,9 +1,61 @@
-
 IT Policy Document
 
-Topic: Firewall
+Topic: BYOD (Bring Your Own Device) Policy
 
 Details:
-Firewall protects system.
+Employees wishing to use personal devices to access company resources must follow this policy.
+
+WHAT IS BYOD:
+Using a personal (non-company-issued) device — laptop, phone, tablet — to access company email, applications, or data.
+
+BYOD ELIGIBILITY:
+- Available to employees Grade 3+ who need occasional remote access
+- Personal phones: Any employee may use personal phone for company email and Teams
+- Personal laptops: Must be approved by IT before accessing company systems
+
+BYOD REGISTRATION:
+1. Submit BYOD registration request: IT Portal → BYOD → Register Device
+2. Device details required: Make, model, operating system version, serial number
+3. IT evaluates device security posture:
+   - OS must be current and supported (no Windows 7, iOS < 16, Android < 11)
+   - Device must have a PIN/password lock
+   - No jailbreak/root on mobile devices
+4. IT installs Mobile Device Management (MDM) profile on approved device
+5. Registration completed within 3 business days
+
+MDM ON PERSONAL DEVICES:
+- For phones/tablets: Microsoft Intune app installed — manages ONLY work-related data partition
+- Intune does NOT access personal photos, messages, or apps
+- Work apps and data isolated in a separate encrypted container (Microsoft Enterprise Mobility)
+- If you leave company: Work container wiped remotely (personal data unaffected)
+
+WHAT YOU CAN DO ON PERSONAL DEVICES (Once registered):
+- Access company email via Outlook for iOS/Android
+- Join Teams meetings and use Teams messaging
+- Access SharePoint/OneDrive via official apps
+- Use approved company applications
+
+WHAT YOU CANNOT DO ON PERSONAL DEVICES:
+- Access company databases or sensitive systems (Finance, HR admin, code repositories) from personal device
+- Download or locally store company confidential data
+- Use personal device to process payment card data (PCI compliance)
+
+SECURITY REQUIREMENTS FOR PERSONAL DEVICES:
+- Must have screen lock (PIN, pattern, biometric) — minimum 6-digit PIN
+- Auto-lock after maximum 5 minutes of inactivity
+- Must keep OS updated to latest supported version
+- Cannot be jailbroken or rooted
+- Must have antivirus app (company recommends: Lookout or Norton Mobile)
+
+PERSONAL DEVICE LOST OR STOLEN:
+- Report immediately to IT: Ext. 1001
+- IT will remotely wipe the work container only (personal data retained)
+- File police report for stolen device
+
+COST:
+- BYOD: Employee bears cost of personal device and data plan
+- Company does NOT reimburse personal device costs for BYOD users
+- Exception: Grade 5+ employees on fully remote contracts may receive device stipend
 
 Document ID: IT_9
+Keywords: BYOD, personal device, personal phone, personal laptop, mobile device, device registration, own device, bring your own device, personal mobile

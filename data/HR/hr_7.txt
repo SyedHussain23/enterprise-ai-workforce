@@ -1,9 +1,53 @@
-
 HR Policy Document
 
-Topic: Transfer
+Topic: Internal Transfer Policy
 
 Details:
-Internal transfer allowed after 1 year.
+Internal transfers allow employees to move between departments, locations, or roles within the same organization.
+
+ELIGIBILITY FOR INTERNAL TRANSFER:
+- Minimum 12 months in current role
+- Current role performance rating must be 3 or above (meets expectations)
+- No active disciplinary proceedings
+- Skills and qualifications must meet requirements of target role
+- Transfer subject to mutual agreement between releasing and receiving departments
+
+TYPES OF TRANSFERS:
+1. Voluntary Transfer: Employee-initiated, applies via Internal Job Board
+2. Management-Initiated Transfer: Business requirement, agreed with employee
+3. Rotational Assignment: Temporary cross-functional experience (3–6 months)
+4. International Transfer: Transfer to another country (separate policy applies)
+
+VOLUNTARY TRANSFER PROCESS:
+Step 1: Employee informs current manager of intent to apply for internal role (courtesy, not permission)
+Step 2: Apply via HR Portal → Internal Job Board
+Step 3: Recruitment process same as external hire (interview, assessment)
+Step 4: Offer made if successful — includes transition timeline
+Step 5: Transition period: 4–6 weeks handover with current team
+Step 6: New role start date confirmed jointly by both managers
+
+SALARY ON TRANSFER:
+- Lateral transfer: Salary maintained at current level (may be adjusted to new grade band minimum)
+- Upward transfer (promotion): 15% minimum increase
+- Downward transfer: Rare; salary protected for 6 months then adjusted
+
+RESPONSIBILITIES DURING TRANSITION:
+- Employee must complete all current project responsibilities before transfer
+- Knowledge transfer documentation required for all critical tasks
+- Replacement plan agreed before exit from current role
+- Access rights updated on first day in new role
+
+INTERNATIONAL TRANSFERS:
+- Separate relocation policy applies
+- Company covers: visa processing, one-way flights for employee and immediate family, temporary housing (up to 60 days), school search assistance for children
+- Compensation adjusted to cost of living in destination country
+- Assignment agreements signed before transfer
+
+INTERNAL JOB BOARD:
+- All open positions posted at: HR Portal → Careers → Internal Openings
+- Updated weekly on Mondays
+- Application deadline typically 2 weeks from posting
+- Priority given to internal candidates over external hires
 
 Document ID: HR_7
+Keywords: internal transfer, department transfer, internal move, job rotation, internal job, transfer request

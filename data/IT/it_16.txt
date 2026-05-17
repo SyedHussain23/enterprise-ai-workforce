@@ -1,9 +1,63 @@
-
 IT Policy Document
 
-Topic: System Update
+Topic: Multi-Factor Authentication (MFA) and Two-Factor Authentication (2FA)
 
 Details:
-Regular updates required.
+Multi-Factor Authentication (MFA) is mandatory for all company accounts to provide security beyond passwords alone.
+
+WHAT IS MFA:
+MFA requires two or more verification factors to sign in:
+1. Something you KNOW: Your password
+2. Something you HAVE: Your phone (authenticator app) or hardware token
+3. Something you ARE: Fingerprint or face recognition (biometric)
+Even if someone steals your password, they cannot sign in without the second factor.
+
+WHERE MFA IS MANDATORY:
+- Company email (Microsoft 365 / Google Workspace)
+- VPN access
+- HR Portal
+- Finance systems
+- Any cloud application accessed via SSO
+- Admin/privileged accounts
+
+MFA SETUP GUIDE:
+For Microsoft Authenticator (Recommended):
+1. Download Microsoft Authenticator app on your phone (iOS/Android)
+2. On your computer: Go to https://aka.ms/mfasetup or IT Portal → MFA Setup
+3. Select "Add account" in Authenticator app → Work or School Account
+4. Scan QR code displayed on computer screen
+5. Test with a push notification
+6. Backup method: Add SMS as a backup (recommended)
+
+AUTHENTICATING WITH MFA:
+- Each login: Enter password → approve notification on phone
+- Authenticator app: 30-second rotating code (manual entry option)
+- Push notification: Tap "Approve" on phone screen — fastest method
+- SMS backup: Receive 6-digit code via SMS — use if phone app unavailable
+
+MFA TROUBLESHOOTING:
+Issue: Not receiving push notification
+- Check phone has internet connection
+- Ensure notifications are enabled for Microsoft Authenticator
+- Open Authenticator app manually and use the 6-digit code instead
+- If still failing: Call IT Ext. 1001 for emergency bypass code
+
+Issue: Lost or replaced phone
+1. Contact IT Helpdesk immediately: Ext. 1001
+2. IT verifies identity via video call + employee ID
+3. IT provides temporary bypass code (valid 24 hours)
+4. Set up new authenticator on new phone using same process
+5. Do this immediately — account will lock after too many failed MFA attempts
+
+HARDWARE TOKENS:
+- Available for staff who travel frequently or have no smartphone access
+- Physical token generates 6-digit code
+- Request via IT Portal → Security → Request Hardware Token
+
+MFA FATIGUE ATTACKS:
+- Attackers flood you with approval requests — Never approve an MFA request you did not initiate
+- Receiving unexpected MFA request: Deny it immediately and report to IT Security
+- Report: it-security@company.com or Ext. 1001
 
 Document ID: IT_16
+Keywords: MFA, multi-factor authentication, two-factor authentication, 2FA, authenticator app, Microsoft Authenticator, authentication, login verification, security code

@@ -1,9 +1,59 @@
-
 HR Policy Document
 
-Topic: Onboarding
+Topic: Employee Onboarding Process
 
 Details:
-New hires complete onboarding within 5 days.
+The onboarding process ensures every new employee is set up for success from Day 1. The process spans the first 90 days of employment.
+
+PRE-JOINING (1 week before start date):
+- HR sends welcome email with joining instructions, parking info, and dress code
+- IT provisions laptop, email account, and system accesses
+- Line manager prepares onboarding schedule and buddy assignment
+- Employee receives digital copy of employee handbook and policies to review
+
+DAY 1 — Welcome and Orientation:
+- 8:00 AM: Report to HR reception (Building A, Ground Floor)
+- HR completes all documentation: Employment contract signing, visa paperwork (if applicable), bank account setup form
+- Required documents to bring: Original passport, Emirates ID (or application receipt), educational certificates, previous employer experience letters, passport-sized photographs (4 copies)
+- IT provides laptop, access badge, and system credentials
+- Tour of office facilities: cafeteria, prayer rooms, parking, emergency exits
+- Meet HR partner and line manager
+
+WEEK 1 — Company Introduction:
+- Company overview: Mission, vision, values, organizational structure
+- Introduction to all department heads
+- Meet your team members
+- HR portal training: How to apply for leave, update details, access payslips
+- Benefits enrollment: Health insurance, life insurance, transportation
+- IT orientation: Email setup, VPN, software tools, security policy briefing
+- Compliance training: Code of conduct, anti-harassment policy, data privacy
+
+30-DAY CHECK-IN:
+- 1:1 meeting with HR to address concerns
+- Manager feedback session on initial performance
+- Confirm probation objectives are clear
+- Salary and benefits confirmation
+
+60-DAY MILESTONE:
+- Mid-probation review with manager
+- Training needs assessment
+- Role clarity and target setting
+
+90-DAY COMPLETION:
+- Formal probation review
+- Performance objectives set for full year
+- Employee moves to confirmed status (if probation passed)
+- Full benefits activation including annual leave accrual eligibility
+
+Buddy Program:
+- Each new joiner is assigned a buddy from their team (peer, not manager)
+- Buddy is the go-to person for informal questions for the first 30 days
+- Buddy check-ins: Day 3, Day 14, Day 30
+
+HR Portal Self-Service Setup:
+- Access HR portal at: https://hr.company.internal
+- Complete profile: Personal details, emergency contact, bank details
+- Enroll in benefits within first 14 days
 
 Document ID: HR_3
+Keywords: onboarding, joining, new employee, first day, orientation, welcome, new hire, start, joining documents, day one

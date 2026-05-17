@@ -1,9 +1,56 @@
-
 Finance Policy Document
 
-Topic: Revenue Tracking
+Topic: Capital Expenditure (CAPEX) Policy
 
 Details:
-Revenue tracked monthly.
+Capital expenditure is investment in long-term assets that provide value beyond one financial year.
+
+WHAT IS CAPEX:
+- Purchase of physical assets: Servers, hardware, office equipment, vehicles, fit-out/renovation
+- Purchase of intangible assets: Long-term software licenses (>1 year), patents, trademarks
+- Development costs: Building a system or product for internal use (if certain criteria met)
+- CAPEX is capitalized (spread over asset useful life) vs OPEX (expensed in same period)
+
+CAPEX vs OPEX DISTINCTION:
+CAPEX (Capitalize):
+- Asset useful life > 1 year
+- Cost > AED 5,000 per item
+- Provides future economic benefit
+
+OPEX (Expense immediately):
+- Recurring cost (monthly/annual subscriptions < 1 year)
+- Maintenance and repairs (not improvements)
+- Items < AED 5,000 (minor items expensed as OPEX regardless of life)
+
+CAPEX APPROVAL PROCESS:
+1. Business case prepared by requesting department (Finance Portal → CAPEX → New Request)
+2. Business case includes: Asset description, cost, expected life, ROI/benefit justification, alternatives considered
+3. Approval thresholds:
+   - Under AED 25,000: Finance Director
+   - AED 25,000–100,000: CFO
+   - Over AED 100,000: CEO and Board Capital Committee
+4. All CAPEX must fit within annual CAPEX budget (approved by Board each January)
+5. Unbudgeted CAPEX requires CFO + Board approval regardless of amount
+
+DEPRECIATION (Accounting Impact):
+- Finance applies depreciation to all capitalized assets over their useful life
+- Standard useful lives used by company:
+  * IT equipment: 3 years (33.3% per year)
+  * Office furniture: 5 years (20% per year)
+  * Vehicles: 4 years (25% per year)
+  * Building fit-out: 10 years (10% per year)
+  * Software: 3 years (33.3% per year)
+
+ASSET REGISTER:
+- All CAPEX items added to Fixed Asset Register maintained by Finance
+- Asset tag applied (coordinates with IT Asset Management for IT assets)
+- Annual physical asset verification (November)
+- Assets no longer in use: Finance must be notified for disposal/write-off process
+
+DISPOSAL AND WRITE-OFF:
+- Assets no longer usable: Submit disposal request via Finance Portal → Assets → Disposal Request
+- Finance assesses: Market value, book value, disposal method
+- Proceeds from asset sale: Credited to company (not department budget)
 
 Document ID: Finance_21
+Keywords: CAPEX, capital expenditure, asset purchase, fixed assets, depreciation, asset register, investment, equipment purchase, asset disposal

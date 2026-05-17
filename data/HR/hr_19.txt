@@ -1,9 +1,56 @@
-
 HR Policy Document
 
-Topic: Resignation
+Topic: Anti-Harassment and Workplace Dignity Policy
 
 Details:
-Resignation must be submitted formally.
+The company maintains a zero-tolerance policy toward all forms of harassment, discrimination, and bullying.
+
+DEFINITION OF HARASSMENT:
+Sexual harassment: Unwanted conduct of a sexual nature — verbal (comments, jokes), non-verbal (gestures, inappropriate messages), or physical (touching without consent).
+
+Workplace bullying: Persistent, unreasonable behavior directed at an employee that causes physical or psychological harm — shouting, belittling, spreading rumors, exclusion from meetings.
+
+Discrimination: Treating someone unfairly based on: gender, nationality, religion, age, marital status, disability, pregnancy, ethnicity, or any protected characteristic.
+
+EXAMPLES OF UNACCEPTABLE BEHAVIOR:
+- Making derogatory comments about someone's nationality, accent, or appearance
+- Sending inappropriate jokes or images via email, WhatsApp, or Teams
+- Repeatedly interrupting or talking over colleagues in meetings
+- Excluding team members from social events or meetings based on personal biases
+- Making threats about someone's job security to intimidate
+- Requesting romantic relationships as a condition of employment or career advancement
+
+HOW TO REPORT HARASSMENT:
+Option 1: Report to your direct manager (if not the perpetrator)
+Option 2: Report to HR Partner directly (hr@company.com)
+Option 3: Anonymous Ethics Hotline: ethics@company.com
+Option 4: Direct report to HR Director for cases involving management
+
+ALL REPORTS ARE TREATED CONFIDENTIALLY.
+
+INVESTIGATION PROCESS:
+- Investigation begins within 5 business days of report
+- Interim protective measures in place (e.g., temporary separation of parties)
+- Both parties interviewed separately
+- Witnesses interviewed confidentially
+- Written outcome with decision and consequences within 15 business days
+- Appeal process available within 10 days of outcome
+
+CONSEQUENCES FOR PERPETRATORS:
+- Minor harassment: Written warning + mandatory training
+- Moderate harassment: Final warning + suspension
+- Serious harassment: Immediate termination (Article 44, UAE Labour Law)
+- Criminal behavior (physical assault, sexual harassment): Police report filed
+
+VICTIM SUPPORT:
+- Immediate access to Employee Assistance Program (EAP) — free counseling
+- Transfer option available to protect victim (perpetrator relocated, not victim)
+- HR monitors situation post-investigation for minimum 6 months
+
+UAE LEGAL CONTEXT:
+- UAE Federal Penal Code includes provisions against sexual harassment and assault
+- UAE Federal Law No. 2 of 2015 on combating discrimination and hatred
+- Employer has legal duty to provide safe working environment
 
 Document ID: HR_19
+Keywords: harassment, sexual harassment, bullying, discrimination, workplace dignity, complaint, report harassment, anti-harassment, zero tolerance

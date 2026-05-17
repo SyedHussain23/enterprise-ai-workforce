@@ -1,9 +1,79 @@
-
 Company Policy Document
 
-Topic: Training
+Topic: Learning, Training & Development Policy
 
 Details:
-Learning programs available.
+Comprehensive guide to all learning and development programmes available to employees.
+
+LEARNING PHILOSOPHY:
+We are a learning organisation. We invest in our people because developing capability today is our competitive advantage tomorrow. Every employee has a right to grow professionally — and a responsibility to do so.
+
+TRAINING BUDGET (Annual):
+- Grade 1–3: AED 5,000 per employee per year
+- Grade 4–6: AED 10,000 per employee per year
+- Grade 7–8: AED 15,000 per employee per year
+- Budget approved by department head; managed via Finance Portal → Training Budget
+- Unused budget does not roll over to next year
+
+HOW TO REQUEST TRAINING:
+1. Identify a course or programme aligned with your role/goals
+2. Discuss with line manager and agree it supports development plan
+3. Submit request: HR Portal → Learning → Training Request
+4. Department head approves within 5 business days
+5. HR arranges/confirms booking and handles payment
+6. Complete training; submit certificate/completion to HR within 7 days of completion
+
+MANDATORY TRAINING (All Employees):
+The following must be completed annually:
+- UAE Labour Law & Employee Rights: 30-minute online module (HR assigns in onboarding)
+- Anti-Money Laundering (AML) & Compliance: 30-minute online (Compliance assigns)
+- Cybersecurity Awareness (Phishing, Password Safety): 30-minute online (IT assigns)
+- Fire Safety & Emergency Procedures: 30-minute online + annual drill (Facilities assigns)
+- DEI Awareness: 30-minute online (HR assigns)
+- Code of Conduct: Annual refresher (30-minute online)
+
+LEARNING PLATFORMS & RESOURCES (Free for All Employees):
+- LinkedIn Learning: Unlimited access — login with company email at linkedin.com/learning
+- Microsoft Learn: Free Microsoft certifications and learning paths (IT-focused)
+- Internal Knowledge Base: SharePoint → Learning → Company Knowledge Base
+- Lunch & Learn Sessions: Monthly; recorded and posted on SharePoint
+- Guest Speaker Series: Quarterly external expert sessions
+
+PROFESSIONAL CERTIFICATIONS:
+Fully or Partially Funded:
+- Project Management: PMP, PRINCE2, Agile/Scrum
+- Finance: ACCA, CFA, CMA, CIMA
+- IT: Microsoft Azure, AWS, CompTIA, CISSP, CEH
+- HR: CIPD, SHRM, HRCI
+- Data & Analytics: Google Analytics, Power BI, Tableau
+- Legal/Compliance: CFE, CAMS (AML certification)
+
+Training Bond:
+- Courses over AED 5,000: Training bond of 12–24 months applies
+- If employee resigns within bond period: Proportional cost recovery applies
+- Bond agreement signed before training commences
+
+INTERNAL TRAINING PROGRAMMES:
+- Management Development Programme (MDP): 6 months; for high-potential Grade 5+ employees
+- Graduate Development Programme (GDP): 2-year rotational for fresh graduates
+- "Lunch & Learn" — Internal knowledge sharing: Every first Sunday, 12:30–1:30 PM
+- Shadowing Programme: Employees can shadow colleagues in other departments (1-day to 1-week)
+- Mentoring Programme: 6-month structured mentoring with senior leaders
+
+LANGUAGE TRAINING:
+- Arabic language training: Available and subsidised (AED 3,000/year for non-Arabic speakers)
+- Business English: Available for employees who need to strengthen professional communication
+- Both approved from Learning Budget
+
+TRACKING & REPORTING:
+- All training completion tracked in HR Portal → My Learning → Completed Training
+- Mandatory training completion rate monitored monthly; reminders sent by HR
+- Annual training completion included in performance review discussion
+
+CONTACTS:
+- Learning queries: learning@company.com
+- HR Portal (training requests): https://hr.company.internal → Learning
+- LinkedIn Learning access issues: it-support@company.com
 
 Document ID: Company_19
+Keywords: training, learning, development, training budget, mandatory training, LinkedIn Learning, certifications, PMP, ACCA, CIPD, management development, professional certifications, learning programme

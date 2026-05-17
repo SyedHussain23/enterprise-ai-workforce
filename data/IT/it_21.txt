@@ -1,9 +1,49 @@
-
 IT Policy Document
 
-Topic: Server
+Topic: Printing, Scanning, and Copier Policy
 
 Details:
-Servers monitored.
+Guidelines for using shared printing and scanning equipment in the company.
+
+PRINTER SETUP:
+- Office printers automatically configured on company devices on first login
+- If printer not visible: IT Portal → Printer Setup → Auto-Add
+- Home printing for WFH: Personal printer, company covers up to 50 A4 pages/month (claim via Finance portal)
+
+SECURE PRINTING (Mandatory for Confidential Documents):
+- Swipe badge or enter PIN at printer to release print job
+- Print job held in queue for 4 hours — auto-deleted if not collected
+- Never send confidential document to open printer without secure print enabled
+- Enable secure print: In print dialog → Properties → Secure Print → Enter 4-digit PIN
+
+PRINTER LOCATIONS:
+- Floor 1 (Main): 2× A4 color, 1× A3 plotter
+- Floor 2: 2× A4 black & white, 1× A4 color
+- Floor 3: 1× A4 black & white (IT department)
+- Server Room: 1× Label printer (IT only)
+
+SCANNING DOCUMENTS:
+- Scan to your email: Press Scan → Email → Enter your company email
+- Scan to SharePoint: Scan → SharePoint → Select your folder
+- Maximum scan resolution for email: 300 DPI (higher quality: save to SharePoint or USB)
+- Scanning personal documents: Limited use acceptable during breaks
+
+PRINTING ALLOWANCE AND COST AWARENESS:
+- Monthly print report sent to managers showing department usage
+- Company actively promotes paperless practices — use digital documents whenever possible
+- Double-sided printing enabled by default (saves paper)
+- Color printing: Use only when necessary (3x cost of black and white)
+
+CONFIDENTIAL DOCUMENT HANDLING:
+- Printed confidential documents: Collect immediately from printer
+- Do not leave prints on printer tray
+- Shred all printed confidential documents — shredder located at each printer station
+- External shredding service: For bulk shredding — contact Facilities team
+
+PAPER AND CONSUMABLES:
+- Paper refill: Facilities team restocks printers (request via FM Portal if urgent)
+- Toner/ink low alert: Printer displays message — do NOT open printer yourself; submit IT ticket
+- Paper jams: Follow on-screen printer guide, or call IT Ext. 1001
 
 Document ID: IT_21
+Keywords: printer, printing, scan, copier, secure print, print policy, office printer, scanning documents, print setup

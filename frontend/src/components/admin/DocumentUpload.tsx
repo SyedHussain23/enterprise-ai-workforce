@@ -13,7 +13,7 @@ export function DocumentUpload() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   async function processFile(file: File) {
-    if (!file.name.endsWith('.pdf')) {
+    if (!file.name.toLowerCase().endsWith('.pdf')) {
       setMessage('Only PDF files are supported.');
       setState('error');
       return;

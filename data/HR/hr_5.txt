@@ -1,9 +1,62 @@
-
 HR Policy Document
 
-Topic: Payroll
+Topic: Payroll and Salary Structure
 
 Details:
-Salary processed on last working day.
+The company salary structure and payroll process ensures accurate and timely compensation for all employees.
+
+SALARY COMPONENTS:
+- Basic Salary: 40–60% of total package (used for gratuity and leave encashment calculations)
+- Housing Allowance: 20–30% of total package (UAE standard practice)
+- Transport Allowance: 10–15% of total package
+- Other Allowances: Communication, education (if applicable), role-specific allowances
+
+PAYROLL CALENDAR:
+- Salary payment date: Last working day of each month (UAE WPS — Wage Protection System)
+- All salaries transferred via WPS through company bank account
+- Payslips available on HR portal by 25th of each month
+- Any salary queries must be raised by 20th of the month to process corrections
+
+SALARY REVIEW CYCLE:
+- Annual salary review: Conducted in Q1 (January–March) each year
+- Increment effective from: 1st April annually
+- Merit increases based on performance rating:
+  * Rating 5 (Outstanding): 15–20% increase
+  * Rating 4 (Exceeds Expectations): 10–15% increase
+  * Rating 3 (Meets Expectations): 5–8% increase
+  * Rating 2 (Below Expectations): 0–3% increase (with performance improvement plan)
+  * Rating 1 (Unsatisfactory): No increment, performance management initiated
+
+HOW TO ACCESS PAYSLIPS:
+1. Login to HR Portal → Payroll → My Payslips
+2. Download PDF for any month
+3. Year-end salary certificates available by 31st January
+
+SALARY ADVANCE:
+- Employees may request salary advance up to 50% of monthly basic salary
+- Available after completing 6 months of service
+- Maximum one advance per 6-month period
+- Advance repaid in equal installments over next 3 months
+- Request via: HR Portal → Finance → Salary Advance Request
+
+SALARY DEDUCTIONS:
+- Absence/unpaid leave
+- Late arrival (per policy)
+- Salary advance repayment
+- Company loan repayments
+- UAE: No income tax deductions (UAE has no personal income tax)
+- DEWS (Workplace Savings Scheme) contributions if enrolled
+
+WAGE PROTECTION SYSTEM (WPS):
+- UAE law requires all private sector salaries paid via WPS
+- Salary must be transferred within 10 days of the agreed salary date
+- Company complies fully with WPS requirements
+
+Bank Account Requirements:
+- Salary transfer to UAE bank account only
+- Employee must provide IBAN within first week of joining
+- Approved banks: Emirates NBD, FAB, ADCB, Dubai Islamic Bank, Mashreq, RAK Bank
+- Bank account setup assistance available from HR
 
 Document ID: HR_5
+Keywords: salary, payroll, payslip, salary structure, basic salary, housing allowance, salary review, increment, WPS, wages

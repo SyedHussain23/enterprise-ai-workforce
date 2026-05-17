@@ -1,9 +1,51 @@
-
 Finance Policy Document
 
-Topic: Procurement
+Topic: Petty Cash and Corporate Card Policy
 
 Details:
-Procurement follows approval flow.
+Guidelines for managing petty cash and corporate credit card usage.
+
+PETTY CASH:
+- Petty cash maintained in each department for small, urgent, miscellaneous expenses
+- Each department has a petty cash custodian (designated by department head)
+- Petty cash float: AED 500–2,000 per department (amount set by Finance)
+
+PETTY CASH USAGE:
+- For expenses under AED 100 where supplier cannot issue proper invoice (taxi, small items, postage)
+- Not for: Regular planned purchases, personal items, alcohol, or items over AED 100
+- Each withdrawal: Petty cash voucher must be filled in (Finance Portal → Petty Cash → Voucher)
+- Receipt attached to every petty cash voucher (no receipt = no reimbursement)
+
+PETTY CASH REPLENISHMENT:
+- Custodian submits reconciliation with all vouchers and receipts to Finance
+- Finance replenishes float when balance below 25% of original float
+- Monthly reconciliation mandatory even if not requesting replenishment
+- Finance Portal → Petty Cash → Monthly Reconciliation
+
+CORPORATE CREDIT CARDS:
+- Issued to: Grade 5+ employees, frequent business travelers (Grade 3–4 with justification)
+- Application: Finance Portal → Corporate Card → Card Request (manager approval required)
+- Card limit: AED 5,000–25,000 (based on role, set by Finance on application)
+- Card type: Visa Business / Mastercard Business (company Citibank / Emirates NBD commercial cards)
+
+CORPORATE CARD RULES:
+1. Card is for BUSINESS USE ONLY — personal expenses are prohibited
+2. Never lend card to another person
+3. PIN must not be shared — each card is personal
+4. Lost/stolen card: Call bank immediately (number on back of card) + notify Finance within 1 hour
+5. Card cancelled on: Resignation, termination, or extended leave (>30 days)
+
+MONTHLY CARD RECONCILIATION (Mandatory):
+1. Finance Portal → Corporate Cards → Monthly Statement (available by 5th of month)
+2. Code each transaction with: Cost center, expense category, project code
+3. Upload receipts for ALL transactions (no receipt = personal liability for that transaction)
+4. Submit reconciliation by 15th of month for prior month's transactions
+5. Finance reviews and posts to accounting system
+
+CONSEQUENCES OF CARD MISUSE:
+- Personal expenses on company card: Employee must reimburse within 5 days of notification
+- Repeated misuse: Card cancelled, disciplinary action
+- Fraudulent use: Immediate termination and potential criminal prosecution
 
 Document ID: Finance_14
+Keywords: petty cash, corporate card, company credit card, credit card policy, card reconciliation, petty cash voucher, business card, corporate credit card

@@ -1,9 +1,47 @@
-
 HR Policy Document
 
-Topic: Leave Policy
+Topic: Annual Leave Policy
 
 Details:
-Employees are entitled to 21 days annual leave and 12 sick leave.
+All full-time employees are entitled to 21 calendar days of paid annual leave per year, in accordance with UAE Labour Law (Federal Law No. 33 of 2021). Leave accrues at 1.75 days per month from the first day of employment.
+
+Leave Entitlement by Service Duration:
+- First year of service: Leave may be taken after completing 6 months (probation period must be completed)
+- 1–5 years of service: 21 calendar days per year
+- After 5 years of service: 30 calendar days per year (UAE law requirement)
+- Part-time employees: Leave calculated on a pro-rata basis
+
+Leave Application Process:
+1. Submit leave request through HR Portal → My Leaves → New Request
+2. Select leave dates and type (Annual, Sick, Emergency)
+3. Manager receives automated notification and must respond within 48 hours
+4. Approved leave is automatically deducted from entitlement balance
+5. Employee receives email confirmation with leave reference number
+
+Leave Balance and Carry Forward:
+- Unused leave may be carried forward for a maximum of 1 year
+- Maximum carry-forward: 10 days
+- Any unused leave beyond carry-forward limit is forfeited at year end
+- Leave encashment available for up to 10 days upon resignation with minimum 2 years of service
+
+Public Holidays:
+- UAE public holidays are in addition to annual leave (not deducted from balance)
+- UAE official public holidays apply: New Year, Eid Al Fitr (3 days), Eid Al Adha (3 days), Islamic New Year, Prophet Birthday, National Day, Commemoration Day
+
+Emergency Leave:
+- Up to 3 days for immediate family bereavement (first-degree relatives)
+- Up to 5 days for spouse or child bereavement
+- Must be supported with documentation within 7 days of return
+
+Compassionate Leave: 3 days (not deducted from annual balance) for serious illness of immediate family members.
+
+Leave During Probation:
+- During the probation period (first 6 months), annual leave is accrued but cannot be taken unless approved by management
+- Sick leave may be granted during probation after completing 3 months
+
+Advance Leave:
+- Maximum 10 days advance leave may be granted at management discretion
+- Will be deducted from future accrual
 
 Document ID: HR_1
+Keywords: annual leave, leave policy, vacation, holiday, time off, leave application, leave balance, carry forward, leave entitlement

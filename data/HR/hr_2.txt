@@ -1,9 +1,50 @@
-
 HR Policy Document
 
-Topic: Attendance
+Topic: Attendance and Working Hours Policy
 
 Details:
-Employees must work 9 hours daily.
+Standard working hours are 9 hours per day (8 hours work + 1 hour break) for 5 days per week (Monday to Friday), totaling 45 hours per week.
+
+During Ramadan:
+- Working hours are reduced to 6 hours per day for all Muslim employees as per UAE Labour Law
+- Non-Muslim employees: 7 hours per day during Ramadan month
+- Modified schedules communicated by HR at the start of Ramadan
+
+Attendance Tracking:
+- All employees must clock in and out using the biometric attendance system at the office entrance
+- Remote/WFH employees log attendance via the HR portal digital check-in
+- Attendance records reviewed monthly by HR
+- Three or more unexplained absences in a month triggers a formal warning
+
+Late Arrival Policy:
+- Up to 15 minutes late: Recorded as late (3 occurrences per month allowed before deduction)
+- 15–60 minutes late: Half-hour deduction from salary
+- More than 60 minutes late without prior approval: Half-day leave deducted
+- Repeated lateness (more than 5 times per month): Formal disciplinary action
+
+Absence Without Leave (AWOL):
+- One day AWOL: Written warning + unpaid day deduction
+- Three consecutive days AWOL: Final warning
+- Seven consecutive days AWOL: Termination under UAE Labour Law Article 44 (No notice, no gratuity)
+
+Overtime Policy:
+- Overtime must be pre-approved by direct manager in writing
+- Standard overtime rate: 1.25x normal hourly rate
+- Friday/public holiday overtime: 1.5x normal hourly rate
+- Maximum overtime: 2 hours per day / 120 hours per year (UAE law)
+- Overtime payment processed in the following month's payroll
+
+Flexi-Time Arrangements:
+- Available to Grade 4+ employees with manager approval
+- Core hours: 10:00 AM – 3:00 PM must be maintained
+- Start time can vary between 7:00 AM – 10:00 AM
+- Must complete full 9-hour day
+
+Remote Work (Work From Home):
+- Eligible employees may WFH up to 2 days per week
+- Requires manager approval and documented in HR portal
+- WFH days cannot be Monday or Friday without special approval
+- Employee must be reachable during core hours
 
 Document ID: HR_2
+Keywords: attendance, working hours, overtime, late arrival, AWOL, Ramadan working hours, remote work, flexi time

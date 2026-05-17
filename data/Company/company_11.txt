@@ -1,9 +1,82 @@
-
 Company Policy Document
 
-Topic: Ethics
+Topic: Business Ethics, Anti-Corruption & Whistleblower Policy
 
 Details:
-Ethical work mandatory.
+Our ethical standards, anti-corruption commitments, and how to report concerns safely.
+
+ETHICAL FOUNDATIONS:
+The company is committed to conducting all business with the highest standards of ethical behaviour, in compliance with UAE law and international best practices. This applies to all employees, management, contractors, and business partners.
+
+ANTI-CORRUPTION & ANTI-BRIBERY:
+Legal Framework:
+- UAE Federal Law No. 6 of 2016 (Anti-Corruption)
+- UAE Penal Code (Federal Law No. 3 of 1987) — Articles on bribery
+- FCPA (US Foreign Corrupt Practices Act) and UK Bribery Act (where applicable)
+- Company policy: Zero tolerance for all forms of bribery and corruption
+
+What Is Prohibited:
+- Offering, promising, giving, or accepting bribes (cash, gifts, or any benefit) to or from any person to gain an unfair advantage
+- Making facilitation payments (small payments to speed up routine government processes)
+- Kickbacks: Receiving secret commissions from suppliers, vendors, or contractors
+- Using company funds for political donations
+- Influencing government officials or clients through improper means
+
+What Is Permitted:
+- Reasonable hospitality (meals, events) within approved limits (AED 300/person max)
+- Gifts up to AED 200 in total value — declared to Finance
+- Sponsoring legitimate public events in line with company values
+
+CONFLICTS OF INTEREST:
+- All employees must disclose: Outside employment, investment in competitors/suppliers, family relationships with vendors
+- Declaration form: HR Portal → Ethics → Conflict of Interest
+- Undisclosed conflicts: Grounds for termination and potential criminal referral
+
+MONEY LAUNDERING (See also Finance Policy — finance_24.txt):
+- Company complies with UAE AML Law (Federal Decree-Law No. 20 of 2018)
+- Do not accept cash payments over AED 55,000 from any single source
+- Report suspicious financial transactions to compliance@company.com immediately
+- KYC (Know Your Customer) verification required for all new clients
+
+DATA ETHICS:
+- Do not misuse company data or client information for personal gain
+- Do not access data beyond your role's authorisation
+- Manipulation or falsification of company records: Immediate termination + legal action
+
+WHISTLEBLOWER POLICY:
+What Can Be Reported:
+- Fraud, corruption, bribery, financial irregularity
+- Harassment, bullying, discrimination
+- Health and safety violations
+- Illegal or unethical conduct by any employee or supplier
+- Breaches of company policy
+
+How to Report:
+- Email: ethics@company.com (confidential)
+- Anonymous hotline: +971-4-XXX-9999 (24/7, calls not recorded)
+- Direct to Compliance Officer or HR Director
+
+Protections for Whistleblowers:
+- Full confidentiality: Whistleblower identity is protected
+- No retaliation: Reporters will not face any adverse employment consequences
+- UAE Federal Law No. 6 of 2016 provides legal protection to whistleblowers in the private sector
+- False reports made maliciously: May itself be treated as misconduct
+
+Investigation Process:
+- All reports acknowledged within 48 hours
+- Investigation team assembled (Compliance + HR + Legal if needed)
+- Investigations completed within 30 business days
+- Outcome communicated to reporter to the extent legally possible
+
+CONSEQUENCES:
+- Ethics violations: Disciplinary action up to and including immediate termination
+- Criminal acts: Referral to UAE law enforcement / MOHRE
+- Vendor/supplier violations: Contract termination + blacklisting
+
+CONTACTS:
+- Ethics Hotline: ethics@company.com | +971-4-XXX-9999
+- Compliance Officer: compliance@company.com
+- Legal Department: legal@company.com
 
 Document ID: Company_11
+Keywords: ethics, anti-corruption, bribery, whistleblower, conflict of interest, AML, money laundering, facilitation payments, fraud reporting, UAE ethics law

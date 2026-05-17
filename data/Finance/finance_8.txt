@@ -1,9 +1,60 @@
-
 Finance Policy Document
 
-Topic: Reimbursement
+Topic: Travel and Entertainment Policy
 
 Details:
-Claims settled within 7 days.
+This policy governs business travel and client entertainment expenses.
+
+TRAVEL BOOKING:
+- All business travel must be booked via the company travel portal or designated travel agent
+- Do NOT book travel using personal loyalty cards/points (then claim cost from company)
+- Economy class: All flights under 4 hours
+- Business class: Flights over 6 hours for Grade 5+ employees and all employees on medical recommendation
+- Flights booked minimum 7 days in advance where possible (saves cost)
+- Travel approval required from manager before booking (Finance Portal → Travel → Travel Request)
+
+ACCOMMODATION:
+- Approved hotel categories:
+  * Grade 1–4: Up to 4-star or AED 600/night
+  * Grade 5+: Up to 5-star or AED 1,000/night
+- Must use company travel portal for hotel booking
+- Personal accommodation with friends/family: Reimburse equivalent hotel rate or actual cost (whichever is lower)
+- Airbnb/vacation rentals: Permitted if less expensive than approved hotel (receipt required)
+
+DAILY SUBSISTENCE ALLOWANCE (Per Diem):
+GCC countries (UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman):
+- Meals: AED 200/day
+- Incidentals: AED 50/day
+
+International (Europe, Americas, Asia):
+- Meals: AED 350/day
+- Incidentals: AED 100/day
+
+Per diem applies when traveling >50km from base city and staying overnight.
+
+GROUND TRANSPORTATION:
+- Airport transfers: Taxi/Careem/Uber from airport — reimbursable (receipt required)
+- Local transport at destination: AED 100/day taxi allowance
+- Rental car: Permitted if cheaper than taxi over trip duration (Economy class car only)
+- Mileage for personal car: AED 0.70 per km (approved business travel only)
+
+CLIENT ENTERTAINMENT:
+- Purpose: Building and maintaining client relationships
+- Meals: Up to AED 300 per person (client must be present)
+- Events (sports, shows): Pre-approval from department head required for > AED 500 total
+- Always obtain VAT invoice with guest name for proper documentation
+- Gifts to clients: See Code of Conduct (max AED 500 per occasion)
+
+ALCOHOL AT BUSINESS EVENTS:
+- Company reimburses reasonable alcohol at licensed venues for client entertainment
+- Must be consumed legally (licensed venue, not in public)
+- Cannot be the majority or sole expense claimed
+
+TRIP RECONCILIATION:
+- Submit all travel expenses within 5 days of returning
+- Finance Portal → Travel → Trip Reconciliation
+- Unused cash advance returned immediately upon return
+- Missing receipts: Finance may decline up to 20% of unreceipted claims
 
 Document ID: Finance_8
+Keywords: travel, business travel, hotel, flights, per diem, travel expense, travel policy, client entertainment, accommodation, travel approval

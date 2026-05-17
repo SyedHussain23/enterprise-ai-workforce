@@ -1,8 +1,11 @@
 # app/utils/multi_intent.py
+from __future__ import annotations
 
 from app.agents.registry import AGENT_REGISTRY
-
 from app.core.constants import DEPARTMENT_KEYWORDS, DEPT_ICONS
+from app.core.logger import get_logger
+
+logger = get_logger(__name__)
 
 INTENT_KEYWORDS = DEPARTMENT_KEYWORDS
 
@@ -33,13 +36,10 @@ def handle_multi_intent(query: str, departments: list[str]) -> dict:
             continue
 
         try:
-            result = agent_fn(query)
-            answer = (
-                result.get("answer")
-                or result.get("execution_result")
-                or "No information found."
-            ).strip()
-
+            raw    = agent_fn(query)
+            # Agents return AgentResponse (Pydantic model) — normalise to dict
+            result = raw.model_dump() if hasattr(raw, "model_dump") else dict(raw)
+            answer = (result.get("answer") or "No information found.").strip()
             confidence = result.get("confidence", 60)
             source     = result.get("source", f"{dept.lower()}_kb")
 
@@ -56,7 +56,7 @@ def handle_multi_intent(query: str, departments: list[str]) -> dict:
 
         except Exception as e:
             combined.append(f"**{dept}:** ⚠️ Could not retrieve information.")
-            print(f"[MULTI-INTENT] ❌ {dept} agent failed: {e}")
+            logger.error("multi_intent.agent_failed", dept=dept, error=str(e))
 
     # Build unified answer
     if not combined:

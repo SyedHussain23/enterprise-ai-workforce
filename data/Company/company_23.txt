@@ -1,9 +1,93 @@
-
 Company Policy Document
 
-Topic: Compliance
+Topic: UAE Regulatory Compliance & Legal Obligations
 
 Details:
-Legal compliance followed.
+Key UAE laws and regulations that govern our operations and employee obligations.
+
+UAE REGULATORY FRAMEWORK:
+
+1. LABOUR LAW:
+- Primary Law: UAE Federal Decree-Law No. 33 of 2021 (Labour Relations Law — replaces Law No. 8 of 1980)
+- Applies to: All private sector employees in the UAE (onshore)
+- Key provisions:
+  * Employment contracts mandatory (limited or unlimited term)
+  * Probation period: Maximum 6 months
+  * Notice period: 30 days (standard); 90 days for Grade 6+
+  * Annual leave: 21 days/year (years 1–5); 30 days/year after 5 years of service
+  * Maternity leave: 60 days (statutory); Company policy: 90 days
+  * Sick leave: 90 days per year (15 paid, 30 half-pay, 45 unpaid)
+  * End of Service Gratuity (EOSB): 21 days/year for years 1–5; 30 days/year after 5 years
+  * Overtime: 125% for regular overtime; 150% for rest days and public holidays
+  * Termination: Without cause requires full notice or payment in lieu + EOSB
+  * Article 44 (Immediate Dismissal): Fraud, assault, intoxication, disclosure of secrets, unauthorised absence 20+ days
+
+2. WAGE PROTECTION SYSTEM (WPS):
+- UAE Cabinet Resolution No. 46 of 2013
+- Mandatory: All salaries paid via bank transfer through UAE WPS system
+- Deadline: Salaries must be credited by last working day of each month
+- Delays over 10 days: MOHRE can impose sanctions on the company
+- Employees paid via: Emirates NBD (company's primary bank)
+
+3. UAE DATA PROTECTION LAW:
+- Federal Law No. 45 of 2021 (Personal Data Protection Law — PDPL)
+- Data minimisation: Only collect data necessary for employment purposes
+- Data retention: Employee data retained for 7 years after end of employment (then securely deleted)
+- Employees have right to access, correct, and request deletion of their data
+- Data breach: Must be reported to UAE PDPL Authority within 72 hours
+
+4. VAT (VALUE ADDED TAX):
+- UAE Federal Decree-Law No. 8 of 2017
+- VAT rate: 5% on most goods and services
+- Exempt: Healthcare, education, financial services (some)
+- Registration threshold: AED 375,000 annual taxable supplies
+- All invoices must include: TRN number, VAT amount, supplier/buyer details
+
+5. CORPORATE TAX:
+- UAE Federal Decree-Law No. 47 of 2022
+- Rate: 9% on taxable profits exceeding AED 375,000
+- Effective: Financial years starting on or after 1 June 2023
+- Small Business Relief: Companies with revenue under AED 3M may apply for simplified treatment
+
+6. ANTI-MONEY LAUNDERING (AML):
+- UAE Federal Decree-Law No. 20 of 2018
+- All employees must complete AML training annually
+- Suspicious transactions reported to Compliance Officer immediately
+- Cash transactions over AED 55,000 are prohibited without approval
+- KYC (Know Your Customer) mandatory for all new client onboarding
+
+7. ANTI-CORRUPTION & BRIBERY:
+- UAE Federal Law No. 6 of 2016
+- UAE Penal Code provisions on bribery (Articles 234–239)
+- Zero tolerance — see Company Ethics Policy (Company_11)
+
+8. OCCUPATIONAL HEALTH & SAFETY:
+- UAE Federal Law No. 8 of 1980 (Article 91–99 — safety obligations)
+- Annual fire safety training mandatory for all employees
+- Accidents reported to Ministry of Human Resources and Emiratisation (MOHRE) within 24 hours
+
+9. IMMIGRATION & VISA:
+- All non-UAE-national employees must hold a valid UAE residence visa and work permit
+- Visa arranged by company at zero cost to employee
+- Emirates ID: Mandatory for all UAE residents; company assists with application
+- Visa renewal: Managed by HR 60 days before expiry — employee must provide updated documents
+
+10. PRIVACY AT WORK:
+- CCTV in public areas of the office (not in prayer rooms, changing rooms, or bathrooms)
+- Company devices monitored for security (see IT Policy it_10.txt)
+- Personal communications on company devices: Not private
+
+EMPLOYEE OBLIGATIONS:
+- Complete all mandatory compliance training on time
+- Report any compliance concerns to compliance@company.com immediately
+- Do not engage in any activity that could expose the company to regulatory risk
+- Keep personal documents (Emirates ID, visa, passport) current; inform HR 30 days before expiry
+
+CONTACTS:
+- Compliance Officer: compliance@company.com
+- Legal Department: legal@company.com
+- MOHRE: www.mohre.gov.ae | 80060
+- FTA (VAT queries): www.tax.gov.ae
 
 Document ID: Company_23
+Keywords: UAE compliance, labour law, UAE Federal Decree 33 of 2021, WPS, data protection, VAT, corporate tax, AML, anti-corruption, visa, immigration, MOHRE, regulatory compliance, UAE law

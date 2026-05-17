@@ -1,9 +1,58 @@
-
 HR Policy Document
 
-Topic: Exit Policy
+Topic: Resignation and Exit Process
 
 Details:
-Employees must serve 60 days notice period.
+The resignation and exit process is governed by UAE Labour Law Federal Decree No. 33 of 2021 and company policy.
+
+NOTICE PERIOD:
+- Standard notice period: 30 calendar days for employees with less than 5 years service
+- Employees with 5+ years service: 60 calendar days notice required
+- Senior management (Grade 6+): 90 calendar days notice
+- Notice period begins from the date HR receives the formal written resignation
+- Both employer and employee must respect the notice period
+- UAE Labour Law allows mutual agreement to waive or shorten the notice period
+
+RESIGNATION PROCESS:
+Step 1: Submit formal resignation letter to direct manager (email acceptable, confirmed hard copy preferred)
+Step 2: Manager notifies HR within 24 hours
+Step 3: HR acknowledges resignation within 2 business days and confirms last working day
+Step 4: Employee must not take annual leave during notice period (unless approved by management)
+Step 5: HR schedules exit interview within first week of notice period
+Step 6: IT initiates access revocation schedule for last working day
+Step 7: Finance calculates final settlement (salary, gratuity, outstanding leave)
+
+EXIT CHECKLIST (must complete before last day):
+- Return all company assets: Laptop, phone, access card, parking pass, any company vehicle
+- Clear all outstanding approvals and handover all work to successor
+- Complete knowledge transfer documentation
+- Return any keys, fobs, or physical access cards
+- Settle any outstanding company loans or advances
+- Exit interview with HR
+
+FINAL SETTLEMENT (UAE Labour Law):
+- All dues paid within 14 days of last working day (legal requirement)
+- Final salary: Prorated for days worked in last month
+- Annual leave encashment: Unused leave (up to maximum allowed) paid out
+- End of Service Gratuity: Calculated per UAE Labour Law
+- Any deductions: Loans, advance salary, damage to company property
+
+END OF SERVICE GRATUITY:
+- 1–5 years service: 21 calendar days basic salary per year
+- After 5 years: 30 calendar days basic salary per year
+- Maximum gratuity: 2 years total basic salary
+- Gratuity is based on BASIC salary only (not housing, transport, or other allowances)
+- Employees who resign (vs. terminated) receive full gratuity after 1 year service
+
+VISA CANCELLATION:
+- Company processes visa cancellation after last working day
+- Employee has 30 days after visa cancellation to leave UAE or change visa status
+- HR assists with visa-related documentation
+
+Exit Interview:
+- Conducted by HR in confidence
+- Feedback used to improve company culture
+- Results anonymized and shared with senior leadership quarterly
 
 Document ID: HR_4
+Keywords: resignation, notice period, exit, quit, leaving, last day, final settlement, exit process, handover

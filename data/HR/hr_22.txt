@@ -1,9 +1,58 @@
-
 HR Policy Document
 
-Topic: Remote Policy
+Topic: Diversity, Equity, and Inclusion (DEI) Policy
 
 Details:
-Remote work needs approval.
+The company celebrates diversity and is committed to creating an inclusive workplace for people of all backgrounds.
+
+COMMITMENT TO DIVERSITY:
+The company employs people from over 40+ nationalities in line with our UAE/GCC location. We believe diversity of thought, culture, and background makes us stronger and more innovative.
+
+PROTECTED CHARACTERISTICS (No discrimination on basis of):
+- Gender / gender identity
+- Age
+- Nationality and ethnicity
+- Religion
+- Marital or family status
+- Pregnancy or maternity
+- Disability (physical or mental)
+- Sexual orientation (where applicable under local law)
+
+INCLUSIVE WORKPLACE PRACTICES:
+1. Inclusive recruitment: Job descriptions use neutral language, interview panels include diverse members
+2. Equal pay: Annual pay equity review ensures no gender or nationality pay gap
+3. Inclusive meetings: Meetings scheduled during core hours; not during prayer times or religious holidays
+4. Language: English is official language but translation support available
+5. Religious accommodation: Prayer rooms provided, time for prayers during day granted
+6. Flexible holidays: Employees may swap public holidays for religious observances from own faith (with HR approval)
+
+GENDER EQUALITY:
+- Target: 40% women in management roles by 2027
+- Women in Leadership Program: Annual cohort of 20 women, 12-month development program
+- Maternity protection: Role guaranteed on return from maternity leave
+- Pay equity: Salaries benchmarked annually by external consultant to ensure gender parity
+
+NATIONALITY AND EMIRATIZATION:
+- Company committed to UAE Emiratization targets as per Ministry of Human Resources requirements
+- UAE National Development Program: Dedicated development plans for Emirati employees
+- Priority consideration for UAE Nationals in qualifying roles
+- Mentor matching: Senior Emirati mentors for junior UAE National employees
+
+DISABILITY INCLUSION:
+- Physical accessibility: Wheelchair ramps, accessible restrooms, elevator access
+- Digital accessibility: HR systems comply with WCAG 2.1 accessibility standards
+- Reasonable adjustments: Work schedule, equipment, workspace modifications available
+- Confidential disclosure encouraged: No disadvantage for disclosing a disability
+
+REPORTING DISCRIMINATION:
+- Report immediately to HR Partner or via ethics@company.com
+- Anonymous reporting: Ethics Portal (link on company intranet)
+- Zero tolerance: All discrimination investigated within 10 business days
+
+DEI Committee:
+- Cross-functional team driving inclusion initiatives
+- Monthly internal events celebrating cultural milestones
+- Annual DEI report published internally
 
 Document ID: HR_22
+Keywords: diversity, inclusion, equity, DEI, equal opportunity, Emiratization, gender equality, disability, anti-discrimination, nationality

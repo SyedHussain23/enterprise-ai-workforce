@@ -204,6 +204,7 @@ def build_workflow():
             keyword_match=keyword_match,
             rag_used=rag_used,
             source=source,
+            action_triggered=action_triggered,
         )
 
         # CRAG-corrected confidence takes precedence

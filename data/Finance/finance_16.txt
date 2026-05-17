@@ -1,9 +1,59 @@
-
 Finance Policy Document
 
-Topic: Compliance
+Topic: Financial Controls and Anti-Fraud Policy
 
 Details:
-Financial compliance mandatory.
+The company maintains robust financial controls to prevent errors, fraud, and misuse of company funds.
+
+KEY FINANCIAL CONTROLS:
+1. Segregation of Duties: No single employee controls an entire financial transaction
+   - Raising PO ≠ person approving PO ≠ person receiving goods
+   - Payroll input ≠ payroll approval ≠ payroll payment authorization
+   - Invoice processing ≠ payment authorization
+
+2. Dual Authorization:
+   - All payments over AED 10,000: Two authorized signatories required
+   - Bank transfers: Finance + CFO dual approval in banking system
+   - No single person can make large payments unilaterally
+
+3. Approval Hierarchies:
+   - Documented and enforced in Finance Portal
+   - System enforces approval at each stage — payment cannot proceed without full approval chain
+
+4. System Access Controls:
+   - Finance system (ERP) access restricted to roles that need it
+   - View-only access for budget holders who need to monitor budgets
+   - No generic or shared logins in Finance systems
+
+5. Audit Trails:
+   - All Finance system transactions logged with user, timestamp, and action
+   - Logs reviewed monthly by Finance Manager
+   - Logs retained for 7 years (legal requirement)
+
+FRAUD RISK AREAS AND PREVENTION:
+Expense claim fraud: Prevent by requiring original VAT invoices and manager approval
+Payroll fraud (ghost employees): Prevent by HR-Finance reconciliation of headcount monthly
+Vendor fraud: Prevent by vendor screening, PO requirement, 3-way match
+Corporate card fraud: Prevent by monthly reconciliation and purchase monitoring
+Kickbacks: Prevent by conflict of interest declarations and segregation of duties
+
+REPORTING SUSPECTED FRAUD:
+- Immediately report to: Internal Audit Manager or ethics@company.com
+- Anonymous reporting: Ethics Portal (accessible without login)
+- Do not confront the suspected person yourself
+- Do not tell others about your suspicion (may alert perpetrator)
+- Whistleblower protection: Full protection from retaliation guaranteed by company policy and UAE law
+
+CONSEQUENCES OF FRAUD:
+- Immediate suspension pending investigation
+- Termination on finding of fraud
+- Recovery of all fraudulently obtained funds (through legal means including UAE courts)
+- Criminal prosecution: UAE Penal Code provisions apply to workplace fraud and embezzlement
+
+FINANCIAL DELEGATION OF AUTHORITY:
+- Full Document of Authority (DOA) available: Finance Portal → Policies → Delegation of Authority
+- Specifies: Who can approve what amount, for which types of transactions
+- Must be followed — bypassing approval thresholds is a disciplinary offence
 
 Document ID: Finance_16
+Keywords: financial controls, anti-fraud, fraud prevention, internal controls, segregation of duties, financial compliance, fraud reporting, embezzlement, audit trail

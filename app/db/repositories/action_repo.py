@@ -90,3 +90,14 @@ class ActionRepository:
         await self._db.flush()
         logger.info("action.rejected", action_id=str(action_id))
         return action
+
+    async def complete(self, action_id: uuid.UUID, result_payload: dict | None = None) -> Action | None:
+        action = await self.get_by_id(action_id)
+        if not action:
+            return None
+        action.status = ActionStatus.COMPLETED.value
+        if result_payload:
+            action.payload = {**(action.payload or {}), "execution_result": result_payload}
+        await self._db.flush()
+        logger.info("action.completed", action_id=str(action_id))
+        return action

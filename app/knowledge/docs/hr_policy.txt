@@ -1,9 +1,40 @@
-Employee Leave Policy
+HR Policy Summary — Enterprise AI Workforce
 
-Employees are entitled to 21 days of annual leave.
+ANNUAL LEAVE
+- Entitlement: 21 calendar days per year (years 1–5); 30 days/year after 5 years of service
+- Accrual: 1.75 days per month from day one
+- Probation: Leave accrues but cannot be taken during the 6-month probation period
+- Carry-forward: Maximum 10 days; forfeited beyond that at year end
+- Application: HR Portal → My Leaves → New Request (manager must respond within 48 hours)
 
-Sick leave: 10 days per year.
+SICK LEAVE (UAE Labour Law — Federal Decree No. 33 of 2021)
+- First 15 days: Full pay
+- Next 30 days: Half pay
+- Next 45 days: Unpaid
+- Total: 90 days maximum per year
+- Requires medical certificate for absences over 2 consecutive days
 
-Maternity leave: 90 days.
+MATERNITY LEAVE
+- Statutory (UAE law): 60 days
+- Company-enhanced policy: 90 days full pay
+- Flexible hours for first 3 months post-return (core hours must be maintained)
 
-Carry forward leave allowed up to 10 days.
+PATERNITY LEAVE
+- 10 working days within first 6 months after birth
+
+END OF SERVICE GRATUITY (EOSB)
+- Years 1–5: 21 calendar days of basic salary per year
+- Beyond 5 years: 30 calendar days of basic salary per year
+- Cap: Maximum 2 years' total basic salary
+- Resignation < 1 year: No gratuity
+- Resignation 1–3 years: One-third of full entitlement
+- Resignation 3–5 years: Two-thirds of full entitlement
+- Resignation 5+ years: Full entitlement
+
+SALARY & PAYROLL
+- Payment: Last working day of each month via WPS (Wage Protection System)
+- Payslips: Available on HR Portal by the 25th of each month
+- Salary advance: Up to 50% of monthly basic salary; available after 6 months service
+
+Document ID: HR_POLICY_SUMMARY
+Keywords: leave policy, sick leave, maternity leave, paternity leave, gratuity, EOSB, payroll, salary, annual leave, UAE labour law

@@ -1,9 +1,61 @@
-
 Finance Policy Document
 
-Topic: Financial Reporting
+Topic: Financial Reporting and Management Accounts
 
 Details:
-Quarterly reports generated.
+The company produces timely and accurate financial reports to support decision-making.
+
+MONTHLY MANAGEMENT ACCOUNTS:
+- Produced by: Finance team
+- Deadline: 10th working day of following month
+- Recipients: CFO, CEO, Board, Department Heads
+- Contents:
+  * Income Statement (Profit & Loss)
+  * Balance Sheet
+  * Cash Flow Statement
+  * Budget vs Actual variance analysis (by department)
+  * KPI dashboard (revenue, gross margin, operating costs, headcount)
+
+QUARTERLY REPORTS:
+- Produced within 15 working days of quarter end
+- More detailed than monthly management accounts
+- Includes: Detailed P&L analysis, working capital review, capex tracking, headcount analysis
+- Board presentation prepared by CFO
+
+ANNUAL FINANCIAL STATEMENTS:
+- Full audited financial statements: Completed by March 31st
+- Prepared under IFRS (International Financial Reporting Standards)
+- Audited by external auditor
+- Filed with relevant UAE authorities as required
+
+FINANCIAL REPORTING BY DEPARTMENT HEADS:
+- Monthly: Review your department's cost report (sent by Finance by 5th of each month)
+- Variance explanation: Required for any line item over 10% variance vs budget
+- Submit explanation via Finance Portal → Reports → Variance Explanation
+- Deadline for variance commentary: 15th of each month
+
+KPIs TRACKED FOR OPERATIONS:
+- Revenue per employee
+- Operating cost ratio
+- Gross margin %
+- Days Sales Outstanding (DSO) — for sales-related departments
+- Headcount vs budget
+
+HOW TO ACCESS FINANCIAL REPORTS:
+- Finance Portal → Reports → Management Accounts (your department data only, unless you have wider access)
+- Full company reports: Available to Grade 6+ and above
+- Specific data requests: Email finance-reporting@company.com
+
+CONFIDENTIALITY OF FINANCIAL DATA:
+- Financial reports are classified as CONFIDENTIAL (see Data Classification Policy)
+- Do not share financial figures with external parties without Finance Director approval
+- Do not discuss company financials in public or with competitors
+- Financial results are commercially sensitive, especially before public release
+
+BUDGET TRACKER:
+- Finance Portal → Reports → My Department Budget: Live view of your department's spend vs budget
+- Updated daily with all processed transactions
+- Allows managers to monitor spend and take action before overspending
 
 Document ID: Finance_13
+Keywords: financial reporting, management accounts, P&L, balance sheet, financial statements, budget report, monthly accounts, finance report, KPI

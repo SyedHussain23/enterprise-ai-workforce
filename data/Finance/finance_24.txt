@@ -1,9 +1,54 @@
-
 Finance Policy Document
 
-Topic: Liabilities
+Topic: Financial Compliance and Anti-Money Laundering Policy
 
 Details:
-Liabilities tracked.
+The company complies with all UAE financial regulations, anti-money laundering (AML) laws, and international financial standards.
+
+UAE FINANCIAL REGULATIONS:
+- UAE Anti-Money Laundering Law: Federal Decree-Law No. 20 of 2018
+- UAE Combating Terrorism Financing: Federal Decree-Law No. 7 of 2014
+- UAE Sanctions: Company complies with UAE Cabinet Decision No. 74 of 2020 (sanctions list)
+- FATF Recommendations: UAE is a FATF member — company follows global AML standards
+
+WHAT IS MONEY LAUNDERING:
+Money laundering is the process of making illegally obtained funds appear legitimate. It occurs in three stages:
+1. Placement: Introducing illegal cash into the financial system
+2. Layering: Moving money through complex transactions to hide origin
+3. Integration: Returning money to the economy as seemingly legitimate
+
+EMPLOYEE AML OBLIGATIONS:
+All employees must:
+1. Know Your Customer (KYC): Do not onboard clients without completing KYC verification
+2. Report suspicious activity: Report any suspicious transactions or behavior to Compliance Officer
+3. No cash transactions: Company does not accept large cash payments (AED 55,000+ threshold per UAE law)
+4. No payments to sanctioned parties: Do not process payments to OFAC/UAE sanctioned entities
+5. Complete AML training: Annual mandatory training (30 minutes online — compliance team schedules)
+
+RED FLAGS TO REPORT:
+- Client requesting unusual payment routing (paying via third party, different country)
+- Client unwilling to provide standard identification
+- Payments in round numbers without business justification
+- Requests to receive payments in personal bank accounts
+- Client business does not match apparent income/wealth level
+- Unusual cash transactions
+
+REPORTING SUSPICIOUS ACTIVITY:
+- Report to: Compliance Officer at compliance@company.com
+- Do NOT alert the suspicious party (tip-off is illegal under UAE law)
+- Compliance Officer determines if regulatory reporting required (Financial Intelligence Unit — FIU)
+- All reports treated confidentially
+
+SANCTIONS COMPLIANCE:
+- All new vendors and clients screened against UAE and international sanctions lists
+- Finance system automatically checks all payment beneficiaries
+- Any match: Payment blocked, Compliance Officer notified immediately
+- Do not process payments to blocked or sanctioned parties even if instructed by management
+
+ANTI-BRIBERY (See also HR Code of Conduct):
+- Company complies with UAE Anti-Corruption Law
+- Report any bribery request (from client, supplier, or government official) immediately to ethics@company.com
+- Facilitation payments (small payments to expedite government services): Prohibited
 
 Document ID: Finance_24
+Keywords: AML, anti-money laundering, financial compliance, money laundering, KYC, sanctions, compliance, regulatory compliance, suspicious activity

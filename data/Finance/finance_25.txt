@@ -1,9 +1,63 @@
-
 Finance Policy Document
 
-Topic: Accounting
+Topic: Finance Department Services and Self-Service Guide
 
 Details:
-Accounts maintained daily.
+Complete guide to Finance services available to employees and how to access them.
+
+FINANCE PORTAL:
+URL: https://finance.company.internal
+Login: Company email and password (SSO)
+Available 24/7 for self-service tasks
+
+FINANCE SELF-SERVICE SERVICES:
+
+Payroll and Salary:
+- Download payslips (HR Portal → Payroll → My Payslips)
+- Submit salary queries (by 20th of month for same-month resolution)
+- Request salary advance (Finance Portal → Salary Advance)
+- Request salary certificate for bank or visa (HR Portal → My Documents)
+
+Expenses:
+- Submit expense claims (Finance Portal → Expense Claims)
+- Track claim status (Finance Portal → Expense Claims → My Claims)
+- Submit allowance requests (Finance Portal → Allowances)
+- Travel expense reconciliation (Finance Portal → Travel → Reconcile)
+
+Procurement:
+- Raise purchase orders (Finance Portal → Procurement → New PO)
+- Track PO status (Finance Portal → Procurement → My POs)
+- Register new vendor (Finance Portal → Vendors → New Registration)
+
+Corporate Cards:
+- View monthly statement (Finance Portal → Corporate Cards → Statement)
+- Submit monthly reconciliation (Finance Portal → Corporate Cards → Reconcile)
+- Report lost card (call bank immediately, then Finance Portal → Cards → Report Lost)
+
+FINANCE TEAM CONTACTS:
+- General: finance@company.com
+- Payroll: payroll@company.com
+- Accounts Payable (vendor payments): ap@company.com
+- Accounts Receivable (client invoices): ar@company.com
+- Treasury: treasury@company.com
+- Compliance: compliance@company.com
+- Finance Helpdesk: +971-4-XXX-1002 (Sunday–Thursday, 8 AM–5 PM)
+
+COMMON FINANCE REQUESTS AND TURNAROUND:
+- Expense claim reimbursement: 5–7 business days from approval
+- Salary advance: 3–5 business days from approval
+- PO issuance: 2–3 business days from approval
+- Vendor payment: Within agreed payment terms (Net 30 standard)
+- Salary certificate: 3 business days (HR Portal)
+- Budget vs actuals report: By 5th of each month (Finance sends automatically)
+
+FREQUENTLY ASKED FINANCE QUESTIONS:
+Q: When will my expense claim be reimbursed? A: Next payroll cycle after Finance approval (or mid-month for urgent >AED 1,000 claims)
+Q: How do I know my salary advance was approved? A: Email notification from Finance Portal + funds in account within 3 business days
+Q: My payslip shows wrong salary — what do I do? A: Email payroll@company.com before 20th of month for same-month correction
+Q: How do I add a new supplier? A: Finance Portal → Vendors → Register New Vendor (allow 5–7 days)
+Q: Can I pay for something and claim back? A: Yes, via Expense Claims — but only for eligible expenses under AED 2,000 without prior PO
+Q: How do I calculate my gratuity? A: Finance Portal → Tools → Gratuity Calculator
 
 Document ID: Finance_25
+Keywords: finance support, finance portal, finance services, payroll query, expense claim help, finance contact, finance self-service, finance department

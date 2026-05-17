@@ -1,9 +1,130 @@
-
 Company Policy Document
 
-Topic: Policies
+Topic: Company Policy Index & Employee Handbook Guide
 
 Details:
-Company policies enforced.
+Complete index of all company policies and where to find them for employees and managers.
+
+POLICY INDEX — WHERE TO FIND EVERYTHING:
+
+HUMAN RESOURCES POLICIES (HR Portal → Documents → HR Policies):
+- Annual Leave Policy: hr_1.txt | Leave application via HR Portal → Leave
+- Attendance & Overtime: hr_2.txt | company_1.txt
+- Onboarding Policy: hr_3.txt | IT provisioning checklist on SharePoint
+- Resignation & Offboarding: hr_4.txt | Submit notice via HR Portal → Resignation
+- Payroll & Salary Policy: hr_5.txt | Payslips via HR Portal → Payroll
+- Promotion Policy: hr_6.txt | career growth via HR Portal → Careers
+- Internal Transfer Policy: hr_7.txt | Apply via HR Portal → Careers → Internal Openings
+- Performance Review Policy: hr_8.txt | company_9.txt | Goals/reviews in HR Portal
+- Work From Home (WFH) Policy: hr_9.txt | company_3.txt | Request via HR Portal → WFH
+- Grievance Policy: hr_10.txt | Submit via HR Portal → Ethics
+- Training Policy: hr_11.txt | company_19.txt | Requests via HR Portal → Learning
+- Disciplinary Policy: hr_12.txt | Contact HR for process
+- Gratuity Policy: hr_13.txt | Calculator: Finance Portal → Tools → Gratuity Calculator
+- Code of Conduct: hr_14.txt | company_4.txt
+- UAE Public Holidays: hr_15.txt | company_5.txt | Calendar on HR Portal
+- Maternity/Paternity Leave: hr_16.txt | Apply via HR Portal → Leave → Special Leave
+- Benefits & Insurance: hr_17.txt | Policy details via hr@company.com
+- Probation Policy: hr_18.txt
+- Anti-Harassment Policy: hr_19.txt | Report via hr@company.com or ethics@company.com
+- Data Privacy: hr_20.txt
+- Wellbeing & EAP: hr_21.txt | EAP: eap@company.com
+- DEI Policy: hr_22.txt | company_12.txt | company_13.txt
+- Dress Code: hr_23.txt | company_2.txt
+- Recruitment Policy: hr_24.txt
+- HR Self-Service Guide: hr_25.txt | HR Portal: https://hr.company.internal
+
+IT POLICIES (IT Portal → Policies):
+- Password Policy: it_1.txt
+- VPN Policy (Cisco AnyConnect): it_2.txt
+- Device & Laptop Policy: it_3.txt
+- Cybersecurity & Phishing: it_4.txt
+- Access Control (RBAC): it_5.txt
+- Network Security: it_6.txt
+- Backup & Recovery: it_7.txt
+- Software Policy: it_8.txt
+- BYOD Policy: it_9.txt
+- IT Monitoring: it_10.txt
+- Email & Communication Tools: it_11.txt
+- Antivirus (CrowdStrike): it_12.txt
+- Data Classification: it_13.txt
+- Cloud Services: it_14.txt
+- IT Helpdesk Guide: it_15.txt | Ext. 1001
+- MFA Setup Guide: it_16.txt
+- Security Incident Response: it_17.txt
+- Microsoft 365 Setup: it_18.txt
+- Acceptable Use Policy: it_19.txt
+- Remote Desktop: it_20.txt
+- Printing Policy: it_21.txt
+- Asset Management: it_22.txt
+- Patch Management: it_23.txt
+- IT Ticketing System: it_24.txt
+- Video Conferencing: it_25.txt
+
+FINANCE POLICIES (Finance Portal → Policies):
+- Salary & Payroll: finance_1.txt
+- Bonus Policy: finance_2.txt
+- UAE VAT Policy: finance_3.txt
+- Expense Reimbursement: finance_4.txt
+- Invoice Processing: finance_5.txt
+- Budget Policy: finance_6.txt
+- Audit Policy: finance_7.txt
+- Travel Policy: finance_8.txt
+- Payroll Processing: finance_9.txt
+- Allowances Policy: finance_10.txt
+- Salary Advance: finance_11.txt
+- Procurement Policy: finance_12.txt
+- Financial Reporting: finance_13.txt
+- Petty Cash & Corporate Cards: finance_14.txt
+- Gratuity Calculation: finance_15.txt
+- Financial Controls: finance_16.txt
+- UAE Tax Policy: finance_17.txt
+- Cash Flow & Treasury: finance_18.txt
+- Contract Management: finance_19.txt
+- Cost Control: finance_20.txt
+- CAPEX Policy: finance_21.txt
+- Salary Review Process: finance_22.txt
+- Insurance Policy: finance_23.txt
+- AML & Compliance: finance_24.txt
+- Finance Self-Service Guide: finance_25.txt
+
+COMPANY-WIDE POLICIES (This document index):
+- Working Hours & Attendance: company_1.txt
+- Dress Code: company_2.txt
+- Remote Work (WFH): company_3.txt
+- Code of Conduct: company_4.txt
+- UAE Public Holidays: company_5.txt
+- Company Culture & Values: company_6.txt
+- Meetings & Collaboration: company_7.txt
+- Communication Standards: company_8.txt
+- Performance Management: company_9.txt
+- Teamwork: company_10.txt
+- Ethics & Whistleblower: company_11.txt
+- Diversity Policy: company_12.txt
+- Inclusion Policy: company_13.txt
+- Health & Safety: company_14.txt
+- Office Facilities: company_15.txt
+- Company Events: company_16.txt
+- Recognition Programme: company_17.txt
+- Career Growth: company_18.txt
+- Training Policy: company_19.txt
+- Feedback Culture: company_20.txt
+- Leadership Standards: company_21.txt
+- Policy Index (this document): company_22.txt
+- UAE Compliance: company_23.txt
+- Company Vision: company_24.txt
+- Company Mission: company_25.txt
+
+POLICY REVIEW CYCLE:
+- All policies reviewed annually (January) by HR, Finance, IT, and Legal
+- Major regulatory changes trigger immediate policy updates
+- Employees notified of updates via Teams → #announcements
+
+CONTACTS:
+- HR Policies: hr@company.com
+- IT Policies: it-support@company.com
+- Finance Policies: finance@company.com
+- Compliance: compliance@company.com
 
 Document ID: Company_22
+Keywords: policy index, employee handbook, company policies, HR policies, IT policies, finance policies, where to find policies, policy guide, employee guide

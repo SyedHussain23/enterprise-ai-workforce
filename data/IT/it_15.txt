@@ -1,9 +1,60 @@
-
 IT Policy Document
 
-Topic: IT Support
+Topic: IT Help Desk — Support and Ticketing Guide
 
 Details:
-IT helpdesk available.
+The IT Help Desk provides technical support to all employees. Here's how to get the fastest and most effective help.
+
+CONTACTING IT SUPPORT:
+Option 1 — IT Portal (Recommended): https://it.company.internal
+Option 2 — Email: it-support@company.com
+Option 3 — Phone: Internal Ext. 1001 | External: +971-4-XXX-1001
+Option 4 — Walk-in: IT Help Desk, Building A, Ground Floor, Room G-04
+Support Hours: Sunday–Thursday, 7:30 AM–7:00 PM
+After-hours emergency: +971-55-XXX-XXXX (critical business systems only)
+
+PRIORITY LEVELS AND RESPONSE TIMES:
+Critical (P1): System down affecting multiple users or business-critical operations
+- Response: 30 minutes | Resolution target: 4 hours
+- Examples: Email server down, VPN not working for all users, major application outage
+
+High (P2): System down affecting one user, significant productivity impact
+- Response: 1 hour | Resolution target: 8 hours
+- Examples: Laptop won't start, cannot access email, printer completely failed
+
+Medium (P3): Issue causing inconvenience but workaround exists
+- Response: 4 hours | Resolution target: 2 business days
+- Examples: Software slow, one application not working, non-critical printer issue
+
+Low (P4): General questions, training requests, non-urgent items
+- Response: 1 business day | Resolution target: 5 business days
+- Examples: Software installation request, general IT questions, how-to guidance
+
+HOW TO SUBMIT A GOOD TICKET:
+Include in your ticket:
+- Your name, department, location (office, WFH)
+- Description of the problem (what you were doing when it happened)
+- Error message (exact text or screenshot)
+- When did it start?
+- Have you tried any solutions already?
+- How urgent is it (impact on your work)?
+
+COMMON ISSUES AND QUICK FIXES:
+Cannot connect to Wi-Fi: Forget network and reconnect, restart Wi-Fi adapter (Device Manager)
+Computer running slow: Restart computer, check if Windows update pending
+Outlook not opening: Restart Outlook in safe mode (Ctrl while clicking Outlook icon)
+Teams not working: Sign out and back in, check internet connection
+Cannot print: Restart print spooler (Services.msc → Print Spooler → Restart)
+External monitor not detected: Check cable, press Win+P → Duplicate/Extend
+
+ESCALATION PROCESS:
+If ticket not resolved within stated time: IT Manager automatically notified
+Further escalation: Contact IT Manager directly at it-manager@company.com
+
+SATISFACTION FEEDBACK:
+After ticket resolution: Survey sent automatically via email
+Your feedback helps IT improve service quality
+Overall satisfaction target: 90%+
 
 Document ID: IT_15
+Keywords: IT support, helpdesk, IT help desk, raise ticket, technical support, IT contact, computer problem, technical issue, IT assistance, support request

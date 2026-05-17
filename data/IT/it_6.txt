@@ -1,9 +1,64 @@
-
 IT Policy Document
 
-Topic: Network
+Topic: Network Security Policy
 
 Details:
-Secure network maintained.
+The company network infrastructure is protected through multiple security layers.
+
+NETWORK INFRASTRUCTURE:
+- Corporate network: Wired (Ethernet) and wireless (Wi-Fi) at all offices
+- Segregated networks: Corporate, Guest, IoT — each isolated from others
+- Firewall: Next-generation firewall with application-level inspection
+- Intrusion Detection System (IDS): Monitors all traffic for anomalies
+- Data Loss Prevention (DLP): Prevents unauthorized data transfers
+- Network monitoring: 24/7 by IT Security Operations Center (SOC)
+
+WI-FI NETWORKS:
+Corporate Wi-Fi (SSID: CompanyNet):
+- For company devices only
+- WPA3 Enterprise authentication with company credentials
+- Full corporate network access
+
+Guest Wi-Fi (SSID: Company-Guest):
+- For visitors, contractors, and personal devices
+- Internet access only — no access to company internal systems
+- Separate VLAN, isolated from corporate network
+- 8-hour session limit
+
+IMPORTANT RULES:
+- Never connect personal devices to Corporate Wi-Fi (CompanyNet)
+- Never share Corporate Wi-Fi password with external parties
+- Never connect to company systems via Guest Wi-Fi (use Corporate or VPN)
+
+PROHIBITED NETWORK ACTIVITIES:
+- Setting up unauthorized Wi-Fi hotspots or access points in the office
+- Connecting unauthorized network devices (routers, switches, hubs)
+- Network scanning or penetration testing without IT Security authorization
+- Using network to circumvent internet filtering (proxies, Tor, etc.)
+- Excessive bandwidth usage for personal streaming during business hours
+
+INTERNET FILTERING:
+- Certain website categories are blocked: Adult content, gambling, known malicious sites, file-sharing (Torrent)
+- Blocked by business need: Gaming platforms, streaming services (during business hours)
+- If legitimate business site is blocked: Submit unblock request via IT Portal → Network → Unblock Request
+- IT Security reviews unblock requests within 2 business days
+
+DNS AND WEB SECURITY:
+- All DNS queries go through company-controlled DNS servers (Cisco Umbrella)
+- Malicious domains are blocked before connection is established
+- Certificate inspection: HTTPS traffic inspected for malware on corporate network
+- Employees notified about certificate inspection in acceptable use agreement
+
+NETWORK INCIDENT RESPONSE:
+If you notice unusual network activity (extremely slow network, cannot connect to internet, unusual pop-ups):
+1. Report to IT Helpdesk immediately: Ext. 1001
+2. Do not attempt to diagnose or fix network issues yourself
+3. If virus/malware suspected: Disconnect network cable immediately, call IT
+
+REMOTE NETWORK ACCESS:
+- VPN required for all remote access (see VPN Policy)
+- Direct corporate network access is not permitted without VPN from remote locations
+- VPN adds encryption layer protecting data in transit
 
 Document ID: IT_6
+Keywords: network, WiFi, internet access, network security, firewall, corporate wifi, guest wifi, network policy, internet filtering, network monitoring

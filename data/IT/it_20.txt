@@ -1,9 +1,45 @@
-
 IT Policy Document
 
-Topic: Incident Response
+Topic: Remote Desktop and Screen Sharing Policy
 
 Details:
-Security incidents tracked.
+Guidelines for using remote desktop and screen sharing tools safely.
+
+APPROVED REMOTE DESKTOP TOOLS:
+- Microsoft Remote Desktop (RDP): For accessing company desktop from home
+- TeamViewer (IT-managed): For IT support sessions only
+- Azure Virtual Desktop (AVD): For approved remote workers
+- Zoom/Teams screen sharing: For presentations and collaboration
+
+NOT APPROVED FOR REMOTE ACCESS:
+- Personal AnyDesk, LogMeIn, or other remote tools without IT approval
+- Sharing remote access with vendors without IT security review
+
+ACCESSING YOUR OFFICE DESKTOP FROM HOME:
+1. Connect to VPN first (mandatory)
+2. Open Microsoft Remote Desktop
+3. Add PC: Enter your office computer name (format: PC-12345 — check IT Portal → My Devices)
+4. Sign in with company credentials
+5. Disconnect properly when done (Start → Disconnect, not X)
+
+IT REMOTE SUPPORT (IT Tech Accessing Your Screen):
+- IT will ONLY connect to your screen with your explicit permission
+- You will see a request on screen — you must click "Allow"
+- You can watch everything IT does on your screen
+- IT will never take remote control without asking
+- Disconnect IT access: Click X or "Disconnect" in remote session notification
+
+SCREEN SHARING IN MEETINGS:
+- Before sharing screen: Close personal tabs, email, and any sensitive documents
+- If sharing confidential content: Confirm meeting is recorded only with appropriate participants
+- Do not share your screen if colleagues are visible in background showing sensitive data
+- Presenter mode: Use PowerPoint Presenter Mode to share only slides, not full screen
+
+SCREEN PRIVACY:
+- Privacy screen filter available from IT (protects from shoulder surfing in cafes/flights)
+- Request via IT Portal → Equipment → Privacy Screen
+- Always lock screen when stepping away (Win+L)
+- When presenting confidential data: Verify no recording is happening without consent
 
 Document ID: IT_20
+Keywords: remote desktop, RDP, screen sharing, remote access, TeamViewer, remote support, screen share, access computer remotely, IT remote session

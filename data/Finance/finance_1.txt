@@ -1,9 +1,59 @@
-
 Finance Policy Document
 
-Topic: Salary
+Topic: Salary and Payroll Policy
 
 Details:
-Salary paid on last working day.
+The company pays all employees on time and in compliance with the UAE Wage Protection System (WPS).
+
+SALARY PAYMENT:
+- Payment date: Last working day of each month
+- Method: Bank transfer via UAE WPS (mandatory for all private sector companies)
+- Currency: UAE Dirhams (AED) unless employment contract specifies otherwise
+- Payslips: Available on HR Portal → Payroll → My Payslips by the 25th of each month
+
+SALARY STRUCTURE (Typical breakdown):
+- Basic Salary: 40–60% of total package (used for gratuity, overtime, and leave encashment calculations)
+- Housing Allowance: 20–30% of total package
+- Transport Allowance: 10–15% of total package
+- Other Allowances: Communication, education (role/grade specific)
+- Total package = all above components combined
+
+PAYSLIP CONTENTS:
+- Employee name, ID, department, grade
+- Month and year
+- All earnings itemized (basic, allowances)
+- All deductions itemized (advance repayments, absences, loans)
+- Net pay amount
+- Year-to-date totals
+
+HOW TO ACCESS YOUR PAYSLIP:
+1. Login to HR Portal → Payroll → My Payslips
+2. Select month and year
+3. Download PDF copy for records
+4. Annual salary certificates available by 31st January each year
+
+SALARY DISCREPANCIES:
+- If you believe your salary is incorrect, raise via HR Portal → Payroll → Salary Query
+- All salary queries submitted by 20th of the month will be corrected in same month's payroll
+- Queries submitted after 20th: Corrected in following month's payroll
+- Overpayments: Finance will recover in installments (not one lump deduction)
+
+WPS COMPLIANCE:
+- UAE law mandates salary payment within 10 days of agreed payment date
+- Non-payment triggers Ministry of Human Resources (MOHRE) investigation
+- Company is fully WPS compliant — all salaries routed through UAE banking system
+- No salary paid in cash (except petty cash reimbursements per policy)
+
+UAE — NO PERSONAL INCOME TAX:
+- UAE does not have personal income tax — employees receive full gross salary
+- No PAYE, no tax deductions from salary
+- Employees from countries with worldwide income taxation (e.g., US citizens) are responsible for their own tax obligations in home country
+
+BANK ACCOUNT REQUIREMENTS:
+- UAE bank account required for salary receipt (IBAN format)
+- Account must be in employee's own name
+- Accepted banks: Emirates NBD, FAB, ADCB, DIB, Mashreq, RAK Bank, ENBD, HSBC UAE
+- Submit IBAN within first 5 days of joining (HR Portal → My Profile → Bank Details)
 
 Document ID: Finance_1
+Keywords: salary, payroll, payslip, salary payment, WPS, wage protection system, salary date, income, pay, compensation

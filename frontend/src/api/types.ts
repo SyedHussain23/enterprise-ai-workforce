@@ -44,7 +44,7 @@ export interface Session {
 export interface Action {
   id: string;
   action_type: string;
-  status: 'PENDING' | 'APPROVED' | 'REJECTED';
+  status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'COMPLETED';
   payload: Record<string, unknown>;
   created_at: string;
   notes?: string;
@@ -74,7 +74,70 @@ export interface ActionApprovalRequest {
   notes?: string;
 }
 
-export type SSETokenEvent = { type: 'token'; content: string };
-export type SSEDoneEvent = { type: 'done' } & WorkflowResponse;
-export type SSEErrorEvent = { type: 'error'; message: string };
-export type SSEEvent = SSETokenEvent | SSEDoneEvent | SSEErrorEvent;
+export type SSETokenEvent  = { type: 'token';  content: string };
+export type SSEStatusEvent = { type: 'status'; content: string };
+export type SSEDoneEvent   = { type: 'done' } & WorkflowResponse;
+export type SSEErrorEvent  = { type: 'error'; message: string };
+export type SSEEvent = SSETokenEvent | SSEStatusEvent | SSEDoneEvent | SSEErrorEvent;
+
+// ── User Profile ──────────────────────────────────────────────────────────────
+export interface UserProfile {
+  id: string;
+  username: string;
+  email: string | null;
+  role: string;
+  department: string | null;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface UpdateProfileRequest {
+  email?: string;
+  department?: string;
+}
+
+export interface ChangePasswordRequest {
+  current_password: string;
+  new_password: string;
+}
+
+// ── Admin — Users ─────────────────────────────────────────────────────────────
+export interface AdminUser {
+  id: string;
+  username: string;
+  email: string | null;
+  role: string;
+  department: string | null;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface AdminUsersResponse {
+  users: AdminUser[];
+  total: number;
+  page: number;
+  page_size: number;
+}
+
+export interface UpdateUserRequest {
+  role?: string;
+  is_active?: boolean;
+  department?: string;
+}
+
+// ── Admin — Audit Log ─────────────────────────────────────────────────────────
+export interface AuditLogEntry {
+  id: string;
+  event_type: string;
+  user_id: string | null;
+  username: string | null;
+  details: Record<string, unknown>;
+  created_at: string;
+}
+
+export interface AuditLogsResponse {
+  logs: AuditLogEntry[];
+  total: number;
+  page: number;
+  page_size: number;
+}

@@ -1,9 +1,62 @@
-
 HR Policy Document
 
-Topic: Leave Approval
+Topic: Annual Performance Review and Appraisal Process
 
 Details:
-Manager approval required for leave.
+The Annual Performance Review (APR) is the cornerstone of the company's talent management system.
+
+PERFORMANCE REVIEW CYCLE:
+- Goal Setting: January–February (set objectives for the year)
+- Mid-Year Review: June–July (progress check, goal adjustment)
+- Year-End Review: November–December (final assessment)
+- Calibration: December (cross-team fairness review)
+- Results Communicated: January (salary letters, promotions, development plans)
+
+PERFORMANCE RATING SCALE (1–5):
+- 5: Outstanding — Consistently exceeds all expectations, role model for others
+- 4: Exceeds Expectations — Frequently goes above requirements, strong contributor
+- 3: Meets Expectations — Achieves all goals, reliable and competent performer
+- 2: Below Expectations — Partially meets some goals, improvement needed
+- 1: Unsatisfactory — Does not meet key objectives, performance plan required
+
+GOAL SETTING (SMART Framework):
+- Specific: Clearly defined outcome
+- Measurable: Quantifiable metric
+- Achievable: Realistic and attainable
+- Relevant: Aligned to department and company objectives
+- Time-bound: Clear deadline
+- Minimum 5, maximum 10 objectives per employee
+- Goals entered in HR Portal → Performance → My Goals
+
+HOW THE REVIEW WORKS:
+1. Employee completes self-assessment (rating themselves on each goal + behavioural competencies)
+2. Manager completes independent rating
+3. 1:1 review meeting between employee and manager (minimum 60 minutes)
+4. Calibration with peer managers (manager presents, team agrees on final ratings)
+5. Final rating shared with employee by HR letter
+6. Employee signs acknowledgement (can add comments/objections)
+
+PERFORMANCE IMPROVEMENT PLAN (PIP):
+- Triggered for employees rated 1 or 2
+- Duration: 60–90 days
+- Specific measurable targets set with weekly check-ins
+- HR and manager co-own the PIP
+- Successful completion: Employee retains job, revisited in 6 months
+- Unsuccessful completion: Role separation (with legal compliance)
+
+BEHAVIOURAL COMPETENCIES ASSESSED:
+- Collaboration and Teamwork
+- Communication and Stakeholder Management
+- Innovation and Problem Solving
+- Leadership and Accountability
+- Customer Focus (external/internal)
+- UAE Cultural Awareness and Inclusion
+
+APPEALING YOUR RATING:
+- Employees may formally appeal within 14 days of rating notification
+- Submit appeal to HR Partner with written justification
+- HR facilitates review between employee and manager + HR Director
+- Appeal outcome is final
 
 Document ID: HR_8
+Keywords: performance review, appraisal, KPI, goals, rating, objectives, performance management, annual review, evaluation, mid-year review

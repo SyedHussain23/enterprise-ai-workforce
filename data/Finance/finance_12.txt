@@ -1,9 +1,56 @@
-
 Finance Policy Document
 
-Topic: Investment
+Topic: Procurement and Purchase Order Policy
 
 Details:
-Company invests in growth sectors.
+All company purchases must follow the procurement policy to ensure value for money and proper authorization.
+
+PROCUREMENT PRINCIPLES:
+- Best value: Not always the cheapest — consider quality, reliability, service, and total cost of ownership
+- Competitive bidding: Multiple quotes required for significant purchases
+- No conflict of interest: Employees must not purchase from companies they have a financial interest in
+- Sustainability: Prefer suppliers with environmental and ethical credentials
+
+PURCHASE THRESHOLDS AND APPROVAL:
+- Under AED 500: Employee purchase, manager approval via expense claim (no PO needed)
+- AED 500–5,000: Department head approval, PO required
+- AED 5,001–25,000: Department head + Finance Manager approval, minimum 2 quotes required
+- AED 25,001–100,000: Finance Director approval, minimum 3 quotes required (Request for Quotation — RFQ)
+- Over AED 100,000: CFO + CEO approval, formal Request for Proposal (RFP) process required
+
+HOW TO RAISE A PURCHASE ORDER (PO):
+1. Finance Portal → Procurement → New Purchase Order
+2. Select supplier from approved vendor list (or request new vendor registration first)
+3. Enter: Item description, quantity, unit price, cost center, delivery date
+4. Attach: Supplier quote/proposal
+5. Submit for approval (routed automatically per approval thresholds)
+6. PO number assigned on approval — share with supplier
+7. Supplier must reference PO number on their invoice
+
+VENDOR REGISTRATION:
+- New suppliers must complete vendor onboarding before any purchase
+- Finance Portal → Vendors → Register New Vendor
+- Required: Trade license, TRN, bank details, insurance certificate
+- Vendor screening conducted by Finance (anti-bribery compliance check)
+- Approved vendor added to supplier list within 5–7 business days
+
+THREE-WAY MATCH:
+- Finance processes payment only after 3-way match:
+  1. Purchase Order (what was ordered)
+  2. Goods/Service Receipt (what was actually delivered)
+  3. Invoice (what supplier is charging)
+- All three must match before payment released
+
+PREFERRED VENDOR LIST:
+- Pre-negotiated contracts with preferred vendors for common purchases (stationery, IT equipment, catering)
+- Using preferred vendors: Faster process, no RFQ required
+- Preferred vendor list: Finance Portal → Procurement → Preferred Vendors
+
+EMERGENCY PROCUREMENT:
+- Urgent purchase without time for normal PO process (genuine emergency only)
+- Verbal approval from Finance Manager or CFO first
+- Retroactive PO submitted within 24 hours with explanation
+- Abuse of emergency procurement: Disciplinary action
 
 Document ID: Finance_12
+Keywords: procurement, purchase order, PO, buying policy, vendor, supplier, quote, RFQ, purchasing, approval thresholds, procurement process

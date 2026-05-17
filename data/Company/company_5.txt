@@ -1,9 +1,69 @@
-
 Company Policy Document
 
-Topic: Holiday
+Topic: UAE Public Holidays & Company-Observed Holidays
 
 Details:
-Company holidays predefined.
+Official public holidays in the UAE and additional company-observed days off.
+
+UAE OFFICIAL PUBLIC HOLIDAYS (as declared by UAE Federal Government annually):
+1. New Year's Day — 1 January
+2. Eid Al Fitr — 3 days (dates vary by moon sighting — typically end of Ramadan)
+3. Arafat Day (Eid Al Adha Eve) — 1 day
+4. Eid Al Adha — 3 days (dates vary by Islamic calendar)
+5. Islamic New Year (Al Hijri New Year) — 1 day
+6. Prophet Mohammed's Birthday (Al Mawlid Al Nabawi) — 1 day
+7. Commemoration Day (Martyr's Day) — 30 November
+8. UAE National Day — 2–3 December (2 days)
+
+TOTAL UAE PUBLIC HOLIDAYS: Approximately 14–15 days per year (exact dates announced by government)
+
+COMPANY-ADDITIONAL HOLIDAYS:
+- The company may declare additional bridge days around public holidays (announced with at least 1-week notice)
+- Easter Monday: Additional day off (for applicable offices/nationalities)
+
+HOW HOLIDAYS WORK:
+- All employees receive full pay on public holidays
+- If a public holiday falls on your weekend (Friday/Saturday): No substitute day is given (UAE practice)
+- If a public holiday falls during your annual leave: The holiday is not counted as leave — leave days are refunded
+- Public holidays during sick leave: Sick leave days are not refunded for public holidays
+
+WORKING ON PUBLIC HOLIDAYS:
+- Operational roles (customer service, security, maintenance, IT on-call): May be required to work
+- Compensation for working on public holiday: 150% of daily rate + compensatory day off within 90 days
+- Must be approved in advance by department head + HR
+
+RAMADAN:
+- Working hours reduced to 6 hours/day for ALL employees during Ramadan (as per UAE law)
+- Eating, drinking, and smoking in public/shared areas is prohibited during fasting hours
+- Respect fasting colleagues — avoid eating at desks in open-plan offices
+- Ramadan dates confirmed by HR in advance (moon sighting dependent — announced nationally)
+
+EID AL FITR & EID AL ADHA:
+- 3 days official + company may add bridge day if adjacent to weekend
+- Bonus (Eid Bonus): AED 500 equivalent gift voucher or bonus for all employees (announced separately)
+
+NATIONAL DAY (2-3 DECEMBER):
+- All employees celebrate UAE National Day
+- Employees encouraged to wear UAE colours (red, green, white, black) on National Day
+- Office decorations and celebrations organised by the Culture Committee
+
+HOLIDAY CALENDAR:
+- Annual holiday calendar published by HR by December 31st for the following year
+- Available on: HR Portal → Documents → Annual Holiday Calendar
+
+CONTACTS:
+- HR Portal: https://hr.company.internal
+- Holiday queries: hr@company.com
+
+FREQUENTLY ASKED QUESTIONS:
+Q: When are Eid dates announced?
+A: After official UAE moon sighting announcement. HR communicates within 24 hours of official announcement.
+
+Q: If Eid falls during my annual leave, do I get those days back?
+A: Yes — public holidays during approved annual leave are refunded automatically.
+
+Q: Do I get a day off if I work on National Day?
+A: Unless you're in an operational role, National Day is a day off. If you must work, you receive a compensatory day.
 
 Document ID: Company_5
+Keywords: public holidays, UAE holidays, Eid, national day, Ramadan, holiday calendar, Eid Al Fitr, Eid Al Adha, holiday policy, UAE public holiday

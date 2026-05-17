@@ -1,9 +1,57 @@
-
 IT Policy Document
 
-Topic: Data Protection
+Topic: Data Classification and Information Security
 
 Details:
-Data must be encrypted.
+All company information is classified and must be handled according to its classification level.
+
+DATA CLASSIFICATION LEVELS:
+
+CONFIDENTIAL (Highest):
+- Examples: Client contracts, financial records, employee personal data, proprietary source code, strategic plans, M&A information, board-level communications
+- Handling: Encrypted storage and transmission, restricted access on need-to-know, watermarked, no print unless essential
+- Sharing: Only to named authorized individuals via encrypted email
+- Storage: Encrypted company SharePoint, not personal devices
+
+INTERNAL (Standard):
+- Examples: Company policies, internal memos, product roadmaps, meeting minutes, HR policies, internal presentations
+- Handling: For employees only, not shared externally without approval
+- Sharing: Company email or Teams, not via personal channels
+- Storage: Company SharePoint or network drives
+
+PUBLIC:
+- Examples: Marketing materials, public website content, press releases, job postings
+- Handling: No restrictions — approved for external sharing
+- Sharing: Any channel
+- Storage: Any location
+
+HOW TO IDENTIFY CLASSIFICATION:
+- Documents should be labeled in header/footer: [CONFIDENTIAL], [INTERNAL], [PUBLIC]
+- Email: Add classification label in subject line for sensitive emails
+- New documents: Apply classification using Microsoft Sensitivity Labels in Office apps (see ribbon bar → Sensitivity)
+
+HANDLING RULES FOR CONFIDENTIAL DATA:
+1. Store only in approved encrypted locations
+2. Send only via encrypted email (Outlook Encrypt button)
+3. Share only with people who have explicit business need
+4. Do not leave printed confidential documents unattended
+5. Shred all printed confidential documents after use
+6. Do not discuss confidential matters in public areas
+
+DATA LOSS PREVENTION (DLP):
+- Company email and SharePoint have automated DLP rules
+- DLP automatically detects and blocks: Credit card numbers, Emirates ID numbers, passport numbers, salary data in unencrypted outgoing emails
+- If DLP blocks your email: Contact IT to review and override if legitimate business need
+
+CLEAN DESK POLICY:
+- No confidential documents visible when away from desk
+- Lock screen when leaving workstation (Windows: Win+L)
+- Shred all printed confidential documents before discarding
+
+PRINTING CONFIDENTIAL DOCUMENTS:
+- Use secure printing (print job held until you authenticate at printer with badge)
+- Collect prints immediately — do not leave at printer
+- Mark printed confidential documents and lock in secure storage when not in use
 
 Document ID: IT_13
+Keywords: data classification, confidential, information security, data protection, sensitive data, DLP, data loss prevention, clean desk, secure data

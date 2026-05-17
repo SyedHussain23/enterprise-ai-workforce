@@ -1,9 +1,75 @@
-
 Company Policy Document
 
-Topic: Feedback
+Topic: Feedback Culture, Employee Engagement & Surveys
 
 Details:
-Regular feedback collected.
+How we collect, use, and act on employee feedback across all levels of the organisation.
+
+FEEDBACK PHILOSOPHY:
+Feedback is a gift. We operate a continuous, real-time feedback culture — not just once a year at appraisal time. Honest, specific, timely feedback (both positive and developmental) makes individuals, teams, and the company better.
+
+FEEDBACK CHANNELS:
+
+1. ONE-ON-ONE MEETINGS:
+- Frequency: Minimum bi-weekly between employee and direct manager
+- Focus: Work progress, blockers, development, wellbeing
+- Not a status update meeting — it's a developmental conversation
+- Employee should come with their own agenda items, not just wait to be asked
+- Notes kept privately by manager; key action items captured
+
+2. PERFORMANCE REVIEWS (Formal):
+- Mid-year review: July — developmental focus; no formal rating
+- Year-end review: December — formal rating; links to salary/bonus
+- See full details in Performance Policy (Company_9)
+
+3. 360-DEGREE FEEDBACK:
+- Available to employees at Grade 5 and above (on request or manager recommendation)
+- Feedback collected anonymously from: Manager, peers, direct reports, cross-functional partners
+- Managed by HR using digital 360 tool
+- Results shared in dedicated feedback session with HR Business Partner
+- Not used directly in formal rating — developmental purpose only
+
+4. EMPLOYEE ENGAGEMENT SURVEY (Annual):
+- Annual survey: Sent to all employees in October/November
+- Anonymous; 15–20 questions; takes ~10 minutes
+- Topics: Management quality, career growth, DEI, wellbeing, compensation, culture
+- Response rate target: 85%+ (below 75%: Leadership required to investigate)
+- Results shared with all employees within 30 days of survey close
+- Action plans published and tracked quarterly by HR and department heads
+
+5. PULSE SURVEYS (Quarterly):
+- Short survey: 5–7 questions
+- Sent quarterly to all employees via HR Portal or email
+- Results reviewed by HR within 2 weeks; trends shared with leadership
+- Key focus: Identifying teams that need support early
+
+6. EXIT INTERVIEWS:
+- Conducted by HR with all departing employees (voluntary)
+- Anonymous option available
+- Data aggregated to identify patterns; shared with leadership annually
+- Themes used to improve retention and culture
+
+7. STAY INTERVIEWS:
+- Conducted annually with high performers and key talent
+- Proactive conversation: "What keeps you here? What could we do better?"
+- Output: Personalised development or retention action from manager/HR
+
+8. SUGGESTION BOX:
+- Digital: HR Portal → Feedback → Submit Suggestion (anonymous option)
+- Physical: Suggestion boxes in kitchen areas on all floors
+- All suggestions reviewed monthly by Culture Committee
+- Implemented suggestions: Publicly credited to the suggester (if they want)
+
+ACTING ON FEEDBACK:
+- Every piece of feedback received generates a response or action within 30 days
+- Annual survey results: Action plan published, progress reviewed quarterly
+- Individual feedback: Manager responds/acts within 5 business days
+- "You Said, We Did" bulletin: Monthly internal communication showing feedback and actions taken
+
+CONTACTS:
+- Employee engagement: hr@company.com
+- Survey tool access: HR Portal → Surveys
+- Culture Committee (suggestions): culture@company.com
 
 Document ID: Company_20
+Keywords: feedback, employee engagement, survey, pulse survey, 360 feedback, exit interview, stay interview, performance feedback, engagement survey, suggestion box, continuous feedback

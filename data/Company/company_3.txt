@@ -1,9 +1,87 @@
-
 Company Policy Document
 
-Topic: Remote Work
+Topic: Remote Work & Work From Home (WFH) Policy
 
 Details:
-Allowed with approval.
+Comprehensive guidelines for working remotely, applicable to all eligible employees.
+
+ELIGIBILITY:
+- All permanent employees who have completed their 90-day probation period
+- Role must be compatible with remote work (as determined by line manager)
+- Employee must have a stable internet connection and a dedicated, distraction-free workspace
+- Employees on active Performance Improvement Plans (PIP) are not eligible
+
+WFH ENTITLEMENT:
+- Maximum: 2 days per week
+- Days must be agreed with the line manager by end of Thursday for the following week
+- WFH is a privilege, not a right — it can be suspended for performance or business reasons
+
+WFH APPROVAL PROCESS:
+1. Submit request via HR Portal → WFH → New Request (at least 24 hours in advance)
+2. Line manager approves or declines
+3. Approved WFH days are logged automatically in attendance system
+4. Ad-hoc emergency WFH (e.g., child sick at home): Notify manager by 9:00 AM via Teams
+
+MANDATORY WFH REQUIREMENTS:
+Technical:
+- VPN connected at all times via Cisco AnyConnect
+- Work-issued device only (no personal computers for company work)
+- Microsoft Teams status must be set to "Available" during core hours (10 AM–4 PM)
+- Camera on during all meetings unless bandwidth issues (notify team)
+
+Security:
+- Do not work from public Wi-Fi (cafes, airports) without VPN
+- Lock screen when stepping away from device
+- Never leave work documents visible to family members or others
+- Report any security incidents immediately to it-support@company.com
+
+Productivity:
+- Same performance standards apply as in-office
+- Respond to messages within 30 minutes during core hours
+- Update calendar with out-of-office or blocked time for focus work
+
+INTERNET ALLOWANCE:
+- AED 150/month internet allowance for approved WFH employees
+- Submit via Finance Portal → Allowances → Internet Allowance (monthly by 25th)
+
+WHAT CANNOT BE DONE REMOTELY:
+- Tasks requiring physical access to servers or on-site equipment
+- In-person client meetings (cannot be substituted with video)
+- Handling confidential physical documents
+- Jobs designated as "office-only" by department head
+
+HYBRID SCHEDULE EXAMPLE:
+- Office days (3/week): Meetings, collaboration, client visits
+- WFH days (2/week): Deep work, report writing, analysis, online training
+
+MONITORING:
+- IT monitors VPN connection status, not personal activity
+- HR reviews WFH patterns quarterly — consistent underperformance on WFH days may lead to restriction
+- Work output is measured by deliverables, not hours logged
+
+INTERNATIONAL / OVERSEAS WORKING:
+- Working from outside UAE requires prior written approval from CHRO
+- Tax and visa implications must be assessed before approval
+- Approved on case-by-case basis only (maximum 30 days per year)
+
+EQUIPMENT SUPPORT:
+- If equipment fails during WFH: Contact IT via Teams or ext. 1001 immediately
+- Loan equipment is available for emergencies — collect from IT on next office day
+
+CONTACTS:
+- WFH requests: HR Portal → WFH
+- Technical support: it-support@company.com | Ext. 1001
+- Policy queries: hr@company.com
+
+FREQUENTLY ASKED QUESTIONS:
+Q: Can I work from a coffee shop or coworking space?
+A: Yes, if you use VPN and ensure no one can see your screen. Never use public Wi-Fi without VPN.
+
+Q: What if my internet goes down during WFH?
+A: Notify your manager immediately via mobile. You may need to come into the office.
+
+Q: Does WFH apply during Ramadan?
+A: Yes — WFH entitlement stays the same during Ramadan.
 
 Document ID: Company_3
+Keywords: remote work, WFH, work from home, hybrid work, VPN, internet allowance, WFH eligibility, WFH policy, home office

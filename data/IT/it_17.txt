@@ -1,9 +1,59 @@
-
 IT Policy Document
 
-Topic: Device Policy
+Topic: Security Incident Response Policy
 
 Details:
-Devices monitored.
+All employees must know how to recognize and respond to security incidents to minimize impact.
+
+WHAT IS A SECURITY INCIDENT:
+Any event that threatens the confidentiality, integrity, or availability of company information or systems:
+- Suspected unauthorized access to systems or data
+- Malware or ransomware detected or suspected
+- Lost or stolen company device
+- Phishing attack (clicked link, entered credentials)
+- Unexpected password changes or account lockouts
+- Large unauthorized data transfer
+- System outage of unclear cause
+
+INCIDENT SEVERITY LEVELS:
+Level 1 (Critical): Active ransomware, data breach with exfiltration, production system compromise
+Level 2 (High): Suspected unauthorized access, stolen device with sensitive data, targeted phishing attack
+Level 3 (Medium): Phishing email received (not clicked), unauthorized software installed, minor policy violations
+Level 4 (Low): Lost non-sensitive document, forgotten password lockout, minor anomalies
+
+IMMEDIATE RESPONSE (What YOU do):
+Step 1: STAY CALM — do not delete evidence or panic
+Step 2: STOP — do not continue using the affected system
+Step 3: ISOLATE — unplug network cable or disable Wi-Fi on affected device
+Step 4: CALL IT SECURITY IMMEDIATELY — Ext. 1001 (24/7 emergency line)
+Step 5: DOCUMENT — Write down exactly what happened, when, and any error messages
+Step 6: DO NOT POWER OFF — unless IT explicitly instructs you to
+
+REPORTING INCIDENTS:
+- During business hours: IT Helpdesk Ext. 1001 or security@company.com
+- After hours (critical incidents only): +971-55-XXX-XXXX
+- Anonymous reporting: IT Portal → Security → Report Incident (no login required)
+
+WHAT HAPPENS AFTER YOU REPORT:
+1. IT Security acknowledges within 15 minutes for Level 1–2 incidents
+2. Incident Response Team assembled (IT Security, relevant manager, HR if needed)
+3. Containment: Isolate affected systems immediately
+4. Investigation: Determine scope, cause, and impact
+5. Recovery: Restore systems from backup if needed
+6. Post-incident review: Identify root cause and prevent recurrence
+7. Notification: UAE Cybersecurity Council notified for significant breaches (legal requirement)
+
+WHAT NOT TO DO:
+- Do NOT try to investigate or fix the issue yourself (may destroy evidence)
+- Do NOT inform other employees beyond your manager (risk of information spreading incorrectly)
+- Do NOT discuss suspected breach on email that may be compromised (use phone)
+- Do NOT pay ransomware demands
+
+AFTER AN INCIDENT — EMPLOYEE SUPPORT:
+- IT provides briefing on what happened and what you need to do
+- Password changes required for affected accounts
+- Replacement device issued if original compromised
+- IT runs additional security checks on your systems for 30 days post-incident
 
 Document ID: IT_17
+Keywords: security incident, cyber incident, phishing, ransomware, data breach, incident response, report security issue, security breach, compromised account

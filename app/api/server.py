@@ -15,7 +15,7 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sse_starlette.sse import EventSourceResponse
 
-from app.auth.auth import create_access_token, verify_password
+from app.auth.auth import create_access_token, hash_password, verify_password
 from app.auth.dependencies import get_current_user, require_admin
 from app.core.config import settings
 from app.core.logger import clear_request_id, get_logger, set_request_id
@@ -38,10 +38,14 @@ from app.monitoring.workflow_visualizer import generate_workflow_graph
 from app.rag.client import get_chroma_client
 from app.schemas.api import (
     ActionApprovalRequest,
+    ChangePasswordRequest,
     FeedbackRequest,
     LoginRequest,
     LoginResponse,
     QueryRequest,
+    UpdateProfileRequest,
+    UpdateUserRequest,
+    UserProfileResponse,
     WorkflowResponse,
 )
 from app.utils.guardrails import get_guardrail_response
@@ -173,16 +177,52 @@ async def ask_stream(
     _=Depends(rate_limiter),
     db: AsyncSession = Depends(get_db),
 ):
+    def _status(msg: str) -> dict:
+        return {"data": json.dumps({"type": "status", "content": msg})}
+
     async def generate():
+        # Emit immediately so the client shows activity right away
+        yield _status("Analyzing your request…")
+
+        # Fast guardrail check before spinning up the full workflow
+        guard = get_guardrail_response(body.question)
+        if guard:
+            answer = guard.get("answer", "I can't help with that.")
+            words  = answer.split(" ")
+            for i, word in enumerate(words):
+                yield {"data": json.dumps({"type": "token", "content": word + (" " if i < len(words) - 1 else "")})}
+                await asyncio.sleep(0.03)
+            yield {"data": json.dumps({
+                "type": "done", "agent": "guardrail", "confidence": 100,
+                "source": "guardrail", "steps": ["Guardrail → request blocked"],
+                "confidence_reason": guard.get("confidence_reason"),
+                "evaluation_score": 0.0, "response_time": 0.0,
+                "action_id": None, "action_type": None, "action_status": None,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            })}
+            return
+
+        # Detect intent and hint to user which agent is handling it
+        from app.utils.multi_intent import detect_intents
+        intents = detect_intents(body.question)
+        if len(intents) > 1:
+            yield _status(f"Routing to {' + '.join(intents)} agents…")
+        elif len(intents) == 1:
+            yield _status(f"Routing to {intents[0]} specialist…")
+        else:
+            yield _status("Routing to best-match agent…")
+
         result = await _run_workflow(request, body, user, db)
         answer = result.answer
+
+        yield _status("Streaming response…")
 
         # Stream answer word by word
         words = answer.split(" ")
         for i, word in enumerate(words):
             chunk = word + (" " if i < len(words) - 1 else "")
             yield {"data": json.dumps({"type": "token", "content": chunk})}
-            await asyncio.sleep(0.04)
+            await asyncio.sleep(0.035)
 
         # Final metadata event
         yield {"data": json.dumps({
@@ -387,12 +427,29 @@ async def get_pending_actions(
     company_id_str = user.get("company_id")
     if not company_id_str:
         raise HTTPException(status_code=400, detail="No company_id in token")
+
     repo    = ActionRepository(db)
     actions = await repo.get_pending(uuid.UUID(company_id_str))
+
+    # Resolve usernames in one batch
+    user_repo = UserRepository(db)
+    user_cache: dict[str, str] = {}
+    for a in actions:
+        if a.user_id:
+            key = str(a.user_id)
+            if key not in user_cache:
+                u = await user_repo.get_by_id(a.user_id)
+                user_cache[key] = u.username if u else "Unknown"
+
     return [
         {
-            "id": str(a.id), "action_type": a.action_type, "department": a.department,
-            "status": a.status, "payload": a.payload,
+            "id": str(a.id),
+            "action_type": a.action_type,
+            "department": a.department,
+            "status": a.status,
+            "payload": a.payload,
+            "requested_by": user_cache.get(str(a.user_id), "Unknown") if a.user_id else "System",
+            "notes": a.notes,
             "created_at": a.created_at.isoformat(),
         }
         for a in actions
@@ -420,6 +477,54 @@ async def get_my_actions(
     ]
 
 
+def _execute_approved_action(action_type: str, payload: dict) -> dict | None:
+    """
+    Execute the real-world side effect for an approved action.
+    Returns an execution result dict (stored back on the action payload).
+    Runs synchronously — call in a thread pool for production at scale.
+    """
+    from app.tools.automation_engine import (
+        generate_leave_summary,
+        generate_it_ticket_summary,
+        generate_expense_report,
+        generate_onboarding_checklist,
+        generate_report,
+    )
+    try:
+        if action_type == "apply_leave":
+            return generate_leave_summary(
+                employee_name=payload.get("username", "Employee"),
+                leave_type=payload.get("leave_type", "Annual Leave"),
+                start_date=payload.get("start_date", "TBD"),
+                end_date=payload.get("end_date", "TBD"),
+                days=int(payload.get("days", 1)),
+            )
+        if action_type == "create_ticket":
+            return generate_it_ticket_summary(
+                employee_name=payload.get("username", "Employee"),
+                issue_type=payload.get("issue_type", "General IT Issue"),
+                description=payload.get("raw_request", ""),
+                priority=payload.get("priority", "Medium"),
+            )
+        if action_type == "submit_expense":
+            items = payload.get("items", [{"description": "Expense", "amount": 0}])
+            total = sum(float(i.get("amount", 0)) for i in items)
+            return generate_expense_report(
+                employee_name=payload.get("username", "Employee"),
+                items=items,
+                total_aed=total,
+            )
+        if action_type in ("generate_report", "query_payslip", "request_certificate"):
+            return generate_report(
+                title=f"{action_type.replace('_', ' ').title()}",
+                content=payload.get("raw_request", ""),
+            )
+        return None
+    except Exception as exc:
+        logger.error("action_execute_failed", action_type=action_type, error=str(exc))
+        return None
+
+
 @app.post("/actions/{action_id}/approve")
 async def approve_action(
     action_id: str,
@@ -438,16 +543,26 @@ async def approve_action(
     if not action:
         raise HTTPException(status_code=404, detail="Action not found")
 
+    # Execute the approved action and mark COMPLETED
+    exec_result = _execute_approved_action(action.action_type, action.payload or {})
+    if exec_result:
+        await repo.complete(uuid.UUID(action_id), exec_result)
+
     audit = AuditLogRepository(db)
     await audit.log(
         "action_approved",
         company_id=uuid.UUID(company_id_str) if company_id_str else None,
         user_id=db_user.id,
         entity_type="action", entity_id=action.id,
-        payload={"action_type": action.action_type, "notes": body.notes},
+        payload={"action_type": action.action_type, "notes": body.notes, "executed": exec_result is not None},
     )
     await db.commit()
-    return {"status": "approved", "action_id": action_id}
+    return {
+        "status": "approved",
+        "action_id": action_id,
+        "executed": exec_result is not None,
+        "execution_result": exec_result,
+    }
 
 
 @app.post("/actions/{action_id}/reject")
@@ -504,7 +619,10 @@ async def upload_document(
         if not raw_text:
             raise HTTPException(status_code=422, detail="Could not extract text from PDF")
 
-        splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+        splitter = RecursiveCharacterTextSplitter(
+            chunk_size=800, chunk_overlap=120,
+            separators=["\n\n", "\n", ". ", " ", ""],
+        )
         chunks   = splitter.split_text(raw_text)
 
         chroma  = get_chroma_client()
@@ -687,6 +805,255 @@ async def workflow_graph_view(user=Depends(get_current_user)):
     except Exception as exc:
         logger.error("workflow_graph.failed", error=str(exc))
         return JSONResponse(status_code=500, content={"error": "Graph rendering failed"})
+
+
+# ── User profile ─────────────────────────────────────────────────────────────
+
+@app.get("/me", response_model=UserProfileResponse)
+async def get_my_profile(
+    user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return the authenticated user's profile."""
+    repo    = UserRepository(db)
+    db_user = await repo.get_by_username(user.get("sub", ""))
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return UserProfileResponse(
+        id=str(db_user.id),
+        username=db_user.username,
+        email=db_user.email,
+        role=db_user.role,
+        department=db_user.department,
+        is_active=db_user.is_active,
+        company_id=str(db_user.company_id),
+        created_at=db_user.created_at.isoformat(),
+    )
+
+
+@app.put("/me")
+async def update_my_profile(
+    body: UpdateProfileRequest,
+    user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Update the authenticated user's email or department."""
+    repo    = UserRepository(db)
+    db_user = await repo.get_by_username(user.get("sub", ""))
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if body.email is not None:
+        db_user.email = body.email
+    if body.department is not None:
+        db_user.department = body.department
+
+    audit = AuditLogRepository(db)
+    await audit.log(
+        "profile_updated",
+        company_id=db_user.company_id,
+        user_id=db_user.id,
+        payload={"email_changed": body.email is not None, "dept_changed": body.department is not None},
+    )
+    await db.commit()
+    logger.info("profile.updated", username=db_user.username)
+    return {"status": "updated", "username": db_user.username}
+
+
+@app.put("/me/password")
+async def change_my_password(
+    body: ChangePasswordRequest,
+    user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Change the authenticated user's password after verifying the current one."""
+    repo    = UserRepository(db)
+    db_user = await repo.get_by_username(user.get("sub", ""))
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if not verify_password(body.current_password, db_user.hashed_password):
+        raise HTTPException(status_code=400, detail="Current password is incorrect")
+
+    db_user.hashed_password = hash_password(body.new_password)
+
+    audit = AuditLogRepository(db)
+    await audit.log(
+        "password_changed",
+        company_id=db_user.company_id,
+        user_id=db_user.id,
+        payload={},
+    )
+    await db.commit()
+    logger.info("password.changed", username=db_user.username)
+    return {"status": "password_changed"}
+
+
+# ── Admin user management ─────────────────────────────────────────────────────
+
+@app.get("/admin/users")
+async def list_users(
+    limit: int = 50,
+    offset: int = 0,
+    department: str | None = None,
+    role: str | None = None,
+    user: dict = Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """List all users in the company (admin only). Supports filtering by department and role."""
+    from app.db.models.user import User as UserModel
+    company_id_str = user.get("company_id")
+    if not company_id_str:
+        raise HTTPException(status_code=400, detail="No company_id in token")
+    company_uuid = uuid.UUID(company_id_str)
+
+    stmt = (
+        select(UserModel)
+        .where(UserModel.company_id == company_uuid, UserModel.deleted_at == None)
+        .order_by(UserModel.created_at.desc())
+        .limit(min(limit, 200))
+        .offset(offset)
+    )
+    if department:
+        stmt = stmt.where(UserModel.department == department)
+    if role:
+        stmt = stmt.where(UserModel.role == role)
+
+    result = await db.execute(stmt)
+    users  = result.scalars().all()
+
+    total_stmt = select(func.count()).where(
+        UserModel.company_id == company_uuid, UserModel.deleted_at == None
+    )
+    if department:
+        total_stmt = total_stmt.where(UserModel.department == department)
+    if role:
+        total_stmt = total_stmt.where(UserModel.role == role)
+    total = (await db.execute(total_stmt)).scalar() or 0
+
+    return {
+        "total": total,
+        "limit": limit,
+        "offset": offset,
+        "users": [
+            {
+                "id":         str(u.id),
+                "username":   u.username,
+                "email":      u.email,
+                "role":       u.role,
+                "department": u.department,
+                "is_active":  u.is_active,
+                "created_at": u.created_at.isoformat(),
+            }
+            for u in users
+        ],
+    }
+
+
+@app.patch("/admin/users/{user_id}")
+async def update_user(
+    user_id: str,
+    body: UpdateUserRequest,
+    admin: dict = Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """Update a user's role, active status, or department (admin only)."""
+    company_id_str = admin.get("company_id")
+    if not company_id_str:
+        raise HTTPException(status_code=400, detail="No company_id in token")
+
+    repo    = UserRepository(db)
+    db_user = await repo.get_by_id(uuid.UUID(user_id))
+    if not db_user or str(db_user.company_id) != company_id_str:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    changes: dict = {}
+    if body.role is not None:
+        db_user.role = body.role
+        changes["role"] = body.role
+    if body.is_active is not None:
+        db_user.is_active = body.is_active
+        changes["is_active"] = body.is_active
+    if body.department is not None:
+        db_user.department = body.department
+        changes["department"] = body.department
+
+    if not changes:
+        raise HTTPException(status_code=422, detail="No changes provided")
+
+    admin_repo = UserRepository(db)
+    admin_user = await admin_repo.get_by_username(admin.get("sub", ""))
+
+    audit = AuditLogRepository(db)
+    await audit.log(
+        "user_updated",
+        company_id=uuid.UUID(company_id_str),
+        user_id=admin_user.id if admin_user else None,
+        entity_type="user",
+        entity_id=db_user.id,
+        payload={"target_user": db_user.username, "changes": changes},
+    )
+    await db.commit()
+    logger.info("admin.user_updated", target=db_user.username, changes=changes)
+    return {"status": "updated", "user_id": user_id, "changes": changes}
+
+
+# ── Admin audit trail ─────────────────────────────────────────────────────────
+
+@app.get("/admin/audit")
+async def admin_audit_trail(
+    limit: int = 50,
+    offset: int = 0,
+    action: str | None = None,
+    user: dict = Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Return paginated audit log entries for the company.
+    Optionally filter by action type (e.g. login, query_submitted, action_approved).
+    """
+    from app.db.models.audit_log import AuditLog
+    company_id_str = user.get("company_id")
+    if not company_id_str:
+        raise HTTPException(status_code=400, detail="No company_id in token")
+    company_uuid = uuid.UUID(company_id_str)
+
+    stmt = (
+        select(AuditLog)
+        .where(AuditLog.company_id == company_uuid)
+        .order_by(AuditLog.created_at.desc())
+        .limit(min(limit, 500))
+        .offset(offset)
+    )
+    if action:
+        stmt = stmt.where(AuditLog.event_type == action)
+
+    result = await db.execute(stmt)
+    logs   = result.scalars().all()
+
+    total_stmt = select(func.count()).where(AuditLog.company_id == company_uuid)
+    if action:
+        total_stmt = total_stmt.where(AuditLog.event_type == action)
+    total = (await db.execute(total_stmt)).scalar() or 0
+
+    return {
+        "total":  total,
+        "limit":  limit,
+        "offset": offset,
+        "logs": [
+            {
+                "id":          str(log.id),
+                "event_type":  log.event_type,
+                "user_id":     str(log.user_id) if log.user_id else None,
+                "entity_type": log.entity_type,
+                "entity_id":   str(log.entity_id) if log.entity_id else None,
+                "ip_address":  log.ip_address,
+                "payload":     log.payload,
+                "created_at":  log.created_at.isoformat(),
+            }
+            for log in logs
+        ],
+    }
 
 
 # ── WhatsApp webhook (Day 54) ────────────────────────────────────────────────

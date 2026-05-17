@@ -1,9 +1,57 @@
-
 HR Policy Document
 
-Topic: Work From Home
+Topic: Work From Home (WFH) and Remote Work Policy
 
 Details:
-WFH allowed based on manager approval.
+The company supports flexible working arrangements while maintaining productivity and team collaboration.
+
+WFH ELIGIBILITY:
+- Available to all employees who have completed probation (6 months)
+- Role must be suitable for remote work (assessed by manager)
+- Employee must maintain the same performance standards as in-office
+- WFH is a privilege, not an entitlement — may be revoked if productivity declines
+
+WFH ALLOWANCE:
+- Up to 2 days per week WFH for eligible employees
+- Maximum 8 WFH days per month
+- WFH days must be agreed with manager at start of each week (by Friday for following week)
+- WFH on Mondays and Fridays requires explicit approval (to avoid extended weekends)
+
+WFH REQUEST PROCESS:
+1. Discuss WFH arrangement with your manager
+2. Log WFH days in HR Portal → Attendance → WFH Request
+3. Manager approves or rejects in HR system
+4. Once approved, WFH days are logged in attendance records
+
+EQUIPMENT AND INTERNET:
+- Company provides: Laptop, necessary software licenses
+- Employee is responsible for: Stable internet connection, suitable workspace
+- Internet allowance: AED 150/month provided to Grade 4+ employees on regular WFH arrangement
+- VPN is mandatory for all WFH days (no exceptions)
+- Company will not reimburse personal internet bills for ad-hoc WFH
+
+PRODUCTIVITY EXPECTATIONS DURING WFH:
+- Available on Microsoft Teams/Slack from 9:00 AM to 6:00 PM
+- Attend all scheduled meetings via video (camera ON unless explicitly exempt)
+- Respond to messages within 30 minutes during core hours (10 AM–3 PM)
+- Update task board / project management tool by end of day
+- Do not use WFH as substitute for childcare or personal commitments
+
+SECURITY REQUIREMENTS FOR WFH:
+- Must connect via company VPN at all times
+- Company laptop must have screen lock (auto-lock after 5 minutes)
+- Do not use public Wi-Fi without VPN
+- No printing of confidential company documents at home
+- Family members must not use company laptop
+
+FULL REMOTE WORK (100% Remote):
+- Available for specific roles only, by prior agreement in employment contract
+- All equipment (monitor, keyboard, ergonomic chair) provided for full-remote roles
+- Travel to office required quarterly for team events (expenses covered)
+
+WFH REVOCATION:
+- Manager may revoke WFH if: productivity below expectations, policy violations, team attendance required, client requirements change
+- Revocation with minimum 2 weeks notice (except in disciplinary cases)
 
 Document ID: HR_9
+Keywords: work from home, WFH, remote work, remote policy, working remotely, home office, flexible work, work remotely

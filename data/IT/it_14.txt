@@ -1,9 +1,53 @@
-
 IT Policy Document
 
-Topic: Cloud
+Topic: Cloud Services and SaaS Policy
 
 Details:
-Cloud storage used.
+Employees must only use company-approved cloud services for business data.
+
+APPROVED CLOUD SERVICES:
+Productivity: Microsoft 365 (OneDrive, SharePoint, Teams, Exchange Online)
+Video Conferencing: Zoom, Microsoft Teams
+HR System: Company HR Portal (cloud-hosted)
+CRM: Salesforce or HubSpot (if applicable)
+Project Management: Jira, Asana, Monday.com (role-specific approvals)
+Design: Figma, Adobe Creative Cloud (department-approved)
+AI Tools: Microsoft Copilot (approved), ChatGPT Business (approved with restrictions)
+
+PROHIBITED (FOR COMPANY DATA):
+- Personal Google Drive, Dropbox, Box, iCloud — for storing work files
+- Personal email (Gmail, Yahoo, Hotmail) — for sending company documents
+- WeTransfer, Mega, Zippyshare — for sharing company files
+- Public ChatGPT (free tier) — for inputting company confidential data
+- Unapproved third-party AI tools
+
+REQUESTING NEW CLOUD SERVICES:
+1. Submit request: IT Portal → Cloud Services → New SaaS Request
+2. IT evaluates: Data security, compliance, vendor security posture, UAE data residency requirements
+3. Legal reviews terms of service and data processing agreement
+4. Finance approves cost (if applicable)
+5. Typical evaluation: 2–4 weeks
+6. Approved services added to company SSO portal
+
+AI TOOLS POLICY (ChatGPT, Copilot, etc.):
+- Company-approved AI: Microsoft Copilot (integrated with M365) — for employees with license
+- ChatGPT/other AI tools: Approved with restrictions — NO inputting of:
+  * Client names or confidential information
+  * Employee personal data
+  * Financial figures or unreleased product information
+  * Source code containing proprietary algorithms
+- AI output must always be reviewed by a human before use in official documents
+- AI does not replace professional judgment or legal/financial advice
+
+DATA RESIDENCY:
+- UAE-based company data must be stored in UAE or GCC data centers where possible
+- Microsoft 365 UAE region: Data stored in UAE North (Dubai) and UAE West (Abu Dhabi)
+- Any service requiring data outside UAE/GCC requires CISO and Legal approval
+
+CLOUD SECURITY RESPONSIBILITIES:
+- Company IT secures cloud platforms at the service level
+- Employees secure their own accounts (strong password + MFA)
+- Shared responsibility model: Cloud provider secures infrastructure; IT secures configuration; employees secure data
 
 Document ID: IT_14
+Keywords: cloud, cloud services, OneDrive, SharePoint, SaaS, Google Drive, Dropbox, cloud storage, AI tools, ChatGPT, cloud policy

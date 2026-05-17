@@ -1,11 +1,16 @@
+from __future__ import annotations
+
+from app.core.constants import VERIFIED_SOURCES
 from app.core.logger import get_logger
 
 logger = get_logger(__name__)
 
+_BAD_SOURCES = frozenset({"fallback", "guardrail", "error", "n/a", ""})
+
 
 def evaluate_response(query: str, answer: str, source: str) -> float:
     """
-    ✅ FIX 3 — Real evaluation score. Never hardcoded 100.
+    Signal-based evaluation score. Never hardcoded.
 
     Signals:
         Source found             → +30
@@ -21,9 +26,10 @@ def evaluate_response(query: str, answer: str, source: str) -> float:
     score      = 0
     ans_lower  = answer.lower()
     word_count = len(answer.split())
+    src_lower  = (source or "").lower()
 
     # Signal 1 — Real source exists
-    if source and source not in ("fallback", "guardrail", "error", "N/A", ""):
+    if source and src_lower not in _BAD_SOURCES:
         score += 30
 
     # Signal 2 — Substance check
@@ -39,10 +45,8 @@ def evaluate_response(query: str, answer: str, source: str) -> float:
     if any(w in ans_lower for w in meaningful):
         score += 15
 
-    # Signal 5 — Policy source bonus
-    verified = ["hr_policy", "it_policy", "finance_policy",
-                "hr_1", "it_1", "finance_1"]
-    if any(v in (source or "").lower() for v in verified):
+    # Signal 5 — Policy source bonus (uses full VERIFIED_SOURCES list from constants)
+    if any(v in src_lower for v in VERIFIED_SOURCES):
         score += 10
 
     final = min(round(float(score), 1), 100.0)

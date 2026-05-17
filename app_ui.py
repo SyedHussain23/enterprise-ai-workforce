@@ -1,5 +1,7 @@
-# streamlit_app.py
+# app_ui.py — Streamlit prototype UI (legacy; React frontend is the primary UI)
+# Use for quick local demos only. Not used in production deployment.
 
+import uuid
 import streamlit as st
 import requests
 
@@ -20,6 +22,7 @@ API_URL = "http://127.0.0.1:8000"
 for key, default in [
     ("token",         None),
     ("role",          None),
+    ("session_id",    str(uuid.uuid4())),   # unique per browser session
     ("chat_history",  []),
     ("last_response", None),
 ]:
@@ -75,9 +78,16 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown("### System Status")
-    st.success("✅ Backend Connected")
-    st.success("✅ Agents Active")
-    st.success("✅ Knowledge Base Ready")
+    try:
+        health = requests.get(f"{API_URL}/health", timeout=3)
+        if health.status_code == 200:
+            st.success("✅ Backend Connected")
+            st.success("✅ Agents Active")
+            st.success("✅ Knowledge Base Ready")
+        else:
+            st.error(f"⚠️ Backend returned {health.status_code}")
+    except Exception:
+        st.error("❌ Backend not reachable")
 
     st.markdown("---")
     st.markdown("### Active Agents")
@@ -122,7 +132,7 @@ with tab1:
             try:
                 res = requests.post(
                     f"{API_URL}/ask",
-                    json    = {"session_id": "user1", "question": user_input},
+                    json    = {"session_id": st.session_state.session_id, "question": user_input},
                     headers = headers,
                     timeout = 60
                 )

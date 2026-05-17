@@ -1,9 +1,61 @@
-
 Finance Policy Document
 
-Topic: Bonus
+Topic: Bonus and Incentive Policy
 
 Details:
-Annual performance bonus given.
+The company rewards high-performing employees through a structured annual bonus program.
+
+BONUS ELIGIBILITY:
+- Must be employed on 31st December to be eligible for annual bonus
+- Minimum performance rating of 3 (Meets Expectations) required
+- Must have completed probation period before bonus calculation date
+- Employees on Performance Improvement Plan (PIP) are not eligible
+- Part-time employees: Bonus prorated based on hours worked
+
+BONUS PAYMENT TIMING:
+- Annual performance bonus: Paid in February (for prior calendar year performance)
+- Mid-year incentive (certain roles): Paid in August
+- Spot bonuses (exceptional contribution): Paid in next payroll cycle after approval
+
+BONUS CALCULATION:
+Bonus = Target Bonus % × Basic Annual Salary × Performance Multiplier
+
+Target Bonus Percentages by Grade:
+- Grade 1–2: 5% of annual basic salary
+- Grade 3–4: 10% of annual basic salary
+- Grade 5: 15% of annual basic salary
+- Grade 6: 20% of annual basic salary
+- Grade 7+: 25–40% of annual basic salary (includes company performance component)
+
+Performance Multipliers:
+- Rating 5 (Outstanding): 1.5× target bonus
+- Rating 4 (Exceeds Expectations): 1.2× target bonus
+- Rating 3 (Meets Expectations): 1.0× target bonus
+- Rating 2 (Below Expectations): 0.5× target bonus
+- Rating 1 (Unsatisfactory): 0× (no bonus)
+
+Example:
+Grade 3 employee, AED 10,000 basic/month, Rating 4:
+Annual basic = AED 120,000
+Target bonus = 10% = AED 12,000
+With multiplier (1.2): AED 14,400 bonus
+
+MID-YEAR JOINERS:
+- Prorated based on months worked in the bonus year
+- Joined July 1st: Eligible for 50% of full bonus (6 out of 12 months)
+- Prorated to nearest full month
+
+SALES INCENTIVE PLANS (COMMISSION):
+- Sales roles have separate commission structure defined in employment contract
+- Commission paid monthly (following month after deals close)
+- No cap on commission earnings for outperformance
+- Clawback applies if client cancels within 90 days of deal close
+
+SPOT BONUSES:
+- Manager can nominate employee for spot bonus (AED 500 – AED 5,000)
+- Department Head and HR approval required
+- Max 2 spot bonuses per employee per year
+- Does not affect annual bonus calculation
 
 Document ID: Finance_2
+Keywords: bonus, incentive, performance bonus, annual bonus, bonus policy, commission, salary bonus, bonus calculation, reward

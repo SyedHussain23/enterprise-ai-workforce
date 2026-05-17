@@ -1,9 +1,62 @@
-
 IT Policy Document
 
-Topic: Security
+Topic: Cybersecurity Policy and Threat Awareness
 
 Details:
-Do not share credentials.
+All employees share responsibility for protecting company data and systems from cyber threats.
+
+THE THREAT LANDSCAPE:
+Common cyber attacks targeting companies:
+1. Phishing: Fake emails appearing to be from trusted sources, stealing credentials
+2. Spear Phishing: Targeted phishing using personal information about you
+3. Ransomware: Malicious software that encrypts your files and demands payment
+4. Social Engineering: Manipulating employees to reveal information over phone/chat
+5. Business Email Compromise (BEC): Fake emails from "CEO" or "Finance" requesting wire transfers
+6. Malware: Malicious software installed through infected attachments or websites
+
+PHISHING RECOGNITION:
+Red flags to watch for:
+- Email from unknown sender claiming urgency ("Immediate action required")
+- Sender domain is slightly wrong: finance@c0mpany.com (notice the zero)
+- Generic greetings: "Dear Employee" instead of your name
+- Requests for login credentials, passwords, or financial transfers via email
+- Unusual links (hover over link to check actual URL before clicking)
+- Unexpected attachments (especially .zip, .exe, .docm files)
+
+WHAT TO DO IF YOU RECEIVE A SUSPICIOUS EMAIL:
+1. Do NOT click any links or open attachments
+2. Do NOT reply to the email
+3. Forward to: security@company.com or use "Report Phishing" button in Outlook
+4. Delete the email after reporting
+5. If you accidentally clicked: Disconnect from internet immediately, call IT: Ext. 1001
+
+PHISHING SIMULATION:
+- Company runs monthly phishing simulation exercises
+- If you click a simulated phishing email: Mandatory 30-minute security awareness training
+- Purpose: Training, not punishment — helps identify where training is needed
+
+DATA PROTECTION RULES:
+- Lock your screen when leaving workstation (Windows: Win+L, Mac: Ctrl+Cmd+Q)
+- Do not store sensitive data on personal cloud services (Google Drive, Dropbox, iCloud)
+- Use company OneDrive/SharePoint for all work files
+- Encrypt sensitive files before emailing (use company email encryption — S/MIME)
+- Do not print sensitive documents and leave them on desks — shred when done
+
+USB AND REMOVABLE MEDIA:
+- Personal USB drives are PROHIBITED on company computers
+- Company-issued encrypted USB drives available from IT for approved use only
+- USB ports are monitored — unauthorized devices trigger security alert
+
+INTERNET SECURITY:
+- Avoid suspicious websites; company firewall blocks known malicious sites
+- Do not download software from unofficial sources
+- Use only company-approved browser extensions
+- Clear browser cache weekly on shared computers
+
+REPORTING SECURITY INCIDENTS:
+- Report ANY suspected security incident immediately: it-security@company.com or Ext. 1001
+- Signs of compromise: Unusual pop-ups, slow computer, unexpected program launches, unknown files
+- Never try to investigate or handle a security incident yourself
 
 Document ID: IT_4
+Keywords: cybersecurity, phishing, email security, malware, ransomware, data protection, security awareness, cyber attack, phishing email, suspicious email

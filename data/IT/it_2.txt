@@ -1,9 +1,67 @@
-
 IT Policy Document
 
-Topic: VPN
+Topic: VPN and Remote Access Policy
 
 Details:
-VPN required for remote access.
+All remote access to company systems must be secured through the company-approved VPN.
+
+VPN MANDATORY USE CASES:
+- Working from home (WFH)
+- Accessing company systems from any non-office location
+- Using company email or files on public/home networks
+- Connecting to internal servers, databases, or applications remotely
+
+VPN CLIENT SETUP:
+Software: Cisco AnyConnect Secure Mobility Client
+Download: IT Portal → Downloads → VPN Client (Windows/Mac/Linux)
+Installation: Run installer, accept certificate, enter company server address: vpn.company.com
+First-time setup requires IT activation — submit request via IT Portal
+
+HOW TO CONNECT TO VPN:
+1. Open Cisco AnyConnect
+2. Enter server: vpn.company.com
+3. Click Connect
+4. Enter your company email and password
+5. Complete MFA verification (Authenticator app or SMS OTP)
+6. Connection confirmed: Lock icon appears in system tray
+
+VPN TROUBLESHOOTING:
+Problem: Cannot connect to VPN
+Solutions:
+- Check internet connection first
+- Ensure Cisco AnyConnect is up to date (IT Portal → Downloads)
+- Check if MFA device is working
+- Try alternative MFA method (SMS instead of app)
+- Restart Cisco AnyConnect service
+- Contact IT: Ext. 1001 or it-support@company.com
+
+Problem: VPN connected but cannot access company resources
+Solutions:
+- Disconnect and reconnect VPN
+- Clear browser cache and try again
+- Check if specific resource requires additional access permissions
+- Contact IT Portal → Raise Ticket
+
+SPLIT TUNNELING:
+- Split tunneling is DISABLED on company VPN (security policy)
+- All internet traffic routes through company network when VPN is active
+- This ensures consistent security monitoring and data loss prevention
+- Do not use VPN bypass tools — this is a policy violation
+
+APPROVED DEVICES:
+- Company-issued laptops and desktops: Pre-configured, connect directly
+- Personal devices (BYOD): Must be pre-approved by IT and registered before VPN access granted
+- Mobile phones: VPN app available for iOS and Android (GlobalProtect or Cisco AnyConnect)
+- Unauthorized devices: Cannot connect to company VPN
+
+AUTOMATIC VPN POLICIES:
+- VPN auto-connects when on non-company network (configured by IT on company devices)
+- Always-on VPN: Enabled for devices that handle sensitive data (Finance, Legal, IT admin)
+
+INTERNET USAGE WHILE ON VPN:
+- All internet traffic is monitored for security when on company VPN
+- Company reserves right to monitor traffic for security purposes (not personal browsing)
+- Bandwidth-intensive personal activities discouraged during work hours (streaming, large downloads)
 
 Document ID: IT_2
+Keywords: VPN, remote access, Cisco AnyConnect, VPN setup, VPN connection, VPN troubleshooting, remote work, VPN client, work from home IT

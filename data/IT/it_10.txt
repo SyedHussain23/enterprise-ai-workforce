@@ -1,9 +1,52 @@
-
 IT Policy Document
 
-Topic: Monitoring
+Topic: IT Monitoring and Employee Privacy
 
 Details:
-System monitored 24/7.
+The company monitors IT systems to protect company assets, ensure compliance, and detect security incidents.
+
+WHAT IS MONITORED:
+1. Network traffic: All data flowing through company network (for malware detection, DLP)
+2. Email: Automated scanning for malware, phishing, and data loss prevention
+3. Web browsing: Websites visited on company network or VPN (category-level, not specific page content)
+4. Endpoint activity: Application usage, file operations on company devices (for security, not micromanagement)
+5. Login activity: All login events, failed logins, access to sensitive systems logged
+6. Video surveillance: Physical office areas (common areas, server rooms) — not in private areas
+
+WHAT IS NOT MONITORED:
+- Personal devices on Guest Wi-Fi (no company MDM)
+- Personal email accounts accessed via personal device
+- Personal phone calls
+- Physical movements within office (beyond CCTV in common areas)
+
+EMPLOYEE PRIVACY:
+- Monitoring is for security and business purposes, not to surveil employees' personal communications
+- Company does not monitor personal messages on Teams/Slack beyond automated policy scanning
+- IT staff do not access email content without documented business or legal reason
+- All monitoring activities logged with audit trail
+
+ACCEPTABLE USE OF MONITORING:
+Monitoring data accessed by IT Security only for:
+- Investigating security incidents
+- Responding to legal or regulatory requirements
+- Investigating policy violations (only with HR and legal approval)
+
+PURPOSE OF MONITORING:
+- Detect and prevent cyber attacks
+- Prevent unauthorized data exfiltration
+- Ensure compliance with UAE data protection laws
+- Investigate security incidents when they occur
+- Provide evidence in case of legal disputes
+
+TRANSPARENCY:
+- Employees are informed of monitoring through this policy and acceptable use agreement (signed on joining)
+- Specific monitoring actions (e.g., reviewing an employee's email) require manager + HR + IT Security sign-off
+- Employees may request information on what data is held about them (Data Subject Access Request)
+
+ON-CALL IT SUPPORT AND MONITORING:
+- IT monitors critical systems 24/7 via automated tools and Security Operations Center (SOC)
+- Automated alerts for: Unusual login times, large data transfers, malware detection
+- IT will contact you if unusual activity is detected on your account
 
 Document ID: IT_10
+Keywords: monitoring, IT monitoring, privacy, surveillance, employee privacy, internet monitoring, acceptable use, system monitoring, email monitoring

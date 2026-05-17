@@ -1,9 +1,58 @@
-
 IT Policy Document
 
-Topic: Remote Access
+Topic: Video Conferencing and Collaboration Tools Guide
 
 Details:
-Secure remote access only.
+Comprehensive guide to using company-approved video conferencing and collaboration tools.
+
+MICROSOFT TEAMS (Primary Internal Tool):
+Setup: Pre-installed on all company devices, sign in with company email
+Mobile: Download Teams app on personal phone for flexibility
+
+TEAMS KEY FEATURES:
+Chat: Direct messages (1:1 or group), file sharing, reactions, voice messages
+Calls: Audio and video calls with screen sharing
+Meetings: Scheduled with calendar integration, recurring meetings
+Channels: Organized spaces for team or project communication
+Files: SharePoint integration — files shared in Teams saved to SharePoint automatically
+Together Mode: Virtual seating arrangement for large team meetings
+
+ZOOM (External Meetings):
+- Company Zoom account: Unlimited meeting duration (personal free accounts: 40-min limit)
+- Join: zoom.us/join or Zoom app → Sign In → Company account
+- Scheduling: From Outlook → New Event → Add Zoom Meeting
+- Waiting Room: Always enable for external participant meetings
+- Recording: Ask all participants for consent before recording
+
+VIDEO MEETING BEST PRACTICES:
+Before meeting:
+- Test audio/video (Zoom: Settings → Test Computer Audio/Video)
+- Close unnecessary applications (reduces bandwidth, no notifications popping up)
+- Ensure professional background or use virtual background
+- Charge laptop if on battery
+- Prepare and share agenda 24 hours in advance for meetings > 30 minutes
+
+During meeting:
+- Mute when not speaking (especially in large calls)
+- Turn camera ON for all team meetings (off only for 30+ person webinars)
+- Raise hand feature for large meetings (Teams: ✋ React → Raise Hand)
+- Use chat for questions in large meetings to avoid interrupting speaker
+
+After meeting:
+- Share meeting notes within 24 hours
+- Update task/project board with action items from meeting
+- Send recording link if meeting was recorded (Teams: auto-posted in meeting chat)
+
+LARGE SCALE MEETINGS AND WEBINARS:
+- Teams Live Events: Up to 10,000 attendees (Town Halls, company-wide updates)
+- Zoom Webinar: Up to 500 attendees (training, external presentations)
+- Booking required: Submit request via IT Portal → Collaboration → Large Meeting Request
+
+CONNECTIVITY ISSUES DURING MEETINGS:
+- Turn off video temporarily to reduce bandwidth
+- Switch to phone audio if video not working
+- Dial-in number available in every meeting invite
+- If still issues: Disconnect VPN temporarily for video call (re-enable after) — with manager permission
 
 Document ID: IT_25
+Keywords: video conferencing, Teams, Zoom, video call, online meeting, Microsoft Teams, collaboration, screen share, meeting guide, virtual meeting

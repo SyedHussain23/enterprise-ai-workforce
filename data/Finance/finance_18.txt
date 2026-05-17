@@ -1,9 +1,54 @@
-
 Finance Policy Document
 
-Topic: Cash Flow
+Topic: Cash Flow Management and Treasury Policy
 
 Details:
-Cash flow monitored weekly.
+The company manages cash flow proactively to ensure sufficient liquidity for all operational needs.
+
+CASH FLOW OBJECTIVES:
+- Maintain minimum 90-day operating expense reserve at all times
+- Collect client payments promptly to minimize Days Sales Outstanding (DSO)
+- Manage supplier payment terms to optimize working capital
+- Minimize idle cash through short-term investment where appropriate
+
+ACCOUNTS RECEIVABLE (COLLECTING FROM CLIENTS):
+- Payment terms on all client invoices: Net 30 days (standard)
+- Invoice issued within 5 business days of service delivery
+- Automated payment reminders: 7 days before due, on due date, 7 days overdue
+- Collection escalation:
+  * 0–30 days overdue: Automated reminder + AR team follow-up
+  * 30–60 days: Account Manager escalates with client relationship awareness
+  * 60–90 days: Finance Director and relevant Director jointly contact client
+  * Over 90 days: Legal review for debt recovery
+
+EMPLOYEE ROLE IN CASH COLLECTION:
+- Account managers and project leads must ensure clients are invoiced promptly
+- Do not agree to extended payment terms without Finance Director approval
+- Report any client indicating payment difficulty immediately to Finance and your manager
+- Do not promise credit notes or payment deferrals to clients — Finance must approve
+
+ACCOUNTS PAYABLE (PAYING SUPPLIERS):
+- Pay within agreed terms (typically Net 30)
+- Early payment discounts evaluated case-by-case (often worth taking if company has cash)
+- Do not promise suppliers early payment without Finance approval
+
+FOREIGN CURRENCY:
+- Company operates primarily in AED (pegged to USD at AED 3.67)
+- GCC currencies: Generally stable, low FX risk
+- International contracts in other currencies: Finance hedges FX exposure on significant contracts
+- Employee expenses incurred abroad: Reimbursed at exchange rate at time of transaction (Finance Portal uses live FX rates)
+- Claiming foreign currency expenses: Enter in original currency in Finance Portal (auto-converts to AED)
+
+BANKING RELATIONSHIPS:
+- Primary bank: Emirates NBD (operating account)
+- Secondary bank: First Abu Dhabi Bank (FAB)
+- Treasury investments: Conservative — money market funds, UAE government bonds
+- No speculative investments with company operating funds
+
+CASH ADVANCE FOR EMPLOYEES:
+- For travel cash advance: See Travel Policy (Finance_8)
+- For personal advance: See Salary Advance Policy (Finance_11)
+- All cash advances tracked in Finance system and must be reconciled promptly
 
 Document ID: Finance_18
+Keywords: cash flow, treasury, accounts receivable, accounts payable, payment collection, foreign currency, FX, banking, cash management

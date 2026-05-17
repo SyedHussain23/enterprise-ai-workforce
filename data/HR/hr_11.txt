@@ -1,9 +1,56 @@
-
 HR Policy Document
 
-Topic: Training
+Topic: Training and Development Policy
 
 Details:
-Employees undergo quarterly training.
+The company invests in continuous learning to develop talent and drive organizational growth.
+
+TRAINING BUDGET:
+- Annual training budget per employee: AED 5,000–15,000 (based on grade level)
+- Grade 1–3: AED 5,000/year
+- Grade 4–5: AED 8,000/year
+- Grade 6+: AED 15,000/year
+- Unused budget does not roll over to next year
+- Requests above budget require CHRO approval
+
+MANDATORY TRAINING (All employees):
+1. Information Security Awareness Training — Annual (online, 2 hours)
+2. Anti-Harassment and Code of Conduct — Annual (online, 1 hour)
+3. Data Privacy and GDPR Compliance — Annual (online, 1 hour)
+4. Fire Safety and Emergency Procedures — Annual (in-person, 30 minutes)
+5. UAE Labour Law Overview — On joining and annual refresh
+
+Mandatory training must be completed within:
+- New joiners: First 30 days
+- Annual refresh: By 31st December each year
+Failure to complete mandatory training: Written warning, access restrictions
+
+TYPES OF TRAINING:
+1. On-the-Job Training (OJT): Shadowing, stretch assignments, job rotation
+2. Online Learning: LinkedIn Learning, Coursera, Udemy for Business (unlimited access)
+3. Internal Workshops: Monthly department-specific sessions, lunch & learns
+4. External Training: Conferences, seminars, certified courses
+5. Certification Support: Company pays for professional certifications (CIPD, PMP, CFA, etc.)
+6. Higher Education Support: Tuition reimbursement for part-time relevant degrees (up to AED 25,000/year)
+
+HOW TO REQUEST TRAINING:
+1. Identify training aligned to your IDP (Individual Development Plan)
+2. Submit training request via HR Portal → Learning → Request Training
+3. Include: Course name, provider, dates, cost, business justification
+4. Manager approves, then HR validates budget availability
+5. Finance processes payment directly or reimburses employee on receipt
+
+TRAINING BOND:
+- For courses costing AED 10,000+, a training bond applies
+- Bond period: 12–24 months depending on cost
+- If employee resigns within bond period, they repay a pro-rated amount of training cost
+- Bond agreement signed before training enrollment
+
+LEARNING MANAGEMENT SYSTEM (LMS):
+- Access online training library at: learning.company.internal
+- Over 5,000 courses available in English and Arabic
+- Completion certificates automatically sent to HR file
+- Monthly recommendations based on your role and IDP
 
 Document ID: HR_11
+Keywords: training, learning, development, courses, certification, learning budget, professional development, upskilling, workshop

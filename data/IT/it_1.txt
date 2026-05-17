@@ -1,9 +1,58 @@
-
 IT Policy Document
 
-Topic: Password
+Topic: Password Security Policy
 
 Details:
-Passwords must change every 90 days.
+Strong passwords are the first line of defense against unauthorized access to company systems.
+
+PASSWORD REQUIREMENTS:
+- Minimum length: 12 characters (recommended: 16+)
+- Must contain all four: uppercase letters, lowercase letters, numbers, special characters (!@#$%^&*)
+- Must NOT contain: Your name, username, company name, or common words (password123, qwerty, etc.)
+- Must NOT be the same as any of your last 12 passwords
+- Must NOT be reused across multiple systems
+
+PASSWORD EXPIRY AND ROTATION:
+- Company systems: Password expires every 90 days
+- Privileged/admin accounts: Password expires every 60 days
+- You will receive reminder notifications 14 days, 7 days, and 1 day before expiry
+- Failure to update password before expiry: Account automatically locked (requires IT to unlock)
+
+HOW TO CHANGE YOUR PASSWORD:
+Method 1 (Windows): Press Ctrl+Alt+Del → Change Password
+Method 2 (HR/IT Portal): Settings → Security → Change Password
+Method 3 (Self-service Reset): https://passwordreset.company.internal (requires mobile phone verification)
+Note: You can change password at any time, not just when it expires
+
+PASSWORD RESET PROCESS:
+If you forgot your password:
+1. Go to: https://passwordreset.company.internal
+2. Enter your company email address
+3. Verify identity via mobile OTP (registered number) or security questions
+4. Create new password meeting all requirements
+5. If locked out without access to phone: Call IT Helpdesk: Ext. 1001
+
+MULTI-FACTOR AUTHENTICATION (MFA):
+- Mandatory for: All company email accounts, VPN access, cloud applications, HR Portal
+- Methods accepted: Microsoft Authenticator app (preferred), SMS OTP, Hardware token
+- Setup: IT Portal → My Account → Enable MFA
+- Lost MFA device: Contact IT Helpdesk immediately for emergency bypass code
+
+PASSWORD MANAGER:
+- Company provides: LastPass Enterprise or Bitwarden Business license to all employees
+- Use password manager to generate and store unique passwords for each system
+- Never write passwords on sticky notes or store in plain text files
+
+SHARING PASSWORDS — STRICTLY PROHIBITED:
+- Never share your password with anyone — including IT staff
+- IT will NEVER ask for your password via email or phone
+- If someone asks for your password: Report it immediately to it-security@company.com
+- Violations: Disciplinary action up to termination
+
+SUSPICIOUS ACTIVITY:
+- Receive unexpected password reset email? Do NOT click links — call IT immediately
+- Notice unusual logins? Report to: it-security@company.com
+- Password breach alert from company system: Change password immediately
 
 Document ID: IT_1
+Keywords: password, password policy, password reset, password change, forgot password, password requirements, MFA, multi-factor authentication, account locked

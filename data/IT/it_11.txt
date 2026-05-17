@@ -1,9 +1,61 @@
-
 IT Policy Document
 
-Topic: Email
+Topic: Email and Communication Policy
 
 Details:
-Official email usage only.
+Company email and communication tools must be used professionally and in accordance with this policy.
+
+COMPANY EMAIL:
+- All official business communication must use your company email: firstname.lastname@company.com
+- Company email is company property — subject to monitoring per IT Monitoring Policy
+- Confidential emails must be encrypted (use Encrypt button in Outlook for sensitive information)
+- Email auto-replies (out-of-office) should be configured when on leave
+
+EMAIL BEST PRACTICES:
+- Subject line: Clear, specific, and descriptive ("Q3 Budget Review — Action Required by 15 Dec")
+- Reply All: Only use Reply All when response is relevant to ALL recipients
+- CC vs BCC: CC = visible, BCC = hidden. Use BCC for large distributions to protect recipient privacy
+- Attachments: Maximum 25 MB per email (use SharePoint link for larger files)
+- Response time expectation: Within 4 business hours for internal, 1 business day for external
+
+EMAIL PROHIBITED USES:
+- Sending chain letters, mass forwards, or spam
+- Using company email to sign up for personal services or newsletters
+- Sending confidential company data to personal email addresses
+- Forwarding business email to personal Gmail/Yahoo/Hotmail
+- Sending harassing, discriminatory, or offensive content
+- Mass marketing emails without Marketing team approval
+
+MICROSOFT TEAMS (Internal Communication):
+- Preferred tool for internal messaging and collaboration
+- Channels: Department channels, project channels, company-wide announcements
+- Status: Set your availability status accurately (Available/Busy/Do Not Disturb/Away)
+- Response time: Within 30 minutes during business hours for direct messages
+- Teams for calls: Preferred for ad-hoc calls, reduces email overload
+
+ZOOM (External Meetings):
+- Use Zoom for external client and partner meetings
+- Always use company Zoom account (not personal)
+- Enable waiting room for all client calls
+- Record only with all participants' consent (announce at meeting start)
+
+VIDEO MEETING ETIQUETTE:
+- Camera ON for internal team meetings (unless explicitly exempt)
+- Professional background or use virtual background
+- Mute when not speaking in large calls
+- Test audio/video before important external meetings
+
+CONFIDENTIAL COMMUNICATIONS:
+- Client contracts, financial information, personal employee data: Use encrypted email
+- Select "Encrypt" in Outlook before sending
+- Do not discuss highly confidential matters in open-plan office areas
+- Use meeting rooms for sensitive conversations
+
+WHATSAPP AND PERSONAL MESSAGING:
+- Business communication should not rely on personal WhatsApp
+- Company WhatsApp Business: Approved for specific customer-facing roles only
+- Do not share confidential company information on personal WhatsApp groups
+- Client communication on personal WhatsApp requires manager approval
 
 Document ID: IT_11
+Keywords: email, company email, Teams, communication, email policy, Microsoft Teams, Zoom, messaging, video meeting, email etiquette

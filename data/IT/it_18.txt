@@ -1,9 +1,64 @@
-
 IT Policy Document
 
-Topic: Login
+Topic: Email Account Setup and Microsoft 365 Guide
 
 Details:
-Login via secure system.
+Step-by-step guide to setting up and using your company email and Microsoft 365 applications.
+
+EMAIL ACCOUNT SETUP:
+Your company email: firstname.lastname@company.com
+Initial password: Set by IT on Day 1 (you must change immediately)
+Email client: Microsoft Outlook (primary), Outlook Web App (browser-based backup)
+
+FIRST LOGIN:
+1. Open Outlook on your company laptop
+2. Enter your company email address
+3. Enter temporary password (provided by IT on Day 1)
+4. You will be prompted to change password immediately
+5. Set up MFA (see MFA Policy) — required before full access
+6. Configure Outlook signature (template provided by HR/Marketing)
+
+ACCESSING EMAIL FROM ANYWHERE:
+- Laptop: Outlook desktop app
+- Web browser: https://outlook.company.com (or portal.office.com)
+- Phone: Download Outlook app for iOS/Android, sign in with company email
+
+MICROSOFT 365 APPLICATIONS INCLUDED:
+- Outlook: Email and calendar
+- Word, Excel, PowerPoint: Document creation
+- Teams: Chat, calls, video meetings, file sharing
+- OneDrive: 1 TB personal cloud storage for work files
+- SharePoint: Team and department shared files
+- OneNote: Digital notebook
+- Forms: Surveys and quizzes
+- Planner: Task management
+- Power BI: Data visualization (specific roles)
+- Copilot AI: AI assistant integrated across M365 apps (licensed users)
+
+OUTLOOK TIPS FOR PRODUCTIVITY:
+- Focused Inbox: Separates important emails from newsletters/notifications
+- Rules: Automatically sort emails to folders (Home → Rules → Create Rule)
+- Quick Steps: One-click actions for common email workflows
+- Calendar: Schedule meetings with Teams link (New Meeting → Teams Meeting)
+- Shared Calendars: View team members' availability for scheduling
+
+TEAMS GUIDE:
+- Direct messages: Find colleague by name, click chat icon
+- Team channels: Organized by department/project for group communication
+- @Mention: Tag colleague to get their attention in a channel (@firstname)
+- File sharing: Drag and drop files into Teams chat or channel
+- Tabs: Add SharePoint, Planner, or apps directly in a channel
+
+STORAGE AND FILE MANAGEMENT:
+- OneDrive: Your personal work files (1 TB)
+- SharePoint: Shared team files and documents
+- Never save to: Local C: drive only (not backed up)
+- Always sync OneDrive on new device: Open OneDrive app → sign in with company account
+
+OUTLOOK CALENDAR BEST PRACTICES:
+- Mark working hours in calendar (Options → Calendar → Work Hours)
+- Block focus time: Schedule 2-hour focus blocks to minimize meeting interruptions
+- Meeting duration: Default to 25 or 50 minutes (leave 5/10 min buffer)
 
 Document ID: IT_18
+Keywords: email setup, Outlook, Microsoft 365, M365, email account, company email, Teams setup, OneDrive, SharePoint, email configuration

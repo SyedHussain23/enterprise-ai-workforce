@@ -1,9 +1,56 @@
-
 HR Policy Document
 
-Topic: Code of Conduct
+Topic: Code of Conduct and Employee Behavior Policy
 
 Details:
-Employees must maintain discipline.
+The Code of Conduct defines the ethical and behavioral standards all employees are expected to uphold.
+
+CORE PRINCIPLES:
+1. Integrity: Act honestly and transparently in all business dealings
+2. Respect: Treat all colleagues, clients, and stakeholders with dignity
+3. Accountability: Take responsibility for actions and decisions
+4. Confidentiality: Protect company and client information
+5. Compliance: Follow all laws, regulations, and company policies
+
+PROFESSIONAL CONDUCT:
+- Treat all colleagues with respect regardless of rank, nationality, gender, or religion
+- Use professional and constructive language in all workplace communications
+- Avoid gossip, rumor spreading, or behavior that damages team morale
+- Dress appropriately (see Dress Code Policy)
+- Maintain punctuality for meetings and deliverables
+- Represent the company positively in all external interactions
+
+CONFLICTS OF INTEREST:
+- Disclose any personal relationship with a vendor, supplier, or competitor
+- Do not make business decisions that benefit yourself or close family members personally
+- Do not work for a competitor or client outside company hours without approval
+- Annual conflict of interest declaration required from all employees (November)
+
+SOCIAL MEDIA POLICY:
+- Do not post negative content about the company, colleagues, or clients
+- Do not share confidential information on social media
+- Personal opinions expressed online must not imply company endorsement
+- Company accounts managed only by authorized Marketing team
+
+GIFTS AND HOSPITALITY:
+- Gifts up to AED 200 in value may be accepted
+- Gifts above AED 200 must be declared to HR within 5 days and may be declined or donated
+- Do not accept gifts from vendors in exchange for business decisions
+- Company gifts to clients: Maximum AED 500 per occasion, Finance approval required
+
+ANTI-BRIBERY AND CORRUPTION:
+- Zero tolerance policy for bribery
+- Never offer or accept money, gifts, or favors to influence business decisions
+- Report any suspicion of bribery to Ethics Hotline: ethics@company.com or anonymously via Ethics Portal
+- Whistleblower protection guaranteed
+
+DATA AND INFORMATION HANDLING:
+- Never share client or employee personal data with unauthorized parties
+- Lock your screen when leaving your desk
+- Do not use personal USB drives on company computers
+- Follow clean desk policy: No sensitive documents left visible on desk
+
+Violations reported to: ethics@company.com | HR Director
 
 Document ID: HR_14
+Keywords: code of conduct, behavior, ethics, professional conduct, conflict of interest, social media, gifts, bribery, anti-corruption

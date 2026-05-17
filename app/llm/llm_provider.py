@@ -1,8 +1,12 @@
+# app/llm/llm_provider.py
+from __future__ import annotations
+
 from langchain_openai import ChatOpenAI
-import os
+
+from app.core.config import settings
 
 llm = ChatOpenAI(
-    model="gpt-4o-mini",
+    model=settings.OPENAI_MODEL,
     temperature=0.3,
-    api_key=os.getenv("OPENAI_API_KEY")
+    api_key=settings.OPENAI_API_KEY,
 )

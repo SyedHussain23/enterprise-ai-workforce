@@ -46,3 +46,43 @@ class WorkflowResponse(BaseModel):
     action_id: str | None = None
     action_type: str | None = None
     action_status: str | None = None
+
+
+# ── User profile schemas ───────────────────────────────────────────────────────
+
+class UpdateProfileRequest(BaseModel):
+    email: str | None = Field(default=None, max_length=255)
+    department: str | None = Field(default=None, max_length=50)
+
+
+class ChangePasswordRequest(BaseModel):
+    current_password: str = Field(..., min_length=1, max_length=200)
+    new_password: str = Field(..., min_length=8, max_length=200)
+
+    @field_validator("new_password")
+    @classmethod
+    def password_strength(cls, v: str) -> str:
+        if not any(c.isdigit() for c in v):
+            raise ValueError("Password must contain at least one digit")
+        if not any(c.isupper() for c in v):
+            raise ValueError("Password must contain at least one uppercase letter")
+        return v
+
+
+# ── Admin user management schemas ─────────────────────────────────────────────
+
+class UpdateUserRequest(BaseModel):
+    role: str | None = Field(default=None, pattern=r"^(admin|manager|employee)$")
+    is_active: bool | None = None
+    department: str | None = Field(default=None, max_length=50)
+
+
+class UserProfileResponse(BaseModel):
+    id: str
+    username: str
+    email: str
+    role: str
+    department: str | None
+    is_active: bool
+    company_id: str
+    created_at: str

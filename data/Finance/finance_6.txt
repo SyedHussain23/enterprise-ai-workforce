@@ -1,9 +1,54 @@
-
 Finance Policy Document
 
-Topic: Budget
+Topic: Budget Management and Planning
 
 Details:
-Budget approved by finance head.
+The annual budget process ensures resources are allocated efficiently to meet business objectives.
+
+BUDGET CYCLE:
+- Budget preparation: October–November (for following year)
+- Submission deadline: 30th November
+- CFO review and consolidation: December
+- Board approval: January (before fiscal year start)
+- Budget communicated to department heads: By 15th January
+
+BUDGET COMPONENTS:
+1. Operating Expenses (OPEX): Day-to-day costs — salaries, rent, utilities, software, marketing
+2. Capital Expenditure (CAPEX): Long-term assets — equipment, software licenses > 1 year, renovations
+3. Headcount Plan: Number of employees, hiring plan, timing
+4. Revenue Forecast: Expected income (prepared by Sales/Finance together)
+
+DEPARTMENT BUDGET PREPARATION:
+1. Finance sends each department head the prior year actuals and next year templates
+2. Department head completes: Staff costs, operational costs, project costs, travel budget
+3. Justification required for any item > 20% increase vs prior year
+4. Submit via Finance Portal → Budget → Department Submission
+5. Finance partner reviews with department head in calibration meeting (November)
+
+MONTHLY BUDGET MONITORING:
+- Finance sends monthly budget vs actuals report to each department head by 5th of following month
+- Report includes: Budget, Actual, Variance (AED and %), YTD summary
+- Department heads must investigate variances > 10% and report to Finance
+- Underspend: Generally acceptable, unspent budget doesn't carry forward to next year
+- Overspend: Requires Finance Director approval and action plan to correct
+
+MID-YEAR BUDGET REVISION:
+- Formal mid-year review in July
+- Departments may request budget adjustments (increase or reallocation)
+- Net budget increase requests require CFO approval
+- Budget reallocation between cost lines within same department: Department head can approve
+
+REQUESTING UNBUDGETED SPEND:
+1. Submit unbudgeted spend request to Finance Portal → Budget → Unbudgeted Request
+2. Include: Amount, description, business justification, which budget line to fund from
+3. Approval chain: Department Head → Finance Director → CFO (if > AED 50,000)
+4. Decision within 5 business days
+
+COST CENTER CODES:
+- Each department has a cost center code
+- All expenses must be coded to correct cost center
+- Finance provides cost center guide (Finance Portal → Resources → Cost Center List)
+- Wrong cost center: Finance corrects after notifying department head
 
 Document ID: Finance_6
+Keywords: budget, budget planning, department budget, OPEX, CAPEX, budget request, cost center, budget approval, annual budget, budget review

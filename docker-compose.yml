@@ -54,7 +54,7 @@ services:
       PORT:             "8000"
       DEBUG:            "false"
       OPENAI_API_KEY:   ${OPENAI_API_KEY}
-      SECRET_KEY:       ${SECRET_KEY:-change-me-use-32-char-minimum}
+      SECRET_KEY:       ${SECRET_KEY:?SECRET_KEY must be set in .env — generate with: openssl rand -hex 32}
       DATABASE_URL:     postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}
       DATABASE_URL_SYNC: postgresql+psycopg2://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}
       REDIS_URL:        redis://redis:6379

@@ -1,9 +1,53 @@
-
 IT Policy Document
 
-Topic: Compliance
+Topic: Patch Management and System Updates
 
 Details:
-IT compliance enforced.
+Regular system updates are critical to maintaining security and protecting company systems.
+
+WHY UPDATES MATTER:
+- Software vulnerabilities are discovered daily — patches fix security holes before attackers exploit them
+- WannaCry ransomware (2017) infected 200,000 systems because patches were not applied
+- 60% of data breaches involve vulnerabilities with available patches (Verizon DBIR)
+- Regular updates = fewer vulnerabilities = lower risk of compromise
+
+AUTOMATIC UPDATE POLICY:
+- All company devices managed by IT via Microsoft Endpoint Manager (Intune)
+- Security patches: Deployed automatically within 7 days of release (critical patches within 24 hours)
+- Feature updates: Tested in IT lab first, then deployed company-wide (30-day test window)
+- Employees receive advance notice of major updates
+
+EMPLOYEE RESPONSIBILITIES:
+- Do NOT defer or decline software update notifications indefinitely
+- When prompted to restart for updates: Restart within 24 hours (use "Schedule Restart" for convenience)
+- Do NOT disable Windows Update, Microsoft Defender, or CrowdStrike updates
+- Report if device has not received updates (IT Portal → My Device → Check Update Status)
+
+SCHEDULED MAINTENANCE WINDOWS:
+- Major updates deployed: Tuesday nights 10 PM – 2 AM (Microsoft Patch Tuesday cycle)
+- Devices auto-restart after update if left on and idle
+- Save all work before leaving office to prevent data loss during auto-restart
+- WFH employees: Keep laptop on and connected Tuesday nights for update deployment
+
+APPLICATIONS UPDATE POLICY:
+- Microsoft 365: Auto-updated in background (no action needed)
+- CrowdStrike Falcon: Auto-updated (do not stop this process)
+- Chrome: Auto-updates enabled
+- Java, Adobe Acrobat: Updated via IT-managed deployment
+- Third-party apps: Updated by IT on quarterly cycle or as needed for security
+
+WHAT EMPLOYEES SEE:
+You may see notifications:
+- "Updates are ready — click to restart": Restart within 24 hours
+- "Updates installing — do not turn off": Let this complete (usually 10–20 minutes)
+- "Restart required": Save work, then restart
+
+REPORTING UPDATE ISSUES:
+If update causes application to break or system to malfunction:
+1. Note the exact error or problem
+2. Submit IT Ticket: IT Portal → Raise Ticket → Category: System Update Issue
+3. Do not try to roll back updates yourself
+4. IT has rollback capability if update causes critical issues
 
 Document ID: IT_23
+Keywords: system update, patch, Windows update, software update, security patch, update policy, OS update, system maintenance

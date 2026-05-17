@@ -1,4 +1,4 @@
-import { Plus, MessageSquare, LogOut, Settings, Globe } from 'lucide-react';
+import { Plus, MessageSquare, LogOut, Settings, Globe, UserCircle } from 'lucide-react';
 import clsx from 'clsx';
 import type { Session } from '../../api/types';
 import { useAuth } from '../../context/AuthContext';
@@ -93,6 +93,14 @@ export function Sidebar({ sessions, activeId, onSelect, onNew }: Props) {
             {isRTL ? 'لوحة الإدارة' : 'Admin dashboard'}
           </button>
         )}
+
+        <button
+          onClick={() => navigate('/profile')}
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-slate-100 text-sm transition-colors"
+        >
+          <UserCircle className="w-4 h-4" />
+          {isRTL ? 'ملفي الشخصي' : 'My profile'}
+        </button>
 
         <button
           onClick={toggleRTL}

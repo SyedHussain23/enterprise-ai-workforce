@@ -1,9 +1,74 @@
-
 Company Policy Document
 
-Topic: Team Work
+Topic: Teamwork, Collaboration & Cross-Functional Working
 
 Details:
-Collaboration encouraged.
+How we collaborate effectively across teams, departments, and locations.
+
+COLLABORATION PRINCIPLES:
+- We believe the best solutions come from diverse perspectives working together
+- Cross-functional collaboration is expected, not optional
+- "That's not my job" is not acceptable — we help each other across team boundaries
+- Credit is shared — we celebrate team wins, not individual heroics
+
+HOW WE WORK IN TEAMS:
+
+Project Teams:
+- Multi-functional project teams formed for initiatives that span departments
+- Project Lead assigned by department head; team members nominated by their managers
+- Project Kickoff: Scope, timeline, roles, and RACI clearly documented
+- Weekly project syncs: 30 minutes; action items tracked in Microsoft Planner
+- Project Retrospective: Conducted at end of every project — what went well? What could improve?
+
+Cross-Department Requests:
+- Requests between departments: Made via Teams or email to the relevant team lead
+- Service Level for internal requests: 2–3 business days for non-urgent; same-day for P1 urgent
+- If request is delayed: Escalate to relevant department manager (not HR)
+
+TEAM NORMS:
+Decision-Making:
+- Consensus preferred; if consensus can't be reached, the team lead decides
+- Disagree and commit: Once a decision is made, everyone commits — no sabotage or passive resistance
+- Escalate unresolved disputes to department head within 5 business days
+
+Meetings (see also Company_7):
+- Meetings have an agenda; only essential attendees invited
+- Action items always have an owner and due date
+- Decisions documented in meeting minutes
+
+Communication:
+- Default to transparency — share information that helps colleagues do their job better
+- "Don't surprise your manager" — keep managers updated on risks, issues, or delays
+- Communicate early and often — especially on cross-team dependencies
+
+REMOTE & HYBRID TEAM COLLABORATION:
+- Virtual-first meeting design: All meetings accessible for both in-office and remote employees
+- Async-first culture: Not everything needs a meeting — use Teams channels and SharePoint for updates
+- Shared team calendar: All team members keep calendars updated with availability
+- Team norms document: Each team maintains a simple "how we work" agreement
+
+CONFLICT RESOLUTION WITHIN TEAMS:
+1. Address directly: Speak to the colleague directly; most conflicts resolve with honest conversation
+2. Manager involvement: If unresolved after 48 hours, involve the line manager
+3. HR involvement: If still unresolved, HR Mediation is available (formally requested via hr@company.com)
+4. Formal grievance: See Grievance Policy (HR Document — hr_10.txt)
+
+TEAM BUILDING:
+- Annual team offsite / team building event: Budget provided per department
+- Monthly informal team lunches: Encouraged (no approval needed for team lunches under AED 500 total)
+- Team WhatsApp groups: Allowed for social purposes; maintain professionalism
+- Culture Committee organises company-wide social events quarterly
+
+RECOGNISING TEAMWORK:
+- Peer recognition: HR Portal → Recognition → Give a Shoutout (visible to whole team)
+- Team of the Quarter: Nominated by employees; announced at Town Hall; AED 2,000 team budget reward
+- Cross-functional recognition: Specifically recognised in performance reviews as a positive differentiator
+
+CONTACTS:
+- Internal collaboration: Microsoft Teams
+- Project management: Microsoft Planner
+- HR Mediation: hr@company.com
+- Culture Committee (team events): culture@company.com
 
 Document ID: Company_10
+Keywords: teamwork, collaboration, cross-functional, project teams, team norms, conflict resolution, hybrid collaboration, peer recognition, team building, working together

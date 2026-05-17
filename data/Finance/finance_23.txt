@@ -1,9 +1,60 @@
-
 Finance Policy Document
 
-Topic: Assets
+Topic: Insurance and Risk Management
 
 Details:
-Company assets monitored.
+The company maintains comprehensive insurance coverage to protect employees, assets, and operations.
+
+EMPLOYEE INSURANCE COVERAGE:
+
+1. Group Medical Insurance:
+   - Provider: Premium insurer (Daman/AXA/Bupa)
+   - Coverage: Employee + spouse + up to 3 children (under 18)
+   - Inpatient limit: AED 500,000/person/year
+   - Outpatient: AED 500 per visit, extensive network
+   - Emergency: Covered worldwide
+   - Maternity: Covered (AED 10,000–20,000 for normal delivery; AED 15,000–30,000 for C-section)
+   - Dental: Limited (AED 3,000/year for extractions, fillings — cosmetic not covered)
+   - Optical: Limited (AED 1,500/year for glasses or contact lenses)
+
+2. Group Life Insurance:
+   - Death benefit: 3× annual basic salary paid to named beneficiary
+   - Accidental death: Additional 2× annual basic salary
+   - Total permanent disability: 2× annual basic salary
+   - Coverage from Day 1, beneficiary form completed within 30 days
+   - Beneficiary update: HR Portal → My Benefits → Life Insurance Beneficiary
+
+3. Workers' Compensation / Workmen's Compensation:
+   - Covers work-related injury or illness
+   - UAE law mandatory coverage for all employees
+   - Wage continuation during treatment period (as per UAE Labour Law)
+   - Permanent disability: Compensation per UAE Labour Law schedule
+
+COMPANY INSURANCE (Assets):
+
+4. Property Insurance:
+   - Office premises, furniture, equipment: Covered for fire, theft, accidental damage
+   - Company vehicles: Comprehensive motor insurance
+   - IT equipment: Covered under company all-risk policy
+
+5. Professional Indemnity Insurance:
+   - Covers company for claims arising from professional services
+   - Required for client-facing professional service companies
+
+6. Directors & Officers Insurance:
+   - Covers senior management against personal liability for company decisions
+
+MEDICAL INSURANCE PRACTICAL GUIDE:
+- Insurance card: Received from HR on joining (or within 2 weeks)
+- Pre-approval: Required for planned admissions, surgeries, specialist referrals
+- Emergency: Go directly to any hospital — pre-approval not required for emergencies
+- Out-of-network: May be covered at lower rate — check Finance Portal → Benefits → Insurance Network
+- Claim reimbursement (for out-of-network): Submit claim within 60 days of treatment via Finance Portal
+
+INSURANCE CARD LOST OR EXPIRED:
+- Request replacement: HR Portal → My Benefits → Insurance → Request New Card
+- Turnaround: 3–5 business days
+- Temporary: HR can provide insurance confirmation letter for use until card arrives
 
 Document ID: Finance_23
+Keywords: insurance, medical insurance, life insurance, health insurance, insurance card, insurance coverage, employee insurance, group insurance, medical claim

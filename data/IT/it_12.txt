@@ -1,9 +1,56 @@
-
 IT Policy Document
 
-Topic: Antivirus
+Topic: Antivirus, Endpoint Protection, and Malware Response
 
 Details:
-Antivirus mandatory.
+The company uses enterprise-grade endpoint protection to defend against malware and cyber threats.
+
+COMPANY ENDPOINT PROTECTION:
+- Solution: CrowdStrike Falcon (industry-leading EDR — Endpoint Detection and Response)
+- Deployed on: All company Windows, Mac, and Linux devices
+- Auto-updates: Threat intelligence updated every 15 minutes from global threat database
+- Real-time monitoring: Continuously monitors all processes, files, and network connections
+- Behavioral analysis: Detects unknown threats based on behavior, not just known signatures
+
+WHAT ENDPOINT PROTECTION DOES:
+- Blocks known malware (viruses, trojans, ransomware, spyware)
+- Detects and blocks suspicious behavior (even from new, unknown malware)
+- Blocks malicious websites and downloads
+- Prevents unauthorized software from running
+- Alerts IT Security within seconds of detecting a threat
+
+EMPLOYEE RESPONSIBILITIES:
+- Do NOT disable or pause CrowdStrike Falcon — ever
+- Do NOT whitelist software without IT approval
+- Do NOT attempt to manually remove malware yourself
+- Report any unusual pop-ups or security warnings immediately
+- Keep devices on and connected to network at least once a week (receives updates)
+
+MALWARE INCIDENT RESPONSE:
+If you see unusual pop-ups, system slowing dramatically, or files being encrypted:
+1. IMMEDIATELY stop what you're doing
+2. Do NOT try to close pop-ups or click anything on screen
+3. Unplug network cable (or turn off Wi-Fi) to isolate the device
+4. Do NOT turn off the computer (preserves forensic evidence)
+5. Call IT Security immediately: Ext. 1001 (24/7)
+6. IT will remotely assess and send technician if needed
+
+RANSOMWARE RESPONSE SPECIFICALLY:
+- Do NOT pay any ransom demand (company policy, and law enforcement guidance)
+- Isolate affected device immediately (unplug from network)
+- IT restores from backup (see Backup Policy)
+- All ransomware incidents reported to UAE Cybersecurity Council
+
+LAPTOP SCANS:
+- Full system scan runs automatically every Sunday at 2 AM
+- Quick scan runs daily at 1 PM
+- Manual scan available: CrowdStrike icon → Run Scan
+- Do not interrupt scans — laptop can be in sleep mode during scan
+
+REMOVABLE MEDIA SCANNING:
+- All USB drives automatically scanned when connected to company device
+- Infected USB detected: Automatically blocked and IT alerted
+- Personal USB drives: Not recommended and monitored (see Cybersecurity Policy)
 
 Document ID: IT_12
+Keywords: antivirus, malware, virus, endpoint protection, CrowdStrike, ransomware, malware removal, computer virus, pop-up, malicious software

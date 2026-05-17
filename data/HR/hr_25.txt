@@ -1,9 +1,73 @@
-
 HR Policy Document
 
-Topic: HR Support
+Topic: HR Support Services and Self-Service Guide
 
 Details:
-HR support available 24/7.
+HR provides a wide range of services to support employees throughout their employment journey.
+
+HR SELF-SERVICE PORTAL:
+URL: https://hr.company.internal
+Available 24/7 for:
+- View and download payslips
+- Apply for leave (all types)
+- View leave balance
+- Submit WFH requests
+- Update personal details
+- Access company policies
+- View payroll history
+- Submit grievances
+- Access training catalog and enroll in courses
+- View organizational chart
+- Submit expense claims (linked to Finance portal)
+
+HR TEAM CONTACTS:
+- General HR queries: hr@company.com
+- Payroll issues: payroll@company.com
+- Recruitment: talent@company.com
+- Ethics and complaints: ethics@company.com (confidential)
+- HR Director (escalations): hrd@company.com
+- HR Helpdesk: +971-4-XXX-XXXX (Sunday–Thursday, 8 AM–6 PM)
+- Emergency HR support (after hours): +971-55-XXX-XXXX
+
+COMMON HR REQUESTS AND TURNAROUND TIME:
+- Leave approval: Manager response within 48 hours
+- Salary certificate (for visa/bank): 3 business days
+- Experience letter: 5 business days
+- Employment verification letter: 3 business days
+- NOC (No Objection Certificate): 5 business days
+- Payroll queries: Resolved by 20th of month for same-month salary
+- Emirates ID assistance: HR coordinates application/renewal with PRO team
+
+SALARY CERTIFICATE:
+- Request via HR Portal → My Documents → Request Certificate
+- Specify purpose (visa, bank, rental, school enrollment)
+- Available in English and Arabic
+- Signed and stamped by HR Director
+
+EXPERIENCE LETTERS:
+- Issued upon request for current or former employees
+- Contains: Employment dates, designation, department, brief duties description
+- Formally issued on company letterhead with stamp
+
+PRO SERVICES (Government Relations):
+- Visa processing for new joiners
+- Visa renewals and cancellations
+- Emirates ID applications and renewals
+- Labour contract registration
+- Contact PRO team via HR Portal → Government Services
+
+MEDICAL INSURANCE SUPPORT:
+- New enrollment, addition of dependents: HR processes within 5 days
+- Insurance card replacement: HR Portal → My Benefits → Insurance → Request Card
+- Pre-approval for specialist referral: Call insurance provider on card
+- Network hospital list: HR Portal → My Benefits → Insurance → Hospital Network
+
+FREQUENTLY ASKED HR QUESTIONS:
+Q: When is salary credited? A: Last working day of month via WPS
+Q: How do I access my payslip? A: HR Portal → Payroll → My Payslips
+Q: Can I check my leave balance? A: HR Portal → My Leaves → Leave Balance
+Q: How do I add a dependent to insurance? A: Email HR with marriage/birth certificate
+Q: How do I get a salary advance? A: HR Portal → Finance → Salary Advance Request
 
 Document ID: HR_25
+Keywords: HR support, HR contact, HR services, self-service, HR portal, salary certificate, experience letter, NOC, insurance card, PRO services

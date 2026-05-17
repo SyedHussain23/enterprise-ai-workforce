@@ -1,9 +1,59 @@
-
 Finance Policy Document
 
-Topic: Tax
+Topic: UAE VAT Policy and Compliance
 
 Details:
-TDS deducted as per rules.
+The UAE introduced Value Added Tax (VAT) at 5% from 1 January 2018 under Federal Decree-Law No. 8 of 2017.
+
+VAT BASICS FOR EMPLOYEES:
+- UAE VAT rate: 5% (one of the lowest in the world)
+- UAE has NO personal income tax — VAT is a consumption tax on goods and services
+- VAT registered businesses collect VAT on behalf of Federal Tax Authority (FTA)
+- Company is VAT registered (TRN: provided in Finance Portal)
+
+IMPACT ON EMPLOYEES:
+- Expense claims: VAT on business expenses is reclaimable — always get VAT invoice from suppliers
+- Client invoices: All company invoices to clients include 5% VAT
+- Salary: Not subject to VAT — this is a direct payment, not a supply of goods/services
+
+VAT-EXEMPT EXPENSES (No VAT charged):
+- Bare land sale/lease
+- Local passenger transport
+- Residential property (first supply)
+- Certain healthcare services
+- Certain education services
+
+ZERO-RATED ITEMS (VAT at 0%):
+- International transport
+- Exports of goods outside GCC
+- Oil and gas
+- Investment-grade precious metals
+- Certain food items
+
+HOW TO ENSURE CORRECT VAT TREATMENT ON EXPENSE CLAIMS:
+1. Always request a proper VAT invoice (not just a receipt)
+2. VAT invoice must include: Supplier TRN, date, description, subtotal, VAT amount, total
+3. Upload VAT invoice in Finance Portal → Expense Claims → Attach Invoice
+4. Without valid VAT invoice: VAT amount cannot be reclaimed — Finance may only reimburse net amount
+
+VAT INVOICES REQUIREMENTS:
+Company VAT invoices must include:
+- Company name and TRN (Tax Registration Number)
+- Client name and TRN (if B2B)
+- Invoice date and number
+- Description of goods/services
+- Net amount, VAT amount (5%), total amount
+- Finance team prepares all client invoices — do not create invoices yourself
+
+CORPORATE TAX (CTE):
+- UAE introduced corporate tax from June 2023 (9% on profits above AED 375,000)
+- This affects company finances but NOT individual employee salaries
+- Employees do not file personal corporate tax returns in UAE
+
+COMMON EMPLOYEE VAT QUESTIONS:
+Q: Is my salary subject to VAT? A: No — employee salaries are not VATable
+Q: Can I claim VAT back on personal expenses? A: No — only business expenses via company
+Q: Do I need a TRN? A: No — TRN is for the company, not individuals
 
 Document ID: Finance_3
+Keywords: VAT, value added tax, UAE VAT, tax, VAT invoice, VAT claim, 5% VAT, tax compliance, VAT exemption, corporate tax

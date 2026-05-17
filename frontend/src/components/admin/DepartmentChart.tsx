@@ -1,6 +1,7 @@
 import {
   BarChart,
   Bar,
+  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -50,7 +51,7 @@ export function DepartmentChart({ stats }: Props) {
             />
             <Bar dataKey="queries" radius={[4, 4, 0, 0]}>
               {barData.map((entry, i) => (
-                <rect key={i} fill={entry.fill} />
+                <Cell key={i} fill={entry.fill} />
               ))}
             </Bar>
           </BarChart>

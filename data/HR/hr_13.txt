@@ -1,9 +1,53 @@
-
 HR Policy Document
 
-Topic: Overtime
+Topic: UAE End of Service Gratuity (EOSB)
 
 Details:
-Overtime paid based on policy.
+End of Service Gratuity (EOSB) is a mandatory benefit under UAE Labour Law Federal Decree No. 33 of 2021 for all private sector employees.
+
+WHO IS ENTITLED:
+- All employees on unlimited and limited contracts
+- Must have completed at least 1 year of continuous service
+- Applies to all nationalities working in the UAE private sector
+
+CALCULATION FORMULA:
+For service up to 5 years:
+- 21 calendar days of basic salary for each year of service
+
+For service beyond 5 years:
+- 30 calendar days of basic salary for each year beyond 5 years
+- Maximum cap: 2 years total basic salary
+
+Example Calculation:
+- Employee with 3 years service, AED 10,000 basic salary
+- Daily rate = AED 10,000 / 30 = AED 333.33
+- Gratuity = 21 days × AED 333.33 × 3 years = AED 20,999.79
+
+IMPORTANT RULES:
+- Gratuity is calculated on BASIC SALARY only (not housing, transport, or other allowances)
+- Gratuity is paid regardless of reason for leaving (resignation, termination, contract end)
+- Employee who resigns before completing 1 year: No gratuity
+- Employee who resigns after 1 but before 3 years: One-third of full entitlement
+- Employee who resigns after 3 but before 5 years: Two-thirds of full entitlement
+- Employee who resigns after 5 years: Full entitlement
+
+WORKER PROTECTION SCHEME (DEWS):
+- Effective from 1 January 2020 for certain free zones
+- Monthly contributions made by employer to DEWS account
+- More portable than end-of-service model
+- Employee owns the account and can access on leaving
+
+WHEN IS GRATUITY PAID:
+- Within 14 days of last working day (UAE Labour Law requirement)
+- Paid together with final salary
+- Employer who delays gratuity payment may face legal penalties
+
+GRATUITY FOR PART-TIMERS:
+- Calculated proportionally based on actual working hours vs full-time hours
+
+TO CALCULATE YOUR GRATUITY:
+- Use HR Portal → Payroll → Gratuity Calculator
+- Requires: Start date, basic salary, reason for leaving
 
 Document ID: HR_13
+Keywords: gratuity, end of service, EOSB, end of service benefits, gratuity calculation, UAE gratuity, gratuity entitlement, final settlement

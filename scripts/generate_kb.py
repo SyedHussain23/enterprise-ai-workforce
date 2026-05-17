@@ -124,8 +124,17 @@ data_map = {
 }
 
 # -----------------------------
-# GENERATE FILES
+# GENERATE FILES (safe — skips existing files)
+# WARNING: This script generates minimal stub content only.
+# The production data/ KB files were hand-crafted with full
+# UAE Labour Law detail and MUST NOT be overwritten.
+# Run with --force only to reset to stubs (development only).
 # -----------------------------
+import sys
+force = "--force" in sys.argv
+
+created = 0
+skipped = 0
 
 for folder, topics in data_map.items():
 
@@ -135,9 +144,12 @@ for folder, topics in data_map.items():
 
         file_path = f"data/{folder}/{folder.lower()}_{i+1}.txt"
 
+        if os.path.exists(file_path) and not force:
+            skipped += 1
+            continue
+
         with open(file_path, "w") as f:
-            f.write(f"""
-{folder} Policy Document
+            f.write(f"""{folder} Policy Document
 
 Topic: {topic}
 
@@ -145,6 +157,10 @@ Details:
 {content}
 
 Document ID: {folder}_{i+1}
+Keywords: {topic.lower()}, {folder.lower()} policy
 """)
+        created += 1
 
-print("✅ 100 UNIQUE ENTERPRISE DOCUMENTS CREATED")
+if skipped:
+    print(f"⚠️  Skipped {skipped} existing files (use --force to overwrite).")
+print(f"✅ {created} stub documents created. Run with --force to overwrite existing files.")

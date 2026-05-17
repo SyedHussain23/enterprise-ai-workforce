@@ -1,9 +1,60 @@
-
 IT Policy Document
 
-Topic: Ticketing
+Topic: IT Ticketing System Complete Guide
 
 Details:
-IT issues via tickets.
+The IT ticketing system is the primary channel for all IT requests and incident reports.
+
+TICKET PORTAL:
+URL: https://it.company.internal
+Login: Your company email and password (SSO enabled)
+Mobile app: IT Portal app (iOS/Android) for submitting tickets on the go
+
+TYPES OF TICKETS:
+1. Incident: Something is broken or not working (email down, laptop won't start)
+2. Service Request: Something you need provisioned (software, new access, equipment)
+3. Change Request: Proposed change to IT environment (new integration, system modification)
+4. Problem: Root cause investigation for recurring incidents
+
+HOW TO SUBMIT A TICKET:
+1. Go to IT Portal → New Ticket
+2. Select ticket type (Incident / Service Request)
+3. Select category from dropdown (Hardware, Software, Network, Access, Security, Other)
+4. Write clear title: "[Category] Issue Description" e.g., "[Software] Outlook crashes on startup"
+5. Description: Include what happened, when, error messages, steps to reproduce
+6. Attach screenshot if applicable (drag and drop supported)
+7. Set urgency: Critical/High/Medium/Low (be honest — crying wolf delays real emergencies)
+8. Submit — receive confirmation email with ticket number
+
+TICKET CATEGORIES:
+Hardware: Laptop, monitor, printer, phone, peripherals
+Software: Application issues, installation requests, license issues
+Network: Wi-Fi, VPN, internet, connectivity
+Access: Login issues, permissions, account lockout, new system access
+Security: Suspected phishing, malware, stolen device, suspicious activity
+Other: General IT questions, consulting, IT project requests
+
+TRACKING YOUR TICKET:
+- IT Portal → My Tickets: View all open and closed tickets
+- Email updates sent for every status change
+- Reply to ticket via email (replies automatically added to ticket thread)
+- Or update directly in IT Portal
+
+TICKET LIFECYCLE:
+Open → Assigned → In Progress → Pending (if waiting on you) → Resolved → Closed
+Closed tickets reopened within 5 days if issue recurs
+
+PRIORITY SELF-ASSESSMENT:
+Critical: Cannot work at all, many users affected, security incident
+High: Cannot do main job function, deadline impacted
+Medium: Annoying but have workaround, no immediate deadline impact
+Low: Question or request, no urgency
+
+TIPS FOR FAST RESOLUTION:
+- Provide as much detail as possible upfront
+- Include screenshots of error messages
+- Specify if issue is intermittent or constant
+- Mention if issue started after any change (new software, Windows update, moving desks)
 
 Document ID: IT_24
+Keywords: IT ticket, raise ticket, IT support ticket, helpdesk ticket, incident ticket, service request, IT portal, technical support request, ticket system

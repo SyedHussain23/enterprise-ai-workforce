@@ -1,9 +1,79 @@
-
 Company Policy Document
 
-Topic: Communication
+Topic: Internal Communication Standards & Channels
 
 Details:
-Official communication channels.
+Official communication tools, standards, and best practices for all employees.
+
+OFFICIAL COMMUNICATION CHANNELS:
+
+Microsoft Teams (Primary Internal Tool):
+- All internal messaging, quick questions, team collaboration
+- Do NOT use personal WhatsApp for official work communication
+- Company WhatsApp Business is approved for client-facing communication only
+- Status: Set your availability (Available, Busy, Away, Do Not Disturb)
+- Response time expectation: Within 2 hours during working hours
+- Channel structure: #general, #it-support, #finance-help, #hr-updates, #announcements
+
+Microsoft Outlook (Email):
+- Use for formal communications, external parties, and documented decisions
+- Response time: Same business day (within 8 working hours)
+- Out-of-office: Must be set when on leave; include alternate contact
+- Email signatures: Use company-approved signature template (download from SharePoint → Templates)
+- Do NOT use personal Gmail, Yahoo, or other personal email for work
+
+Company Announcements:
+- Important company news: Teams → #announcements channel (all-hands read)
+- HR updates (leave balances, policy changes): HR Portal + Teams notification
+- IT system alerts: Teams → #it-alerts
+- Finance deadlines: Teams → #finance-updates
+
+COMMUNICATION ETIQUETTE:
+Professional Tone:
+- Use respectful, professional language in all written communications
+- Avoid ALL CAPS (implies shouting); avoid aggressive or passive-aggressive tone
+- Proofread before sending — spelling and grammar reflect your professionalism
+- In Arabic communications: Maintain formal Arabic (Modern Standard Arabic) in written documents
+
+Response Time Standards:
+- Teams chat: Within 2 hours (core hours); within 24 hours if marked "low priority"
+- Email: Same business day
+- Calls: Return missed calls within 4 hours
+- Urgent matters: Call directly — do not rely on email/chat for time-sensitive issues
+- If you are unavailable: Set status to "Do Not Disturb" and set an auto-reply
+
+Escalation:
+- Cannot reach someone for 2+ hours on an urgent matter: Escalate to their manager
+- System outage: Contact IT via email (it-support@company.com) and call Ext. 1001
+- Emergency: Call the office emergency line: +971-4-XXX-0000
+
+GROUP CHAT BEST PRACTICES:
+- Only add people who need to be in the conversation
+- Name group chats descriptively (e.g., "Q1 Finance Report Team" not "Chat 1")
+- Pin important messages; use @mention to direct messages to specific people
+- Archive (not delete) group chats when a project ends
+
+EMAIL MANAGEMENT:
+- Inbox Zero: Process emails daily; use folders to organise
+- Reply-All: Use sparingly — if only the sender needs your reply, reply only to them
+- CC vs BCC: CC for transparency; BCC for large mailing lists only
+- File size limit: 25MB per email; use OneDrive link for larger files
+- Confidential emails: Use "Sensitive" sensitivity label in Outlook; do not forward without approval
+
+CLIENT COMMUNICATION:
+- All client-facing communications must maintain high professionalism
+- No informal language, slang, or abbreviations with clients
+- Never share internal matters, disputes, or financials with clients
+- WhatsApp Business approved for brief client messages; formal follow-up via email
+
+SOCIAL MEDIA:
+- See Code of Conduct (Company_4) for social media rules
+- Official social media managed by Marketing only
+
+CONTACTS:
+- IT (Teams/Outlook issues): it-support@company.com | Ext. 1001
+- HR (internal communication): hr@company.com
+- Marketing (announcements): marketing@company.com
 
 Document ID: Company_8
+Keywords: communication, Microsoft Teams, email, Outlook, internal communication, WhatsApp, channels, response time, escalation, email etiquette, collaboration tools

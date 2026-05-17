@@ -1,9 +1,81 @@
-
 Company Policy Document
 
-Topic: Safety
+Topic: Workplace Health, Safety & Emergency Procedures
 
 Details:
-Workplace safety ensured.
+Health and safety standards, emergency procedures, and employee responsibilities in all company offices.
+
+UAE LEGAL FRAMEWORK:
+- UAE Federal Law No. 8 of 1980 (Labour Law — occupational health provisions)
+- UAE Ministerial Resolution No. 32 of 1982 (occupational safety and health)
+- Dubai Civil Defence Fire Safety Regulations
+- Company maintains ISO 45001 Occupational Health & Safety Management System
+
+GENERAL SAFETY RESPONSIBILITIES:
+
+Employees Must:
+- Follow all safety signs, instructions, and emergency procedures
+- Report unsafe conditions, near-misses, or accidents immediately to their manager and Facilities
+- Not interfere with safety equipment (fire extinguishers, first aid kits, emergency exits)
+- Attend mandatory annual fire safety training (30 minutes online; Facilities team schedules)
+- Wear appropriate PPE if in operations, warehouse, or field environments
+
+Management Must:
+- Conduct monthly safety walkthrough of their areas
+- Ensure new joiners receive safety induction in Week 1
+- Report all accidents and incidents within 24 hours to HR and Facilities
+- Maintain up-to-date emergency contact list for their team
+
+OFFICE SAFETY STANDARDS:
+- All emergency exits must remain unobstructed at all times
+- No cooking or open flames in the office (microwave use: kitchen only)
+- Electrical cables must not be a trip hazard — report to Facilities if cable management is needed
+- Heavy items stored at floor level or on lower shelves only
+- No standing on chairs — use step stools/ladders provided by Facilities
+- Maximum room capacity signs must be respected in meeting rooms
+
+FIRE SAFETY:
+- Fire alarms tested: First Sunday of every month at 10:00 AM (10-second test — do not evacuate)
+- Fire drills: Twice per year (unannounced); all employees must participate
+- Evacuation assembly point: [Location specific to each office — posted on all floors]
+- Fire marshal list: Posted on each floor and on SharePoint → Safety → Fire Marshals
+
+EMERGENCY PROCEDURES:
+In Case of Fire:
+1. Activate nearest fire alarm pull station
+2. Call Dubai Civil Defence: 997 (or local emergency in your emirate)
+3. Evacuate immediately via emergency exits — do NOT use elevators
+4. Proceed to assembly point; do NOT re-enter building until "all clear" given by Civil Defence
+5. Notify your line manager and Facilities immediately after evacuation
+
+Medical Emergency:
+1. Call UAE ambulance: 998
+2. Notify reception and Facilities: They will meet the ambulance
+3. Administer first aid only if trained (first aid kit locations posted on each floor)
+4. Do NOT move an injured person unless they are in immediate danger
+
+Security Incident:
+1. Call UAE Police: 999
+2. Notify security desk and Facilities immediately
+3. Follow security team instructions; do not confront intruders
+
+MENTAL HEALTH & WELLBEING:
+- EAP (Employee Assistance Programme): 6 free confidential counselling sessions (see HR Policy)
+- Stress leave: Covered under sick leave policy — medical certificate required after 2 days
+- Ergonomic assessments: Available on request from Facilities for employees with back/posture concerns
+- Standing desks available: Request via Facilities → Ergonomic Assessment
+
+INCIDENT REPORTING:
+- Report all accidents, near-misses, or unsafe conditions within 24 hours
+- Report via: Facilities → Safety → Incident Report (SharePoint form)
+- Major accidents (injury requiring medical treatment): Also reported to MOHRE within 24 hours (UAE law requirement)
+
+CONTACTS:
+- Facilities & Safety: facilities@company.com | Ext. 2000
+- UAE Ambulance: 998
+- Dubai Police: 999
+- Dubai Civil Defence: 997
+- First Aid Kit Locations: Posted on each floor
 
 Document ID: Company_14
+Keywords: workplace safety, health and safety, fire safety, emergency procedures, first aid, UAE safety law, fire drill, accident reporting, ergonomics, EAP, occupational health

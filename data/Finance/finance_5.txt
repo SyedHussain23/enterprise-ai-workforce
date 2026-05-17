@@ -1,9 +1,61 @@
-
 Finance Policy Document
 
-Topic: Invoice
+Topic: Invoice Processing and Vendor Payments
 
 Details:
-Invoices processed within 10 days.
+The company processes supplier invoices and vendor payments in accordance with agreed payment terms.
+
+INVOICE SUBMISSION (For Suppliers/Vendors):
+- Submit invoices to: accounts.payable@company.com
+- Format: PDF (scanned clear originals)
+- Required information on invoice:
+  * Supplier name and address
+  * Supplier TRN (if VAT registered)
+  * Company name (as named in PO)
+  * Purchase Order (PO) number — mandatory
+  * Invoice number and date
+  * Description of goods/services
+  * Net amount, VAT (5%), total amount
+  * Bank details for payment (IBAN, SWIFT/BIC)
+  * Payment terms agreed
+
+STANDARD PAYMENT TERMS:
+- Default: Net 30 days from invoice date
+- Negotiated terms: As per signed contract/PO
+- Early payment discount: If offered by supplier, Finance evaluates case-by-case
+- Government/utility suppliers: Per their standard terms
+
+PAYMENT PROCESS:
+1. Invoice received by Finance team
+2. Matched against Purchase Order (3-way match: PO, goods receipt, invoice)
+3. Department head confirms goods/services received (via Finance Portal notification)
+4. Finance approves for payment
+5. Payment processed via bank transfer (IBAN)
+6. Remittance advice sent to supplier on payment date
+
+PAYMENT APPROVAL THRESHOLDS:
+- Up to AED 10,000: Finance Manager approval
+- AED 10,000–50,000: Finance Director approval
+- Above AED 50,000: CFO or CEO approval
+- Capital expenditure (CAPEX) over AED 100,000: Board approval required
+
+PURCHASE ORDER (PO) REQUIREMENT:
+- All purchases above AED 500 require a PO
+- PO must be raised BEFORE goods/services received (retroactive POs require Finance Director approval)
+- Raise PO via Finance Portal → Procurement → Create PO
+- PO approved by department head and Finance before issuing to supplier
+
+LATE PAYMENTS:
+- Company targets paying all invoices within agreed terms
+- Disputed invoices: Finance contacts supplier within 5 days of receipt
+- Late payment interest: As per contract terms (company policy: not to incur late payment charges)
+- Supplier payment queries: accounts.payable@company.com
+
+EMPLOYEE-SUBMITTED INVOICES (Freelancers/Consultants):
+- Must have valid UAE trade license (or be company-registered entity)
+- Invoice requirements same as above
+- Payment terms: Net 15 days for individual consultants
+- Require signed service agreement before engagement
 
 Document ID: Finance_5
+Keywords: invoice, vendor payment, supplier payment, purchase order, PO, accounts payable, payment terms, invoice processing, payment schedule

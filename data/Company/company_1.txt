@@ -1,9 +1,75 @@
-
 Company Policy Document
 
-Topic: Work Hours
+Topic: Working Hours, Attendance & Overtime Policy
 
 Details:
-9 AM to 6 PM working hours.
+Official working hours and attendance standards for all employees across the company.
+
+STANDARD WORKING HOURS:
+- Sunday to Thursday: 9:00 AM – 6:00 PM (UAE work week)
+- Friday and Saturday: Weekend (public holiday in UAE)
+- Total hours per week: 45 hours (UAE Labour Law Federal Decree-Law No. 33 of 2021)
+- Lunch break: 1 hour (12:30 PM – 1:30 PM, not counted in working hours)
+
+RAMADAN WORKING HOURS:
+- All employees (regardless of religion): 6 hours/day (reduced by law — Article 17)
+- Typical Ramadan schedule: 9:00 AM – 3:00 PM
+- No overtime during Ramadan without specific written approval
+- Ramadan dates vary each year — HR will communicate specific dates in advance
+
+FLEXIBLE WORKING (FWA):
+- Core hours: 10:00 AM – 4:00 PM (must be present/reachable)
+- Flexible band: 8:00 AM – 10:00 AM (arrival) / 4:00 PM – 7:00 PM (departure)
+- FWA must be approved by line manager in writing
+- Not available during probation period or if performance is under review
+
+ATTENDANCE TRACKING:
+- System: Biometric/access card + HR Portal time tracking
+- Grace period: 10 minutes (after which late arrival is recorded)
+- Frequent late arrivals (3+ in a month): formal counselling triggered
+- AWOL (absent without leave): Warning letter issued; repeated AWOL may lead to termination
+
+OVERTIME POLICY:
+- Overtime rate: 125% of hourly wage for hours beyond 8/day or 48/week
+- Overtime on rest day: 150% (Friday/Saturday)
+- Overtime on public holidays: 150% + compensatory day off
+- Overtime must be pre-approved by line manager and submitted via HR Portal → Overtime Request
+- Maximum overtime: 2 hours/day (Article 19 UAE Labour Law)
+- Finance employees: Overtime processed in the following month's payroll
+
+WORKING FROM HOME:
+- Eligible employees: 2 days per week (see Remote Work Policy — Company_3)
+- Not applicable during first 90 days of employment
+- WFH days: Must be agreed with manager at least 24 hours in advance
+- Core hours apply equally during WFH days
+
+NIGHT SHIFT / SHIFT WORK:
+- Shift employees: Receive 20–30% shift allowance on basic salary
+- Night shift: 9:00 PM – 6:00 AM (attracts 25% additional pay — Article 16)
+- Shift schedules communicated 2 weeks in advance
+
+TIME-OFF IN LIEU (TOIL):
+- Where overtime cannot be paid, TOIL may be granted hour-for-hour
+- TOIL must be used within 90 days or it lapses
+- Request via HR Portal → Leave → TOIL
+
+CONTACTS:
+- HR Portal (time management): https://hr.company.internal
+- Attendance queries: attendance@company.com
+- HR Helpdesk: +971-4-XXX-1000 (Sunday–Thursday, 8 AM–5 PM)
+
+FREQUENTLY ASKED QUESTIONS:
+Q: Do I need to clock in if I'm working from home?
+A: Yes — use HR Portal to log your WFH attendance daily.
+
+Q: What if I'm sick and can't come in?
+A: Notify your manager and HR before 9:30 AM. Log sick leave on HR Portal same day.
+
+Q: Can I leave early and make up the time later?
+A: Yes, with prior manager approval. Log as flex-time on HR Portal.
+
+Q: Is Friday a working day?
+A: No — Friday and Saturday are the standard weekend in UAE.
 
 Document ID: Company_1
+Keywords: working hours, attendance, overtime, UAE work week, Sunday-Thursday, Ramadan hours, flexible working, AWOL, time tracking, shift work

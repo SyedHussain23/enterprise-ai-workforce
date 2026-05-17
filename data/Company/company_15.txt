@@ -1,9 +1,81 @@
-
 Company Policy Document
 
-Topic: Facilities
+Topic: Office Facilities, Amenities & Workplace Services
 
 Details:
-Office facilities provided.
+Available office facilities, how to access them, and usage guidelines for all employees.
+
+OFFICE LOCATIONS:
+- Headquarters: Dubai (primary office — all departments)
+- Branch offices: Abu Dhabi, Sharjah (department heads confirm which teams are based where)
+- Office hours: Sunday–Thursday, 8:30 AM–6:30 PM (access card required outside these hours)
+
+OFFICE FACILITIES OVERVIEW:
+
+Meeting Rooms:
+- Available on all floors; book via Outlook Calendar → Room Finder
+- Capacity: 4-person huddle rooms, 8-person boardrooms, 20-person conference rooms
+- AV equipment: Screen, HDMI, webcam, microphone installed in all rooms
+- Problem with AV equipment: Contact IT via Ext. 1001 or it-support@company.com
+- Etiquette: Book only what you need; cancel if unused; leave room clean and tidy
+
+Kitchen & Pantry:
+- Fully equipped kitchen on each floor: Coffee machine, microwave, refrigerator, toaster, water dispenser
+- Keep refrigerator clean — items without names cleared every Friday
+- Dishes must be washed immediately after use (dishwasher available)
+- Halal food is available in canteen; labels confirm Halal status
+- Prayer room: Dedicated, clean, and private prayer room on each floor
+
+Reception & Visitor Management:
+- All visitors must register at reception; host employee must collect their guest
+- Visitor badges issued at reception and returned upon departure
+- Couriers and deliveries: Managed by reception; notify reception of expected deliveries
+- Access cards: Provided on Day 1; lost cards reported to Facilities within 1 hour
+
+Car Parking:
+- Allocated parking for senior staff (Grade 6+): Contact Facilities
+- Visitor parking: Ground floor, marked zones
+- Motorbike parking: Designated area at basement level
+- Carpooling encouraged — contact HR for carpooling partner matching
+
+PRINTER & STATIONERY:
+- Printers: Available on each floor; use secure print (PIN required) for confidential documents
+- Stationery requests: Submit via Facilities Portal → Stationery Request
+- Personal printing (CVs, personal documents): Not permitted on company printers
+- Scanning to email: Available on all multifunction printers
+
+GYM & WELLNESS:
+- Gym subsidy: AED 300/month reimbursable via Finance Portal → Allowances → Gym (submit gym receipt)
+- In-office shower facilities available in main HQ building (ground floor)
+- Wellness room: Available for prayer, meditation, or quiet time (no booking required)
+
+CANTEEN & FOOD:
+- Staff canteen: Hot meals available Sunday–Thursday 12:00 PM–2:00 PM
+- Subsidised meals: AED 15–25 per meal (charged to employee meal account / deducted monthly)
+- Vending machines: Available 24/7 on all floors
+- External delivery (Talabat, Deliveroo): Permitted; collect at reception; do not block workspaces
+- Ramadan: Canteen hours adjusted; food served after Iftar time
+
+ACCESSIBILITY:
+- All floors accessible by elevator; wheelchair access to all facilities
+- Accessible parking bays at ground level
+- Large-print signs available on request from Facilities
+
+IT & TECHNICAL SUPPORT ON-SITE:
+- IT helpdesk: Ground floor, HQ; also available remotely via Ext. 1001
+- Loaner equipment: Available from IT for temporary needs (charger, keyboard, mouse)
+- Phone system: Internal extensions listed on SharePoint → Telephone Directory
+
+FACILITIES REQUESTS:
+- Maintenance issues (AC, lighting, furniture, cleaning): Submit via Facilities Portal or Ext. 2000
+- Response time: Same day for urgent; 3 business days for routine
+- Office furniture requests: Ergonomic chairs, standing desks, monitor stands available on request
+
+CONTACTS:
+- Facilities Team: facilities@company.com | Ext. 2000
+- IT Helpdesk: it-support@company.com | Ext. 1001
+- Reception: reception@company.com | Ext. 0
+- Canteen: canteen@company.com
 
 Document ID: Company_15
+Keywords: office facilities, meeting rooms, parking, gym, canteen, facilities, kitchen, printer, visitor management, office amenities, workplace services, halal food

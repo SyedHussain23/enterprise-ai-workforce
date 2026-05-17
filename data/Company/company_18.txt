@@ -1,9 +1,81 @@
-
 Company Policy Document
 
-Topic: Growth
+Topic: Career Growth, Promotion & Internal Mobility
 
 Details:
-Career growth supported.
+How employees can grow their careers within the company through promotions, transfers, and development programmes.
+
+CAREER FRAMEWORK:
+The company uses an 8-grade career framework:
+- Grade 1–2: Entry level / Graduate
+- Grade 3–4: Professional / Specialist
+- Grade 5–6: Senior Professional / Team Lead
+- Grade 7: Manager / Senior Manager
+- Grade 8: Director / VP / C-Suite
+
+Each grade has a defined salary band, KPI profile, and behavioural expectations documented in the Role Profile Library (SharePoint → HR → Role Profiles).
+
+PROMOTION POLICY:
+
+Eligibility for Promotion:
+- Minimum 12 months in current role (unless exceptional fast-track case approved by CHRO)
+- Performance rating of 4 (Exceeds Expectations) or 5 (Outstanding) in last review cycle
+- No active disciplinary warning on file
+- Demonstrating capability at the next grade (not just mastery of current grade)
+
+Promotion Process:
+1. Manager identifies high-potential employee and initiates promotion case
+2. HR and Department Head review against grade criteria
+3. Salary Calibration: Finance ensures new salary is within band and budget
+4. CHRO approval for Grade 6+ promotions
+5. Employee informed in writing; promotion effective next payroll cycle
+6. Announcement made to team (with employee consent)
+
+Promotion Salary Increase:
+- Within-grade salary band adjustment: Minimum 15% increase upon promotion
+- Maximum: Not exceeding top of new grade band
+
+FAST-TRACK PROGRAMME:
+- Top 10% performers identified through calibration process
+- Eligible for promotion in under 12 months with CHRO approval
+- Assigned Executive Sponsor from leadership team
+- Included in High-Potential (HiPo) development programme
+
+INTERNAL TRANSFERS:
+- Employees can apply for internal openings after 12 months in current role (6 months for probation completion)
+- Internal job board: HR Portal → Careers → Internal Openings
+- Process: Express interest → Current manager informed (after application submitted) → Interview → Offer
+- Lateral transfers (same grade): Supported with manager approval; no salary change required unless justified
+- International transfers: Require CHRO approval + legal/visa review
+
+CAREER DEVELOPMENT PROGRAMMES:
+
+Management Development Programme (MDP):
+- For employees targeting Grade 7+ (Manager level)
+- 6-month intensive: Leadership modules, project sponsorship, mentoring from C-suite
+- Sponsored by the company — no cost to employee
+- Nomination by HR + Department Head
+
+Graduate Development Programme (GDP):
+- For fresh graduates (Grade 1–2); 2-year rotational programme
+- Rotations across 3 departments; mentored by senior employee
+- Targeted for Emiratization (preference given to UAE Nationals but open to all)
+
+Mentoring Programme:
+- Formal mentoring: 6-month pairing with senior leader; structured sessions monthly
+- Sign up: HR Portal → Learning → Mentoring Programme → Apply as Mentee
+- Open to all employees from Grade 3+
+
+SUCCESSION PLANNING:
+- All Grade 6+ positions have identified successors (ready now, ready in 1 year, ready in 2–3 years)
+- Successors receive targeted development to fill gaps
+- Succession plans reviewed annually by HR and leadership
+
+CONTACTS:
+- Career development queries: hr@company.com
+- Internal job openings: HR Portal → Careers → Internal Openings
+- Mentoring programme: learning@company.com
+- High-potential programme: hipo@company.com
 
 Document ID: Company_18
+Keywords: career growth, promotion, internal transfer, career framework, grade structure, fast-track, management development, succession planning, mentoring, career development, internal mobility

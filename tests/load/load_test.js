@@ -28,12 +28,11 @@ export const options = {
     { duration: '1m', target: 0  },   // cool down
   ],
   thresholds: {
-    http_req_failed:   ['rate<0.02'],          // < 2% errors
-    http_req_duration: ['p(95)<3000'],         // 95th percentile < 3s
-    http_req_duration: ['p(99)<6000'],         // 99th percentile < 6s
-    ask_duration:      ['p(95)<4000'],         // ask endpoint specifically
-    auth_fail_rate:    ['rate<0.01'],          // near-zero auth failures
-    answer_miss_rate:  ['rate<0.05'],          // < 5% empty answers
+    http_req_failed:   ['rate<0.02'],                    // < 2% errors
+    http_req_duration: ['p(95)<3000', 'p(99)<6000'],     // both percentile thresholds in one array
+    ask_duration:      ['p(95)<4000'],                   // ask endpoint specifically
+    auth_fail_rate:    ['rate<0.01'],                    // near-zero auth failures
+    answer_miss_rate:  ['rate<0.05'],                    // < 5% empty answers
   },
 };
 

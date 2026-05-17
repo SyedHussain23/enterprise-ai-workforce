@@ -12,8 +12,9 @@ export const USER_CREDS = {
 };
 
 // Standard thresholds used across all scripts
+// NOTE: both p95 and p99 conditions must be in the same array —
+// duplicate object keys in JS silently drop the first entry.
 export const DEFAULT_THRESHOLDS = {
-  http_req_failed:   ['rate<0.02'],          // < 2% error rate
-  http_req_duration: ['p(95)<3000'],         // 95% of requests under 3s
-  http_req_duration: ['p(99)<6000'],         // 99% under 6s
+  http_req_failed:   ['rate<0.02'],
+  http_req_duration: ['p(95)<3000', 'p(99)<6000'],
 };

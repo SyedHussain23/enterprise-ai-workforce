@@ -1,9 +1,64 @@
-
 IT Policy Document
 
-Topic: Laptop
+Topic: Device and Equipment Policy
 
 Details:
-Laptop provided on joining.
+All company-provided devices must be used responsibly and maintained in good working condition.
+
+DEVICE PROVISIONING:
+- Company laptop: Provided on first day of employment (configured and ready)
+- Specifications: Based on role requirements (standard/developer/creative)
+- Additional equipment: Monitor, keyboard, mouse provided for office workstation
+- Mobile phone: Grade 4+ only (see HR benefits policy)
+- Access card/badge: Issued by HR on Day 1
+
+DEVICE CONFIGURATION (Pre-configured by IT):
+- Operating system: Windows 11 Enterprise / macOS 14 (Sonoma) — fully managed by IT
+- Company email configured automatically
+- Microsoft 365 / Google Workspace installed
+- VPN client (Cisco AnyConnect) pre-installed and configured
+- Antivirus/EDR (CrowdStrike Falcon) installed and active
+- Full disk encryption enabled (BitLocker/FileVault)
+- Mobile Device Management (MDM) agent installed (Intune/Jamf)
+
+USAGE RULES:
+- Company devices are for business use only
+- Personal use: Limited acceptable personal use permitted during breaks and non-work hours
+- Do not use company device for: Personal business ventures, illegal activities, downloading copyrighted content
+- Do not allow family members or unauthorized persons to use company device
+- Do not disable or bypass any security software installed by IT
+- Do not install unauthorized software (see Software Policy)
+
+DEVICE CARE AND MAINTENANCE:
+- Keep device clean, free from liquid exposure, and stored securely
+- Report any damage immediately to IT (even minor damage — proactive reporting protects you)
+- Do not attempt to repair or open the device yourself
+- Travel: Use company-provided laptop bag; do not check laptop in airline hold luggage
+
+REPORTING LOST OR STOLEN DEVICE:
+1. Report immediately (within 1 hour of discovery) to IT Helpdesk: Ext. 1001
+2. IT will remotely wipe device to protect company data
+3. File police report if stolen (required for insurance claim)
+4. HR and IT will jointly assess incident and determine replacement procedure
+5. First theft/loss with police report: Replacement device issued
+6. Second loss: Employee may be required to contribute to replacement cost
+
+DEVICE RETURN ON EXIT:
+- All company devices must be returned on last working day
+- IT conducts device inspection and wipes device upon return
+- Outstanding device return: Deducted from final settlement
+- Company data may not be transferred to personal devices upon leaving
+
+PERIPHERAL EQUIPMENT:
+- External monitors, keyboards, mice: Available on request for office use
+- Webcam: Available on request for video conferencing (if not built-in)
+- Headsets: Issued to customer-facing roles
+- Additional equipment requests: IT Portal → Equipment Request
+
+DEVICE REFRESH CYCLE:
+- Laptop replaced every 3 years (subject to condition)
+- Urgent replacement: Approved by IT Manager for devices with critical issues
+- Loaner devices available (IT storage) for temporary use
 
 Document ID: IT_3
+Keywords: laptop, device, equipment, company laptop, computer, device policy, laptop stolen, lost laptop, device repair, device return

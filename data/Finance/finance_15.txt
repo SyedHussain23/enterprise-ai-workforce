@@ -1,9 +1,61 @@
-
 Finance Policy Document
 
-Topic: Vendor Payment
+Topic: UAE End of Service Gratuity — Finance Calculation Guide
 
 Details:
-Vendor payments within 15 days.
+End of Service Gratuity (EOSB) is a statutory obligation under UAE Labour Law, managed and funded by Finance.
+
+LEGAL BASIS:
+Federal Decree-Law No. 33 of 2021 on the Regulation of Labour Relations in UAE
+
+WHO PAYS GRATUITY:
+- Employer pays gratuity from company funds (no employee contribution)
+- Finance provisions gratuity liability monthly in financial accounts (accrual basis)
+- Gratuity fund maintained as part of company financial reserves
+
+CALCULATION METHOD:
+Step 1: Determine basic salary
+(Gratuity is based on BASIC SALARY ONLY — not housing, transport, or other allowances)
+
+Step 2: Calculate daily basic rate
+Daily rate = Monthly basic salary ÷ 30
+
+Step 3: Apply entitlement per years of service:
+Years 1–5: 21 calendar days per year of service
+After Year 5: 30 calendar days per year (incremental)
+
+Step 4: Calculate total gratuity
+Example: Employee with 7 years service, AED 15,000 basic salary:
+- Daily rate = AED 15,000 / 30 = AED 500/day
+- First 5 years: 5 × 21 × AED 500 = AED 52,500
+- Years 6–7: 2 × 30 × AED 500 = AED 30,000
+- Total gratuity = AED 82,500
+
+MAXIMUM GRATUITY CAP:
+- UAE law caps gratuity at 2 years' total basic salary
+- AED 15,000/month × 24 = AED 360,000 maximum cap
+- In above example: AED 82,500 (below cap, full amount payable)
+
+RESIGNATION ENTITLEMENT (Proportional):
+- Less than 1 year: No gratuity
+- 1–3 years: One-third of calculated gratuity
+- 3–5 years: Two-thirds of calculated gratuity
+- 5+ years: Full calculated gratuity
+
+TERMINATION BY EMPLOYER:
+- Employee receives full calculated gratuity regardless of service duration (if over 1 year)
+- Unless terminated for gross misconduct under Article 44 (theft, serious offence)
+
+GRATUITY AND DEWS:
+- Some free zones (DIFC, ADGM) use DEWS (Workplace Savings Scheme) instead of gratuity
+- DEWS: Monthly employer contribution of 5.83% of basic salary to portable fund
+- Employee owns DEWS account and takes it on leaving — more portable than gratuity
+- Finance manages DEWS contributions for eligible employees
+
+GRATUITY CALCULATION TOOL:
+- HR Portal → Payroll → Gratuity Calculator
+- Inputs: Start date, current basic salary, reason for leaving
+- Provides instant estimate (Finance confirms exact amount in final settlement)
 
 Document ID: Finance_15
+Keywords: gratuity, end of service gratuity, EOSB, UAE gratuity, gratuity calculation, final settlement, gratuity entitlement, DEWS, end of service

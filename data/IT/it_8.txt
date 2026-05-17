@@ -1,9 +1,62 @@
-
 IT Policy Document
 
-Topic: Software Install
+Topic: Software Installation and License Management
 
 Details:
-Install via IT approval.
+All software on company devices must be approved and installed by IT to ensure security and license compliance.
+
+STANDARD SOFTWARE (Pre-installed on all company devices):
+- Microsoft 365 (Word, Excel, PowerPoint, Outlook, Teams, OneDrive)
+- Cisco AnyConnect VPN
+- CrowdStrike Falcon (antivirus/EDR)
+- Adobe Acrobat Reader
+- Chrome, Edge (browsers)
+- Zoom (video conferencing)
+- Slack/Microsoft Teams (communication)
+
+DEPARTMENT-SPECIFIC STANDARD SOFTWARE:
+- Finance: Xero/SAP/QuickBooks (company ERP)
+- IT: Jira, Confluence, VS Code, Git
+- HR: HR Portal, LinkedIn Recruiter
+- Design/Marketing: Adobe Creative Cloud, Figma
+- Sales: Salesforce/HubSpot CRM
+
+HOW TO REQUEST NEW SOFTWARE:
+1. Check if software is in the Company App Catalog first: IT Portal → Software Catalog
+2. If in catalog: Install directly from Software Center (no approval needed)
+3. If not in catalog: Submit request via IT Portal → Software → New Software Request
+4. Include: Software name, vendor, purpose, estimated cost (for paid software), number of users
+5. IT evaluates: Security scan, license compliance, business need, cost
+6. Approval: IT Manager + Finance (if cost > AED 500)
+7. Approved software added to catalog within 5 business days
+
+PROHIBITED ACTIVITIES:
+- Do NOT download and install software from the internet directly
+- Do NOT bring personal software licenses (home use licenses do not cover commercial use)
+- Do NOT install cracked, pirated, or unlicensed software — legal risk to company
+- Do NOT install browser extensions without IT approval
+- Do NOT use freeware or shareware for company data (security risk)
+
+WHY THIS POLICY EXISTS:
+- Security: Unknown software can contain malware, backdoors, or spyware
+- Compliance: Unlicensed software exposes company to legal action (software audits happen)
+- Support: IT can only support approved, tested software
+
+SOFTWARE AUDIT COMPLIANCE:
+- Annual software audit conducted by IT (November–December)
+- All installed software compared against approved license records
+- Unauthorized software found: Removed immediately, employee warned
+- Repeated violations: Disciplinary action
+
+OPEN SOURCE SOFTWARE:
+- Some open source tools permitted with prior IT approval
+- IT reviews license type (MIT, Apache = OK; GPL = may require legal review)
+- Submit via IT Portal → Software → Open Source Request
+
+VENDOR DEMO SOFTWARE:
+- Software for vendor evaluation must be run in IT-managed sandbox environment
+- Do not install vendor demo software directly on work computer
+- IT creates isolated test environment on request
 
 Document ID: IT_8
+Keywords: software, install software, software request, application, app, software license, unauthorized software, software policy, install application

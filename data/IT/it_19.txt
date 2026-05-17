@@ -1,9 +1,60 @@
-
 IT Policy Document
 
-Topic: Authentication
+Topic: Acceptable Use Policy for IT Resources
 
 Details:
-2FA enabled.
+This policy defines what constitutes acceptable and unacceptable use of all company IT resources.
+
+COMPANY IT RESOURCES COVERED:
+- Company laptops, desktops, phones, tablets
+- Company network (wired and wireless)
+- Company email and communication tools
+- Company applications and software
+- Internet access via company network or VPN
+- Company-owned cloud storage and collaboration tools
+
+ACCEPTABLE PERSONAL USE (Limited):
+The company allows limited personal use of IT resources during breaks and non-work hours:
+- Checking personal email occasionally
+- General web browsing (non-work related) on breaks
+- Personal calls or messages during lunch break
+- Light personal social media use outside working hours
+Personal use must not: Impact productivity, consume excessive bandwidth, violate any other policy
+
+UNACCEPTABLE AND PROHIBITED USE:
+1. Using company IT resources for personal business or commercial activities
+2. Accessing, downloading, or sharing illegal content (pirated software, movies, etc.)
+3. Downloading or distributing copyrighted material without authorization
+4. Visiting adult, gambling, or other inappropriate websites
+5. Sending harassing, threatening, or discriminatory communications
+6. Installing unauthorized software or modifying system settings
+7. Sharing company credentials or allowing others to use your accounts
+8. Attempting to access systems or data without authorization
+9. Using company resources to compete with the employer
+10. Using IT resources to conduct activities that violate UAE law
+
+SOCIAL MEDIA ON COMPANY DEVICES:
+- Personal social media use: Permitted during breaks and lunch (limited)
+- Do NOT post confidential company information on any social media platform
+- Do NOT conduct personal social media business using company bandwidth excessively
+- Business social media (LinkedIn, company accounts): During work hours as appropriate
+
+MONITORING AND PRIVACY:
+- Company reserves right to monitor all activity on company devices and network
+- Employees have no expectation of privacy for communications on company systems
+- Monitoring activities detailed in IT Monitoring Policy (IT_10)
+
+CONSEQUENCES OF VIOLATIONS:
+- First violation: Warning and mandatory security training
+- Repeated violations: Formal disciplinary action
+- Serious violations (illegal activities): Immediate termination and potential legal action
+
+HARDWARE MODIFICATIONS:
+- Do not add, remove, or modify hardware components
+- Do not install RAM, hard drives, peripherals, or cards without IT authorization
+- Do not apply stickers or markings that obscure asset tags
+
+By using company IT resources, all employees acknowledge acceptance of this policy.
 
 Document ID: IT_19
+Keywords: acceptable use, IT policy, internet policy, computer use, prohibited use, personal use, company resources, IT rules

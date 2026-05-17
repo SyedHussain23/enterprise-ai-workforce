@@ -1,9 +1,62 @@
-
 Finance Policy Document
 
-Topic: Deductions
+Topic: Employee Allowances and Benefits Payments
 
 Details:
-Deductions applied as per policy.
+The company provides various financial allowances to support employees' work-related costs.
+
+STANDARD MONTHLY ALLOWANCES (Included in salary):
+
+Housing Allowance:
+- Purpose: Contribution toward UAE accommodation costs (UAE has no rent control for most properties)
+- Amount: AED 3,000–12,000/month (varies by grade, marital status, and number of dependents)
+- Single: Lower band | Married: Higher band | With children: Additional supplement
+- Paid as part of monthly salary — employee arranges own accommodation
+
+Transport Allowance:
+- Purpose: Contribution toward commuting and transportation costs
+- Amount: AED 1,000–3,500/month (grade-dependent)
+- Grade 1–3: AED 1,000–1,500/month
+- Grade 4–5: AED 2,000–2,500/month
+- Grade 6+: Company car policy applies instead of transport allowance
+
+Communication Allowance:
+- Purpose: Business phone calls on personal number
+- Amount: AED 150–300/month reimbursement or prepaid company SIM
+- Grade 4+ eligible for company SIM
+- Claim: Finance Portal → Allowances → Phone Reimbursement (attach itemized bill)
+
+ADDITIONAL ONE-TIME OR ANNUAL ALLOWANCES:
+
+Annual Flight Ticket:
+- One economy round trip to home country per year
+- Grade 5+: Business class for flights over 6 hours
+- Must book through company travel portal
+- OR cash equivalent (capped at AED 3,000 per person economy, AED 6,000 business class)
+- Unused flight ticket does not carry forward to next year
+
+Furniture Allowance (On Joining):
+- New joiners receive one-time furniture allowance: AED 5,000–15,000 (grade-dependent)
+- For setting up new home in UAE
+- Claim within first 90 days of joining
+- Finance Portal → Allowances → Joining Allowance
+
+Education Allowance (Dependent Children):
+- Available from Grade 5+
+- Up to AED 25,000 per child per year (maximum 3 children)
+- Submit school fee invoice to Finance by September each year
+- Finance Portal → Allowances → Education Claim
+
+ALLOWANCE CLAIMS PROCESS:
+1. Finance Portal → Allowances → Select Allowance Type
+2. Upload supporting documentation (receipts, invoices, school fee letter)
+3. Manager approval (automated request sent)
+4. Finance reviews and pays in next payroll cycle
+5. All allowances subject to company policy limits
+
+ALLOWANCE TAXATION:
+- UAE: Allowances are not taxable (no income tax)
+- Expats with foreign tax obligations: Consult personal tax advisor for home country treatment
 
 Document ID: Finance_10
+Keywords: allowances, housing allowance, transport allowance, communication allowance, flight ticket, furniture allowance, education allowance, employee benefits payment

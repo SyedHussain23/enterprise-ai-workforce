@@ -1,9 +1,52 @@
-
 Finance Policy Document
 
-Topic: Financial Planning
+Topic: Performance-Related Pay and Salary Review Process
 
 Details:
-Annual planning done.
+How salary increases are determined and the annual review process.
+
+ANNUAL SALARY REVIEW CYCLE:
+- Review period: January–March each year
+- Effective date of salary changes: 1st April annually
+- Process:
+  1. Performance ratings finalized (November–December)
+  2. Finance provides salary bands and budget for each department (January)
+  3. Managers submit salary recommendations within budget (February)
+  4. HR and Finance validate against: Salary bands, market data, internal equity (February–March)
+  5. CHRO and CFO final approval (March)
+  6. Salary letters issued: 31st March (new salary effective 1st April payroll)
+
+SALARY INCREASE GUIDELINES (Based on performance rating):
+- Rating 5 (Outstanding): 10–20% increase
+- Rating 4 (Exceeds Expectations): 7–12% increase
+- Rating 3 (Meets Expectations): 3–6% increase
+- Rating 2 (Below Expectations): 0–2% (may be withheld if performance plan active)
+- Rating 1 (Unsatisfactory): No increase
+
+Note: Increases are guidelines, not guarantees. Budget constraints may affect the final amount.
+
+MARKET SALARY BENCHMARKING:
+- Finance and HR use third-party salary surveys (Mercer, Hay Group, Gulf Compensation Forum)
+- Benchmarking ensures salaries are competitive for UAE/GCC market
+- Target positioning: Median (50th percentile) for standard performers; 75th percentile for exceptional performers
+- If your salary is below market median: Flagged for out-of-cycle review
+
+OUT-OF-CYCLE SALARY REVIEWS:
+- Permitted for: Counter-offers (retention risk), promotions, significant role changes, market realignment
+- Requires: Department Head + HR Director + CFO approval
+- Maximum once per 12-month period per employee
+- Counter-offer consideration: Company policy is to retain talent but not engage in bidding wars
+
+SALARY COMPRESSION AND EQUITY:
+- Finance monitors: Junior employee salaries must not exceed or approach senior employee salaries without justification
+- New hire salaries: Checked against internal peers before offer (Finance + HR)
+- Any internal equity issue identified: Actioned in next annual review or sooner if significant
+
+COMMUNICATING THE INCREASE:
+- Salary letter issued personally to each employee
+- Discuss with your manager — do not discuss salary publicly with colleagues
+- Salary information is confidential — sharing with others is a disciplinary matter
+- Questions about your increase: Speak with your HR partner
 
 Document ID: Finance_22
+Keywords: salary review, salary increase, pay review, increment, salary raise, performance-related pay, merit increase, annual review, salary bands

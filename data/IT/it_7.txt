@@ -1,9 +1,64 @@
-
 IT Policy Document
 
-Topic: Backup
+Topic: Data Backup and Business Continuity
 
 Details:
-Data backup done daily.
+The company ensures all critical business data is backed up regularly to prevent data loss.
+
+BACKUP SCHEDULE:
+- User files (OneDrive/SharePoint): Real-time sync + version history 90 days
+- Company databases: Full backup daily (2 AM), incremental every 4 hours
+- Email (Exchange Online): Retention 7 years, recoverable deleted items 30 days
+- Server backups: Daily full backup, retained for 30 days
+- Critical systems backup: Hourly snapshots, 7-day retention
+
+BACKUP LOCATIONS:
+- Primary backup: Azure Blob Storage (UAE North region)
+- Secondary backup: AWS S3 (Bahrain region)
+- Geographic separation ensures protection against regional disasters
+
+RECOVERY TIME OBJECTIVES:
+- Critical systems (email, HR, Finance): Recovery within 4 hours
+- Standard business applications: Recovery within 8 hours
+- Non-critical systems: Recovery within 24 hours
+
+HOW TO RECOVER YOUR FILES:
+Method 1 — Recent deletion (OneDrive):
+1. Go to OneDrive → Recycle Bin
+2. Find deleted file → Right-click → Restore
+3. Files recoverable up to 30 days after deletion
+
+Method 2 — Older file version:
+1. Right-click file in OneDrive/SharePoint → Version History
+2. Select version to restore
+3. Up to 90 versions of any file stored
+
+Method 3 — IT-managed recovery (server files):
+1. Submit request: IT Portal → Data Recovery → Request File Recovery
+2. Specify: File path, approximate deletion date, reason
+3. IT restores within 2 business days for non-urgent requests
+4. Urgent same-day recovery: Call IT Helpdesk: Ext. 1001
+
+WHAT EMPLOYEES MUST DO (Backup responsibility):
+- Save all work files to OneDrive or SharePoint — NOT just to local C: drive
+- Files saved only on local desktop/Downloads are NOT backed up by company
+- If local drive fails without cloud backup: Data is unrecoverable
+- Configure OneDrive sync client immediately on new device (IT can assist)
+
+BUSINESS CONTINUITY PLAN (BCP):
+- In event of major office outage: Remote work activated within 2 hours
+- Critical staff notified via Emergency SMS and WhatsApp broadcast
+- Backup office locations: Identified co-working spaces in Dubai/Abu Dhabi
+- IT systems accessible remotely via VPN from any location
+
+DISASTER RECOVERY TESTING:
+- Full DR test conducted annually (typically April)
+- Partial backup restoration tests conducted quarterly
+- All employees notified before full DR test (planned downtime window)
+
+DO NOT SAVE SENSITIVE DATA LOCALLY:
+- Sensitive data (client information, financial records, personal employee data) must be stored on encrypted company SharePoint/network drives only
+- Local hard drive encryption (BitLocker) provides protection if device lost, but cloud backup is still required
 
 Document ID: IT_7
+Keywords: backup, data backup, file recovery, recover file, deleted file, version history, OneDrive, disaster recovery, business continuity, lost file

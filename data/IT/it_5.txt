@@ -1,9 +1,65 @@
-
 IT Policy Document
 
-Topic: Access Control
+Topic: Access Control and Identity Management
 
 Details:
-Role-based access control.
+Access to company systems is governed by the principle of least privilege — employees receive only the access needed for their role.
+
+ROLE-BASED ACCESS CONTROL (RBAC):
+- System access is determined by job role and department
+- New joiner access provisioned automatically based on role profile in HR system
+- Access changes requested by manager, approved by IT security team
+- Quarterly access reviews conducted — unused access revoked automatically
+
+ACCESS PROVISIONING (For New Joiners):
+Day 1 access provided automatically:
+- Company email (Microsoft 365 / Google Workspace)
+- HR Portal
+- Department-specific applications (as per role profile)
+- Shared network drives (department folder)
+Access provisioned within 4 business hours of confirmed start date
+
+REQUESTING ADDITIONAL ACCESS:
+1. Submit access request via: IT Portal → Access Management → Request Access
+2. Include: System name, reason for access, duration (permanent or temporary)
+3. Manager approval required (automatic request sent to manager)
+4. IT reviews and provisions within 2 business days
+5. Confirmation email sent when access is granted
+
+PRIVILEGED ACCESS (Admin accounts):
+- Admin/privileged access requires: Manager approval + IT Security Manager approval + signed access agreement
+- Privileged accounts are separate from normal user accounts (never use admin account for daily work)
+- All privileged access activities are logged and reviewed monthly
+- Privileged access reviewed quarterly and revoked if not used
+
+CONTRACTOR AND VENDOR ACCESS:
+- Temporary access for contractors: Maximum 90 days, renewed on project basis
+- Vendor access: Time-limited and restricted to specific systems only
+- All vendor sessions logged; remote vendor access requires IT supervision for high-risk systems
+- NDA and security agreement required before access granted
+
+LEAVING THE COMPANY (Offboarding):
+- IT access revoked on last working day at 5 PM (or immediately for terminations)
+- All access deactivated: Email, VPN, applications, network shares
+- No account grace period — access revocation is immediate
+- Data handover to manager arranged before last day
+
+SHARED ACCOUNTS:
+- Shared accounts are PROHIBITED (exception: specific team mailboxes with IT approval)
+- Everyone must use their individual credentials
+- Shared accounts prevent proper audit trail
+
+ACCESS REVIEW SCHEDULE:
+- User access review: Quarterly
+- Privileged access review: Monthly
+- Contractor access review: Monthly
+- Any access not used in 60 days: Automatically disabled
+
+SINGLE SIGN-ON (SSO):
+- Most applications accessible via company SSO: https://portal.company.internal
+- One set of credentials for all approved applications
+- SSO uses company email and password + MFA
+- Applications not on SSO list: Request via IT Portal
 
 Document ID: IT_5
+Keywords: access control, system access, access request, user access, permissions, Active Directory, SSO, access management, provisioning, role based access

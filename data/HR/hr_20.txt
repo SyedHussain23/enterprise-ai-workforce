@@ -1,9 +1,67 @@
-
 HR Policy Document
 
-Topic: Documentation
+Topic: Employee Records and Data Privacy
 
 Details:
-Employee documents stored securely.
+The company manages employee personal data in accordance with UAE data protection laws and company policy.
+
+EMPLOYEE DATA COLLECTED:
+- Personal: Full name, date of birth, nationality, marital status, contact details
+- Employment: Start date, grade, role, salary, performance records
+- Legal: Passport number, Emirates ID, visa details, work permit
+- Financial: Bank account, salary history
+- Medical: General health (required for insurance enrollment, not diagnostic)
+- Emergency contacts: Name and phone number of 2 emergency contacts
+
+DATA STORAGE AND SECURITY:
+- All employee records stored in encrypted HR Information System (HRIS)
+- Physical records locked in HR secure storage
+- Access restricted to: HR team, direct manager (role-relevant only), Finance (salary data)
+- IT security audit of HRIS conducted annually
+- Data backed up daily with 90-day retention
+
+ACCESSING YOUR OWN DATA:
+- Employees have right to view all personal data held by company
+- Request data access via HR Portal → My Profile → View My Data
+- Response within 5 business days
+- Right to correct inaccurate data at any time (update personal details via HR Portal)
+
+WHAT EMPLOYEES CAN UPDATE THEMSELVES:
+Via HR Portal → My Profile:
+- Contact number and personal email
+- Emergency contact details
+- Bank account details (with verification)
+- Home address
+- Marital status and number of dependents
+
+DATA THAT REQUIRES HR TO UPDATE:
+- Name change (legal document required)
+- Nationality change
+- Emirates ID update
+- Salary changes
+- Promotion/grade changes
+
+DATA RETENTION:
+- Active employees: Data held for duration of employment
+- After leaving: Data retained for 7 years (UAE legal requirement for employment records)
+- After 7 years: Data deleted or anonymized
+
+EMPLOYEE DATA NOT SHARED WITH THIRD PARTIES EXCEPT:
+- UAE government authorities (Ministry of Human Resources, immigration) — as legally required
+- Medical insurance provider (for policy enrollment)
+- Payroll bank (for salary transfer — minimum data only)
+- Legal counsel in case of disputes
+
+GDPR / DATA PRIVACY:
+- Company complies with UAE Federal Law No. 45 of 2021 on Personal Data Protection
+- Data Protection Officer (DPO) contact: dpo@company.com
+- Any data breach affecting employee data reported to DPO within 24 hours
+
+DOCUMENT COPIES REQUIRED ON JOINING:
+- Passport (validity minimum 6 months from joining date)
+- Emirates ID or receipt of application
+- Previous employment letters
+- Educational certificates
 
 Document ID: HR_20
+Keywords: employee records, personal data, data privacy, HRIS, employee data, passport, Emirates ID, data protection, update personal details

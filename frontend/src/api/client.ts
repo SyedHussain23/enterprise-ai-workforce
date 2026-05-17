@@ -8,6 +8,12 @@ import type {
   FeedbackRequest,
   ActionApprovalRequest,
   SSEEvent,
+  UserProfile,
+  UpdateProfileRequest,
+  ChangePasswordRequest,
+  AdminUsersResponse,
+  UpdateUserRequest,
+  AuditLogsResponse,
 } from './types';
 
 const BASE = '/api';
@@ -69,6 +75,7 @@ export async function askStream(
   onToken: (token: string) => void,
   onDone: (meta: WorkflowResponse) => void,
   onError: (err: string) => void,
+  onStatus?: (status: string) => void,
 ): Promise<void> {
   const res = await fetch(`${BASE}/ask/stream`, {
     method: 'POST',
@@ -85,7 +92,7 @@ export async function askStream(
     return;
   }
 
-  const reader = res.body.getReader();
+  const reader  = res.body.getReader();
   const decoder = new TextDecoder();
   let buffer = '';
 
@@ -103,9 +110,10 @@ export async function askStream(
         if (!raw || raw === '[DONE]') continue;
         try {
           const evt = JSON.parse(raw) as SSEEvent;
-          if (evt.type === 'token') onToken(evt.content);
-          else if (evt.type === 'done') onDone(evt as WorkflowResponse);
-          else if (evt.type === 'error') onError(evt.message);
+          if (evt.type === 'token')        onToken(evt.content);
+          else if (evt.type === 'done')    onDone(evt as WorkflowResponse);
+          else if (evt.type === 'error')   onError(evt.message);
+          else if (evt.type === 'status' && onStatus) onStatus(evt.content);
         } catch {
           // ignore malformed lines
         }
@@ -168,4 +176,55 @@ export async function uploadDocument(file: File): Promise<{ message: string; chu
   }
 
   return res.json();
+}
+
+// ── My Profile ────────────────────────────────────────────────────────────────
+export async function getMyProfile(): Promise<UserProfile> {
+  return request<UserProfile>('/me');
+}
+
+export async function updateMyProfile(data: UpdateProfileRequest): Promise<UserProfile> {
+  return request<UserProfile>('/me', { method: 'PUT', body: JSON.stringify(data) });
+}
+
+export async function changePassword(data: ChangePasswordRequest): Promise<{ message: string }> {
+  return request<{ message: string }>('/me/password', {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+}
+
+// ── Admin — Users ─────────────────────────────────────────────────────────────
+export async function listUsers(params?: {
+  page?: number;
+  page_size?: number;
+  department?: string;
+  role?: string;
+}): Promise<AdminUsersResponse> {
+  const qs = new URLSearchParams();
+  if (params?.page)        qs.set('page',       String(params.page));
+  if (params?.page_size)   qs.set('page_size',  String(params.page_size));
+  if (params?.department)  qs.set('department', params.department);
+  if (params?.role)        qs.set('role',       params.role);
+  return request<AdminUsersResponse>(`/admin/users?${qs.toString()}`);
+}
+
+export async function updateUser(userId: string, data: UpdateUserRequest): Promise<{ message: string }> {
+  return request<{ message: string }>(`/admin/users/${userId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  });
+}
+
+// ── Admin — Audit Log ─────────────────────────────────────────────────────────
+export async function getAuditLogs(params?: {
+  page?: number;
+  page_size?: number;
+  event_type?: string;
+}): Promise<AuditLogsResponse> {
+  const qs = new URLSearchParams();
+  if (params?.page)        qs.set('page',       String(params.page));
+  if (params?.page_size)   qs.set('page_size',  String(params.page_size));
+  if (params?.event_type)  qs.set('event_type', params.event_type);
+  return request<AuditLogsResponse>(`/admin/audit?${qs.toString()}`);
 }

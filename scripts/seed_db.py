@@ -66,14 +66,14 @@ async def seed() -> None:
 
         # ── Standard user ─────────────────────────────────────────────────────
         result = await db.execute(
-            select(User).where(User.username == "user", User.company_id == company.id)
+            select(User).where(User.username == "employee1", User.company_id == company.id)
         )
         if result.scalar_one_or_none() is None:
             employee = User(
                 company_id=company.id,
-                email="user@enterprise-ai.com",
-                username="user",
-                hashed_password=hash_password("user123"),
+                email="employee1@enterprise-ai.com",
+                username="employee1",
+                hashed_password=hash_password("emp123"),
                 role=UserRole.EMPLOYEE.value,
                 is_active=True,
             )
@@ -84,8 +84,8 @@ async def seed() -> None:
         logger.info("seed.complete")
         print("\n✅ Database seeded successfully.")
         print(f"   Company : default")
-        print(f"   Admin   : admin / admin123")
-        print(f"   Employee: user  / user123\n")
+        print(f"   Admin   : admin     / admin123")
+        print(f"   Employee: employee1 / emp123\n")
 
 
 if __name__ == "__main__":

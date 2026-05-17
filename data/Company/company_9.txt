@@ -1,9 +1,76 @@
-
 Company Policy Document
 
-Topic: Performance
+Topic: Performance Management & Appraisal System
 
 Details:
-Performance tracked.
+The company's approach to goal-setting, performance reviews, and development planning.
+
+PERFORMANCE MANAGEMENT CYCLE:
+- Annual cycle: January (goal-setting) → Mid-year review (July) → Year-end review (December)
+- All employees participate regardless of grade or tenure
+- Performance ratings directly impact salary increases and bonuses
+
+GOAL-SETTING (January):
+Framework: SMART Goals (Specific, Measurable, Achievable, Relevant, Time-bound)
+- Minimum 3, maximum 7 KPIs/OKRs per employee
+- 70% business KPIs + 30% behavioural/values competencies
+- Goals agreed between employee and manager by 31 January
+- Entered into HR Portal → Performance → My Goals
+- Mid-year goals may be adjusted by mutual agreement if business priorities shift
+
+PERFORMANCE RATING SCALE (1–5):
+1 — Far Below Expectations: Significant performance issues; PIP required
+2 — Below Expectations: Partially meets requirements; development plan needed
+3 — Meets Expectations: Fully competent; good solid performance
+4 — Exceeds Expectations: Consistently delivers above the bar
+5 — Outstanding: Exceptional performance; top 10% of organisation
+
+MID-YEAR REVIEW (July):
+- 30–60 minute structured conversation between employee and manager
+- Progress against goals reviewed; adjustments agreed if needed
+- Developmental feedback documented in HR Portal
+- No formal rating at mid-year — developmental only
+
+YEAR-END APPRAISAL (December):
+Process:
+1. Employee Self-Assessment (HR Portal → Performance → Self-Review) — by 1 December
+2. Manager Assessment — by 10 December
+3. Calibration Session — Department heads normalise ratings across teams
+4. One-on-one feedback meeting — manager shares final rating by 20 December
+5. Employee acknowledges rating in HR Portal
+
+LINKING PERFORMANCE TO PAY:
+- Annual salary increase (effective April): Based on performance rating
+  - Rating 5 (Outstanding): 15–20% increase
+  - Rating 4 (Exceeds): 10–15% increase
+  - Rating 3 (Meets): 5–8% increase
+  - Rating 2 (Below): 0–3% increase (review plan required)
+  - Rating 1 (Far Below): 0%; PIP triggered
+- Year-end bonus: Performance multiplier applied to grade-based bonus (see Finance policy)
+
+PERFORMANCE IMPROVEMENT PLAN (PIP):
+- Triggered for rating 1 or two consecutive rating 2s
+- Duration: 60–90 days structured plan
+- Weekly check-ins between employee and manager (HR may attend)
+- Clear measurable targets must be met to exit PIP
+- Failure to meet PIP targets: Employment may be terminated per UAE Labour Law
+
+CONTINUOUS FEEDBACK:
+- 1-on-1 meetings: Bi-weekly minimum between manager and direct report
+- Praise and recognition: Use HR Portal → Recognition → Give a Shoutout anytime
+- 360-degree feedback: Available on request for employees at Grade 5 and above
+- Feedback should be: Specific, Timely, Actionable, and Respectful (STAR model)
+
+APPEAL PROCESS:
+- Employee who disagrees with their rating may appeal within 14 days of receiving it
+- Submit: HR Portal → Performance → Appeal Rating
+- HR reviews appeal with HR Director and relevant department head
+- Decision communicated within 21 days; decision is final
+
+CONTACTS:
+- HR Portal (performance): https://hr.company.internal → Performance
+- Performance queries: hr@company.com
+- PIP queries: Contact HR Business Partner for your department
 
 Document ID: Company_9
+Keywords: performance management, appraisal, KPI, OKR, SMART goals, performance rating, PIP, performance improvement plan, year-end review, mid-year review, salary increase linked to performance

@@ -1,9 +1,58 @@
-
 HR Policy Document
 
-Topic: Leave Carry Forward
+Topic: Recruitment and Hiring Process
 
 Details:
-Max 10 days carry forward.
+The company follows a structured, merit-based hiring process to attract and select the best talent.
+
+RECRUITMENT PHILOSOPHY:
+- Merit-based selection: Best qualified candidate for the role
+- Internal-first: All vacancies posted internally before external advertising
+- Diversity-focused: Interview panels include diverse members, job descriptions are gender-neutral
+- Emiratization: UAE Nationals given priority consideration as per government requirements
+
+INTERNAL JOB POSTING:
+- All vacancies posted on HR Portal → Internal Careers
+- Posted for minimum 7 days before external advertising
+- All employees with 12+ months service may apply
+- Hiring manager must interview all qualified internal applicants
+
+EXTERNAL RECRUITMENT CHANNELS:
+- LinkedIn, Bayt, GulfTalent for UAE/GCC roles
+- Direct sourcing by Talent Acquisition team
+- Preferred recruitment agencies: Pre-approved vendor list (HR manages)
+
+SELECTION PROCESS:
+Stage 1: CV screening by Talent Acquisition team
+Stage 2: HR screening call (30 minutes — culture fit, expectations, notice period)
+Stage 3: Technical interview with hiring manager (60 minutes)
+Stage 4: Panel interview with department head and cross-functional member (60 minutes)
+Stage 5: For senior roles (Grade 5+): CEO/MD interview
+Stage 6: Reference checks (2 professional references required)
+Stage 7: Offer and onboarding
+
+OFFER PROCESS:
+- Verbal offer made by Talent Acquisition
+- Written offer letter sent via DocuSign within 48 hours of verbal offer
+- Acceptance deadline: 3 business days (may request extension)
+- Offer subject to: Reference checks, educational verification, background check (for certain roles)
+- Medical test: Required for UAE visa processing — arranged by HR
+
+REFERENCE CHECKS:
+- 2 professional references required (direct managers from previous employers)
+- Personal references not accepted
+- Reference check call conducted by HR before final offer confirmed
+- Any discrepancy between information provided and references: Offer may be withdrawn
+
+BACKGROUND AND CREDENTIALS VERIFICATION:
+- Educational certificates verified via official institutions
+- Employment history verified via references and LinkedIn
+- Criminal background check: For roles involving finance, children, or security clearance
+
+CANDIDATE EXPERIENCE:
+- All candidates receive response within 5 business days of application
+- Rejected candidates receive brief feedback if requested
+- Internal candidates: Must be told outcome within 5 days of final interview
 
 Document ID: HR_24
+Keywords: recruitment, hiring, job posting, interview, selection process, offer letter, job application, open positions, vacancies, career

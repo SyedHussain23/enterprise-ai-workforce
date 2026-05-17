@@ -1,9 +1,59 @@
-
 Finance Policy Document
 
-Topic: Audit
+Topic: Internal and External Audit Process
 
 Details:
-Annual financial audit conducted.
+The company conducts regular audits to ensure financial accuracy, compliance, and risk management.
+
+INTERNAL AUDIT:
+- Conducted by: Internal Audit team (independent from Finance)
+- Frequency: Quarterly for high-risk areas, annually for standard processes
+- Purpose: Verify controls, identify risks, ensure policy compliance, prevent fraud
+- Scope: Financial transactions, expense claims, payroll, vendor payments, asset management
+
+WHAT INTERNAL AUDITORS DO:
+- Review samples of financial transactions for accuracy and policy compliance
+- Verify expense claims have proper supporting documents
+- Test that procurement policy (PO requirement, approval thresholds) is being followed
+- Check payroll for unauthorized changes or anomalies
+- Review access controls to financial systems
+- Assess effectiveness of financial controls
+
+YOUR COOPERATION IS REQUIRED:
+- If contacted by Internal Audit: Respond promptly (within 2 business days)
+- Provide requested documents and information honestly
+- Do not delay, alter, or destroy records requested by auditors
+- Obstruction of audit: Serious disciplinary offence
+
+EXTERNAL AUDIT:
+- Conducted by: Big 4 or top-tier independent audit firm
+- Frequency: Annual (financial year-end audit)
+- Purpose: Independent verification of financial statements for board/shareholders
+- Timing: January–March (for December year-end companies)
+
+EMPLOYEE ROLE IN EXTERNAL AUDIT:
+- Auditors may request to interview employees directly
+- Finance coordinator notifies relevant employees in advance
+- Answer auditor questions honestly and provide requested documents
+- Do not make commitments about future business during auditor interviews without Finance Director clearance
+
+FRAUD PREVENTION:
+- Segregation of duties: No single employee controls an entire financial process end-to-end
+- Dual authorization: Payments above thresholds require two approvers
+- System controls: Finance systems automatically flag unusual transactions
+- Reporting fraud: Immediately report suspected fraud to ethics@company.com or Internal Audit
+- Whistleblower protection: Reporter identity fully protected
+
+AUDIT FINDINGS:
+- Findings shared with department heads after audit completion
+- Action plans required for all Medium and High findings within 30 days
+- Progress tracked quarterly until findings are closed
+- Repeated findings treated as serious management issue
+
+ANNUAL FINANCIAL STATEMENTS:
+- Audited financial statements completed by 31st March
+- Shared with board for approval in Q1 board meeting
+- UAE requirement: Financial statements filed with relevant authority
 
 Document ID: Finance_7
+Keywords: audit, internal audit, external audit, financial audit, compliance, fraud, audit report, financial statements, auditors

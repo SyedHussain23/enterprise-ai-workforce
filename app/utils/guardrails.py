@@ -1,104 +1,180 @@
 # app/utils/guardrails.py
+"""
+Production-grade input guardrails for the Enterprise AI Workforce platform.
 
-from app.core.constants import ALLOWED_KEYWORDS, DEPT_CONTACTS, OUT_OF_SCOPE_KEYWORDS
+Checks (in order):
+  1. Empty / too-short input
+  2. Prompt injection detection
+  3. PII detection (Emirates ID, credit card, passport, IBAN)
+  4. Profanity / offensive language filter
+  5. Gibberish detection
+  6. Out-of-scope topic detection
+  7. Allow-list pass-through
+
+Arabic queries are explicitly supported — Arabic HR/IT/Finance terms are
+in ALLOWED_KEYWORDS and must never be blocked by the gibberish filter.
+"""
+from __future__ import annotations
+
+import re
+import unicodedata
+
+from app.core.constants import (
+    ALLOWED_KEYWORDS,
+    DEPT_CONTACTS,
+    OUT_OF_SCOPE_KEYWORDS,
+    PII_PATTERNS,
+    PROFANITY_WORDS,
+    PROMPT_INJECTION_PHRASES,
+)
+
+# ── Compile PII patterns once at module load ──────────────────────────────────
+_PII_COMPILED: dict[str, re.Pattern] = {
+    name: re.compile(pattern, re.IGNORECASE)
+    for name, pattern in PII_PATTERNS.items()
+}
+
+# ── Arabic Unicode block range ────────────────────────────────────────────────
+# U+0600–U+06FF covers Arabic script; we detect Arabic queries to skip the
+# vowel-ratio gibberish check (Arabic has far fewer Latin vowels).
+_ARABIC_RE = re.compile(r"[؀-ۿ]")
+
+# ── Common English stop-words to anchor gibberish check ──────────────────────
+_COMMON_WORDS = frozenset([
+    "what", "how", "when", "where", "who", "why", "can", "is", "the",
+    "my", "do", "i", "need", "want", "help", "tell", "show", "get",
+    "find", "about", "please", "for", "me", "are", "does", "a", "an",
+    "will", "should", "would", "could", "have", "has", "had", "be",
+    "to", "of", "in", "on", "at", "by", "with", "from", "into",
+    "apply", "check", "submit", "request", "update", "approve",
+])
 
 
-def is_gibberish(query: str) -> bool:
-    query_lower = query.lower().strip()
-
-    if len(query_lower) < 3:
-        return True
-
-    if query_lower.isdigit():
-        return True
-
-    letters = [c for c in query_lower if c.isalpha()]
-    if len(letters) > 4:
-        vowels      = set("aeiou")
-        vowel_ratio = sum(1 for c in letters if c in vowels) / len(letters)
-        if vowel_ratio < 0.1:
-            return True
-
-    common = [
-        "what", "how", "when", "where", "who", "why", "can", "is",
-        "the", "my", "do", "i", "need", "want", "help", "tell",
-        "show", "get", "find", "about", "please", "for", "me",
-        "are", "does", "a",
-    ]
-    has_known  = any(kw in query_lower for kw in ALLOWED_KEYWORDS)
-    has_common = any(w in query_lower.split() for w in common)
-
-    return not has_known and not has_common
-
+# ─────────────────────────────────────────────────────────────────────────────
+# Public API
+# ─────────────────────────────────────────────────────────────────────────────
 
 def get_guardrail_response(query: str) -> dict | None:
     """
-    Returns block dict if query must be stopped.
-    Returns None if query is allowed to proceed.
+    Returns a block dict if the query must be stopped.
+    Returns None if the query is allowed to proceed to the workflow.
+
+    Checks are ordered cheapest-first so we short-circuit early.
     """
-    # ✅ FIX 3 — Input validation first
     if not query or not query.strip():
         return _block(
-            answer = "⚠️ Please enter a valid question.",
-            reason = "Empty input rejected",
-            step   = "⚠️ Guardrail → empty input blocked",
+            answer="⚠️ Please enter a valid question.",
+            reason="Empty input rejected",
+            step="⚠️ Guardrail → empty input blocked",
         )
 
-    query_lower = query.lower().strip()
+    # Normalise: strip leading/trailing whitespace, collapse runs of spaces
+    raw   = query.strip()
+    clean = re.sub(r"\s+", " ", raw)
+    lower = clean.lower()
 
-    # Too short after strip
-    if len(query_lower) < 2:
+    # 1. Minimum length
+    if len(clean) < 3:
         return _block(
-            answer = "⚠️ Please enter a valid question.",
-            reason = "Input too short",
-            step   = "⚠️ Guardrail → input too short",
+            answer="⚠️ Please enter a valid question.",
+            reason="Input too short",
+            step="⚠️ Guardrail → input too short",
         )
 
-    # Gibberish
-    if is_gibberish(query):
+    # 2. Prompt injection
+    injection_phrase = _detect_prompt_injection(lower)
+    if injection_phrase:
         return _block(
-            answer = (
+            answer=(
+                "⚠️ Your message contains content that cannot be processed.\n\n"
+                "I'm here to help with company HR, IT, and Finance questions. "
+                "Please ask a work-related question."
+            ),
+            reason=f"Prompt injection detected: '{injection_phrase}'",
+            step="⚠️ Guardrail → prompt injection blocked",
+        )
+
+    # 3. PII detection — warn and sanitise rather than hard-block
+    pii_hit = _detect_pii(clean)
+    if pii_hit:
+        return _block(
+            answer=(
+                f"⚠️ Your message appears to contain sensitive personal information "
+                f"({pii_hit}).\n\n"
+                "For security, please **do not share** Emirates IDs, passport numbers, "
+                "credit card numbers, or bank account details in this chat.\n\n"
+                "Rephrase your question without including personal identification numbers "
+                "and I'll be happy to help."
+            ),
+            reason=f"PII detected: {pii_hit}",
+            step=f"⚠️ Guardrail → PII ({pii_hit}) blocked",
+        )
+
+    # 4. Profanity / offensive language
+    profanity_hit = _detect_profanity(lower)
+    if profanity_hit:
+        return _block(
+            answer=(
+                "⚠️ Your message contains language that is not appropriate for "
+                "this workplace assistant.\n\n"
+                "Please rephrase your question professionally and I'll be glad to help."
+            ),
+            reason=f"Profanity detected: '{profanity_hit}'",
+            step="⚠️ Guardrail → profanity blocked",
+        )
+
+    # 5. Gibberish check (skipped for Arabic queries)
+    is_arabic = bool(_ARABIC_RE.search(clean))
+    if not is_arabic and _is_gibberish(lower):
+        return _block(
+            answer=(
                 "Sorry, I couldn't understand your request. "
-                "Please ask a valid company-related question.\n\n"
-                "Try asking:\n"
-                "- What is the leave policy?\n"
+                "Please ask a clear company-related question.\n\n"
+                "**Try asking:**\n"
+                "- What is the annual leave policy?\n"
                 "- How do I reset my password?\n"
-                "- How do I submit an expense claim?"
+                "- How do I submit an expense claim?\n"
+                "- What is the UAE gratuity formula?\n"
+                "- How do I connect to VPN?"
             ),
-            reason = "Gibberish or unrecognisable input",
-            step   = "⚠️ Guardrail → gibberish input blocked",
+            reason="Gibberish or unrecognisable input",
+            step="⚠️ Guardrail → gibberish input blocked",
         )
 
-    # Out of scope
-    if any(kw in query_lower for kw in OUT_OF_SCOPE_KEYWORDS):
+    # 6. Out-of-scope topic check
+    if _is_out_of_scope(lower):
         return _block(
-            answer = (
-                "⚠️ This system only handles company-related queries.\n\n"
-                "I can help with:\n"
-                "- 👩‍💼 HR: Leave, onboarding, employee matters\n"
-                "- 💻 IT: Password reset, VPN, system access\n"
-                "- 💰 Finance: Salary, expenses, reimbursements"
+            answer=(
+                "⚠️ This assistant only handles company-related queries.\n\n"
+                "**I can help with:**\n"
+                "- 👩‍💼 **HR:** Leave, gratuity, onboarding, payslip, grievances\n"
+                "- 💻 **IT:** Password reset, VPN, MFA, device issues, phishing\n"
+                "- 💰 **Finance:** Expenses, salary, VAT, procurement, budgets\n\n"
+                "Please ask a work-related question."
             ),
-            reason = "Out of scope query blocked",
-            step   = "⚠️ Guardrail → out of scope blocked",
+            reason="Out of scope query blocked",
+            step="⚠️ Guardrail → out of scope blocked",
         )
 
-    return None  # ✅ Proceed
+    return None  # ✅ Query is clean — proceed to workflow
 
 
 def get_fallback_response(agent: str = "Unknown") -> dict:
     """
-    ✅ FIX 2 — Default fallback when agent returns nothing.
+    Default fallback when the agent returns nothing useful.
     Called from workflow_graph report_node or router_node.
     """
     contact = DEPT_CONTACTS.get(agent, DEPT_CONTACTS["default"])
-
     return {
         "answer": (
             f"I couldn't find exact information for your query.\n\n"
-            f"Please contact the {agent} team directly:\n"
+            f"**Please contact the {agent} team directly:**\n"
             f"📧 {contact}\n\n"
-            "Or try rephrasing your question with more specific terms."
+            "Or try rephrasing your question with more specific terms.\n\n"
+            "**Example questions:**\n"
+            "- What is the annual leave policy?\n"
+            "- How do I reset my password?\n"
+            "- How do I submit an expense claim?"
         ),
         "agent":             agent,
         "confidence":        40,
@@ -108,6 +184,131 @@ def get_fallback_response(agent: str = "Unknown") -> dict:
         "confidence_reason": "Low confidence — no relevant data found",
     }
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Detection helpers
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _detect_prompt_injection(lower: str) -> str | None:
+    """Return the matched injection phrase, or None if clean."""
+    for phrase in PROMPT_INJECTION_PHRASES:
+        if phrase in lower:
+            return phrase
+    return None
+
+
+def _detect_pii(text: str) -> str | None:
+    """
+    Return a human-readable PII type label if found, or None.
+
+    Note: The bank_account pattern (10-16 consecutive digits) has a high
+    false-positive rate for things like employee IDs or phone numbers, so
+    we only flag it when no other pattern matched AND the number appears
+    isolated (surrounded by whitespace or start/end of string).
+    """
+    # Check high-confidence patterns first
+    high_confidence = ["emirates_id", "credit_card", "iban", "passport"]
+    for name in high_confidence:
+        if _PII_COMPILED[name].search(text):
+            label = name.replace("_", " ").title()
+            return label
+
+    # Bank account — require word boundaries and length 10-16
+    ba_pattern = re.compile(r"(?<!\d)\d{10,16}(?!\d)")
+    match = ba_pattern.search(text)
+    if match:
+        return "Bank Account Number"
+
+    return None
+
+
+def _detect_profanity(lower: str) -> str | None:
+    """Return the matched profanity word, or None if clean."""
+    # Check exact word matches first
+    words = re.findall(r"\b\w+\b", lower)
+    for word in words:
+        if word in PROFANITY_WORDS:
+            return word
+
+    # Check prefix matches (catches "fucking", "bullshit", etc.)
+    for base in PROFANITY_WORDS:
+        if " " in base:
+            # Multi-word phrase — substring check
+            if base in lower:
+                return base
+        else:
+            # Check if any token starts with the base (e.g., "fucking" starts with "fuck")
+            for word in words:
+                if word.startswith(base) and len(word) <= len(base) + 4:
+                    return base
+
+    return None
+
+
+def _is_gibberish(lower: str) -> bool:
+    """
+    Heuristic gibberish detection. Returns True if the text looks like
+    random characters rather than a real question.
+
+    Logic:
+      - Single digit or pure number → gibberish
+      - Fewer than 3 characters → too short (caught earlier, but double-check)
+      - All characters are consonants with vowel ratio < 10% AND no known
+        keywords → likely keyboard mashing
+      - No vowels at all and no common words and no known keywords → gibberish
+    """
+    stripped = lower.strip()
+
+    if len(stripped) < 3:
+        return True
+
+    if stripped.isdigit():
+        return True
+
+    # If the query contains any known keyword → definitely not gibberish
+    if any(kw in lower for kw in ALLOWED_KEYWORDS):
+        return False
+
+    # If it contains any common stop-word → probably a real question
+    tokens = set(re.findall(r"\b\w+\b", lower))
+    if tokens & _COMMON_WORDS:
+        return False
+
+    # Vowel-ratio check on alphabetical characters only
+    letters = [c for c in stripped if c.isalpha()]
+    if len(letters) > 5:
+        vowels      = set("aeiou")
+        vowel_ratio = sum(1 for c in letters if c in vowels) / len(letters)
+        if vowel_ratio < 0.08:
+            return True
+
+    return False
+
+
+def _is_out_of_scope(lower: str) -> bool:
+    """
+    Returns True if the query matches an out-of-scope topic AND has no
+    department-specific keyword that would redeem it.
+
+    Examples:
+      "football tournament at office" → redeemed by "office" (department kw)
+      "news about company leave policy" → redeemed by "leave" (HR kw)
+      "who won the cricket world cup" → NOT redeemed → blocked
+    """
+    from app.core.constants import DEPARTMENT_KEYWORDS
+    matches_oos = any(kw in lower for kw in OUT_OF_SCOPE_KEYWORDS)
+    if not matches_oos:
+        return False
+
+    # Redemption: only department-specific keywords count, not generic stop-words
+    dept_keywords = [kw for kws in DEPARTMENT_KEYWORDS.values() for kw in kws]
+    has_dept_kw = any(kw in lower for kw in dept_keywords)
+    return not has_dept_kw
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Internal block builder
+# ─────────────────────────────────────────────────────────────────────────────
 
 def _block(answer: str, reason: str, step: str) -> dict:
     return {

@@ -4,6 +4,7 @@ import { RTLProvider } from './context/RTLContext';
 import { LoginPage } from './pages/LoginPage';
 import { ChatPage } from './pages/ChatPage';
 import { AdminPage } from './pages/AdminPage';
+import { ProfilePage } from './pages/ProfilePage';
 import type { ReactNode } from 'react';
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
@@ -40,6 +41,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <ProfilePage />
           </ProtectedRoute>
         }
       />

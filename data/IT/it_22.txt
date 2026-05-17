@@ -1,9 +1,56 @@
-
 IT Policy Document
 
-Topic: Storage
+Topic: IT Asset Management and Tracking
 
 Details:
-Data stored securely.
+All company IT assets are tracked and managed throughout their lifecycle.
+
+ASSET TAGGING:
+- Every IT asset has a unique asset tag (sticker with barcode/QR code)
+- Do not remove or cover asset tags — they identify your company device
+- Asset tags on: Laptops, monitors, phones, tablets, printers, network equipment
+
+ASSET ASSIGNMENT:
+- All assets assigned to named employees
+- Asset assignment documented in IT Asset Management System (ServiceNow/Snipe-IT)
+- Employee acknowledges device assignment by signing Asset Acknowledgement Form (Day 1)
+- Asset assigned to you = your responsibility for its care
+
+ANNUAL ASSET AUDIT:
+- IT conducts physical asset verification annually (typically November)
+- Employees confirm possession of all assigned assets
+- Missing assets investigated by IT and HR
+- Unaccounted assets: Employee responsible unless theft reported
+
+ASSET TRANSFER:
+- If transferring to another department: Submit IT Portal → Asset → Transfer Request
+- Asset must be handed to IT for re-imaging before transfer to new user
+- Never pass company device directly between employees without IT processing
+
+ASSET DISPOSAL:
+- Old/broken assets returned to IT — do not throw in regular bin
+- IT ensures secure data wiping (NIST 800-88 standard) before any disposal
+- Certified data destruction used for storage media
+- Certificate of data destruction provided for compliance records
+- E-waste: Disposed of via certified e-waste recycler (ISO 14001 compliant)
+
+MOBILE DEVICE MANAGEMENT (MDM):
+- All company mobile phones and tablets enrolled in Microsoft Intune/Jamf
+- MDM allows IT to: Push security updates, enforce policies, remotely wipe if lost
+- MDM does NOT access personal data on personal devices — only work data partition
+
+IT ASSET REQUEST PROCESS:
+New equipment needed:
+1. Submit: IT Portal → Assets → Request New Asset
+2. Include business justification
+3. Manager approval required for items > AED 1,000
+4. Finance approval for > AED 5,000
+5. Delivery time: Standard stock 1–3 business days; custom orders 2–4 weeks
+
+ACCESSORIES:
+- Mouse, keyboard, webcam, headset: Available from IT store
+- Request via IT Portal → Assets → Peripheral Request
+- Typical turnaround: Next business day
 
 Document ID: IT_22
+Keywords: IT asset, laptop tracking, asset management, equipment tracking, device audit, asset tag, IT inventory, equipment request

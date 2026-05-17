@@ -1,9 +1,60 @@
-
 HR Policy Document
 
-Topic: Grievance
+Topic: Grievance Policy and Employee Complaint Procedure
 
 Details:
-Employees can report issues to HR.
+The company is committed to resolving workplace concerns fairly, promptly, and confidentially.
+
+WHAT IS A GRIEVANCE:
+A grievance is any concern, problem, or complaint an employee has related to:
+- Working conditions or environment
+- Management behavior or treatment
+- Discrimination, harassment, or bullying
+- Unfair treatment in performance review or promotion
+- Salary discrepancy or payroll errors
+- Breach of company policy by another employee
+- Any other workplace matter affecting wellbeing
+
+INFORMAL RESOLUTION (First Step):
+Most grievances are best resolved through open conversation:
+1. Raise concern directly with the person involved (if safe and appropriate)
+2. If unsuccessful, discuss with direct manager
+3. Manager must acknowledge and respond within 5 business days
+4. Resolution agreement documented in writing
+
+FORMAL GRIEVANCE PROCESS:
+If informal resolution fails:
+Step 1: Submit formal Grievance Form via HR Portal → Employee Relations → Raise Grievance
+Step 2: HR acknowledges receipt within 2 business days
+Step 3: HR appoints an independent HR partner to investigate
+Step 4: Investigation includes interviews with all relevant parties (confidential)
+Step 5: Investigation completed within 15 business days
+Step 6: Written outcome shared with employee within 5 days of investigation completion
+Step 7: If unsatisfied, employee may appeal to HR Director within 10 days
+
+ANTI-RETALIATION:
+- Raising a grievance will not negatively impact your employment, performance review, or career
+- Retaliation against someone who raised a grievance is a serious disciplinary offence
+- Any retaliation should be reported immediately to HR Director or Ethics hotline
+
+CONFIDENTIALITY:
+- All grievance matters handled with strict confidentiality
+- Information shared only on need-to-know basis
+- Witnesses requested to maintain confidentiality during investigation
+
+HARASSMENT AND DISCRIMINATION COMPLAINTS:
+- Serious matters (harassment, discrimination, violence) escalated immediately to HR Director
+- Can be reported anonymously via Ethics Hotline: ethics@company.com
+- Company maintains zero tolerance for harassment and discrimination
+- Investigated within 10 business days with interim protective measures if needed
+
+EMPLOYEE ASSISTANCE PROGRAM (EAP):
+- Free confidential counseling available to all employees
+- 6 free sessions per year with certified counselor
+- Contact HR to access the EAP (contact details kept confidential)
+- Topics: Stress, workplace conflict, mental health, personal challenges
+
+Contact: hr@company.com | HR Hotline: +971-4-XXX-XXXX
 
 Document ID: HR_10
+Keywords: grievance, complaint, harassment, discrimination, employee complaint, workplace issue, report concern, bullying, unfair treatment

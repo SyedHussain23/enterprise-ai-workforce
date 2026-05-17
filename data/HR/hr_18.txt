@@ -1,9 +1,54 @@
-
 HR Policy Document
 
-Topic: Probation
+Topic: Probation Policy
 
 Details:
-Probation period is 6 months.
+All new employees serve a probation period during which both parties evaluate suitability for the role.
+
+PROBATION PERIOD:
+- Standard probation: 6 months (UAE Labour Law maximum)
+- May be extended in exceptional cases with HR approval
+- Extension communicated in writing before original probation end date
+- During probation, employee is entitled to all statutory benefits (health insurance, etc.)
+
+NOTICE DURING PROBATION:
+- Either party may terminate during probation with 14 days written notice (UAE law minimum)
+- Company policy: 30 days notice from employer during probation
+- Employee giving notice: 14 days (per UAE law)
+- Immediate termination for gross misconduct (no notice required)
+
+PROBATION REVIEW PROCESS:
+- 30-day check-in: Informal review with manager, verbal feedback
+- 90-day formal review: Manager completes probation review form, submitted to HR
+- Final probation review (Day 150–180): Pass/Fail/Extend decision made
+- Employee receives written confirmation of probation outcome within 5 days of final review
+
+OBJECTIVES DURING PROBATION:
+- Minimum 3–5 SMART objectives agreed within first 2 weeks of joining
+- Objectives cover: Technical skills, behavioral competencies, knowledge areas
+- Progress reviewed monthly by manager
+
+SUCCESSFUL COMPLETION:
+- Employee receives confirmation letter
+- Full benefits activate (annual leave accrual eligible to use, bonus eligibility)
+- Annual leave taken during probation counts toward entitlement
+- Performance rating starts from confirmation date
+
+PROBATION EXTENSION:
+- Can be extended by up to 3 additional months (total maximum 6 months under UAE law)
+- Employee informed in writing with specific areas requiring improvement
+- Dedicated coaching/support provided during extension
+
+UNSUCCESSFUL PROBATION:
+- 14 days notice given (or payment in lieu)
+- No gratuity payable (less than 1 year service)
+- Work permit and visa cancellation processed by HR
+- No internal job board applications during probation unless pre-approved
+
+LEAVE DURING PROBATION:
+- Sick leave: Permitted after completing 3 months, with medical certificate
+- Annual leave: Accrued but generally not taken during probation (exceptional cases considered)
+- Emergency leave: Granted at manager discretion
 
 Document ID: HR_18
+Keywords: probation, probation period, probationary, new employee evaluation, trial period, probation review, probation pass, probation extension

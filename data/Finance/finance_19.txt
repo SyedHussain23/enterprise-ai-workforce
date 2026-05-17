@@ -1,9 +1,55 @@
-
 Finance Policy Document
 
-Topic: Profit Analysis
+Topic: Contract Management and Legal Agreements
 
 Details:
-Profit analyzed quarterly.
+All contracts and legal agreements must go through the proper review and approval process before signing.
+
+CONTRACT TYPES:
+1. Client contracts: Service agreements, Master Service Agreements (MSAs), Statements of Work (SOWs)
+2. Supplier contracts: Vendor agreements, purchase contracts, SLAs
+3. Employee agreements: Employment contracts, NDAs, non-competes (HR manages)
+4. Partnership agreements: JVs, revenue sharing, referral agreements
+5. Lease agreements: Office, equipment, vehicle leases
+
+CONTRACT APPROVAL PROCESS:
+1. Business owner prepares contract draft or receives supplier draft
+2. Legal team reviews (mandatory for any contract with liability > AED 50,000)
+3. Finance reviews commercial terms (payment schedule, penalties, liabilities)
+4. Signing authority:
+   - Under AED 50,000 annual value: Department Director
+   - AED 50,000–500,000: CFO
+   - Over AED 500,000: CEO (and Board for strategic agreements)
+5. Signed contract filed in Contract Management System (CMS)
+
+NO VERBAL CONTRACTS:
+- Never agree to services or purchases verbally without written agreement
+- Email confirmation is the minimum — proper contract required for any significant commitment
+- Verbal commitments to clients (especially pricing or delivery) must be confirmed in writing within 24 hours
+
+CONTRACT REGISTER:
+- All signed contracts stored in Finance Portal → Contracts → Contract Register
+- Contracts indexed by: Type, counterparty, start date, end date, value
+- Renewal reminders: Automatic alerts 90 days before expiry
+- Expired contracts: Finance and legal team review for renewal or termination
+
+KEY CONTRACT TERMS TO FLAG TO FINANCE:
+- Payment terms (invoice schedule, milestone payments)
+- Penalty clauses (late delivery, non-performance penalties)
+- Indemnification clauses (company liability for client losses)
+- Termination clauses (notice period, cost of early termination)
+- Price escalation clauses (automatic annual increases)
+
+NDA (NON-DISCLOSURE AGREEMENT):
+- Required before sharing any confidential company or client information with third parties
+- Standard company NDA available: Legal Portal → Templates → NDA
+- Must be signed before any sales demo, vendor evaluation, or partnership discussion
+- Do not share financial information, client data, or technical details without signed NDA
+
+CONTRACT DISPUTES:
+- Client disputes: Escalate immediately to your Department Head and Finance
+- Do not make commitments (credits, payments, refunds) to resolve disputes without Finance Director approval
+- Legal disputes: Refer to company legal counsel immediately
 
 Document ID: Finance_19
+Keywords: contract, legal agreement, contract management, NDA, vendor contract, client contract, contract approval, signing authority, legal review

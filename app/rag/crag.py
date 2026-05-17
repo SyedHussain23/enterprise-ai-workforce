@@ -49,7 +49,7 @@ Rewritten (one sentence):"""
 def _grade_chunk(question: str, chunk: str) -> str:
     try:
         resp = _openai.chat.completions.create(
-            model="gpt-4o-mini",
+            model=settings.OPENAI_MODEL,
             messages=[{"role": "user", "content": GRADE_PROMPT.format(question=question, chunk=chunk[:800])}],
             max_tokens=5,
             temperature=0,
@@ -66,7 +66,7 @@ def _grade_chunk(question: str, chunk: str) -> str:
 def _rewrite_query(question: str) -> str:
     try:
         resp = _openai.chat.completions.create(
-            model="gpt-4o-mini",
+            model=settings.OPENAI_MODEL,
             messages=[{"role": "user", "content": REWRITE_PROMPT.format(question=question)}],
             max_tokens=80,
             temperature=0.3,

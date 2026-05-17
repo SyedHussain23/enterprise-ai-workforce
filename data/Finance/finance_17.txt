@@ -1,9 +1,51 @@
-
 Finance Policy Document
 
-Topic: Tax Filing
+Topic: UAE Corporate Tax and Regulatory Compliance
 
 Details:
-Tax filing done yearly.
+Key information about UAE tax obligations relevant to employees and business operations.
+
+UAE TAX ENVIRONMENT:
+- Personal income tax: NONE in UAE (major benefit of working in UAE)
+- Corporate tax: 9% on business profits above AED 375,000 (from June 2023)
+- VAT: 5% (from January 2018)
+- Customs duty: 5% on most imported goods
+
+PERSONAL TAX — EMPLOYEE PERSPECTIVE:
+- Employees pay NO income tax in UAE on UAE-sourced income
+- No tax deductions from salary — employees receive full gross package
+- No tax filing required by employees for UAE income
+- Exception: Citizens/residents of countries with worldwide income taxation (US citizens, UK domiciled individuals) — these employees are personally responsible for their home country tax filings on global income
+- Company provides salary certificates for tax filing purposes in home countries on request
+
+CORPORATE TAX — BUSINESS IMPACT (Not employee-facing):
+- Companies earning over AED 375,000 profit/year pay 9% corporate tax
+- Free zone companies: May benefit from 0% rate if meeting Qualifying Free Zone criteria
+- Finance team handles all corporate tax compliance
+- Employees should not make representations about company tax status to clients
+
+VAT OBLIGATIONS FOR EMPLOYEES:
+- Always get proper VAT invoice from suppliers when buying anything for the company
+- VAT invoice must show: Supplier TRN, VAT amount separately, total
+- Without proper VAT invoice: Company cannot reclaim VAT, making purchase 5% more expensive
+- Do not accept just a payment receipt — insist on tax invoice
+
+DOUBLE TAXATION AGREEMENTS (DTAs):
+- UAE has DTAs with 130+ countries
+- DTAs prevent double taxation for residents with foreign income
+- Relevant for: Foreign-source investment income, rental income in home country
+- Consult personal tax advisor for individual circumstances — company HR provides certificate of employment/tax residency for DTA claims
+
+UAE ECONOMIC SUBSTANCE REGULATIONS:
+- Certain business activities must demonstrate real economic presence in UAE
+- Finance team manages ESR compliance
+- Employees should not be registered as directors of shell companies (potential ESR risk)
+
+COMMON EMPLOYEE TAX QUESTIONS:
+Q: Do I pay tax on my UAE salary? A: No — UAE has no personal income tax
+Q: Do I need to file a tax return in UAE? A: No — no personal tax returns required in UAE
+Q: What about tax in my home country? A: Depends on your home country law — consult personal tax advisor
+Q: Can company provide a tax residency certificate? A: Yes — request via HR Portal → My Documents → Tax Residency Certificate
 
 Document ID: Finance_17
+Keywords: UAE tax, income tax, corporate tax, VAT, tax compliance, personal tax, no income tax, UAE taxation, tax residency certificate, salary tax

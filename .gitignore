@@ -20,8 +20,11 @@ outputs/
 dump.rdb
 tests/load/results/
 
-# Vector DB (rebuilt from source PDFs)
+# Vector DB (rebuilt from knowledge base documents)
 vector_db/
+
+# Test cache
+.pytest_cache/
 
 # IDE
 .vscode/
@@ -33,5 +36,4 @@ vector_db/
 # Node
 frontend/node_modules/
 frontend/dist/
-.claude/
 .claude/
