@@ -1,6 +1,6 @@
 # Enterprise AI Workforce
 
-[![CI](https://github.com/YOUR_USERNAME/enterprise-ai-workforce/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/enterprise-ai-workforce/actions/workflows/ci.yml)
+[![CI](https://github.com/SyedHussain23/enterprise-ai-workforce/actions/workflows/ci.yml/badge.svg)](https://github.com/SyedHussain23/enterprise-ai-workforce/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev)
@@ -116,7 +116,7 @@ One toggle switches the entire UI to Arabic right-to-left layout using `html[dir
 
 ### 1. Clone & configure
 ```bash
-git clone https://github.com/YOUR_USERNAME/enterprise-ai-workforce.git
+git clone https://github.com/SyedHussain23/enterprise-ai-workforce.git
 cd enterprise-ai-workforce
 cp .env.example .env
 # Edit .env — add OPENAI_API_KEY and a strong SECRET_KEY
