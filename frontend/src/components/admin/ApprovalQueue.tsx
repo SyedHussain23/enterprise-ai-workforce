@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactElement } from 'react';
 import { CheckCircle, XCircle, Clock, User, Zap, ChevronDown, ChevronUp } from 'lucide-react';
 import { approveAction, rejectAction } from '../../api/client';
 import type { Action } from '../../api/types';
@@ -22,7 +22,7 @@ const ACTION_LABELS: Record<string, string> = {
   generate_report:     'Report Generated',
 };
 
-const STATUS_STYLES: Record<string, { bg: string; text: string; icon: JSX.Element }> = {
+const STATUS_STYLES: Record<string, { bg: string; text: string; icon: ReactElement }> = {
   PENDING:   { bg: 'bg-amber-50 border-amber-200',   text: 'text-amber-700',   icon: <Clock className="w-3.5 h-3.5" /> },
   APPROVED:  { bg: 'bg-emerald-50 border-emerald-200', text: 'text-emerald-700', icon: <CheckCircle className="w-3.5 h-3.5" /> },
   COMPLETED: { bg: 'bg-emerald-50 border-emerald-200', text: 'text-emerald-700', icon: <Zap className="w-3.5 h-3.5" /> },
@@ -57,10 +57,10 @@ function PayloadPreview({ payload }: { payload: Record<string, unknown> }) {
               </span>
             </div>
           ))}
-          {payload.execution_result && (
+          {payload['execution_result'] != null && (
             <div className="mt-2 pt-2 border-t border-slate-200">
               <p className="text-[10px] text-emerald-600 font-semibold uppercase tracking-wide mb-1">Execution Result</p>
-              {Object.entries(payload.execution_result as Record<string, unknown>).map(([k, v]) => (
+              {Object.entries(payload['execution_result'] as Record<string, unknown>).map(([k, v]) => (
                 <div key={k} className="flex gap-2 text-xs">
                   <span className="text-slate-400 capitalize shrink-0" style={{ minWidth: '8rem' }}>
                     {k.replace(/_/g, ' ')}
