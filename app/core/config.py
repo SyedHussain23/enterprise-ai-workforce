@@ -28,6 +28,11 @@ class Settings(BaseSettings):
     LANGCHAIN_API_KEY: str = ""
     LANGCHAIN_PROJECT: str = "enterprise-ai-workforce"
 
+    # ── CORS ─────────────────────────────────────────────────────────────────
+    # Comma-separated list of allowed origins in production.
+    # Example: https://enterprise-ai-workforce.vercel.app,https://yourdomain.com
+    ALLOWED_ORIGINS: str = ""
+
     # ── WhatsApp (Day 54) ─────────────────────────────────────────────────────
     WHATSAPP_TOKEN: str = ""              # Meta permanent system user token
     WHATSAPP_PHONE_NUMBER_ID: str = ""   # From Meta App → WhatsApp → Configuration
