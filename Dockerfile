@@ -33,12 +33,15 @@ COPY . .
 # Pre-create runtime directories
 RUN mkdir -p logs outputs vector_db
 
+# Ensure the app package is always importable regardless of how Python is invoked
+ENV PYTHONPATH=/app
+
 EXPOSE 8000
 
 # Healthcheck so Railway/Docker Compose know when the app is ready
-HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
   CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"
 
-# Production: run migrations then start with 2 workers
+# Production: run migrations then start
 # $PORT is injected by Railway; default to 8000 locally
 CMD ["sh", "-c", "alembic upgrade head && uvicorn app.api.server:app --host 0.0.0.0 --port ${PORT:-8000} --workers 2"]

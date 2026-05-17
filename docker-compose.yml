@@ -1,12 +1,11 @@
-version: "3.9"
-
 # Enterprise AI Workforce — Full local stack
-# Usage: docker compose up --build
-# First run: docker compose run --rm api alembic upgrade head
+# Usage:      docker compose up --build
+# Migrations: docker compose --profile migrate up migrate
+# Frontend:   docker compose --profile dev up frontend
 
 services:
 
-  # ── PostgreSQL ───────────────────────────────────────────────────────────────
+  # ── PostgreSQL ────────────────────────────────────────────────────────────────
   postgres:
     image: postgres:16-alpine
     container_name: enterprise-ai-postgres
@@ -25,7 +24,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # ── Redis ────────────────────────────────────────────────────────────────────
+  # ── Redis ─────────────────────────────────────────────────────────────────────
   redis:
     image: redis:7-alpine
     container_name: enterprise-ai-redis
@@ -50,24 +49,18 @@ services:
     restart: unless-stopped
     ports:
       - "8000:8000"
+    env_file:
+      - .env
     environment:
-      PORT:             "8000"
-      DEBUG:            "false"
-      OPENAI_API_KEY:   ${OPENAI_API_KEY}
-      SECRET_KEY:       ${SECRET_KEY:?SECRET_KEY must be set in .env — generate with: openssl rand -hex 32}
-      DATABASE_URL:     postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}
-      DATABASE_URL_SYNC: postgresql+psycopg2://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}
-      REDIS_URL:        redis://redis:6379
-      # LangSmith (optional)
-      LANGCHAIN_TRACING_V2: ${LANGCHAIN_TRACING_V2:-false}
-      LANGCHAIN_API_KEY:    ${LANGCHAIN_API_KEY:-}
-      LANGCHAIN_PROJECT:    ${LANGCHAIN_PROJECT:-enterprise-ai-workforce}
-      # WhatsApp (optional)
-      WHATSAPP_TOKEN:           ${WHATSAPP_TOKEN:-}
-      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID:-}
-      WHATSAPP_VERIFY_TOKEN:    ${WHATSAPP_VERIFY_TOKEN:-enterprise_ai_verify}
+      # Override URL hosts so containers can reach each other by service name
+      PORT:              "8000"
+      DEBUG:             "false"
+      PYTHONPATH:        "/app"
+      DATABASE_URL:      "postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}"
+      DATABASE_URL_SYNC: "postgresql+psycopg2://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}"
+      REDIS_URL:         "redis://redis:6379"
     volumes:
-      - vector_db_data:/app/vector_db     # ChromaDB persisted
+      - vector_db_data:/app/vector_db
       - api_logs:/app/logs
     depends_on:
       postgres:
@@ -78,26 +71,29 @@ services:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 30s
       timeout: 10s
-      start_period: 30s
+      start_period: 40s
       retries: 3
 
-  # ── DB migration runner (one-shot, exits after running) ──────────────────────
+  # ── DB migration runner (one-shot) ────────────────────────────────────────────
   migrate:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: enterprise-ai-migrate
     command: alembic upgrade head
+    env_file:
+      - .env
     environment:
-      DATABASE_URL:      postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}
-      DATABASE_URL_SYNC: postgresql+psycopg2://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}
+      PYTHONPATH:        "/app"
+      DATABASE_URL:      "postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}"
+      DATABASE_URL_SYNC: "postgresql+psycopg2://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-enterprise_ai}"
     depends_on:
       postgres:
         condition: service_healthy
     restart: "no"
-    profiles: ["migrate"]   # only runs with: docker compose --profile migrate up
+    profiles: ["migrate"]
 
-  # ── Frontend (dev mode with hot reload) ──────────────────────────────────────
+  # ── Frontend dev server (hot reload) ─────────────────────────────────────────
   frontend:
     image: node:22-alpine
     container_name: enterprise-ai-frontend
@@ -107,10 +103,10 @@ services:
       - "5173:5173"
     volumes:
       - ./frontend:/app
-      - /app/node_modules   # anonymous volume so host node_modules don't override
+      - /app/node_modules
     environment:
       VITE_API_URL: http://localhost:8000
-    profiles: ["dev"]       # only runs with: docker compose --profile dev up
+    profiles: ["dev"]
     depends_on:
       - api
 
