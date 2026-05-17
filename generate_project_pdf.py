@@ -1,5 +1,4 @@
 """
-Generate a comprehensive PDF document covering the entire
 Enterprise AI Workforce project — architecture, tech stack,
 agents, features, day-by-day timeline, and everything in between.
 
