@@ -1,53 +1,53 @@
 name: Deploy
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+# ─────────────────────────────────────────────────────────────────────────────
+# This workflow does NOT run automatically on push.
+# It only triggers when you manually click "Run workflow" in GitHub Actions UI.
+#
+# This is intentional:  CI (ci.yml) runs on every push and validates all code.
+# Deployment is a deliberate, human-initiated action — not automatic.
+#
+# HOW TO DEPLOY:
+#   GitHub → Actions → Deploy → Run workflow → select branch → Run
+#
+# SETUP (one-time):
+#   Settings → Secrets and variables → Actions
+#   Add secrets:  RAILWAY_TOKEN, VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
+#   Add variables: RAILWAY_ENABLED=true, VERCEL_ENABLED=true
+# ─────────────────────────────────────────────────────────────────────────────
 
-# ─────────────────────────────────────────────────────────────────────────────
-# SETUP INSTRUCTIONS
-# ─────────────────────────────────────────────────────────────────────────────
-# To enable Railway deployment:
-#   1. Go to Settings → Secrets and variables → Actions
-#   2. Add secret:  RAILWAY_TOKEN   (from railway.app → Account Settings → Tokens)
-#   3. Add variable: RAILWAY_ENABLED = true
-#
-# To enable Vercel deployment:
-#   1. Add secrets:  VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
-#   2. Add variable: VERCEL_ENABLED = true
-#
-# Until these are configured, deploy jobs are skipped (not failed).
-# ─────────────────────────────────────────────────────────────────────────────
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_target:
+        description: 'What to deploy'
+        required: true
+        default: 'both'
+        type: choice
+        options:
+          - both
+          - backend-only
+          - frontend-only
 
 jobs:
-  # ── Gate: check which deployments are configured ───────────────────────────
-  check-config:
-    name: Check deployment config
-    runs-on: ubuntu-latest
-    outputs:
-      railway: ${{ steps.gate.outputs.railway }}
-      vercel:  ${{ steps.gate.outputs.vercel }}
-
-    steps:
-      - name: Evaluate deployment gates
-        id: gate
-        env:
-          RAILWAY_ENABLED: ${{ vars.RAILWAY_ENABLED }}
-          VERCEL_ENABLED:  ${{ vars.VERCEL_ENABLED }}
-        run: |
-          echo "railway=${RAILWAY_ENABLED:-false}" >> "$GITHUB_OUTPUT"
-          echo "vercel=${VERCEL_ENABLED:-false}"   >> "$GITHUB_OUTPUT"
-
-  # ── Deploy backend to Railway ────────────────────────────────────────────────
+  # ── Deploy backend to Railway ─────────────────────────────────────────────
   deploy-backend:
     name: Deploy API → Railway
     runs-on: ubuntu-latest
-    needs: check-config
-    if: needs.check-config.outputs.railway == 'true'
+    if: |
+      inputs.deploy_target == 'both' ||
+      inputs.deploy_target == 'backend-only'
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Verify Railway token is configured
+        run: |
+          if [ -z "${{ secrets.RAILWAY_TOKEN }}" ]; then
+            echo "::error::RAILWAY_TOKEN secret is not set."
+            echo "::error::Go to Settings → Secrets and variables → Actions → New secret"
+            exit 1
+          fi
 
       - name: Install Railway CLI
         run: npm install -g @railway/cli
@@ -57,18 +57,26 @@ jobs:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: railway up --service enterprise-ai-api --detach
 
-  # ── Deploy frontend to Vercel ─────────────────────────────────────────────────
+  # ── Deploy frontend to Vercel ─────────────────────────────────────────────
   deploy-frontend:
     name: Deploy UI → Vercel
     runs-on: ubuntu-latest
-    needs: [check-config, deploy-backend]
-    # Run even if deploy-backend was skipped (result = 'skipped')
+    needs: deploy-backend
     if: |
-      needs.check-config.outputs.vercel == 'true' &&
+      always() &&
+      (inputs.deploy_target == 'both' || inputs.deploy_target == 'frontend-only') &&
       (needs.deploy-backend.result == 'success' || needs.deploy-backend.result == 'skipped')
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Verify Vercel tokens are configured
+        run: |
+          if [ -z "${{ secrets.VERCEL_TOKEN }}" ]; then
+            echo "::error::VERCEL_TOKEN secret is not set."
+            echo "::error::Go to Settings → Secrets and variables → Actions → New secret"
+            exit 1
+          fi
 
       - name: Set up Node
         uses: actions/setup-node@v4
