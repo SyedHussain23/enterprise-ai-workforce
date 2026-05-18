@@ -43,53 +43,72 @@ User Query → Planner → Guardrail → Router → CRAG Retrieval → Specialis
 ### System Overview
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    PRESENTATION LAYER                           │
-│        React 19 · TypeScript · Tailwind · RTL/Arabic           │
-└──────────────────────────┬──────────────────────────────────────┘
-                           │  REST + SSE streaming
-┌──────────────────────────▼──────────────────────────────────────┐
-│                      API LAYER                                  │
-│     FastAPI · JWT (HS256) · Pydantic · Redis rate limiter       │
-│   /ask · /ask/stream · /admin · /actions · /kb · /profile       │
-└────┬──────────────────────┬────────────────────┬────────────────┘
+┌─────────────────────────────────────────────────────────────────────┐
+│                     PRESENTATION LAYER                              │
+│          React 19 · TypeScript · Tailwind · RTL/Arabic              │
+└───────────────────────────┬─────────────────────────────────────────┘
+                            │  REST + SSE streaming
+┌───────────────────────────▼─────────────────────────────────────────┐
+│                       API LAYER                                     │
+│  FastAPI · JWT (HS256) · Pydantic                                   │
+│  Rate limiter: proxy-aware, fail-closed (ask=20/min, login=10/min)  │
+│  /ask · /ask/stream · /admin · /actions · /kb · /health/deep        │
+└────┬──────────────────────┬────────────────────┬─────────────────────┘
      │                      │                    │
-┌────▼────────┐  ┌──────────▼──────────┐  ┌─────▼──────────────┐
-│ PostgreSQL  │  │  Redis              │  │  Workflow Engine    │
-│ 8 tables    │  │  Session memory     │  │  PENDING→APPROVED   │
-│ Alembic     │  │  Rate limiting      │  │  →EXECUTING→DONE    │
-│ Audit trail │  │  BM25 cache         │  │  Human gate         │
-└─────────────┘  └─────────────────────┘  └────────────────────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────────┐
-│                  LANGGRAPH ORCHESTRATION                        │
-│          Planner → Guardrail → Router → CRAG → Report           │
-│                                                                 │
-│   ┌──────────┐    ┌──────────┐    ┌──────────────────────────┐  │
-│   │ HR Agent │    │ IT Agent │    │    Finance Agent         │  │
-│   └──────────┘    └──────────┘    └──────────────────────────┘  │
-└──────────────────────────┬──────────────────────────────────────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────────┐
-│                    RETRIEVAL LAYER                              │
-│  ChromaDB (dense) + BM25 (sparse) → RRF Fusion → CRAG Grader   │
-│            ↑ query rewrite on all-irrelevant                    │
-└─────────────────────────────────────────────────────────────────┘
+┌────▼────────┐  ┌──────────▼──────────────┐  ┌──▼──────────────────┐
+│ PostgreSQL  │  │  Redis                  │  │  Workflow Engine     │
+│ 8 tables    │  │  Session memory         │  │  PENDING→APPROVED   │
+│ Alembic     │  │  Sliding-window RL      │  │  →EXECUTING→DONE    │
+│ 22 indexes  │  │  Semantic cache (2-tier)│  │  Human gate         │
+│ Audit trail │  │  Conv. summarization    │  │  Audit per step     │
+└─────────────┘  └─────────────────────────┘  └────────────────────┘
+                            │
+                  ┌─────────▼────────────┐
+                  │  SEMANTIC CACHE      │
+                  │  Exact SHA256 (1h)   │
+                  │  + cosine sim (4h)   │
+                  │  ~60-80% hit rate    │
+                  └─────────┬────────────┘
+                            │ (cache miss only)
+┌───────────────────────────▼─────────────────────────────────────────┐
+│                   LANGGRAPH ORCHESTRATION                           │
+│           Planner → Guardrail → Router → CRAG → Report              │
+│                                                                     │
+│   ┌──────────┐    ┌──────────┐    ┌────────────────────────────┐   │
+│   │ HR Agent │    │ IT Agent │    │      Finance Agent         │   │
+│   └──────────┘    └──────────┘    └────────────────────────────┘   │
+└───────────────────────────┬─────────────────────────────────────────┘
+                            │
+┌───────────────────────────▼─────────────────────────────────────────┐
+│                     RETRIEVAL LAYER                                 │
+│   ChromaDB (dense) + BM25 (sparse) → RRF Fusion → CRAG Grader      │
+│   Batch grading: N chunks → 1 LLM call (gpt-4o-mini)               │
+│   Query rewrite on all-irrelevant; ambiguous → filtered             │
+└───────────────────────────┬─────────────────────────────────────────┘
+                            │
+┌───────────────────────────▼─────────────────────────────────────────┐
+│               RESILIENT OPENAI CLIENT                               │
+│   Circuit breaker: CLOSED → OPEN (5 failures) → HALF-OPEN (60s)    │
+│   Retry: 3 attempts, exponential back-off (1s → 2s)                │
+│   Retryable: RateLimitError, APITimeoutError, 5xx                   │
+│   Fast-fail when open — no thread-pool exhaustion                   │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
 ### Agentic Pipeline — Step by Step
 
 | Step | Component | What Happens |
 |------|-----------|--------------|
-| 1 | **FastAPI** | Authenticates JWT, validates request, calls LangGraph |
-| 2 | **Planner** | Keyword trie → LLM fallback; outputs intent label |
-| 3 | **Guardrail** | Blocks: out-of-scope, multi-intent, prompt injection |
-| 4 | **Router** | Selects specialist agent via conditional LangGraph edge |
-| 5 | **CRAG** | Dense + sparse retrieval → RRF fusion → LLM chunk grading |
-| 6 | **Agent** | Generates grounded answer from graded context |
-| 7 | **Report** | Attaches confidence (0-100), eval score, source, steps |
-| 8 | **SSE** | Streams tokens to React frontend in real time |
-| 9 | **DB** | Logs full response to `conversation_logs` for audit |
+| 1 | **FastAPI** | Authenticates JWT; `ask_rate_limiter` (20/min, fail-closed); validates request |
+| 2 | **Semantic Cache** | SHA256 exact match (1h) then cosine similarity ≥0.92 (4h); ~60-80% hit rate |
+| 3 | **Planner** | Keyword trie (no LLM) → LLM fallback via `resilient_chat_completion` |
+| 4 | **Guardrail** | Blocks: out-of-scope, multi-intent, prompt injection |
+| 5 | **Router** | Selects specialist agent via conditional LangGraph edge |
+| 6 | **CRAG** | Dense + sparse retrieval → RRF fusion → **batch** LLM chunk grading (1 call) |
+| 7 | **Agent** | Generates grounded answer from graded, filtered context |
+| 8 | **Report** | Attaches confidence (0-100), eval score, source, full step trace |
+| 9 | **SSE** | Streams tokens to React frontend in real time |
+| 10 | **DB + Cache** | Logs to `conversation_logs`; stores cache entry async (non-blocking) |
 
 ### Database Schema
 
@@ -125,6 +144,18 @@ LangChain chains are linear. LangGraph gives explicit graph structure with condi
 ### Why an approval-gated action system?
 
 Enterprise AI that can *do things* (approve leave, create tickets, submit expenses) needs a human in the loop before execution. The action lifecycle (`PENDING → APPROVED → EXECUTING → COMPLETED`) ensures no AI-initiated action touches any downstream system without explicit human authorisation. Every state transition is timestamped and auditable.
+
+### Why a circuit breaker instead of just retries?
+
+Retries alone are dangerous under sustained failures. If OpenAI experiences a 5-minute rate-limit event, every request retries up to 3 times with back-off. With N concurrent users, this creates N×3 threads all sleeping and waiting — exhausting the server's thread pool and making *all* endpoints unresponsive, not just the LLM-dependent ones.
+
+The circuit breaker trips after 5 consecutive failures and fast-fails all subsequent calls for 60 seconds. Users get an immediate, clean error instead of a 30-second hang. After 60 seconds, one probe request tests if OpenAI has recovered; if yes, the circuit closes and traffic resumes normally.
+
+### Why a two-tier semantic cache?
+
+Common enterprise questions ("What is the annual leave policy?") are asked dozens of times per day by different employees, often phrased slightly differently. Without caching, each phrasing triggers a full LangGraph pipeline + RAG + GPT-4o call (2–5 seconds, ~1000 tokens).
+
+Tier 1 (exact SHA256): free lookup. Tier 2 (cosine similarity ≥0.92): catches paraphrases. Cache stores only high-confidence answers (≥70). Action-triggered responses are never cached (they're user-specific). Invalidation on document upload keeps answers fresh.
 
 ### Why self-hosted?
 
@@ -200,7 +231,9 @@ UAE and GCC enterprises face data residency requirements. Internal HR/Finance do
 - JWT HS256 + bcrypt cost 12
 - Path traversal protection (_safe_path)
 - SECRET_KEY enforced at container start
-- Redis sliding-window rate limiter
+- Proxy-aware rate limiter (X-Forwarded-For)
+- Fail-closed on Redis unavailability
+- Brute-force: 10 login attempts/min/IP
 - Role-based access (user/admin)
 
 </td>
@@ -221,7 +254,8 @@ UAE and GCC enterprises face data residency requirements. Internal HR/Finance do
 - LangSmith end-to-end tracing
 - Confidence score + eval score per response
 - Execution steps in every API response
-- Structured logging to mounted volume
+- `/health/deep`: Postgres + Redis + ChromaDB + OpenAI + circuit breaker
+- Structured JSON logging to mounted volume
 
 </td>
 </tr>
@@ -385,12 +419,13 @@ enterprise-ai-workforce/
 │   ├── api/                # FastAPI routes (server.py, kb_manager.py)
 │   ├── auth/               # JWT creation, verification, bcrypt
 │   ├── config/             # Settings (Pydantic), logger
-│   ├── core/               # Constants, middleware, shared utilities
+│   ├── core/               # Config, logger, rate_limiter, semantic_cache, openai_client
 │   ├── db/                 # SQLAlchemy models, async session, repositories
 │   ├── evaluation/         # Response quality scorer (0-100)
 │   ├── knowledge/          # Static policy docs (hr_policy.txt etc.)
-│   ├── llm/                # OpenAI client wrapper with retry/backoff
-│   ├── rag/                # ChromaDB, BM25, RRF fusion, CRAG grader
+│   ├── llm/                # LangChain ChatOpenAI wrapper
+│   ├── memory/             # Redis conversation memory + LLM summarization
+│   ├── rag/                # ChromaDB, BM25, RRF fusion, CRAG batch grader
 │   ├── schemas/            # Pydantic request/response schemas
 │   ├── tools/              # PDF generator, automation engine
 │   ├── utils/              # Confidence scorer, guardrails, fuzzy match
