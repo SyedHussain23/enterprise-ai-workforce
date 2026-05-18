@@ -30,10 +30,12 @@ export function AgentTrace({ metadata }: Props) {
         <div className="ml-auto flex items-center gap-2">
           <AgentBadge agent={metadata.agent} />
           <ConfidenceBadge score={metadata.confidence} />
-          <span className="text-slate-400 flex items-center gap-0.5">
-            <Zap className="w-3 h-3" />
-            {metadata.response_time.toFixed(2)}s
-          </span>
+          {metadata.response_time != null && (
+            <span className="text-slate-400 flex items-center gap-0.5">
+              <Zap className="w-3 h-3" />
+              {Number(metadata.response_time).toFixed(2)}s
+            </span>
+          )}
         </div>
       </button>
 
@@ -58,11 +60,13 @@ export function AgentTrace({ metadata }: Props) {
             <span className="text-slate-400">Source</span>
             <span className="font-medium text-slate-700">{metadata.source || '—'}</span>
 
+            {metadata.response_time != null && (<>
             <span className="text-slate-400">Response time</span>
             <span className="font-medium text-slate-700 flex items-center gap-1">
               <Clock className="w-3 h-3" />
-              {metadata.response_time.toFixed(2)}s
+              {Number(metadata.response_time).toFixed(2)}s
             </span>
+            </>)}
 
             {metadata.evaluation_score != null && (
               <>

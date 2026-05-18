@@ -16,10 +16,11 @@ const AGENT_LABELS: Record<string, string> = {
 };
 
 interface Props {
-  agent: string;
+  agent?: string;
 }
 
 export function AgentBadge({ agent }: Props) {
+  if (!agent) return null;
   const key = agent.toLowerCase().replace('_agent', '');
   const style = AGENT_STYLES[key] ?? AGENT_STYLES.default;
   const label = AGENT_LABELS[key] ?? agent;

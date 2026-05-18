@@ -1,11 +1,12 @@
 import clsx from 'clsx';
 
 interface Props {
-  score: number;
+  score?: number;
   showLabel?: boolean;
 }
 
 export function ConfidenceBadge({ score, showLabel = true }: Props) {
+  if (score == null) return null;
   const { label, color } = getLevel(score);
 
   return (

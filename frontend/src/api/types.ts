@@ -12,14 +12,14 @@ export interface LoginResponse {
 export interface WorkflowResponse {
   status: string;
   answer: string;
-  agent: string;
-  confidence: number;
-  source: string;
-  steps: string[];
+  agent?: string;
+  confidence?: number;
+  source?: string;
+  steps?: string[];
   confidence_reason?: string;
   evaluation_score?: number;
-  response_time: number;
-  timestamp: string;
+  response_time?: number;
+  timestamp?: string;
   action_id?: string;
   action_type?: string;
   action_status?: string;
