@@ -85,7 +85,7 @@ async def lifespan(app: FastAPI):
 
 
 # ── App ───────────────────────────────────────────────────────────────────────
-app = FastAPI(title=settings.APP_NAME, version="1.0.0", lifespan=lifespan)
+app = FastAPI(title=settings.APP_NAME, version=settings.APP_VERSION, lifespan=lifespan)
 
 # Build allowed origins list:
 # - Debug mode: allow all (local development convenience)
@@ -1178,7 +1178,7 @@ async def whatsapp_webhook(request: Request):
 @app.get("/health")
 async def health():
     """Shallow health check — used by Railway healthcheck probe."""
-    return {"status": "ok", "app": settings.APP_NAME, "version": "1.0.0"}
+    return {"status": "ok", "app": settings.APP_NAME, "version": settings.APP_VERSION}
 
 
 @app.get("/health/deep")
@@ -1207,11 +1207,12 @@ async def health_deep(db: AsyncSession = Depends(get_db)):
     except Exception as exc:
         checks["redis"] = f"error: {str(exc)[:80]}"
 
-    # ChromaDB
+    # ChromaDB — LangChain wrapper doesn't expose heartbeat; verify via collection count
     try:
         chroma = get_chroma_client()
-        chroma.heartbeat()
-        checks["chromadb"] = "ok"
+        # _collection is the underlying chromadb Collection; count() is always available
+        count = chroma._collection.count()
+        checks["chromadb"] = f"ok ({count} documents)"
     except Exception as exc:
         checks["chromadb"] = f"error: {str(exc)[:80]}"
 
@@ -1236,7 +1237,7 @@ async def health_deep(db: AsyncSession = Depends(get_db)):
     return {
         "status":          overall,
         "app":             settings.APP_NAME,
-        "version":         "1.0.0",
+        "version":         settings.APP_VERSION,
         "checks":          checks,
         "circuit_breaker": cb,
     }

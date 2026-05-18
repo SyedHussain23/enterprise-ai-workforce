@@ -5,6 +5,7 @@ from functools import lru_cache
 class Settings(BaseSettings):
     # ── Application ─────────────────────────────────────────────────────────
     APP_NAME: str = "Enterprise AI Workforce"
+    APP_VERSION: str = "1.2.0"
     DEBUG: bool = False
     SECRET_KEY: str = "change-me-in-production-use-32-char-min"
     ALGORITHM: str = "HS256"
