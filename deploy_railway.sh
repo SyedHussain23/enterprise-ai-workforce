@@ -20,7 +20,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo ""
 
 # ── Check railway is logged in ──────────────────────────────────────────────
-echo -e "${YELLOW}[1/7] Checking Railway login...${NC}"
+echo -e "${YELLOW}[1/6] Checking Railway login...${NC}"
 if ! railway whoami &>/dev/null; then
   echo -e "${RED}Not logged in. Run: railway login${NC}"
   exit 1
@@ -29,7 +29,7 @@ echo -e "${GREEN}✅ Logged in as: $(railway whoami 2>&1 | head -1)${NC}"
 
 # ── Link to the already-created project ─────────────────────────────────────
 echo ""
-echo -e "${YELLOW}[2/7] Linking to Railway project...${NC}"
+echo -e "${YELLOW}[2/6] Linking to Railway project...${NC}"
 if railway status &>/dev/null; then
   echo -e "${GREEN}✅ Project already linked${NC}"
 else
@@ -37,26 +37,23 @@ else
   railway link 2>&1 || true
 fi
 
-# ── First deploy — creates the service so variables can be set ───────────────
+# ── Set base environment variables ──────────────────────────────────────────
 echo ""
-echo -e "${YELLOW}[3/7] Initial deploy (creates the Railway service)...${NC}"
-echo "  Uploading code — this may take 1-2 minutes..."
-railway up --detach 2>&1
-echo -e "${GREEN}✅ Service created and first build triggered${NC}"
+echo -e "${YELLOW}[3/6] Setting base environment variables...${NC}"
 
-# Give Railway a moment to register the service
-sleep 3
-
-# ── Set environment variables ────────────────────────────────────────────────
-echo ""
-echo -e "${YELLOW}[4/7] Setting environment variables...${NC}"
-
-# Load from .env file
 set -a
 source .env 2>/dev/null || true
 set +a
 
-# Set all required vars (no empty values — Railway rejects them)
+# Check if service exists; if not, do initial deploy to create it
+SERVICE_EXISTS=$(railway service list 2>/dev/null | grep -v "No services" | grep -c "[a-zA-Z]" || echo "0")
+if [ "$SERVICE_EXISTS" -eq "0" ]; then
+  echo "  No service found — running initial deploy to create service..."
+  railway up --detach 2>&1
+  sleep 3
+  echo -e "${GREEN}  ✅ Service created${NC}"
+fi
+
 railway variables set \
   OPENAI_API_KEY="$OPENAI_API_KEY" \
   SECRET_KEY="$SECRET_KEY" \
@@ -64,7 +61,7 @@ railway variables set \
   PORT="8000" \
   PYTHONPATH="/app" \
   LANGCHAIN_TRACING_V2="false" \
-  LANGCHAIN_PROJECT="enterprise-ai-workforce"
+  LANGCHAIN_PROJECT="enterprise-ai-workforce" 2>/dev/null
 
 echo -e "${GREEN}✅ Base variables set${NC}"
 
@@ -78,19 +75,33 @@ echo "  1. Open this URL in your browser:"
 echo "     https://railway.com/project/0cbe4a1a-2a4a-4298-a332-0ff1a71835e0"
 echo ""
 echo "  2. Click '+ New'  →  Database  →  'Add PostgreSQL'"
-echo "     Wait 30 seconds for it to provision"
-echo "     Click the PostgreSQL service → 'Variables' tab"
-echo "     Find 'DATABASE_URL' → copy that full value"
+echo "     Wait 30 seconds → click PostgreSQL → 'Variables' tab"
+echo "     Copy the 'DATABASE_URL' value"
 echo ""
 echo "  3. Click '+ New'  →  Database  →  'Add Redis'"
-echo "     Wait 30 seconds"
-echo "     Click the Redis service → 'Variables' tab"
-echo "     Find 'REDIS_URL' → copy that full value"
+echo "     Wait 30 seconds → click Redis → 'Variables' tab"
+echo "     Copy the 'REDIS_URL' value"
 echo ""
-echo -e "${YELLOW}  Done? Paste the URLs below (press Enter after each):${NC}"
+echo -e "${YELLOW}  ⚠️  IMPORTANT: Do NOT press Enter until you have both URLs ready!${NC}"
 echo ""
-read -p "  PostgreSQL DATABASE_URL: " PG_URL
-read -p "  Redis REDIS_URL: " RD_URL
+
+# Loop until valid PostgreSQL URL is entered
+while true; do
+  read -p "  Paste PostgreSQL DATABASE_URL (starts with postgres://): " PG_URL
+  if [[ "$PG_URL" == postgres* ]]; then
+    break
+  fi
+  echo -e "${RED}  ❌ That doesn't look right. Must start with 'postgres://' — try again.${NC}"
+done
+
+# Loop until valid Redis URL is entered
+while true; do
+  read -p "  Paste Redis REDIS_URL (starts with redis://): " RD_URL
+  if [[ "$RD_URL" == redis* ]]; then
+    break
+  fi
+  echo -e "${RED}  ❌ That doesn't look right. Must start with 'redis://' — try again.${NC}"
+done
 
 # Convert to the two SQLAlchemy driver formats
 ASYNC_URL=$(echo "$PG_URL" | sed 's|^postgresql://|postgresql+asyncpg://|' | sed 's|^postgres://|postgresql+asyncpg://|')
@@ -99,19 +110,19 @@ SYNC_URL=$(echo "$PG_URL"  | sed 's|^postgresql://|postgresql+psycopg2://|' | se
 railway variables set \
   DATABASE_URL="$ASYNC_URL" \
   DATABASE_URL_SYNC="$SYNC_URL" \
-  REDIS_URL="$RD_URL"
+  REDIS_URL="$RD_URL" 2>/dev/null
 
 echo -e "${GREEN}✅ Database variables set${NC}"
 
-# ── Redeploy with all variables now in place ─────────────────────────────────
+# ── Final deploy with all variables ─────────────────────────────────────────
 echo ""
-echo -e "${YELLOW}[5/7] Redeploying with all variables set (3–5 minutes)...${NC}"
-railway up --detach
-echo -e "${GREEN}✅ Final deployment triggered — building in background${NC}"
+echo -e "${YELLOW}[4/6] Deploying to Railway (3–5 minutes)...${NC}"
+railway up --detach 2>&1
+echo -e "${GREEN}✅ Deployment triggered — building in background${NC}"
 
-# ── Generate / get domain ─────────────────────────────────────────────────────
+# ── Generate / get domain ────────────────────────────────────────────────────
 echo ""
-echo -e "${YELLOW}[6/7] Getting your public Railway domain...${NC}"
+echo -e "${YELLOW}[5/6] Getting your public Railway domain...${NC}"
 echo ""
 echo "  In your Railway dashboard:"
 echo "  → Click your API service"
@@ -119,16 +130,21 @@ echo "  → 'Settings' tab  →  'Networking' section"
 echo "  → Click 'Generate Domain'"
 echo "  → Copy the URL  (looks like: https://xxx.up.railway.app)"
 echo ""
-read -p "  Paste your Railway public URL: " RAILWAY_DOMAIN
 
-# Strip trailing slash
+while true; do
+  read -p "  Paste your Railway public URL: " RAILWAY_DOMAIN
+  if [[ "$RAILWAY_DOMAIN" == https://* ]]; then
+    break
+  fi
+  echo -e "${RED}  ❌ Must start with 'https://' — try again.${NC}"
+done
+
 RAILWAY_DOMAIN="${RAILWAY_DOMAIN%/}"
-
 echo -e "${GREEN}✅ Railway URL: $RAILWAY_DOMAIN${NC}"
 
 # ── Update vercel.json with Railway URL ──────────────────────────────────────
 echo ""
-echo -e "${YELLOW}[7/7] Updating frontend/vercel.json with Railway URL...${NC}"
+echo -e "${YELLOW}[6/6] Updating frontend/vercel.json with Railway URL...${NC}"
 
 python3 - <<PYEOF
 import json
