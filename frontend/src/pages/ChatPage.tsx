@@ -350,7 +350,7 @@ export function ChatPage() {
   const lastNonError   = [...messages].reverse().find((m) => m.role === 'assistant' && !m.isError && !m.streaming);
 
   return (
-    <div className={`flex h-full overflow-hidden ${isRTL ? 'flex-row-reverse' : 'flex-row'}`}>
+    <div className={`flex h-screen overflow-hidden ${isRTL ? 'flex-row-reverse' : 'flex-row'}`}>
       <Toaster
         position="top-right"
         toastOptions={{

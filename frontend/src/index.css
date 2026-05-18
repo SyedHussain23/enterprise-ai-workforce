@@ -9,7 +9,6 @@
 
   html {
     height: 100%;
-    overflow: hidden; /* prevent body scroll — app uses internal scroll areas */
   }
 
   body {
@@ -19,7 +18,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: #f8fafc;
-    overflow: hidden;
   }
 
   html[dir="rtl"] body {
