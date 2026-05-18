@@ -24,7 +24,7 @@ If you are running a pinned older version in production, we strongly recommend u
 
 ### Private Disclosure
 
-Send an email to **security@enterprise-ai.dev** with the subject line:
+Send an email to **hussainbold1997@gmail.com** with the subject line:
 
 ```
 [SECURITY] <brief one-line description>

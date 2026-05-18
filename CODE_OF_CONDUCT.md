@@ -23,7 +23,7 @@ We as contributors and maintainers pledge to make participation in this project 
 
 ## Enforcement
 
-Instances of unacceptable behaviour may be reported to the project maintainer at **conduct@enterprise-ai.dev**. All reports will be reviewed within 7 days and handled with discretion.
+Instances of unacceptable behaviour may be reported to the project maintainer at **hussainbold1997@gmail.com**. All reports will be reviewed within 7 days and handled with discretion.
 
 Maintainers have the right to remove, edit, or reject contributions that do not align with this Code of Conduct, and to temporarily or permanently ban contributors for behaviours they deem inappropriate.
 

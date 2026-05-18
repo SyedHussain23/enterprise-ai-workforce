@@ -22,7 +22,7 @@ Thank you for taking the time to contribute. This document explains how to get i
 
 ## Code of Conduct
 
-This project is governed by the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to abide by its terms. Violations may be reported to **conduct@enterprise-ai.dev**.
+This project is governed by the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to abide by its terms. Violations may be reported to **hussainbold1997@gmail.com**.
 
 ---
 
@@ -70,7 +70,7 @@ Proposals are discussed in the issue before any code is written. Starting implem
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-org/enterprise-ai-workforce.git
+git clone https://github.com/SyedHussain23/enterprise-ai-workforce.git
 cd enterprise-ai-workforce
 
 # 2. Copy the environment template and fill in your values
@@ -91,7 +91,7 @@ alembic upgrade head
 python build_vector_db.py
 
 # 7. Start the backend development server
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn app.api.server:app --reload --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at `http://localhost:8000`. Interactive docs are at `http://localhost:8000/docs`.

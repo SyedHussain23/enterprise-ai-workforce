@@ -20,7 +20,7 @@
 
 <br/>
 
-[**Live Demo**](#deployment) · [**Architecture**](#architecture) · [**Quick Start**](#quick-start) · [**API Docs**](http://localhost:8000/docs)
+[**Live Demo**](https://frontend-1k4olnq4e-syedhussain23s-projects.vercel.app) · [**Architecture**](#architecture) · [**Quick Start**](#quick-start) · [**API Docs**](https://enterprise-ai-workforce-production.up.railway.app/docs)
 
 </div>
 
@@ -443,6 +443,14 @@ enterprise-ai-workforce/
 ---
 
 ## Deployment
+
+### Live Instances
+
+| Service | URL |
+|---------|-----|
+| Frontend (Vercel) | https://frontend-1k4olnq4e-syedhussain23s-projects.vercel.app |
+| API (Railway) | https://enterprise-ai-workforce-production.up.railway.app |
+| API Docs (Swagger) | https://enterprise-ai-workforce-production.up.railway.app/docs |
 
 ### Railway (API) + Vercel (Frontend)
 
