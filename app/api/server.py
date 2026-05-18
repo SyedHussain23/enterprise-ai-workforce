@@ -409,8 +409,12 @@ async def _run_workflow(
                 await db.commit()
             except Exception:
                 pass
+        # BUG FIX: guard dict already contains "response_time" (set below),
+        # so we must NOT also pass it as an explicit kwarg — that causes:
+        # TypeError: __init__() got multiple values for keyword argument 'response_time'
+        # which the error middleware catches and returns as an opaque 500.
         guard["response_time"] = rt
-        return WorkflowResponse(**guard, response_time=rt)
+        return WorkflowResponse(**guard)
 
     # ── Semantic cache lookup ─────────────────────────────────────────────────
     # Check before any LLM/RAG work — cache hit saves 2–5 seconds + tokens.
@@ -1357,8 +1361,12 @@ async def health_deep(db: AsyncSession = Depends(get_db)):
     cb = get_circuit_state()
     checks["circuit_breaker"] = cb["state"]
 
+    # BUG FIX: ChromaDB returns "ok (701 documents)" — starts with "ok" but
+    # doesn't equal "ok", causing the overall status to always be "degraded"
+    # even when all services are healthy. Use startswith() for prefix matching.
     overall = "ok" if all(
-        v in ("ok", "closed") for v in checks.values()
+        v.startswith("ok") or v == "closed"
+        for v in checks.values()
     ) else "degraded"
     return {
         "status":          overall,
