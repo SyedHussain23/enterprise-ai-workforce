@@ -165,10 +165,22 @@ export function ChatPage() {
       (err) => {
         setIsTyping(false);
         setStatusHint('');
+        // 401 / session-expired errors are handled by the client (redirect to login)
+        // — don't pollute the chat with a raw error bubble for those.
+        if (
+          err.toLowerCase().includes('invalid token') ||
+          err.toLowerCase().includes('unauthorized') ||
+          err.toLowerCase().includes('no token')
+        ) {
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('user_role');
+          window.location.href = '/login';
+          return;
+        }
         setMessages((prev) => {
           const next = prev.map((m) =>
             m.id === streamingId
-              ? { ...m, content: `⚠️ Error: ${err}`, streaming: false }
+              ? { ...m, content: `⚠️ Something went wrong. Please try again.`, streaming: false }
               : m,
           );
           sessionMessagesRef.current[sessionId!] = next;

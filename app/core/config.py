@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     DEBUG: bool = False
     SECRET_KEY: str = "change-me-in-production-use-32-char-min"
     ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 480  # 8 hours — full enterprise work session
 
     # ── Database (async driver for app, sync for Alembic CLI) ───────────────
     # asyncpg is used by SQLAlchemy at runtime

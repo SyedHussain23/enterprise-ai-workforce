@@ -87,6 +87,13 @@ export async function askStream(
   });
 
   if (!res.ok || !res.body) {
+    if (res.status === 401) {
+      // Token expired — clear session and redirect to login
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('user_role');
+      window.location.href = '/login';
+      return;
+    }
     const body = await res.json().catch(() => ({}));
     onError((body as { detail?: string }).detail ?? `HTTP ${res.status}`);
     return;
