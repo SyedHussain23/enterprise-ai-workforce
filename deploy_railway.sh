@@ -46,12 +46,14 @@ source .env 2>/dev/null || true
 set +a
 
 # Check if service exists; if not, do initial deploy to create it
-SERVICE_EXISTS=$(railway service list 2>/dev/null | grep -v "No services" | grep -c "[a-zA-Z]" || echo "0")
-if [ "$SERVICE_EXISTS" -eq "0" ]; then
+SERVICE_LIST=$(railway service list 2>/dev/null || true)
+if echo "$SERVICE_LIST" | grep -q "No services"; then
   echo "  No service found — running initial deploy to create service..."
-  railway up --detach 2>&1
+  railway up --detach
   sleep 3
   echo -e "${GREEN}  ✅ Service created${NC}"
+else
+  echo "  Service found: $(echo "$SERVICE_LIST" | grep -v "^NAME" | head -1 | awk '{print $1}')"
 fi
 
 railway variables set \
@@ -61,7 +63,7 @@ railway variables set \
   PORT="8000" \
   PYTHONPATH="/app" \
   LANGCHAIN_TRACING_V2="false" \
-  LANGCHAIN_PROJECT="enterprise-ai-workforce" 2>/dev/null
+  LANGCHAIN_PROJECT="enterprise-ai-workforce"
 
 echo -e "${GREEN}✅ Base variables set${NC}"
 
