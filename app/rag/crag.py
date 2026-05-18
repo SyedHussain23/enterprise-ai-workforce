@@ -27,15 +27,12 @@ from __future__ import annotations
 import json
 
 from langsmith import traceable
-from openai import OpenAI
 
-from app.core.config import settings
 from app.core.logger import get_logger
+from app.core.openai_client import resilient_chat_completion
 from app.rag.hybrid_retriever import hybrid_search
 
 logger = get_logger(__name__)
-
-_openai = OpenAI(api_key=settings.OPENAI_API_KEY, timeout=10.0)
 
 # Use fast/cheap model for grading — gpt-4o-mini is accurate for relevance classification
 GRADER_MODEL = "gpt-4o-mini"
@@ -80,7 +77,7 @@ def _batch_grade_chunks(question: str, chunks: list[str]) -> list[str]:
     )
 
     try:
-        resp = _openai.chat.completions.create(
+        resp = resilient_chat_completion(
             model=GRADER_MODEL,
             messages=[{
                 "role": "user",
@@ -140,7 +137,7 @@ def _batch_grade_chunks(question: str, chunks: list[str]) -> list[str]:
 def _rewrite_query(question: str) -> str:
     """Rewrite query for improved retrieval. Uses fast model with low latency."""
     try:
-        resp = _openai.chat.completions.create(
+        resp = resilient_chat_completion(
             model=GRADER_MODEL,
             messages=[{
                 "role": "user",

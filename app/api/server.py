@@ -1225,10 +1225,18 @@ async def health_deep(db: AsyncSession = Depends(get_db)):
     except Exception as exc:
         checks["openai"] = f"error: {str(exc)[:80]}"
 
-    overall = "ok" if all(v == "ok" for v in checks.values()) else "degraded"
+    # Circuit breaker state
+    from app.core.openai_client import get_circuit_state
+    cb = get_circuit_state()
+    checks["circuit_breaker"] = cb["state"]
+
+    overall = "ok" if all(
+        v in ("ok", "closed") for v in checks.values()
+    ) else "degraded"
     return {
-        "status":   overall,
-        "app":      settings.APP_NAME,
-        "version":  "1.0.0",
-        "checks":   checks,
+        "status":          overall,
+        "app":             settings.APP_NAME,
+        "version":         "1.0.0",
+        "checks":          checks,
+        "circuit_breaker": cb,
     }

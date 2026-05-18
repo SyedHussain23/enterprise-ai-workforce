@@ -1,25 +1,16 @@
 import json
 
 from langsmith import traceable
-from openai import OpenAI
 
 from app.core.config import settings
 from app.core.constants import APPROVAL_KEYWORDS, DEPARTMENT_KEYWORDS
 from app.core.logger import get_logger
+from app.core.openai_client import resilient_chat_completion
 from app.cost.cost_tracker import track_cost
 from app.utils.fuzzy_match import normalize_query
 from app.workflows.task_manager import determine_workflow
 
 logger = get_logger(__name__)
-
-_openai_client: OpenAI | None = None
-
-
-def _get_client() -> OpenAI:
-    global _openai_client
-    if _openai_client is None:
-        _openai_client = OpenAI(api_key=settings.OPENAI_API_KEY)
-    return _openai_client
 
 
 _FALLBACK_RESULT = {
@@ -118,7 +109,7 @@ def planner_agent(user_input: str, history: list, company_id: str = "global") ->
                 messages.append({"role": h.get("role", "user"), "content": h.get("content", "")})
             messages.append({"role": "user", "content": normalized})
 
-            response = _get_client().chat.completions.create(
+            response = resilient_chat_completion(
                 model=settings.OPENAI_MODEL,
                 messages=messages,
                 temperature=0,

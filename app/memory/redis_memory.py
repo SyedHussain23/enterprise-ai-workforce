@@ -58,15 +58,15 @@ def _summarize(turns: list[dict]) -> str:
     """
     Compress a list of conversation turns into a concise summary.
     Uses gpt-4o-mini (cheap, fast) — summary is ~50–100 tokens.
+    Uses resilient_chat_completion for retry + circuit-breaker protection.
     """
+    convo = "\n".join(
+        f"{t['role'].upper()}: {t['content'][:300]}"
+        for t in turns
+    )
     try:
-        from openai import OpenAI
-        client = OpenAI(api_key=settings.OPENAI_API_KEY, timeout=8.0)
-        convo = "\n".join(
-            f"{t['role'].upper()}: {t['content'][:300]}"
-            for t in turns
-        )
-        resp = client.chat.completions.create(
+        from app.core.openai_client import resilient_chat_completion
+        resp = resilient_chat_completion(
             model="gpt-4o-mini",
             messages=[{
                 "role": "user",
