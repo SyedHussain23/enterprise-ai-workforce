@@ -18,6 +18,14 @@ import type {
 
 const BASE = '/api';
 
+// ── Typed auth error — lets callers distinguish "expired session" from other errors ──
+export class AuthError extends Error {
+  constructor(message = 'Session expired. Please log in again.') {
+    super(message);
+    this.name = 'AuthError';
+  }
+}
+
 function getToken(): string | null {
   return localStorage.getItem('access_token');
 }
@@ -38,10 +46,14 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   });
 
   if (res.status === 401) {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('user_role');
-    window.location.href = '/login';
-    throw new Error('Unauthorized');
+    // Throw a typed AuthError — callers decide whether to redirect or show an error UI.
+    // We do NOT auto-redirect here because that fires synchronously before any .catch()
+    // handlers can run, causing the admin dashboard to silently kick users back to /login.
+    throw new AuthError();
+  }
+
+  if (res.status === 403) {
+    throw new Error('Access denied — admin privileges required.');
   }
 
   if (!res.ok) {
@@ -265,6 +277,13 @@ export async function updateUser(userId: string, data: UpdateUserRequest): Promi
     method: 'PATCH',
     body: JSON.stringify(data),
   });
+}
+
+// ── System Health ─────────────────────────────────────────────────────────────
+export async function getHealthDeep(): Promise<Record<string, unknown>> {
+  const res = await fetch(`${BASE}/health/deep`, { headers: authHeaders() });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
 }
 
 // ── Admin — Audit Log ─────────────────────────────────────────────────────────

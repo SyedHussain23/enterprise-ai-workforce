@@ -1,64 +1,39 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import {
-  ArrowLeft,
-  RefreshCw,
-  Shield,
-  Users,
-  FileText,
-  BarChart2,
-  CheckCircle,
-  XCircle,
-  ChevronLeft,
-  ChevronRight,
+  ArrowLeft, RefreshCw, Shield, Users, FileText, BarChart2,
+  CheckCircle, XCircle, ChevronLeft, ChevronRight, AlertTriangle,
+  LogIn, Activity, Wifi, WifiOff, Database, Cpu, Server,
 } from 'lucide-react';
 import {
-  getAdminStats,
-  getCostStats,
-  getPendingActions,
-  listUsers,
-  updateUser,
-  getAuditLogs,
+  getAdminStats, getCostStats, getPendingActions, listUsers,
+  updateUser, getAuditLogs, getHealthDeep, AuthError,
 } from '../api/client';
-import type {
-  AdminStats,
-  CostStats,
-  Action,
-  AdminUser,
-  AuditLogEntry,
-} from '../api/types';
-import { StatsCards } from '../components/admin/StatsCards';
+import type { AdminStats, CostStats, Action, AdminUser, AuditLogEntry } from '../api/types';
+import { StatsCards }     from '../components/admin/StatsCards';
 import { DepartmentChart } from '../components/admin/DepartmentChart';
-import { ApprovalQueue } from '../components/admin/ApprovalQueue';
-import { CostPanel } from '../components/admin/CostPanel';
-import { DocumentUpload } from '../components/admin/DocumentUpload';
-import { Spinner } from '../components/shared/Spinner';
-import { useAuth } from '../context/AuthContext';
+import { ApprovalQueue }   from '../components/admin/ApprovalQueue';
+import { CostPanel }       from '../components/admin/CostPanel';
+import { DocumentUpload }  from '../components/admin/DocumentUpload';
+import { Spinner }         from '../components/shared/Spinner';
+import { useAuth }         from '../context/AuthContext';
 
 const EMPTY_STATS: AdminStats = {
-  total_queries: 0,
-  avg_confidence: 0,
-  avg_response_time: 0,
-  agent_distribution: {},
-  daily_volume: [],
+  total_queries: 0, avg_confidence: 0, avg_response_time: 0,
+  agent_distribution: {}, daily_volume: [],
 };
 const EMPTY_COST: CostStats = { daily: 0, lifetime: 0 };
-
 type Tab = 'overview' | 'approvals' | 'users' | 'audit' | 'documents';
 
 const ROLE_COLORS: Record<string, string> = {
-  admin:  'bg-violet-100 text-violet-700',
-  user:   'bg-sky-100 text-sky-700',
-  viewer: 'bg-slate-100 text-slate-600',
+  admin: 'bg-violet-100 text-violet-700',
+  user:  'bg-sky-100 text-sky-700',
+  viewer:'bg-slate-100 text-slate-600',
 };
 
 function RoleBadge({ role }: { role: string }) {
   const cls = ROLE_COLORS[role.toLowerCase()] ?? 'bg-slate-100 text-slate-600';
-  return (
-    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${cls}`}>
-      {role}
-    </span>
-  );
+  return <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${cls}`}>{role}</span>;
 }
 
 function StatusDot({ active }: { active: boolean }) {
@@ -70,35 +45,19 @@ function StatusDot({ active }: { active: boolean }) {
   );
 }
 
-function Pagination({
-  page,
-  total,
-  pageSize,
-  onChange,
-}: {
-  page: number;
-  total: number;
-  pageSize: number;
-  onChange: (p: number) => void;
+function Pagination({ page, total, pageSize, onChange }: {
+  page: number; total: number; pageSize: number; onChange: (p: number) => void;
 }) {
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
   return (
     <div className="flex items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-100">
       <span>{total} total</span>
       <div className="flex items-center gap-1">
-        <button
-          onClick={() => onChange(page - 1)}
-          disabled={page <= 1}
-          className="p-1 rounded hover:bg-slate-100 disabled:opacity-40"
-        >
+        <button onClick={() => onChange(page - 1)} disabled={page <= 1} className="p-1 rounded hover:bg-slate-100 disabled:opacity-40">
           <ChevronLeft className="w-3.5 h-3.5" />
         </button>
         <span className="px-2">{page} / {totalPages}</span>
-        <button
-          onClick={() => onChange(page + 1)}
-          disabled={page >= totalPages}
-          className="p-1 rounded hover:bg-slate-100 disabled:opacity-40"
-        >
+        <button onClick={() => onChange(page + 1)} disabled={page >= totalPages} className="p-1 rounded hover:bg-slate-100 disabled:opacity-40">
           <ChevronRight className="w-3.5 h-3.5" />
         </button>
       </div>
@@ -106,56 +65,167 @@ function Pagination({
   );
 }
 
+// ── Session-expired banner ────────────────────────────────────────────────────
+function SessionExpiredBanner() {
+  return (
+    <div className="mb-6 bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 flex items-start gap-3">
+      <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+      <div className="flex-1">
+        <p className="text-sm font-semibold text-amber-800">Session expired</p>
+        <p className="text-xs text-amber-700 mt-0.5">Your session has expired. Please sign in again to view dashboard data.</p>
+      </div>
+      <button
+        onClick={() => { localStorage.removeItem('access_token'); localStorage.removeItem('user_role'); window.location.href = '/login'; }}
+        className="flex items-center gap-1.5 text-xs font-medium bg-amber-600 text-white px-3 py-1.5 rounded-lg hover:bg-amber-700 transition-colors shrink-0"
+      >
+        <LogIn className="w-3.5 h-3.5" /> Sign in
+      </button>
+    </div>
+  );
+}
+
+// ── Live System Status ────────────────────────────────────────────────────────
+function SystemStatusPanel() {
+  const [health, setHealth]   = useState<Record<string, unknown> | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [lastRefresh, setLast]= useState<Date | null>(null);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    try { setHealth(await getHealthDeep()); }
+    catch { setHealth(null); }
+    finally { setLoading(false); setLast(new Date()); }
+  }, []);
+
+  useEffect(() => { load(); }, [load]);
+
+  const items = [
+    { label: 'API Server',   icon: <Server className="w-4 h-4" />,   key: 'status'   },
+    { label: 'PostgreSQL',   icon: <Database className="w-4 h-4" />, key: 'postgres' },
+    { label: 'Redis',        icon: <Cpu className="w-4 h-4" />,      key: 'redis'    },
+    { label: 'ChromaDB RAG', icon: <Activity className="w-4 h-4" />, key: 'chromadb' },
+    { label: 'OpenAI',       icon: <Wifi className="w-4 h-4" />,     key: 'openai'   },
+  ];
+
+  function parseStatus(key: string): { ok: boolean; label: string } {
+    if (!health) return { ok: false, label: 'unreachable' };
+    const val = health[key];
+    if (val === undefined || val === null) return { ok: false, label: 'offline' };
+    if (typeof val === 'string') {
+      const ok = ['ok', 'online', 'closed', 'available'].includes(val.toLowerCase());
+      return { ok, label: ok ? 'online' : val };
+    }
+    if (typeof val === 'object') {
+      const obj = val as Record<string, unknown>;
+      const ok  = String(obj.status).toLowerCase() === 'ok';
+      const extra = obj.documents !== undefined ? ` · ${obj.documents} docs` : '';
+      return { ok, label: ok ? `online${extra}` : String(obj.status ?? 'error') };
+    }
+    return { ok: false, label: 'unknown' };
+  }
+
+  return (
+    <div className="bg-white rounded-xl border border-slate-100 p-4 shadow-sm">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-sm font-semibold text-slate-700">Live System Status</h3>
+        <button onClick={load} disabled={loading} title="Refresh" className="text-slate-400 hover:text-slate-700 transition-colors">
+          <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+        </button>
+      </div>
+      <div className="space-y-2.5">
+        {items.map((item) => {
+          const { ok, label } = parseStatus(item.key);
+          return (
+            <div key={item.label} className="flex items-center justify-between text-sm">
+              <div className="flex items-center gap-2 text-slate-600">
+                <span className="text-slate-400">{item.icon}</span>
+                {item.label}
+              </div>
+              <div className="flex items-center gap-1.5">
+                {loading ? (
+                  <span className="w-2 h-2 rounded-full bg-slate-200 animate-pulse" />
+                ) : ok ? (
+                  <>
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                    </span>
+                    <span className="text-xs text-emerald-600 font-medium">{label}</span>
+                  </>
+                ) : (
+                  <>
+                    <WifiOff className="w-3 h-3 text-rose-400" />
+                    <span className="text-xs text-rose-500 font-medium">{label}</span>
+                  </>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      {lastRefresh && (
+        <p className="text-[10px] text-slate-300 mt-3">
+          Checked: {lastRefresh.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+        </p>
+      )}
+    </div>
+  );
+}
+
 // ── Users Tab ─────────────────────────────────────────────────────────────────
-function UsersTab() {
-  const [users, setUsers]     = useState<AdminUser[]>([]);
-  const [total, setTotal]     = useState(0);
-  const [page, setPage]       = useState(1);
-  const [loading, setLoading] = useState(false);
+function UsersTab({ onAuthError }: { onAuthError: () => void }) {
+  const [users, setUsers]       = useState<AdminUser[]>([]);
+  const [total, setTotal]       = useState(0);
+  const [page, setPage]         = useState(1);
+  const [loading, setLoading]   = useState(false);
+  const [error, setError]       = useState<string | null>(null);
   const [toggling, setToggling] = useState<string | null>(null);
   const PAGE_SIZE = 15;
 
   const load = useCallback(async (p: number) => {
-    setLoading(true);
+    setLoading(true); setError(null);
     try {
       const res = await listUsers({ page: p, page_size: PAGE_SIZE });
-      setUsers(res.users);
-      setTotal(res.total);
-    } catch {
-      // silent — network issues
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+      setUsers(res.users); setTotal(res.total);
+    } catch (err) {
+      if (err instanceof AuthError) { onAuthError(); return; }
+      setError(err instanceof Error ? err.message : 'Failed to load users.');
+    } finally { setLoading(false); }
+  }, [onAuthError]);
 
   useEffect(() => { load(page); }, [page, load]);
 
-  async function toggleActive(user: AdminUser) {
-    setToggling(user.id);
+  async function toggleActive(u: AdminUser) {
+    setToggling(u.id);
     try {
-      await updateUser(user.id, { is_active: !user.is_active });
-      setUsers((prev) =>
-        prev.map((u) => u.id === user.id ? { ...u, is_active: !u.is_active } : u)
-      );
-    } catch {
-      // silent
-    } finally {
-      setToggling(null);
-    }
+      await updateUser(u.id, { is_active: !u.is_active });
+      setUsers((prev) => prev.map((x) => x.id === u.id ? { ...x, is_active: !x.is_active } : x));
+    } catch (err) {
+      if (err instanceof AuthError) { onAuthError(); return; }
+      setError(err instanceof Error ? err.message : 'Update failed.');
+    } finally { setToggling(null); }
   }
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="font-semibold text-slate-800">User Management</h2>
-        <span className="text-xs text-slate-400">{total} users total</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-slate-400">{total} users</span>
+          <button onClick={() => load(page)} disabled={loading} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors">
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+          </button>
+        </div>
       </div>
-
+      {error && (
+        <div className="flex items-center gap-2 bg-rose-50 border border-rose-200 rounded-xl px-4 py-3 text-sm text-rose-700">
+          <XCircle className="w-4 h-4 shrink-0" />{error}
+          <button onClick={() => load(page)} className="ml-auto underline text-xs">Retry</button>
+        </div>
+      )}
       <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
         {loading ? (
-          <div className="flex items-center justify-center py-16">
-            <Spinner className="w-6 h-6 text-indigo-600" />
-          </div>
+          <div className="flex items-center justify-center py-16"><Spinner className="w-6 h-6 text-indigo-600" /></div>
         ) : (
           <table className="w-full text-sm">
             <thead>
@@ -177,36 +247,22 @@ function UsersTab() {
                   <td className="px-4 py-3 text-slate-500">{u.department ?? '—'}</td>
                   <td className="px-4 py-3"><RoleBadge role={u.role} /></td>
                   <td className="px-4 py-3"><StatusDot active={u.is_active} /></td>
-                  <td className="px-4 py-3 text-slate-400 text-xs">
-                    {new Date(u.created_at).toLocaleDateString('en-AE')}
-                  </td>
+                  <td className="px-4 py-3 text-slate-400 text-xs">{new Date(u.created_at).toLocaleDateString('en-AE')}</td>
                   <td className="px-4 py-3 text-right">
                     <button
                       onClick={() => toggleActive(u)}
                       disabled={toggling === u.id}
-                      className={`flex items-center gap-1 text-xs px-2.5 py-1 rounded-lg transition-colors ${
-                        u.is_active
-                          ? 'text-rose-600 hover:bg-rose-50'
-                          : 'text-emerald-600 hover:bg-emerald-50'
-                      }`}
+                      className={`flex items-center gap-1 text-xs px-2.5 py-1 rounded-lg transition-colors ${u.is_active ? 'text-rose-600 hover:bg-rose-50' : 'text-emerald-600 hover:bg-emerald-50'}`}
                     >
-                      {toggling === u.id ? (
-                        <Spinner className="w-3 h-3" />
-                      ) : u.is_active ? (
-                        <><XCircle className="w-3.5 h-3.5" /> Deactivate</>
-                      ) : (
-                        <><CheckCircle className="w-3.5 h-3.5" /> Activate</>
-                      )}
+                      {toggling === u.id ? <Spinner className="w-3 h-3" /> :
+                       u.is_active ? <><XCircle className="w-3.5 h-3.5" /> Deactivate</> :
+                                     <><CheckCircle className="w-3.5 h-3.5" /> Activate</>}
                     </button>
                   </td>
                 </tr>
               ))}
-              {users.length === 0 && (
-                <tr>
-                  <td colSpan={7} className="text-center py-12 text-slate-400 text-sm">
-                    No users found.
-                  </td>
-                </tr>
+              {users.length === 0 && !loading && (
+                <tr><td colSpan={7} className="text-center py-12 text-slate-400 text-sm">No users found.</td></tr>
               )}
             </tbody>
           </table>
@@ -219,81 +275,61 @@ function UsersTab() {
   );
 }
 
-// ── Audit Log Tab ─────────────────────────────────────────────────────────────
+// ── Audit Tab ─────────────────────────────────────────────────────────────────
 const EVENT_COLORS: Record<string, string> = {
-  LOGIN:          'bg-sky-100 text-sky-700',
-  LOGOUT:         'bg-slate-100 text-slate-600',
-  QUERY:          'bg-indigo-100 text-indigo-700',
-  ACTION_CREATED: 'bg-amber-100 text-amber-700',
-  ACTION_APPROVED:'bg-emerald-100 text-emerald-700',
-  ACTION_REJECTED:'bg-rose-100 text-rose-700',
-  PASSWORD_CHANGE:'bg-orange-100 text-orange-700',
-  USER_UPDATED:   'bg-violet-100 text-violet-700',
+  LOGIN:'bg-sky-100 text-sky-700', LOGOUT:'bg-slate-100 text-slate-600',
+  QUERY:'bg-indigo-100 text-indigo-700', ACTION_CREATED:'bg-amber-100 text-amber-700',
+  ACTION_APPROVED:'bg-emerald-100 text-emerald-700', ACTION_REJECTED:'bg-rose-100 text-rose-700',
+  PASSWORD_CHANGE:'bg-orange-100 text-orange-700', USER_UPDATED:'bg-violet-100 text-violet-700',
   DOCUMENT_UPLOAD:'bg-teal-100 text-teal-700',
 };
 
-function EventBadge({ type }: { type: string }) {
-  const cls = EVENT_COLORS[type] ?? 'bg-slate-100 text-slate-600';
-  return (
-    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${cls}`}>
-      {type.replace(/_/g, ' ')}
-    </span>
-  );
-}
-
-function AuditTab() {
+function AuditTab({ onAuthError }: { onAuthError: () => void }) {
   const [logs, setLogs]       = useState<AuditLogEntry[]>([]);
   const [total, setTotal]     = useState(0);
   const [page, setPage]       = useState(1);
   const [filter, setFilter]   = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError]     = useState<string | null>(null);
   const PAGE_SIZE = 20;
 
   const load = useCallback(async (p: number, evt: string) => {
-    setLoading(true);
+    setLoading(true); setError(null);
     try {
-      const res = await getAuditLogs({
-        page: p,
-        page_size: PAGE_SIZE,
-        ...(evt ? { event_type: evt } : {}),
-      });
-      setLogs(res.logs);
-      setTotal(res.total);
-    } catch {
-      // silent
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+      const res = await getAuditLogs({ page: p, page_size: PAGE_SIZE, ...(evt ? { event_type: evt } : {}) });
+      setLogs(res.logs); setTotal(res.total);
+    } catch (err) {
+      if (err instanceof AuthError) { onAuthError(); return; }
+      setError(err instanceof Error ? err.message : 'Failed to load logs.');
+    } finally { setLoading(false); }
+  }, [onAuthError]);
 
   useEffect(() => { load(page, filter); }, [page, filter, load]);
-
-  function handleFilter(v: string) {
-    setFilter(v);
-    setPage(1);
-  }
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="font-semibold text-slate-800">Audit Log</h2>
-        <select
-          value={filter}
-          onChange={(e) => handleFilter(e.target.value)}
-          className="text-xs border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-600 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-400"
-        >
-          <option value="">All Events</option>
-          {Object.keys(EVENT_COLORS).map((k) => (
-            <option key={k} value={k}>{k.replace(/_/g, ' ')}</option>
-          ))}
-        </select>
+        <div className="flex items-center gap-2">
+          <select value={filter} onChange={(e) => { setFilter(e.target.value); setPage(1); }}
+            className="text-xs border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-600 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-400">
+            <option value="">All Events</option>
+            {Object.keys(EVENT_COLORS).map((k) => <option key={k} value={k}>{k.replace(/_/g, ' ')}</option>)}
+          </select>
+          <button onClick={() => load(page, filter)} disabled={loading} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors">
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+          </button>
+        </div>
       </div>
-
+      {error && (
+        <div className="flex items-center gap-2 bg-rose-50 border border-rose-200 rounded-xl px-4 py-3 text-sm text-rose-700">
+          <XCircle className="w-4 h-4 shrink-0" />{error}
+          <button onClick={() => load(page, filter)} className="ml-auto underline text-xs">Retry</button>
+        </div>
+      )}
       <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
         {loading ? (
-          <div className="flex items-center justify-center py-16">
-            <Spinner className="w-6 h-6 text-indigo-600" />
-          </div>
+          <div className="flex items-center justify-center py-16"><Spinner className="w-6 h-6 text-indigo-600" /></div>
         ) : (
           <table className="w-full text-sm">
             <thead>
@@ -307,28 +343,16 @@ function AuditTab() {
             <tbody className="divide-y divide-slate-50">
               {logs.map((log) => (
                 <tr key={log.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-4 py-3 text-xs text-slate-400 whitespace-nowrap">
-                    {new Date(log.created_at).toLocaleString('en-AE')}
-                  </td>
-                  <td className="px-4 py-3">
-                    <EventBadge type={log.event_type} />
-                  </td>
-                  <td className="px-4 py-3 text-slate-600 text-xs">
-                    {log.username ?? log.user_id ?? '—'}
-                  </td>
+                  <td className="px-4 py-3 text-xs text-slate-400 whitespace-nowrap">{new Date(log.created_at).toLocaleString('en-AE')}</td>
+                  <td className="px-4 py-3"><span className={`px-2 py-0.5 rounded-full text-xs font-medium ${EVENT_COLORS[log.event_type] ?? 'bg-slate-100 text-slate-600'}`}>{log.event_type.replace(/_/g,' ')}</span></td>
+                  <td className="px-4 py-3 text-slate-600 text-xs">{log.username ?? log.user_id ?? '—'}</td>
                   <td className="px-4 py-3 text-xs text-slate-500 max-w-xs truncate">
-                    {Object.entries(log.details ?? {})
-                      .map(([k, v]) => `${k}: ${v}`)
-                      .join(' · ') || '—'}
+                    {Object.entries(log.details ?? {}).map(([k, v]) => `${k}: ${v}`).join(' · ') || '—'}
                   </td>
                 </tr>
               ))}
-              {logs.length === 0 && (
-                <tr>
-                  <td colSpan={4} className="text-center py-12 text-slate-400 text-sm">
-                    No audit events found.
-                  </td>
-                </tr>
+              {logs.length === 0 && !loading && (
+                <tr><td colSpan={4} className="text-center py-12 text-slate-400 text-sm">No audit events found.</td></tr>
               )}
             </tbody>
           </table>
@@ -343,44 +367,61 @@ function AuditTab() {
 
 // ── Main AdminPage ─────────────────────────────────────────────────────────────
 export function AdminPage() {
-  const { isAdmin }  = useAuth();
-  const navigate     = useNavigate();
-  const [stats, setStats]   = useState<AdminStats>(EMPTY_STATS);
-  const [cost, setCost]     = useState<CostStats>(EMPTY_COST);
-  const [actions, setActions] = useState<Action[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { isAdmin }    = useAuth();
+  const navigate       = useNavigate();
+
+  const [stats, setStats]         = useState<AdminStats>(EMPTY_STATS);
+  const [cost, setCost]           = useState<CostStats>(EMPTY_COST);
+  const [actions, setActions]     = useState<Action[]>([]);
+  const [loading, setLoading]     = useState(true);
   const [activeTab, setActiveTab] = useState<Tab>('overview');
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchCore = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const [s, c, a] = await Promise.all([
-        getAdminStats().catch(() => EMPTY_STATS),
-        getCostStats().catch(() => EMPTY_COST),
-        getPendingActions().catch(() => []),
-      ]);
-      setStats(s);
-      setCost(c);
-      setActions(a);
-    } catch (err) {
-      setError('Failed to load dashboard data. Please refresh.');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => { fetchCore(); }, [fetchCore]);
+  const [sessionExpired, setSessionExpired] = useState(false);
+  const [overviewError, setOverviewError]   = useState<string | null>(null);
+  const hasLoaded = useRef(false);
 
   if (!isAdmin) return <Navigate to="/chat" replace />;
 
+  const handleAuthError = useCallback(() => setSessionExpired(true), []);
+
+  const fetchCore = useCallback(async () => {
+    if (sessionExpired) return;
+    setLoading(true);
+    setOverviewError(null);
+    try {
+      const results = await Promise.allSettled([
+        getAdminStats(),
+        getCostStats(),
+        getPendingActions(),
+      ]);
+      const [sr, cr, ar] = results;
+      // Auth error in any call → show expired banner
+      if (results.some((r) => r.status === 'rejected' && r.reason instanceof AuthError)) {
+        handleAuthError();
+        return;
+      }
+      setStats(sr.status === 'fulfilled' ? sr.value : EMPTY_STATS);
+      setCost(cr.status === 'fulfilled'  ? cr.value : EMPTY_COST);
+      setActions(ar.status === 'fulfilled' ? ar.value : []);
+      // Surface any non-auth errors in the UI
+      const firstError = results.find((r) => r.status === 'rejected');
+      if (firstError && firstError.status === 'rejected') {
+        setOverviewError(`Some data could not be loaded: ${firstError.reason?.message ?? 'Unknown error'}`);
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [sessionExpired, handleAuthError]);
+
+  useEffect(() => {
+    if (!hasLoaded.current) { hasLoaded.current = true; fetchCore(); }
+  }, [fetchCore]);
+
   const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
-    { id: 'overview',   label: 'Overview',   icon: <BarChart2 className="w-3.5 h-3.5" /> },
-    { id: 'approvals',  label: `Approvals${actions.length > 0 ? ` (${actions.length})` : ''}`, icon: <CheckCircle className="w-3.5 h-3.5" /> },
-    { id: 'users',      label: 'Users',      icon: <Users className="w-3.5 h-3.5" /> },
-    { id: 'audit',      label: 'Audit Log',  icon: <Shield className="w-3.5 h-3.5" /> },
-    { id: 'documents',  label: 'Documents',  icon: <FileText className="w-3.5 h-3.5" /> },
+    { id: 'overview',  label: 'Overview',  icon: <BarChart2 className="w-3.5 h-3.5" /> },
+    { id: 'approvals', label: `Approvals${actions.length > 0 ? ` (${actions.length})` : ''}`, icon: <CheckCircle className="w-3.5 h-3.5" /> },
+    { id: 'users',     label: 'Users',     icon: <Users className="w-3.5 h-3.5" /> },
+    { id: 'audit',     label: 'Audit Log', icon: <Shield className="w-3.5 h-3.5" /> },
+    { id: 'documents', label: 'Documents', icon: <FileText className="w-3.5 h-3.5" /> },
   ];
 
   return (
@@ -388,44 +429,29 @@ export function AdminPage() {
       {/* Header */}
       <div className="bg-white border-b border-slate-100 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center gap-4">
-          <button
-            onClick={() => navigate('/chat')}
-            className="flex items-center gap-1.5 text-slate-500 hover:text-slate-800 text-sm transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Chat
+          <button onClick={() => navigate('/chat')} className="flex items-center gap-1.5 text-slate-500 hover:text-slate-800 text-sm transition-colors">
+            <ArrowLeft className="w-4 h-4" />Back to Chat
           </button>
           <div className="h-4 w-px bg-slate-200" />
           <h1 className="font-semibold text-slate-800">Admin Dashboard</h1>
-
           <div className="ml-auto flex items-center gap-2">
-            {(activeTab === 'overview' || activeTab === 'approvals') && (
-              <button
-                onClick={fetchCore}
-                disabled={loading}
-                className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
-              >
+            {!sessionExpired && (activeTab === 'overview' || activeTab === 'approvals') && (
+              <button onClick={fetchCore} disabled={loading}
+                className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors">
                 <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
                 Refresh
               </button>
             )}
           </div>
         </div>
-
         {/* Tabs */}
         <div className="max-w-7xl mx-auto px-6 flex gap-0.5">
           {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
-                activeTab === tab.id
-                  ? 'border-indigo-600 text-indigo-600'
-                  : 'border-transparent text-slate-500 hover:text-slate-800'
-              }`}
-            >
-              {tab.icon}
-              {tab.label}
+                activeTab === tab.id ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}>
+              {tab.icon}{tab.label}
             </button>
           ))}
         </div>
@@ -433,72 +459,50 @@ export function AdminPage() {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-6 py-6">
-        {error && (
-          <div className="mb-4 bg-rose-50 border border-rose-200 rounded-xl px-4 py-3 text-sm text-rose-700 flex items-center gap-2">
-            <XCircle className="w-4 h-4 shrink-0" />
-            {error}
-          </div>
-        )}
-        {loading && activeTab === 'overview' ? (
-          <div className="flex items-center justify-center py-20">
+        {sessionExpired && <SessionExpiredBanner />}
+
+        {loading && activeTab === 'overview' && !sessionExpired ? (
+          <div className="flex flex-col items-center justify-center py-24 gap-3">
             <Spinner className="w-8 h-8 text-indigo-600" />
+            <p className="text-sm text-slate-500">Loading dashboard data…</p>
           </div>
         ) : (
           <>
-            {activeTab === 'overview' && (
+            {activeTab === 'overview' && !sessionExpired && (
               <div className="space-y-4">
+                {overviewError && (
+                  <div className="flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-sm text-amber-700">
+                    <AlertTriangle className="w-4 h-4 shrink-0" />{overviewError}
+                    <button onClick={fetchCore} className="ml-auto underline text-xs">Retry</button>
+                  </div>
+                )}
                 <StatsCards stats={stats} cost={cost} />
                 <DepartmentChart stats={stats} />
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <CostPanel cost={cost} />
-                  <div className="bg-white rounded-xl border border-slate-100 p-4 shadow-sm">
-                    <h3 className="text-sm font-semibold text-slate-700 mb-3">System Status</h3>
-                    <div className="space-y-2">
-                      {[
-                        { label: 'API Server',       status: 'online' },
-                        { label: 'PostgreSQL',       status: 'online' },
-                        { label: 'Redis Memory',     status: 'online' },
-                        { label: 'ChromaDB RAG',     status: 'online' },
-                        { label: 'LangSmith Tracing',status: 'online' },
-                      ].map((item) => (
-                        <div key={item.label} className="flex items-center justify-between text-sm">
-                          <span className="text-slate-600">{item.label}</span>
-                          <div className="flex items-center gap-1.5">
-                            <span className="relative flex h-2 w-2">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                            </span>
-                            <span className="text-xs text-emerald-600 font-medium">{item.status}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  <SystemStatusPanel />
                 </div>
               </div>
             )}
 
-            {activeTab === 'approvals' && (
+            {activeTab === 'approvals' && !sessionExpired && (
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <h2 className="font-semibold text-slate-800">Pending Actions</h2>
-                  <span className="text-xs text-slate-400">{actions.length} pending approval</span>
+                  <span className="text-xs text-slate-400">{actions.length} pending</span>
                 </div>
                 <ApprovalQueue actions={actions} onRefresh={fetchCore} />
               </div>
             )}
 
-            {activeTab === 'users' && <UsersTab />}
+            {activeTab === 'users'     && <UsersTab onAuthError={handleAuthError} />}
+            {activeTab === 'audit'     && <AuditTab  onAuthError={handleAuthError} />}
 
-            {activeTab === 'audit' && <AuditTab />}
-
-            {activeTab === 'documents' && (
+            {activeTab === 'documents' && !sessionExpired && (
               <div className="max-w-xl space-y-4">
                 <div>
                   <h2 className="font-semibold text-slate-800">Knowledge Base</h2>
-                  <p className="text-sm text-slate-500 mt-1">
-                    Upload documents to expand the AI knowledge base. Files are automatically chunked and embedded into ChromaDB.
-                  </p>
+                  <p className="text-sm text-slate-500 mt-1">Upload PDFs to expand the AI knowledge base. Files are automatically chunked and embedded into ChromaDB.</p>
                 </div>
                 <DocumentUpload />
               </div>
