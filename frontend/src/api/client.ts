@@ -68,6 +68,25 @@ export async function ask(sessionId: string, question: string): Promise<Workflow
   });
 }
 
+// ── Auth helpers ──────────────────────────────────────────────────────────────
+function _isAuthError(msg: string): boolean {
+  const m = msg.toLowerCase();
+  return (
+    m.includes('invalid token') ||
+    m.includes('unauthorized') ||
+    m.includes('no token') ||
+    m.includes('not authenticated') ||
+    m.includes('credentials') ||
+    m.includes('token expired')
+  );
+}
+
+function _clearAuthAndRedirect(): void {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('user_role');
+  window.location.href = '/login';
+}
+
 // ── Chat (SSE streaming) ──────────────────────────────────────────────────────
 export async function askStream(
   sessionId: string,
@@ -77,25 +96,35 @@ export async function askStream(
   onError: (err: string) => void,
   onStatus?: (status: string) => void,
 ): Promise<void> {
-  const res = await fetch(`${BASE}/ask/stream`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      ...authHeaders(),
-    },
-    body: JSON.stringify({ session_id: sessionId, question }),
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${BASE}/ask/stream`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...authHeaders(),
+      },
+      body: JSON.stringify({ session_id: sessionId, question }),
+    });
+  } catch (networkErr) {
+    onError('Connection failed. Please check your network.');
+    return;
+  }
+
+  // Auth failure at HTTP level — redirect immediately, never show a chat bubble
+  if (res.status === 401 || res.status === 403) {
+    _clearAuthAndRedirect();
+    return;
+  }
 
   if (!res.ok || !res.body) {
-    if (res.status === 401) {
-      // Token expired — clear session and redirect to login
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('user_role');
-      window.location.href = '/login';
+    const body = await res.json().catch(() => ({}));
+    const detail = (body as { detail?: string }).detail ?? `HTTP ${res.status}`;
+    if (_isAuthError(detail)) {
+      _clearAuthAndRedirect();
       return;
     }
-    const body = await res.json().catch(() => ({}));
-    onError((body as { detail?: string }).detail ?? `HTTP ${res.status}`);
+    onError(detail);
     return;
   }
 
@@ -103,29 +132,44 @@ export async function askStream(
   const decoder = new TextDecoder();
   let buffer = '';
 
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
 
-    buffer += decoder.decode(value, { stream: true });
-    const lines = buffer.split('\n');
-    buffer = lines.pop() ?? '';
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop() ?? '';
 
-    for (const line of lines) {
-      if (line.startsWith('data: ')) {
-        const raw = line.slice(6).trim();
-        if (!raw || raw === '[DONE]') continue;
-        try {
-          const evt = JSON.parse(raw) as SSEEvent;
-          if (evt.type === 'token')        onToken(evt.content);
-          else if (evt.type === 'done')    onDone(evt as WorkflowResponse);
-          else if (evt.type === 'error')   onError(evt.message);
-          else if (evt.type === 'status' && onStatus) onStatus(evt.content);
-        } catch {
-          // ignore malformed lines
+      for (const line of lines) {
+        if (line.startsWith('data: ')) {
+          const raw = line.slice(6).trim();
+          if (!raw || raw === '[DONE]') continue;
+          try {
+            const evt = JSON.parse(raw) as SSEEvent;
+            if (evt.type === 'token') {
+              onToken(evt.content);
+            } else if (evt.type === 'done') {
+              onDone(evt as WorkflowResponse);
+            } else if (evt.type === 'error') {
+              // Auth errors in SSE → redirect; others → surface to UI
+              if (_isAuthError(evt.message ?? '')) {
+                _clearAuthAndRedirect();
+                return;
+              }
+              onError(evt.message ?? 'An error occurred.');
+            } else if (evt.type === 'status' && onStatus) {
+              onStatus(evt.content);
+            }
+          } catch {
+            // ignore malformed SSE lines
+          }
         }
       }
     }
+  } catch (streamErr) {
+    // Stream dropped mid-response — surface a clean message, not a raw error
+    onError('Response interrupted. Please try again.');
   }
 }
 

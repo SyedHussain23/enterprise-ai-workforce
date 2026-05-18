@@ -165,18 +165,34 @@ export function ChatPage() {
       (err) => {
         setIsTyping(false);
         setStatusHint('');
-        // 401 / session-expired errors are handled by the client (redirect to login)
-        // — don't pollute the chat with a raw error bubble for those.
-        if (
-          err.toLowerCase().includes('invalid token') ||
-          err.toLowerCase().includes('unauthorized') ||
-          err.toLowerCase().includes('no token')
-        ) {
+
+        // Auth errors (token expired/invalid): client.ts handles redirect.
+        // As a safety net here too — remove placeholder and redirect without
+        // ever displaying a raw auth error string in the chat UI.
+        const errLower = err.toLowerCase();
+        const isAuthErr = (
+          errLower.includes('invalid token') ||
+          errLower.includes('unauthorized') ||
+          errLower.includes('no token') ||
+          errLower.includes('not authenticated') ||
+          errLower.includes('credentials') ||
+          errLower.includes('token expired')
+        );
+        if (isAuthErr) {
+          // Remove the empty streaming placeholder so nothing lingers
+          setMessages((prev) => {
+            const next = prev.filter((m) => m.id !== streamingId);
+            sessionMessagesRef.current[sessionId!] = next;
+            return next;
+          });
           localStorage.removeItem('access_token');
           localStorage.removeItem('user_role');
           window.location.href = '/login';
           return;
         }
+
+        // All other errors: replace streaming placeholder with a clean message.
+        // Never show raw server error strings — they're noisy and confusing.
         setMessages((prev) => {
           const next = prev.map((m) =>
             m.id === streamingId
