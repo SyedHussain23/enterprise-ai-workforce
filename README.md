@@ -596,6 +596,24 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, bra
 
 ---
 
+👨‍💻 Author
+
+Syed Hussain Abdul Hakeem
+
+LinkedIn: https://www.linkedin.com/in/syed-hussain-abdul-hakeem
+
+GitHub: https://github.com/SyedHussain23
+
+---
+
+⭐ Support
+
+If you found this project useful:
+
+👉 Give the repository a star 👉 Share feedback 👉 Connect on LinkedIn
+
+---
+
 <div align="center">
 
 **Built for enterprise operations. Architected for production deployment.**
