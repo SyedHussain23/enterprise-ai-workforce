@@ -20,7 +20,8 @@ from app.auth.dependencies import get_current_user, require_admin
 from app.core.config import settings
 from app.core.logger import clear_request_id, get_logger, set_request_id
 from app.core.middleware import error_handling_middleware
-from app.core.rate_limiter import rate_limiter
+from app.core.rate_limiter import ask_rate_limiter, login_rate_limiter, rate_limiter
+from app.core.semantic_cache import get_cached, invalidate_company, set_cached
 from app.cost.cost_tracker import get_daily_cost, get_lifetime_cost
 from app.db.engine import AsyncSessionLocal
 from app.db.models.action import ActionStatus
@@ -134,7 +135,7 @@ def _build_response(*, status, answer, agent, confidence, source, steps,
 
 
 # ── Auth ──────────────────────────────────────────────────────────────────────
-@app.post("/login", response_model=LoginResponse)
+@app.post("/login", response_model=LoginResponse, dependencies=[Depends(login_rate_limiter)])
 async def login(data: LoginRequest, request: Request, db: AsyncSession = Depends(get_db)):
     repo      = UserRepository(db)
     audit     = AuditLogRepository(db)
@@ -165,24 +166,22 @@ async def login(data: LoginRequest, request: Request, db: AsyncSession = Depends
 
 
 # ── /ask — full response ──────────────────────────────────────────────────────
-@app.post("/ask", response_model=WorkflowResponse)
+@app.post("/ask", response_model=WorkflowResponse, dependencies=[Depends(ask_rate_limiter)])
 async def ask_ai(
     request: Request,
     body: QueryRequest,
     user=Depends(get_current_user),
-    _=Depends(rate_limiter),
     db: AsyncSession = Depends(get_db),
 ):
     return await _run_workflow(request, body, user, db)
 
 
 # ── /ask/stream — SSE streaming ───────────────────────────────────────────────
-@app.post("/ask/stream")
+@app.post("/ask/stream", dependencies=[Depends(ask_rate_limiter)])
 async def ask_stream(
     request: Request,
     body: QueryRequest,
     user=Depends(get_current_user),
-    _=Depends(rate_limiter),
     db: AsyncSession = Depends(get_db),
 ):
     def _status(msg: str) -> dict:
@@ -286,6 +285,27 @@ async def _run_workflow(
                 pass
         guard["response_time"] = rt
         return WorkflowResponse(**guard, response_time=rt)
+
+    # ── Semantic cache lookup ─────────────────────────────────────────────────
+    # Check before any LLM/RAG work — cache hit saves 2–5 seconds + tokens.
+    cache_company = company_id_str or "global"
+    cached = await asyncio.get_event_loop().run_in_executor(
+        None, get_cached, question, cache_company
+    )
+    if cached:
+        rt = round(time.perf_counter() - start, 3)
+        logger.info("ask.cache_hit", cache_type=cached.get("_cache"), rt=rt)
+        return _build_response(
+            status="success",
+            answer=cached.get("answer", ""),
+            agent=cached.get("agent", "cache"),
+            confidence=cached.get("confidence", 80),
+            source=cached.get("source", "cache"),
+            steps=["Cache → semantic match found", "Response served from cache"],
+            confidence_reason=f"Cached response ({cached.get('_cache', 'exact')} match)",
+            evaluation_score=0,
+            response_time=rt,
+        )
 
     # ── Multi-intent ──────────────────────────────────────────────────────────
     intents = detect_intents(question)
@@ -411,7 +431,7 @@ async def _run_workflow(
 
     logger.info("ask.complete", agent=result.get("agent"), confidence=result.get("confidence"), rt=rt)
 
-    return _build_response(
+    final_response = _build_response(
         status="success", answer=answer,
         agent=result.get("agent") or "Unknown",
         confidence=result.get("confidence") or 0,
@@ -424,6 +444,24 @@ async def _run_workflow(
         action_type=result.get("action_type"),
         action_status=action_status_str,
     )
+
+    # ── Store in semantic cache (async, non-blocking) ─────────────────────────
+    if not result.get("action_triggered"):
+        asyncio.get_event_loop().run_in_executor(
+            None,
+            set_cached,
+            question,
+            cache_company,
+            {
+                "answer":     answer,
+                "agent":      result.get("agent"),
+                "confidence": result.get("confidence"),
+                "source":     result.get("source"),
+                "action_triggered": False,
+            },
+        )
+
+    return final_response
 
 
 # ── Actions (Day 43) ──────────────────────────────────────────────────────────
@@ -645,6 +683,8 @@ async def upload_document(
         # Invalidate BM25 index so next query re-indexes the new doc
         from app.rag.hybrid_retriever import invalidate_bm25_cache
         invalidate_bm25_cache()
+        # Invalidate semantic cache — new docs may change best answers
+        invalidate_company(company_id_str or "global")
 
         logger.info("document.uploaded", doc_filename=file.filename, chunks=len(chunks), company_id=company_id_str)
         return {
@@ -1137,4 +1177,58 @@ async def whatsapp_webhook(request: Request):
 # ── Health ────────────────────────────────────────────────────────────────────
 @app.get("/health")
 async def health():
+    """Shallow health check — used by Railway healthcheck probe."""
     return {"status": "ok", "app": settings.APP_NAME, "version": "1.0.0"}
+
+
+@app.get("/health/deep")
+async def health_deep(db: AsyncSession = Depends(get_db)):
+    """
+    Deep health check — verifies connectivity to all downstream dependencies.
+    Used for monitoring dashboards, not Railway healthcheck (too slow for that).
+    Returns degraded status (not 500) so Railway doesn't restart on partial failure.
+    """
+    import redis as _redis_lib
+
+    checks: dict[str, str] = {}
+
+    # PostgreSQL
+    try:
+        await db.execute(func.now().select())  # type: ignore[attr-defined]
+        checks["postgres"] = "ok"
+    except Exception as exc:
+        checks["postgres"] = f"error: {str(exc)[:80]}"
+
+    # Redis
+    try:
+        r = _redis_lib.from_url(settings.REDIS_URL, socket_connect_timeout=2)
+        r.ping()
+        checks["redis"] = "ok"
+    except Exception as exc:
+        checks["redis"] = f"error: {str(exc)[:80]}"
+
+    # ChromaDB
+    try:
+        chroma = get_chroma_client()
+        chroma.heartbeat()
+        checks["chromadb"] = "ok"
+    except Exception as exc:
+        checks["chromadb"] = f"error: {str(exc)[:80]}"
+
+    # OpenAI reachability (cheap — just validate key, no actual call)
+    try:
+        from openai import OpenAI
+        client = OpenAI(api_key=settings.OPENAI_API_KEY, timeout=3.0)
+        # List models — cheapest API call that confirms key validity
+        client.models.list()
+        checks["openai"] = "ok"
+    except Exception as exc:
+        checks["openai"] = f"error: {str(exc)[:80]}"
+
+    overall = "ok" if all(v == "ok" for v in checks.values()) else "degraded"
+    return {
+        "status":   overall,
+        "app":      settings.APP_NAME,
+        "version":  "1.0.0",
+        "checks":   checks,
+    }
