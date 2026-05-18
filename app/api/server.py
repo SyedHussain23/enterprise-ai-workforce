@@ -178,7 +178,6 @@ async def logout(user: dict = Depends(get_current_user)):
     even after the user clicks "Log out" — a stolen token could be replayed.
     """
     from app.core.token_blocklist import block_token
-    from datetime import timezone
 
     jti = user.get("jti")
     exp = user.get("exp")   # Unix timestamp (int), set by create_access_token
