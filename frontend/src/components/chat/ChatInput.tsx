@@ -1,9 +1,9 @@
-import { useState, useRef, type KeyboardEvent } from 'react';
-import { Send, Mic, Paperclip } from 'lucide-react';
+import { useState, useRef, useEffect, type KeyboardEvent } from 'react';
+import { Send, Mic, MicOff, Paperclip, X, FileText } from 'lucide-react';
 import { Spinner } from '../shared/Spinner';
 
 interface Props {
-  onSend: (message: string) => void;
+  onSend: (message: string, file?: File) => void;
   loading: boolean;
   isRTL?: boolean;
   placeholder?: string;
@@ -33,7 +33,16 @@ const SUGGESTIONS_AR = [
 export function ChatInput({ onSend, loading, isRTL, placeholder }: Props) {
   const [value, setValue]       = useState('');
   const [showAll, setShowAll]   = useState(false);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [isListening, setIsListening] = useState(false);
+  const [voiceSupported, setVoiceSupported] = useState(false);
+  const [attachedFile, setAttachedFile] = useState<File | null>(null);
+  const textareaRef  = useRef<HTMLTextAreaElement>(null);
+  const recognitionRef = useRef<any>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setVoiceSupported(!!(('SpeechRecognition' in window) || ('webkitSpeechRecognition' in window)));
+  }, []);
 
   const defaultPlaceholder = isRTL
     ? 'اكتب سؤالك هنا... (اضغط Enter للإرسال)'
@@ -42,11 +51,55 @@ export function ChatInput({ onSend, loading, isRTL, placeholder }: Props) {
   const suggestions = isRTL ? SUGGESTIONS_AR : SUGGESTIONS_EN;
   const visibleSuggestions = showAll ? suggestions : suggestions.slice(0, 4);
 
+  function toggleVoice() {
+    const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SR) return;
+
+    if (isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+      return;
+    }
+
+    const recognition = new SR();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = isRTL ? 'ar-AE' : 'en-US';
+
+    recognition.onresult = (event: any) => {
+      const transcript = Array.from(event.results)
+        .map((r: any) => r[0].transcript)
+        .join('');
+      setValue(transcript.slice(0, MAX_CHARS));
+    };
+
+    recognition.onerror = () => setIsListening(false);
+    recognition.onend = () => setIsListening(false);
+
+    recognitionRef.current = recognition;
+    recognition.start();
+    setIsListening(true);
+  }
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] ?? null;
+    if (file) setAttachedFile(file);
+    e.target.value = '';
+  }
+
+  function removeAttachment() {
+    setAttachedFile(null);
+  }
+
   function handleSend() {
     const trimmed = value.trim();
-    if (!trimmed || loading) return;
-    onSend(trimmed);
+    if ((!trimmed && !attachedFile) || loading) return;
+    const messageText = attachedFile
+      ? (trimmed ? `[📎 ${attachedFile.name}]\n${trimmed}` : `[📎 ${attachedFile.name}]`)
+      : trimmed;
+    onSend(messageText, attachedFile ?? undefined);
     setValue('');
+    setAttachedFile(null);
     setShowAll(false);
     if (textareaRef.current) textareaRef.current.style.height = 'auto';
   }
@@ -102,6 +155,41 @@ export function ChatInput({ onSend, loading, isRTL, placeholder }: Props) {
         </div>
       )}
 
+      {/* File attachment badge */}
+      {attachedFile && (
+        <div className="mb-2 flex items-center gap-2">
+          <div className="flex items-center gap-1.5 bg-indigo-50 border border-indigo-200 rounded-lg px-2.5 py-1.5 text-xs text-indigo-700 font-medium">
+            <FileText className="w-3.5 h-3.5" />
+            <span className="max-w-[200px] truncate">{attachedFile.name}</span>
+            <button
+              onClick={removeAttachment}
+              className="ml-1 hover:text-indigo-900 transition-colors"
+            >
+              <X className="w-3 h-3" />
+            </button>
+          </div>
+          {isListening && (
+            <span className="text-xs text-red-500 animate-pulse">● Listening…</span>
+          )}
+        </div>
+      )}
+
+      {/* Listening indicator (no file attached) */}
+      {isListening && !attachedFile && (
+        <div className="mb-2">
+          <span className="text-xs text-red-500 animate-pulse">● Listening…</span>
+        </div>
+      )}
+
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".pdf,.txt,.csv,.doc,.docx"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+
       <div className="flex items-end gap-2">
         <div className="flex-1 relative">
           <textarea
@@ -130,11 +218,16 @@ export function ChatInput({ onSend, loading, isRTL, placeholder }: Props) {
           )}
         </div>
 
-        {/* Attachment button (placeholder — future feature) */}
+        {/* Attachment button */}
         <button
-          disabled
-          title={isRTL ? 'إرفاق ملف (قريباً)' : 'Attach file (coming soon)'}
-          className="shrink-0 w-10 h-10 rounded-xl border border-slate-200 text-slate-300 flex items-center justify-center cursor-not-allowed"
+          onClick={() => fileInputRef.current?.click()}
+          disabled={loading}
+          title={isRTL ? 'إرفاق ملف' : 'Attach file'}
+          className={`shrink-0 w-10 h-10 rounded-xl border transition-all flex items-center justify-center ${
+            attachedFile
+              ? 'border-indigo-400 bg-indigo-50 text-indigo-600'
+              : 'border-slate-200 text-slate-400 hover:border-indigo-300 hover:text-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed'
+          }`}
         >
           <Paperclip className="w-4 h-4" />
         </button>
@@ -142,21 +235,28 @@ export function ChatInput({ onSend, loading, isRTL, placeholder }: Props) {
         {/* Send button */}
         <button
           onClick={handleSend}
-          disabled={!value.trim() || loading || atLimit}
+          disabled={(!value.trim() && !attachedFile) || loading || atLimit}
           title={isRTL ? 'إرسال' : 'Send (Enter)'}
           className="shrink-0 w-10 h-10 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed text-white flex items-center justify-center transition-all"
         >
           {loading ? <Spinner className="w-4 h-4 text-white" /> : <Send className="w-4 h-4" />}
         </button>
 
-        {/* Voice input (placeholder) */}
-        <button
-          disabled
-          title={isRTL ? 'الإدخال الصوتي (قريباً)' : 'Voice input (coming soon)'}
-          className="shrink-0 w-10 h-10 rounded-xl border border-slate-200 text-slate-300 flex items-center justify-center cursor-not-allowed"
-        >
-          <Mic className="w-4 h-4" />
-        </button>
+        {/* Voice input button */}
+        {voiceSupported && (
+          <button
+            onClick={toggleVoice}
+            disabled={loading}
+            title={isListening ? (isRTL ? 'إيقاف الاستماع' : 'Stop listening') : (isRTL ? 'الإدخال الصوتي' : 'Voice input')}
+            className={`shrink-0 w-10 h-10 rounded-xl border transition-all flex items-center justify-center ${
+              isListening
+                ? 'border-red-400 bg-red-50 text-red-500 animate-pulse'
+                : 'border-slate-200 text-slate-400 hover:border-indigo-300 hover:text-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed'
+            }`}
+          >
+            {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+          </button>
+        )}
       </div>
 
       {/* Keyboard hint */}

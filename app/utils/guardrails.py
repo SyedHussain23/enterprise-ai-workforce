@@ -49,6 +49,50 @@ _COMMON_WORDS = frozenset([
     "apply", "check", "submit", "request", "update", "approve",
 ])
 
+# ── Conversational phrase sets (checked before length gate) ──────────────────
+_GREETINGS = frozenset([
+    "hi", "hello", "hey", "hiya", "howdy", "greetings", "salam",
+    "hi there", "hello there", "hey there", "good morning", "good afternoon",
+    "good evening", "morning", "afternoon", "evening",
+    "how are you", "how r u", "how are u", "how're you", "how do you do",
+    "what's up", "whats up", "sup", "yo",
+    "hi how r u", "hi how are you", "hello how are you", "hey how are you",
+    "hi how are u", "hi how r you",
+])
+
+_FAREWELLS = frozenset([
+    "bye", "goodbye", "good bye", "see you", "see ya", "cya", "cu",
+    "have a great day", "have a good day", "have a nice day", "have a great one",
+    "good night", "goodnight", "gn", "take care", "talk later", "talk soon",
+    "thanks bye", "thank you bye", "ok bye", "okay bye", "cheers", "later",
+])
+
+_GRATITUDE = frozenset([
+    "thank you", "thanks", "thank u", "thx", "ty", "thankyou",
+    "much appreciated", "appreciate it", "appreciate that",
+    "that helped", "that was helpful", "great help", "helpful",
+    "great", "perfect", "awesome", "excellent",
+])
+
+_WELLBEING_PHRASES = [
+    "im not good", "i'm not good", "not doing well", "not feeling well",
+    "im not okay", "i'm not okay", "not okay", "im unwell", "i'm unwell",
+    "im sad", "i'm sad", "im tired", "i'm tired", "im stressed", "i'm stressed",
+    "im frustrated", "i'm frustrated", "im bored", "i'm bored",
+    "feeling down", "feeling low", "not great", "having a bad day",
+    "bad day", "rough day", "tough day",
+]
+
+_PLATFORM_QUERIES = [
+    "what is this platform", "what can you do", "what does this do",
+    "how does this work", "what are your capabilities", "what features",
+    "tell me about this", "what is this assistant", "about this platform",
+    "what this platform for", "what this for", "how can you help me",
+    "what can you help with", "what topics", "what subjects",
+    "what departments", "which departments", "what do you cover",
+    "what does this platform do", "tell me what you can do",
+]
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Public API
@@ -72,26 +116,9 @@ def get_guardrail_response(query: str) -> dict | None:
     raw   = query.strip()
     clean = re.sub(r"\s+", " ", raw)
     lower = clean.lower()
-
-    # 1. Minimum length
-    if len(clean) < 3:
-        return _block(
-            answer="⚠️ Please enter a valid question.",
-            reason="Input too short",
-            step="⚠️ Guardrail → input too short",
-        )
-
-    # 1b. Greeting / small-talk — give a friendly reply, skip the full workflow
-    _GREETINGS = frozenset([
-        "hi", "hello", "hey", "hiya", "howdy", "greetings", "salam",
-        "hi there", "hello there", "hey there", "good morning", "good afternoon",
-        "good evening", "morning", "afternoon", "evening",
-        "how are you", "how r u", "how are u", "how're you", "how do you do",
-        "what's up", "whats up", "sup", "yo",
-        "hi how r u", "hi how are you", "hello how are you", "hey how are you",
-        "hi how are u", "hi how r you",
-    ])
     _normalised = lower.strip().rstrip("!?. ")
+
+    # ── 1a. Greeting / small-talk ─────────────────────────────────────────────
     if _normalised in _GREETINGS or lower in {g + "!" for g in _GREETINGS}:
         return {
             "answer": (
@@ -115,6 +142,121 @@ def get_guardrail_response(query: str) -> dict | None:
             "action_status": None,
             "timestamp": "",
         }
+
+    # ── 1b. Farewell ──────────────────────────────────────────────────────────
+    if _normalised in _FAREWELLS or any(f in lower for f in _FAREWELLS):
+        return {
+            "answer": "Goodbye! 👋 Have a wonderful day. If you ever need help with HR, IT, or Finance questions, I'm always here.\n\nTake care! 😊",
+            "agent": "assistant",
+            "confidence": 100,
+            "source": "guardrail",
+            "status": "success",
+            "steps": ["Guardrail → farewell detected"],
+            "confidence_reason": "Farewell message — no workflow needed",
+            "evaluation_score": 0.0,
+            "response_time": 0.0,
+            "action_id": None,
+            "action_type": None,
+            "action_status": None,
+            "timestamp": "",
+        }
+
+    # ── 1c. Gratitude ─────────────────────────────────────────────────────────
+    if _normalised in _GRATITUDE or any(g in lower for g in _GRATITUDE):
+        return {
+            "answer": "You're welcome! 😊 I'm happy I could help.\n\nFeel free to ask anything else about **HR**, **IT**, or **Finance** — I'm here whenever you need me!",
+            "agent": "assistant",
+            "confidence": 100,
+            "source": "guardrail",
+            "status": "success",
+            "steps": ["Guardrail → gratitude detected"],
+            "confidence_reason": "Thank you message — no workflow needed",
+            "evaluation_score": 0.0,
+            "response_time": 0.0,
+            "action_id": None,
+            "action_type": None,
+            "action_status": None,
+            "timestamp": "",
+        }
+
+    # ── 1d. Platform info / capabilities ─────────────────────────────────────
+    if any(q in lower for q in _PLATFORM_QUERIES):
+        return {
+            "answer": (
+                "## Enterprise AI Workforce Assistant\n\n"
+                "I'm an AI assistant built specifically for **enterprise employees**. "
+                "I can help you instantly with:\n\n"
+                "**👩‍💼 HR (Human Resources)**\n"
+                "- Annual & sick leave policies\n"
+                "- Gratuity / end-of-service calculation\n"
+                "- Maternity/paternity leave\n"
+                "- Onboarding, resignation, probation\n"
+                "- Payslips, salary advances, salary certificates\n"
+                "- Performance reviews, training, grievances\n\n"
+                "**💻 IT Support**\n"
+                "- Password reset & account unlock\n"
+                "- VPN, MFA, SSO setup\n"
+                "- Laptop, software, email issues\n"
+                "- Phishing & security incidents\n"
+                "- IT ticket creation\n\n"
+                "**💰 Finance**\n"
+                "- Expense claims & reimbursement\n"
+                "- Salary, payroll, WPS queries\n"
+                "- VAT, corporate tax, procurement\n"
+                "- Budget approvals, purchase orders\n\n"
+                "I understand both **English and Arabic** 🇦🇪\n\n"
+                "**What would you like to know?**"
+            ),
+            "agent": "assistant",
+            "confidence": 100,
+            "source": "guardrail",
+            "status": "success",
+            "steps": ["Guardrail → platform info query"],
+            "confidence_reason": "Platform info — no workflow needed",
+            "evaluation_score": 0.0,
+            "response_time": 0.0,
+            "action_id": None,
+            "action_type": None,
+            "action_status": None,
+            "timestamp": "",
+        }
+
+    # ── 1e. Wellbeing / empathy ───────────────────────────────────────────────
+    if any(phrase in lower for phrase in _WELLBEING_PHRASES):
+        return {
+            "answer": (
+                "I'm sorry to hear that. 💙\n\n"
+                "While I'm an AI assistant focused on workplace topics, I want you to know that "
+                "your wellbeing matters.\n\n"
+                "**Resources available to you:**\n"
+                "- 🧠 **Employee Assistance Programme (EAP)** — confidential counselling & mental health support\n"
+                "- 👩‍💼 **HR Team** — hr@company.com | +971-4-XXX-1000\n"
+                "- 🏥 **Your medical insurance** covers mental health consultations\n\n"
+                "If you have a work-related question I can help with — HR, IT, or Finance — "
+                "I'm here for you. Otherwise, please do reach out to HR or EAP. "
+                "You're not alone. 🤝"
+            ),
+            "agent": "assistant",
+            "confidence": 100,
+            "source": "guardrail",
+            "status": "success",
+            "steps": ["Guardrail → wellbeing query"],
+            "confidence_reason": "Wellbeing/empathy — no workflow needed",
+            "evaluation_score": 0.0,
+            "response_time": 0.0,
+            "action_id": None,
+            "action_type": None,
+            "action_status": None,
+            "timestamp": "",
+        }
+
+    # ── 1f. Minimum length ────────────────────────────────────────────────────
+    if len(clean) < 3:
+        return _block(
+            answer="⚠️ Please enter a valid question.",
+            reason="Input too short",
+            step="⚠️ Guardrail → input too short",
+        )
 
     # 1c. Language / UI preference requests
     _LANG_REQUESTS = [

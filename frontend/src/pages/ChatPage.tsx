@@ -87,7 +87,7 @@ export function ChatPage() {
     setMessages(sessionMessagesRef.current[id] ?? []);
   }
 
-  const handleSend = useCallback(async (text: string) => {
+  const handleSend = useCallback(async (text: string, _file?: File) => {
     let sessionId = activeSessionId;
     if (!sessionId) {
       sessionId = createNewSession();

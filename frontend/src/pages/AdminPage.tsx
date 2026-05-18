@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import {
   ArrowLeft,
   RefreshCw,
@@ -350,9 +350,11 @@ export function AdminPage() {
   const [actions, setActions] = useState<Action[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<Tab>('overview');
+  const [error, setError] = useState<string | null>(null);
 
   const fetchCore = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
       const [s, c, a] = await Promise.all([
         getAdminStats().catch(() => EMPTY_STATS),
@@ -362,6 +364,8 @@ export function AdminPage() {
       setStats(s);
       setCost(c);
       setActions(a);
+    } catch (err) {
+      setError('Failed to load dashboard data. Please refresh.');
     } finally {
       setLoading(false);
     }
@@ -369,10 +373,7 @@ export function AdminPage() {
 
   useEffect(() => { fetchCore(); }, [fetchCore]);
 
-  if (!isAdmin) {
-    navigate('/chat');
-    return null;
-  }
+  if (!isAdmin) return <Navigate to="/chat" replace />;
 
   const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
     { id: 'overview',   label: 'Overview',   icon: <BarChart2 className="w-3.5 h-3.5" /> },
@@ -432,6 +433,12 @@ export function AdminPage() {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-6 py-6">
+        {error && (
+          <div className="mb-4 bg-rose-50 border border-rose-200 rounded-xl px-4 py-3 text-sm text-rose-700 flex items-center gap-2">
+            <XCircle className="w-4 h-4 shrink-0" />
+            {error}
+          </div>
+        )}
         {loading && activeTab === 'overview' ? (
           <div className="flex items-center justify-center py-20">
             <Spinner className="w-8 h-8 text-indigo-600" />
