@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://YOUR-URL.up.railway.app/:path*"
+      "destination": "https://enterprise-ai-workforce-production.up.railway.app/:path*"
     },
     {
       "source": "/(.*)",
