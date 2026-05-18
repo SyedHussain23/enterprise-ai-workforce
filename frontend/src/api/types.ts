@@ -34,6 +34,8 @@ export interface Message {
   isError?: boolean;
   metadata?: WorkflowResponse;
   timestamp: string;
+  /** file attachment name for display */
+  attachmentName?: string;
 }
 
 export interface Session {
@@ -41,6 +43,10 @@ export interface Session {
   title: string;
   createdAt: string;
   lastMessage?: string;
+  /** ISO timestamp — pinned conversations float to top */
+  pinnedAt?: string;
+  /** message count for display */
+  messageCount?: number;
 }
 
 export interface Action {

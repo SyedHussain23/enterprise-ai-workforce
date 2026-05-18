@@ -45,16 +45,8 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
     },
   });
 
-  if (res.status === 401) {
-    // Throw a typed AuthError — callers decide whether to redirect or show an error UI.
-    // We do NOT auto-redirect here because that fires synchronously before any .catch()
-    // handlers can run, causing the admin dashboard to silently kick users back to /login.
-    throw new AuthError();
-  }
-
-  if (res.status === 403) {
-    throw new Error('Access denied — admin privileges required.');
-  }
+  if (res.status === 401) throw new AuthError();
+  if (res.status === 403) throw new Error('Access denied — admin privileges required.');
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
@@ -72,25 +64,14 @@ export async function login(data: LoginRequest): Promise<LoginResponse> {
   });
 }
 
-/**
- * Server-side logout — adds the current token's JTI to the Redis blocklist.
- * The token is invalid server-side immediately, even if the client still holds it.
- * Always call this before clearing localStorage on logout.
- */
 export async function serverLogout(): Promise<void> {
   try {
     await request<void>('/logout', { method: 'POST' });
   } catch {
-    // Best-effort — if the server is unreachable, we still clear client auth.
-    // The token will expire naturally via its `exp` claim.
+    // Best-effort — still clear client state on failure
   }
 }
 
-/**
- * Extract text from an uploaded file for inline chat context injection.
- * The extracted text is prepended to the user's question for a single turn.
- * No data is persisted — this is ephemeral extraction only.
- */
 export async function extractDocument(
   file: File,
 ): Promise<{ filename: string; text: string; chars: number; truncated: boolean }> {
@@ -99,7 +80,7 @@ export async function extractDocument(
 
   const res = await fetch(`${BASE}/ask/extract`, {
     method: 'POST',
-    headers: authHeaders(),  // No Content-Type — browser sets multipart boundary
+    headers: authHeaders(),
     body: form,
   });
 
@@ -128,7 +109,8 @@ function _isAuthError(msg: string): boolean {
     m.includes('no token') ||
     m.includes('not authenticated') ||
     m.includes('credentials') ||
-    m.includes('token expired')
+    m.includes('token expired') ||
+    m.includes('token has been revoked')
   );
 }
 
@@ -138,90 +120,98 @@ function _clearAuthAndRedirect(): void {
   window.location.href = '/login';
 }
 
-// ── Chat (SSE streaming) ──────────────────────────────────────────────────────
-export async function askStream(
+// ── Chat (SSE streaming) — returns cancel function ────────────────────────────
+/**
+ * Opens an SSE stream to /ask/stream.
+ * Returns a `cancel()` function — call it to abort mid-stream (Stop button).
+ * The stream is automatically cleaned up on cancel or completion.
+ */
+export function askStream(
   sessionId: string,
   question: string,
   onToken: (token: string) => void,
   onDone: (meta: WorkflowResponse) => void,
   onError: (err: string) => void,
   onStatus?: (status: string) => void,
-): Promise<void> {
-  let res: Response;
-  try {
-    res = await fetch(`${BASE}/ask/stream`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...authHeaders(),
-      },
-      body: JSON.stringify({ session_id: sessionId, question }),
-    });
-  } catch (networkErr) {
-    onError('Connection failed. Please check your network.');
-    return;
-  }
+): { cancel: () => void; promise: Promise<void> } {
+  const controller = new AbortController();
 
-  // Auth failure at HTTP level — redirect immediately, never show a chat bubble
-  if (res.status === 401 || res.status === 403) {
-    _clearAuthAndRedirect();
-    return;
-  }
+  const promise = (async () => {
+    let res: Response;
+    try {
+      res = await fetch(`${BASE}/ask/stream`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...authHeaders(),
+        },
+        body: JSON.stringify({ session_id: sessionId, question }),
+        signal: controller.signal,
+      });
+    } catch (err) {
+      if ((err as Error).name === 'AbortError') return; // user cancelled — silent
+      onError('Connection failed. Please check your network.');
+      return;
+    }
 
-  if (!res.ok || !res.body) {
-    const body = await res.json().catch(() => ({}));
-    const detail = (body as { detail?: string }).detail ?? `HTTP ${res.status}`;
-    if (_isAuthError(detail)) {
+    if (res.status === 401 || res.status === 403) {
       _clearAuthAndRedirect();
       return;
     }
-    onError(detail);
-    return;
-  }
 
-  const reader  = res.body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = '';
+    if (!res.ok || !res.body) {
+      const body = await res.json().catch(() => ({}));
+      const detail = (body as { detail?: string }).detail ?? `HTTP ${res.status}`;
+      if (_isAuthError(detail)) { _clearAuthAndRedirect(); return; }
+      onError(detail);
+      return;
+    }
 
-  try {
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
+    const reader  = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
 
-      buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\n');
-      buffer = lines.pop() ?? '';
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
 
-      for (const line of lines) {
-        if (line.startsWith('data: ')) {
-          const raw = line.slice(6).trim();
-          if (!raw || raw === '[DONE]') continue;
-          try {
-            const evt = JSON.parse(raw) as SSEEvent;
-            if (evt.type === 'token') {
-              onToken(evt.content);
-            } else if (evt.type === 'done') {
-              onDone(evt as WorkflowResponse);
-            } else if (evt.type === 'error') {
-              // Auth errors in SSE → redirect; others → surface to UI
-              if (_isAuthError(evt.message ?? '')) {
-                _clearAuthAndRedirect();
-                return;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() ?? '';
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const raw = line.slice(6).trim();
+            if (!raw || raw === '[DONE]') continue;
+            try {
+              const evt = JSON.parse(raw) as SSEEvent;
+              if (evt.type === 'token') {
+                onToken(evt.content);
+              } else if (evt.type === 'done') {
+                onDone(evt as WorkflowResponse);
+              } else if (evt.type === 'error') {
+                if (_isAuthError(evt.message ?? '')) { _clearAuthAndRedirect(); return; }
+                onError(evt.message ?? 'An error occurred.');
+              } else if (evt.type === 'status' && onStatus) {
+                onStatus(evt.content);
               }
-              onError(evt.message ?? 'An error occurred.');
-            } else if (evt.type === 'status' && onStatus) {
-              onStatus(evt.content);
+            } catch {
+              // ignore malformed SSE lines
             }
-          } catch {
-            // ignore malformed SSE lines
           }
         }
       }
+    } catch (streamErr) {
+      if ((streamErr as Error).name === 'AbortError') return; // user cancelled
+      onError('Response interrupted. Please try again.');
     }
-  } catch (streamErr) {
-    // Stream dropped mid-response — surface a clean message, not a raw error
-    onError('Response interrupted. Please try again.');
-  }
+  })();
+
+  return {
+    cancel: () => controller.abort(),
+    promise,
+  };
 }
 
 // ── Feedback ──────────────────────────────────────────────────────────────────
