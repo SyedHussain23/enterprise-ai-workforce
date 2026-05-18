@@ -20,8 +20,7 @@ logs/
 outputs/
 dump.rdb
 
-# Vector DB (rebuild or mount as volume in production)
-vector_db/
+# Vector DB is included (8.7 MB) so Railway has it at startup
 
 # Frontend (built + deployed separately to Vercel)
 frontend/

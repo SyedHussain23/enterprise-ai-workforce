@@ -20,8 +20,8 @@ outputs/
 dump.rdb
 tests/load/results/
 
-# Vector DB (rebuilt from knowledge base documents)
-vector_db/
+# Vector DB — tracked so Railway has it baked into the Docker image
+# vector_db/
 
 # Test cache
 .pytest_cache/
