@@ -224,12 +224,35 @@ async def ask_stream(
 
         yield _status("Streaming response…")
 
-        # Stream answer word by word
-        words = answer.split(" ")
-        for i, word in enumerate(words):
-            chunk = word + (" " if i < len(words) - 1 else "")
-            yield {"data": json.dumps({"type": "token", "content": chunk})}
-            await asyncio.sleep(0.035)
+        # C5: Real token streaming for RAG-retrieved answers.
+        # Pre-written rule-based answers (keyword_match=True) are already
+        # authoritative and accurate — word-split them (fast, no extra LLM cost).
+        # RAG fallback answers benefit from LLM synthesis: it turns retrieved
+        # policy text into a natural, conversational response in real time.
+        use_real_stream = (
+            result.source not in (None, "guardrail", "cache", "approval_gate", "error")
+            and result.agent not in ("guardrail", "cache", "error", "multi_intent")
+            and not (result.action_id or result.action_type)  # never stream action confirmations
+            and result.confidence < 90  # hardcoded high-confidence = pre-written, skip synthesis
+        )
+
+        if use_real_stream:
+            from app.core.openai_client import async_stream_synthesis
+            department = result.agent or "HR"
+            # Use the RAG-retrieved context stored in answer as synthesis input
+            async for token in async_stream_synthesis(
+                question=body.question,
+                context=answer,
+                department=department,
+            ):
+                yield {"data": json.dumps({"type": "token", "content": token})}
+        else:
+            # Word-split pre-written responses (fast, no LLM overhead)
+            words = answer.split(" ")
+            for i, word in enumerate(words):
+                chunk = word + (" " if i < len(words) - 1 else "")
+                yield {"data": json.dumps({"type": "token", "content": chunk})}
+                await asyncio.sleep(0.025)
 
         # Final metadata event
         yield {"data": json.dumps({

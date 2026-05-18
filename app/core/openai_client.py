@@ -273,3 +273,102 @@ def get_circuit_state() -> dict:
         "failure_threshold": FAILURE_THRESHOLD,
         "recovery_timeout_s": RECOVERY_TIMEOUT_SECONDS,
     }
+
+
+# ── Real streaming (C5) ───────────────────────────────────────────────────────
+
+_SYNTHESIS_SYSTEM = """You are an enterprise AI assistant for a UAE/GCC company.
+You have been given retrieved policy context and a user question.
+Answer the question accurately using the context. Be concise (3-5 sentences max).
+Format in Markdown. If context is insufficient, say so honestly.
+Never invent facts not present in the context."""
+
+async def async_stream_synthesis(
+    question: str,
+    context: str,
+    department: str = "HR",
+    model: str = "gpt-4o",
+) -> "AsyncGenerator[str, None]":
+    """
+    C5: Real token-by-token streaming using OpenAI's streaming API.
+
+    Used by /ask/stream when the answer comes from RAG retrieval — the
+    pre-written rule-based answers don't need LLM synthesis (they're already
+    accurate and authoritative), but RAG fallback answers benefit from a
+    natural language synthesis pass.
+
+    Yields text chunks (not complete messages) as they arrive from OpenAI.
+    Falls back to yielding the context as-is if streaming fails.
+
+    Args:
+        question:   The user's question.
+        context:    Retrieved and graded RAG context.
+        department: HR / IT / Finance (for system prompt tuning).
+        model:      OpenAI model to use for synthesis.
+    """
+    from openai import AsyncOpenAI
+    import asyncio
+
+    if not _cb.allow_request():
+        # Circuit open — yield context directly (no LLM, no hang)
+        logger.warning("async_stream_synthesis.circuit_open")
+        yield context
+        return
+
+    async_client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY, timeout=20.0)
+
+    messages = [
+        {
+            "role": "system",
+            "content": _SYNTHESIS_SYSTEM + f"\nDepartment context: {department}",
+        },
+        {
+            "role": "user",
+            "content": f"Context:\n{context[:2000]}\n\nQuestion: {question}",
+        },
+    ]
+
+    try:
+        stream = await async_client.chat.completions.create(
+            model=model,
+            messages=messages,
+            max_tokens=400,
+            temperature=0.3,
+            stream=True,
+        )
+        token_count = 0
+        async for chunk in stream:
+            delta = chunk.choices[0].delta.content if chunk.choices else None
+            if delta:
+                _cb.record_success()
+                token_count += 1
+                yield delta
+
+        logger.info(
+            "async_stream_synthesis.complete",
+            model=model,
+            tokens=token_count,
+            department=department,
+        )
+
+    except RETRYABLE_ERRORS as exc:
+        _cb.record_failure()
+        logger.warning(
+            "async_stream_synthesis.stream_failed",
+            error=type(exc).__name__,
+            detail=str(exc)[:100],
+        )
+        # Fall back to yielding context — never leave stream hanging
+        yield context
+    except Exception as exc:
+        _cb.record_failure()
+        logger.error(
+            "async_stream_synthesis.unexpected_error",
+            error=type(exc).__name__,
+            detail=str(exc)[:200],
+        )
+        yield context
+
+
+# Expose the type hint correctly without circular import
+from typing import AsyncGenerator  # noqa: E402 — needed after function def
