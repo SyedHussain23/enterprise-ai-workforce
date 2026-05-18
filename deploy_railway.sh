@@ -20,7 +20,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo ""
 
 # ── Check railway is logged in ──────────────────────────────────────────────
-echo -e "${YELLOW}[1/6] Checking Railway login...${NC}"
+echo -e "${YELLOW}[1/7] Checking Railway login...${NC}"
 if ! railway whoami &>/dev/null; then
   echo -e "${RED}Not logged in. Run: railway login${NC}"
   exit 1
@@ -29,8 +29,7 @@ echo -e "${GREEN}✅ Logged in as: $(railway whoami 2>&1 | head -1)${NC}"
 
 # ── Link to the already-created project ─────────────────────────────────────
 echo ""
-echo -e "${YELLOW}[2/6] Linking to Railway project...${NC}"
-# Project was already created — just confirm it's linked
+echo -e "${YELLOW}[2/7] Linking to Railway project...${NC}"
 if railway status &>/dev/null; then
   echo -e "${GREEN}✅ Project already linked${NC}"
 else
@@ -38,9 +37,19 @@ else
   railway link 2>&1 || true
 fi
 
-# ── Set environment variables ───────────────────────────────────────────────
+# ── First deploy — creates the service so variables can be set ───────────────
 echo ""
-echo -e "${YELLOW}[3/6] Setting environment variables...${NC}"
+echo -e "${YELLOW}[3/7] Initial deploy (creates the Railway service)...${NC}"
+echo "  Uploading code — this may take 1-2 minutes..."
+railway up --detach 2>&1
+echo -e "${GREEN}✅ Service created and first build triggered${NC}"
+
+# Give Railway a moment to register the service
+sleep 3
+
+# ── Set environment variables ────────────────────────────────────────────────
+echo ""
+echo -e "${YELLOW}[4/7] Setting environment variables...${NC}"
 
 # Load from .env file
 set -a
@@ -94,15 +103,15 @@ railway variables set \
 
 echo -e "${GREEN}✅ Database variables set${NC}"
 
-# ── Deploy ──────────────────────────────────────────────────────────────────
+# ── Redeploy with all variables now in place ─────────────────────────────────
 echo ""
-echo -e "${YELLOW}[4/6] Deploying to Railway (3–5 minutes)...${NC}"
+echo -e "${YELLOW}[5/7] Redeploying with all variables set (3–5 minutes)...${NC}"
 railway up --detach
-echo -e "${GREEN}✅ Deployment triggered — building in background${NC}"
+echo -e "${GREEN}✅ Final deployment triggered — building in background${NC}"
 
-# ── Generate / get domain ────────────────────────────────────────────────────
+# ── Generate / get domain ─────────────────────────────────────────────────────
 echo ""
-echo -e "${YELLOW}[5/6] Getting your public Railway domain...${NC}"
+echo -e "${YELLOW}[6/7] Getting your public Railway domain...${NC}"
 echo ""
 echo "  In your Railway dashboard:"
 echo "  → Click your API service"
@@ -117,9 +126,9 @@ RAILWAY_DOMAIN="${RAILWAY_DOMAIN%/}"
 
 echo -e "${GREEN}✅ Railway URL: $RAILWAY_DOMAIN${NC}"
 
-# ── Update vercel.json with Railway URL ─────────────────────────────────────
+# ── Update vercel.json with Railway URL ──────────────────────────────────────
 echo ""
-echo -e "${YELLOW}[6/6] Updating frontend/vercel.json with Railway URL...${NC}"
+echo -e "${YELLOW}[7/7] Updating frontend/vercel.json with Railway URL...${NC}"
 
 python3 - <<PYEOF
 import json
@@ -146,7 +155,7 @@ echo "  API URL:   $RAILWAY_DOMAIN"
 echo "  Health:    $RAILWAY_DOMAIN/health"
 echo "  API Docs:  $RAILWAY_DOMAIN/docs"
 echo ""
-echo -e "${YELLOW}  Build takes ~3 min. Test with:${NC}"
+echo -e "${YELLOW}  Build takes ~3-5 min. Test with:${NC}"
 echo "  curl $RAILWAY_DOMAIN/health"
 echo ""
 echo -e "${YELLOW}  After build completes, seed the database:${NC}"
