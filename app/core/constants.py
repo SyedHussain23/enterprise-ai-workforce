@@ -104,9 +104,10 @@ DEPARTMENT_KEYWORDS: Final[dict[str, list[str]]] = {
         "budget", "capex", "opex", "cost center", "budget approval",
         "financial report", "p&l", "balance sheet", "cash flow",
         "variance", "forecast", "actuals",
-        # Gratuity (finance calculation)
-        "gratuity", "end of service", "eosb", "dews",
-        "gratuity calculation", "gratuity formula",
+        # End-of-service settlement (Finance handles payment/disbursement,
+        # HR handles policy/eligibility — gratuity keyword stays in HR only)
+        "end of service payment", "gratuity payment", "eosb payment",
+        "final settlement payment", "settlement disbursement",
         # Corporate cards & banking
         "corporate card", "company card", "credit card", "bank",
         "emirates nbd", "swift", "iban", "bank transfer",
@@ -169,11 +170,17 @@ OUT_OF_SCOPE_KEYWORDS: Final[list[str]] = [
 
 # ── Approval-required keywords ────────────────────────────────────────────────
 APPROVAL_KEYWORDS: Final[list[str]] = [
-    "salary", "bonus", "payment", "raise", "increment", "budget",
-    "salary advance", "salary increase", "promotion", "transfer",
-    "leave application", "apply for leave", "expense claim",
-    "purchase order", "vendor registration", "corporate card",
-    "training budget", "capex",
+    # These must be IMPERATIVE action requests, not informational questions.
+    # "expense claim" / "leave application" alone are too broad — they catch
+    # "How do I submit an expense claim?" (info query) which must NOT trigger
+    # the approval gate. Only explicit action-intent phrases are listed here.
+    "salary advance", "salary increase", "salary raise",
+    "apply for promotion", "request promotion",
+    "i want to transfer", "request a transfer",
+    "purchase order", "raise a po", "vendor registration",
+    "corporate card request", "apply for corporate card",
+    "training budget approval", "capex request", "capex approval",
+    "budget approval",
 ]
 
 # ── RAG source prefix → department mapping ───────────────────────────────────

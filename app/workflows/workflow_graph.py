@@ -203,7 +203,7 @@ def build_workflow():
             answer = fallback["answer"]
             source = fallback["source"]
 
-        confidence, confidence_reason = calculate_confidence(
+        signal_confidence, confidence_reason = calculate_confidence(
             answer=answer,
             keyword_match=keyword_match,
             rag_used=rag_used,
@@ -211,10 +211,22 @@ def build_workflow():
             action_triggered=action_triggered,
         )
 
-        # CRAG-corrected confidence takes precedence
+        # Preserve the agent's own confidence from router_node.
+        # router_node already stored max(signal, agent_confidence) in state.
+        # report_node must not discard it by recalculating from signals alone.
+        # Example: keyword-match HR answer has agent.confidence=90 but
+        # signal-only scoring gives 60 → report must honour the 90.
+        router_confidence = state.get("confidence", 0) or 0
+        confidence = max(signal_confidence, router_confidence)
+
+        # CRAG-corrected confidence takes precedence over router's score
+        # (CRAG penalises confidence when irrelevant chunks were filtered)
         if crag_action in {"filter", "rewrite"} and state.get("confidence"):
-            confidence = state["confidence"]
+            crag_confidence = state["confidence"]
+            confidence = min(confidence, crag_confidence)  # CRAG can only lower, not raise
             confidence_reason = f"CRAG-adjusted ({crag_action}): {confidence_reason}"
+        elif confidence >= 80:
+            confidence_reason = confidence_reason.replace("High confidence", "High confidence")
 
         try:
             evaluation_score = float(evaluate_response(query, answer, source))

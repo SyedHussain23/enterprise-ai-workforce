@@ -22,7 +22,7 @@ export function ConfidenceBadge({ score, showLabel = true }: Props) {
 }
 
 function getLevel(score: number) {
-  if (score >= 85) return { label: 'High', color: 'bg-emerald-50 text-emerald-700' };
-  if (score >= 65) return { label: 'Medium', color: 'bg-amber-50 text-amber-700' };
-  return { label: 'Low', color: 'bg-red-50 text-red-700' };
+  if (score >= 80) return { label: 'High',   color: 'bg-emerald-50 text-emerald-700' };
+  if (score >= 55) return { label: 'Medium', color: 'bg-amber-50   text-amber-700'   };
+  return                  { label: 'Low',    color: 'bg-red-50    text-red-700'      };
 }

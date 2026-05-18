@@ -81,6 +81,107 @@ def get_guardrail_response(query: str) -> dict | None:
             step="⚠️ Guardrail → input too short",
         )
 
+    # 1b. Greeting / small-talk — give a friendly reply, skip the full workflow
+    _GREETINGS = frozenset([
+        "hi", "hello", "hey", "hiya", "howdy", "greetings", "salam",
+        "hi there", "hello there", "hey there", "good morning", "good afternoon",
+        "good evening", "morning", "afternoon", "evening",
+        "how are you", "how r u", "how are u", "how're you", "how do you do",
+        "what's up", "whats up", "sup", "yo",
+        "hi how r u", "hi how are you", "hello how are you", "hey how are you",
+        "hi how are u", "hi how r you",
+    ])
+    _normalised = lower.strip().rstrip("!?. ")
+    if _normalised in _GREETINGS or lower in {g + "!" for g in _GREETINGS}:
+        return {
+            "answer": (
+                "Hello! 👋 I'm the **Enterprise AI Workforce Assistant**.\n\n"
+                "I'm here to help you with company questions across:\n"
+                "- 👩‍💼 **HR** — Leave, gratuity, onboarding, payslips\n"
+                "- 💻 **IT** — Password reset, VPN, MFA, device support\n"
+                "- 💰 **Finance** — Expenses, salary, VAT, procurement\n\n"
+                "What can I help you with today?"
+            ),
+            "agent": "assistant",
+            "confidence": 100,
+            "source": "guardrail",
+            "status": "success",
+            "steps": ["Guardrail → greeting detected"],
+            "confidence_reason": "Direct greeting — no workflow needed",
+            "evaluation_score": 0.0,
+            "response_time": 0.0,
+            "action_id": None,
+            "action_type": None,
+            "action_status": None,
+            "timestamp": "",
+        }
+
+    # 1c. Language / UI preference requests
+    _LANG_REQUESTS = [
+        "talk in arabic", "speak arabic", "reply in arabic", "answer in arabic",
+        "use arabic", "in arabic please", "باللغة العربية", "بالعربي",
+        "talk in english", "speak english", "reply in english", "use english",
+        "switch to arabic", "switch to english", "change language",
+    ]
+    if any(phrase in lower for phrase in _LANG_REQUESTS):
+        is_arabic_req = any(w in lower for w in ["arabic", "عربي", "عربية"])
+        return {
+            "answer": (
+                "**Language / UI Preference**\n\n"
+                + (
+                    "To switch the interface to Arabic (RTL), click the **عربي** button "
+                    "in the top-right corner of the screen. Once activated, the entire "
+                    "interface — including menus and responses — will display in Arabic.\n\n"
+                    "أنا أيضًا أفهم الأسئلة المكتوبة بالعربية مباشرةً."
+                    if is_arabic_req else
+                    "The interface language is currently set to English. "
+                    "You can switch to Arabic by clicking the **عربي** button "
+                    "in the top-right corner of the screen."
+                )
+            ),
+            "agent": "assistant",
+            "confidence": 100,
+            "source": "guardrail",
+            "status": "success",
+            "steps": ["Guardrail → language preference request"],
+            "confidence_reason": "UI language instruction — no workflow needed",
+            "evaluation_score": 0.0,
+            "response_time": 0.0,
+            "action_id": None,
+            "action_type": None,
+            "action_status": None,
+            "timestamp": "",
+        }
+
+    # 1d. Name / identity queries
+    _NAME_QUERIES = [
+        "what is your name", "what's your name", "whats your name",
+        "who are you", "ur name", "your name", "tell me your name",
+        "what are you", "who r u",
+    ]
+    if any(phrase in lower for phrase in _NAME_QUERIES):
+        return {
+            "answer": (
+                "I'm the **Enterprise AI Workforce Assistant** — an AI built to help "
+                "employees at your company with HR, IT, and Finance questions.\n\n"
+                "I know UAE Labour Law, company policies, and can raise IT tickets or "
+                "initiate leave/expense requests on your behalf.\n\n"
+                "What can I help you with?"
+            ),
+            "agent": "assistant",
+            "confidence": 100,
+            "source": "guardrail",
+            "status": "success",
+            "steps": ["Guardrail → identity query"],
+            "confidence_reason": "Identity query — no workflow needed",
+            "evaluation_score": 0.0,
+            "response_time": 0.0,
+            "action_id": None,
+            "action_type": None,
+            "action_status": None,
+            "timestamp": "",
+        }
+
     # 2. Prompt injection
     injection_phrase = _detect_prompt_injection(lower)
     if injection_phrase:
