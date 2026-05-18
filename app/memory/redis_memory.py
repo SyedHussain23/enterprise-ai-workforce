@@ -28,7 +28,7 @@ from app.core.logger import get_logger
 logger = get_logger(__name__)
 
 MAX_ACTIVE_TURNS    = 8     # verbatim turns kept per session
-SUMMARIZE_THRESHOLD = 12    # trigger summarization after this many turns
+SUMMARIZE_THRESHOLD = 10    # trigger summarization after this many turns (was 12 — fire earlier to avoid hot-path latency)
 TTL_SECONDS         = 86_400  # 24h, reset on each write
 
 _client: redis.Redis | None = None
@@ -85,8 +85,28 @@ def _summarize(turns: list[dict]) -> str:
         return f"[Earlier context summarized] {convo[-500:]}"
 
 
-def save_turn(session_id: str, user_input: str, assistant_reply: str) -> None:
-    """Save one full turn (user + assistant) to session memory."""
+def save_turn(
+    session_id: str,
+    user_input: str,
+    assistant_reply: str,
+    background_tasks=None,
+) -> None:
+    """
+    Save one full turn (user + assistant) to session memory.
+
+    Args:
+        session_id:        Unique session identifier.
+        user_input:        The user's message.
+        assistant_reply:   The assistant's response.
+        background_tasks:  FastAPI BackgroundTasks instance. When provided,
+                           summarization runs off the hot path (non-blocking).
+                           When None (e.g., from tests), summarization runs inline.
+
+    DESIGN: Summarization used to run synchronously on turn SUMMARIZE_THRESHOLD,
+    causing a 1-3 second latency spike on that specific message. Moving it to a
+    background task eliminates the spike entirely — the user sees their response
+    immediately while the old turns are compressed in parallel.
+    """
     try:
         r = _get_client()
         k = _key(session_id)
@@ -99,10 +119,15 @@ def save_turn(session_id: str, user_input: str, assistant_reply: str) -> None:
         pipe.expire(k, TTL_SECONDS)
         pipe.execute()
 
-        # Check if we should summarize older turns
+        # Check if we should summarize — run off the hot path when possible
         total = r.llen(k)
         if total > MAX_ACTIVE_TURNS * 2:
-            _maybe_summarize(session_id, r, k)
+            if background_tasks is not None:
+                # Non-blocking: user gets their response immediately
+                background_tasks.add_task(_maybe_summarize, session_id, r, k)
+            else:
+                # Fallback for callers without BackgroundTasks (tests, scripts)
+                _maybe_summarize(session_id, r, k)
 
         logger.info("memory.saved", session_id=session_id[:8])
     except Exception as exc:

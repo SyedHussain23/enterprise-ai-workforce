@@ -8,7 +8,7 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from typing import AsyncGenerator
 
-from fastapi import Depends, FastAPI, File, HTTPException, Request, UploadFile
+from fastapi import BackgroundTasks, Depends, FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 from sqlalchemy import func, select
@@ -19,7 +19,7 @@ from app.auth.auth import create_access_token, hash_password, verify_password
 from app.auth.dependencies import get_current_user, require_admin
 from app.core.config import settings
 from app.core.logger import clear_request_id, get_logger, set_request_id
-from app.core.middleware import error_handling_middleware
+from app.core.middleware import error_handling_middleware, security_headers_middleware
 from app.core.rate_limiter import ask_rate_limiter, login_rate_limiter, rate_limiter
 from app.core.semantic_cache import get_cached, invalidate_company, set_cached
 from app.cost.cost_tracker import get_daily_cost, get_lifetime_cost
@@ -103,6 +103,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.middleware("http")(error_handling_middleware)
+app.middleware("http")(security_headers_middleware)
 
 
 @app.middleware("http")
@@ -163,6 +164,109 @@ async def login(data: LoginRequest, request: Request, db: AsyncSession = Depends
     token = create_access_token({"sub": data.username, "role": user.role, "company_id": str(user.company_id)})
     logger.info("auth.login_success", username=data.username, role=user.role)
     return LoginResponse(access_token=token, role=user.role)
+
+
+# ── /logout — server-side token invalidation ──────────────────────────────────
+@app.post("/logout")
+async def logout(user: dict = Depends(get_current_user)):
+    """
+    Explicitly invalidate the caller's JWT by adding its `jti` to the Redis
+    blocklist. The blocklist entry TTL matches the token's remaining lifetime,
+    so the entry self-expires — no cleanup job needed.
+
+    Without this endpoint, JWTs remain valid until their `exp` claim passes
+    even after the user clicks "Log out" — a stolen token could be replayed.
+    """
+    from app.core.token_blocklist import block_token
+    from datetime import timezone
+
+    jti = user.get("jti")
+    exp = user.get("exp")   # Unix timestamp (int), set by create_access_token
+
+    if jti and exp:
+        remaining = int(exp - datetime.now(timezone.utc).timestamp())
+        block_token(jti, max(remaining, 0))
+
+    logger.info("auth.logout", user=user.get("sub", "unknown")[:20])
+    return {"status": "logged_out"}
+
+
+# ── /ask/extract — inline document text extraction for chat context ────────────
+@app.post("/ask/extract")
+async def extract_document_for_chat(
+    file: UploadFile = File(...),
+    user: dict = Depends(get_current_user),
+):
+    """
+    Extract plain text from an uploaded document so the chat can inject it
+    as context into the question sent to the AI workflow.
+
+    This endpoint is distinct from /admin/documents (which indexes docs into
+    the permanent RAG knowledge base). This is ephemeral — the extracted text
+    is returned to the frontend and prepended to the user's query for a single
+    conversation turn. No data is persisted.
+
+    Supported: PDF, TXT, CSV, DOCX
+    Limit: 5MB, 8 000 character output truncation
+    """
+    MAX_SIZE   = 5 * 1024 * 1024   # 5 MB
+    MAX_CHARS  = 8_000             # keep context injection within GPT context limits
+
+    filename = (file.filename or "").lower()
+    allowed_exts = {".pdf", ".txt", ".csv", ".docx", ".doc"}
+    ext = "." + filename.rsplit(".", 1)[-1] if "." in filename else ""
+    if ext not in allowed_exts:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Unsupported file type '{ext}'. Allowed: {', '.join(sorted(allowed_exts))}",
+        )
+
+    contents = await file.read()
+    if len(contents) > MAX_SIZE:
+        raise HTTPException(
+            status_code=413,
+            detail=f"File too large ({len(contents) // 1024}KB). Maximum is 5MB.",
+        )
+
+    try:
+        text = ""
+        if ext == ".pdf":
+            from pypdf import PdfReader
+            reader = PdfReader(io.BytesIO(contents))
+            text = "\n".join(page.extract_text() or "" for page in reader.pages)
+        elif ext in {".txt", ".csv"}:
+            text = contents.decode("utf-8", errors="replace")
+        elif ext in {".docx", ".doc"}:
+            try:
+                import docx
+                doc = docx.Document(io.BytesIO(contents))
+                text = "\n".join(p.text for p in doc.paragraphs if p.text.strip())
+            except ImportError:
+                # python-docx not installed — fallback to raw text extraction
+                text = contents.decode("utf-8", errors="replace")
+
+        text = text.strip()
+        if not text:
+            raise HTTPException(status_code=422, detail="Could not extract text from the uploaded file.")
+
+        logger.info(
+            "extract.success",
+            filename=file.filename,
+            chars=len(text),
+            user=user.get("sub", "")[:16],
+        )
+        return {
+            "filename": file.filename,
+            "chars":    len(text),
+            "text":     text[:MAX_CHARS],
+            "truncated": len(text) > MAX_CHARS,
+        }
+
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error("extract.failed", filename=file.filename, error=str(exc))
+        raise HTTPException(status_code=500, detail="Failed to process the uploaded file.")
 
 
 # ── /ask — full response ──────────────────────────────────────────────────────

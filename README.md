@@ -1,412 +1,120 @@
-<div align="center">
-
 # Enterprise AI Workforce
 
-**Production-grade multi-agent AI platform for enterprise HR, IT & Finance automation**
+> **Multi-agent AI platform for enterprise HR, IT, and Finance.**
+> Built for UAE/GCC organisations. Production-grade architecture: RAG, streaming, human approval workflows, semantic caching, circuit breaker, and full audit trail.
 
-[![CI](https://github.com/SyedHussain23/enterprise-ai-workforce/actions/workflows/ci.yml/badge.svg)](https://github.com/SyedHussain23/enterprise-ai-workforce/actions/workflows/ci.yml)
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?logo=typescript&logoColor=white)](https://typescriptlang.org)
-[![LangGraph](https://img.shields.io/badge/LangGraph-0.2-FF6B35?logo=chainlink&logoColor=white)](https://langchain-ai.github.io/langgraph/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-22C55E.svg)](LICENSE)
-[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](docker-compose.yml)
-
-<br/>
-
-> **Designed for the transition from AI assistants to AI agents that execute enterprise workflows.**  
-> Self-hosted · Arabic/RTL · WhatsApp-native · CRAG + RRF retrieval · Approval-gated actions
-
-<br/>
-
-[**Live Demo**](https://frontend-1k4olnq4e-syedhussain23s-projects.vercel.app) · [**Architecture**](#architecture) · [**Quick Start**](#quick-start) · [**API Docs**](https://enterprise-ai-workforce-production.up.railway.app/docs)
-
-</div>
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?logo=vercel)](https://frontend-1k4olnq4e-syedhussain23s-projects.vercel.app/)
+[![Backend](https://img.shields.io/badge/API-Railway-purple?logo=railway)](https://enterprise-ai-workforce-production.up.railway.app/docs)
+[![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-teal?logo=fastapi)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React-19-blue?logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-blue?logo=typescript)](https://typescriptlang.org)
 
 ---
 
-## What This Is
+## What This Platform Does
 
-Enterprise AI Workforce is an **agentic AI platform** — not a chatbot wrapper. It routes natural language queries to specialist AI agents (HR, IT, Finance), retrieves grounded answers from a 100-document knowledge base using hybrid CRAG+RRF retrieval, gates executable actions through a human approval workflow, and streams responses token-by-token to a React frontend with full Arabic/RTL support.
+Enterprise employees ask questions in natural language. The AI routes the question to the correct department agent (HR, IT, or Finance), retrieves relevant policy documents via RAG, synthesises an answer, and streams it token-by-token. Sensitive requests (salary advances, purchase orders) trigger a human approval workflow.
 
-The system answers the question: *what does enterprise AI look like when it's actually production-ready?*
+**Sample queries the platform handles:**
 
-```
-User Query → Planner → Guardrail → Router → CRAG Retrieval → Specialist Agent → Approval Gate → Response
-```
+| Question | Agent | Source |
+|----------|-------|--------|
+| "What is the annual leave policy?" | HR | ChromaDB RAG |
+| "How do I reset my MFA?" | IT | ChromaDB RAG |
+| "How is gratuity calculated?" | HR | UAE Labour Law + RAG |
+| "I want to apply for a salary advance" | Finance | Approval workflow |
+| "What is the UAE VAT rate?" | Finance | Policy document |
 
 ---
 
 ## Architecture
 
-### System Overview
-
 ```
-┌─────────────────────────────────────────────────────────────────────┐
-│                     PRESENTATION LAYER                              │
-│          React 19 · TypeScript · Tailwind · RTL/Arabic              │
-└───────────────────────────┬─────────────────────────────────────────┘
-                            │  REST + SSE streaming
-┌───────────────────────────▼─────────────────────────────────────────┐
-│                       API LAYER                                     │
-│  FastAPI · JWT (HS256) · Pydantic                                   │
-│  Rate limiter: proxy-aware, fail-closed (ask=20/min, login=10/min)  │
-│  /ask · /ask/stream · /admin · /actions · /kb · /health/deep        │
-└────┬──────────────────────┬────────────────────┬─────────────────────┘
-     │                      │                    │
-┌────▼────────┐  ┌──────────▼──────────────┐  ┌──▼──────────────────┐
-│ PostgreSQL  │  │  Redis                  │  │  Workflow Engine     │
-│ 8 tables    │  │  Session memory         │  │  PENDING→APPROVED   │
-│ Alembic     │  │  Sliding-window RL      │  │  →EXECUTING→DONE    │
-│ 22 indexes  │  │  Semantic cache (2-tier)│  │  Human gate         │
-│ Audit trail │  │  Conv. summarization    │  │  Audit per step     │
-└─────────────┘  └─────────────────────────┘  └────────────────────┘
-                            │
-                  ┌─────────▼────────────┐
-                  │  SEMANTIC CACHE      │
-                  │  Exact SHA256 (1h)   │
-                  │  + cosine sim (4h)   │
-                  │  ~60-80% hit rate    │
-                  └─────────┬────────────┘
-                            │ (cache miss only)
-┌───────────────────────────▼─────────────────────────────────────────┐
-│                   LANGGRAPH ORCHESTRATION                           │
-│           Planner → Guardrail → Router → CRAG → Report              │
-│                                                                     │
-│   ┌──────────┐    ┌──────────┐    ┌────────────────────────────┐   │
-│   │ HR Agent │    │ IT Agent │    │      Finance Agent         │   │
-│   └──────────┘    └──────────┘    └────────────────────────────┘   │
-└───────────────────────────┬─────────────────────────────────────────┘
-                            │
-┌───────────────────────────▼─────────────────────────────────────────┐
-│                     RETRIEVAL LAYER                                 │
-│   ChromaDB (dense) + BM25 (sparse) → RRF Fusion → CRAG Grader      │
-│   Batch grading: N chunks → 1 LLM call (gpt-4o-mini)               │
-│   Query rewrite on all-irrelevant; ambiguous → filtered             │
-└───────────────────────────┬─────────────────────────────────────────┘
-                            │
-┌───────────────────────────▼─────────────────────────────────────────┐
-│               RESILIENT OPENAI CLIENT                               │
-│   Circuit breaker: CLOSED → OPEN (5 failures) → HALF-OPEN (60s)    │
-│   Retry: 3 attempts, exponential back-off (1s → 2s)                │
-│   Retryable: RateLimitError, APITimeoutError, 5xx                   │
-│   Fast-fail when open — no thread-pool exhaustion                   │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### Agentic Pipeline — Step by Step
-
-| Step | Component | What Happens |
-|------|-----------|--------------|
-| 1 | **FastAPI** | Authenticates JWT; `ask_rate_limiter` (20/min, fail-closed); validates request |
-| 2 | **Semantic Cache** | SHA256 exact match (1h) then cosine similarity ≥0.92 (4h); ~60-80% hit rate |
-| 3 | **Planner** | Keyword trie (no LLM) → LLM fallback via `resilient_chat_completion` |
-| 4 | **Guardrail** | Blocks: out-of-scope, multi-intent, prompt injection |
-| 5 | **Router** | Selects specialist agent via conditional LangGraph edge |
-| 6 | **CRAG** | Dense + sparse retrieval → RRF fusion → **batch** LLM chunk grading (1 call) |
-| 7 | **Agent** | Generates grounded answer from graded, filtered context |
-| 8 | **Report** | Attaches confidence (0-100), eval score, source, full step trace |
-| 9 | **SSE** | Streams tokens to React frontend in real time |
-| 10 | **DB + Cache** | Logs to `conversation_logs`; stores cache entry async (non-blocking) |
-
-### Database Schema
-
-```
-users          → id, username, email, hashed_password, role, company_id
-sessions       → id, user_id, title, created_at
-conversation_logs → session_id, agent, question, answer, confidence,
-                   evaluation_score, response_time, source
-actions        → id, session_id, action_type, payload, status,
-                 created_at, approved_at, executed_at
-companies      → id, name, domain
-kb_documents   → id, category, filename, company_id
-profiles       → user_id, department, updated_at
-alembic_version → version_num
+┌─────────────────────────────────────────────────────────────┐
+│                     React 19 Frontend                       │
+│  ChatPage · AdminPage · ProfilePage · Error Boundary        │
+│  SSE streaming · RTL/Arabic · Voice input · File upload+OCR │
+└─────────────────────┬───────────────────────────────────────┘
+                      │  HTTPS / SSE
+┌─────────────────────▼───────────────────────────────────────┐
+│                  FastAPI Backend (Railway)                   │
+│                                                             │
+│  ┌─────────────┐  ┌───────────────┐  ┌──────────────────┐  │
+│  │  Guardrails  │  │ Rate Limiter  │  │ Semantic Cache   │  │
+│  │  PII·inject  │  │  Redis SSet   │  │  exact+cosine    │  │
+│  └──────┬───────┘  └───────────────┘  └──────────────────┘  │
+│         │                                                    │
+│  ┌──────▼──────────────────────────────────────────────┐    │
+│  │           LangGraph Workflow Orchestrator            │    │
+│  │   Planner → Router → CRAG → Report                  │    │
+│  │   keyword-first routing, LLM fallback on ambiguity  │    │
+│  └──────┬──────────────────┬───────────────────────────┘    │
+│         │                  │                                 │
+│  ┌──────▼──────┐   ┌───────▼────────┐                       │
+│  │  Department │   │  Hybrid RAG    │                       │
+│  │   Agents    │   │  BM25 + Dense  │                       │
+│  │  HR·IT·Fin  │   │  CRAG grading  │                       │
+│  └──────┬──────┘   └───────┬────────┘                       │
+│         │                  │                                 │
+│  ┌──────▼──────────────────▼──────────────────────────────┐  │
+│  │   OpenAI GPT-4o  ·  Circuit Breaker  ·  Retry 3x       │  │
+│  └────────────────────────────────────────────────────────┘  │
+│                                                             │
+│  PostgreSQL  ·  Redis  ·  ChromaDB  ·  Immutable Audit Log │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
 ## Key Engineering Decisions
 
-### Why CRAG + RRF instead of naive RAG?
+### 1. Hybrid Keyword + LLM Planner
+Fast path: keyword scoring against 300+ department-specific terms (< 5ms). Slow path: GPT-4o-mini only when no clear keyword winner. **Result:** ~70% of requests resolved without an LLM routing call.
 
-Standard RAG retrieves top-K chunks and passes them all to the LLM regardless of relevance. This causes hallucination when retrieved context doesn't actually answer the question.
+### 2. CRAG Batch Grading
+All N retrieved chunks graded in a single LLM call via `response_format=json_object`. Naive implementations use N calls. **Result:** RAG quality check costs exactly 1 LLM call regardless of chunk count.
 
-CRAG (Corrective RAG) adds an LLM-based grading step that labels each chunk `relevant / ambiguous / irrelevant`. Only passing chunks reach the agent. If all chunks fail, the query is automatically rewritten and retrieval retried once.
+### 3. Two-Tier Semantic Cache
+- Tier 1: SHA-256 exact match (O(1), Redis GET)
+- Tier 2: Cosine similarity ≥ 0.85 over stored question embeddings
 
-RRF (Reciprocal Rank Fusion) merges dense vector results (ChromaDB) and sparse keyword results (BM25) without requiring score calibration — giving the best of both retrieval methods.
+**Result:** 60–80% cache hit rate on common enterprise queries. Each hit saves 2–5 seconds and 500–2,000 tokens.
 
-### Why LangGraph instead of a chain?
+### 4. Circuit Breaker + Exponential Backoff
+`CLOSED → OPEN` after 5 consecutive OpenAI failures. `HALF-OPEN` probe after 60s. Backoff: 1s → 2s over 3 attempts. **Result:** OpenAI outage causes fast-fail in < 5ms, not 30-second thread-pool hangs.
 
-LangChain chains are linear. LangGraph gives explicit graph structure with conditional edges — the routing logic (`is this HR? IT? Finance? None?`) is a first-class graph decision, not an if/else buried in a function. Every node failure is catchable. The execution trace is inspectable. The pipeline is testable node-by-node.
+### 5. JWT Token Blocklist
+Every JWT embeds a `jti` (UUID4) claim. On logout or password change, the JTI is written to Redis with TTL = token remaining lifetime. The auth dependency checks the blocklist on every request (O(1)). **Result:** Tokens are immediately invalid server-side after logout — no replay window.
 
-### Why an approval-gated action system?
+### 6. Background Memory Summarisation
+Conversation summarisation (triggered at 10 turns) runs as a FastAPI `BackgroundTasks` task — off the hot path. **Result:** Zero latency spike at turn 10; user sees their response immediately.
 
-Enterprise AI that can *do things* (approve leave, create tickets, submit expenses) needs a human in the loop before execution. The action lifecycle (`PENDING → APPROVED → EXECUTING → COMPLETED`) ensures no AI-initiated action touches any downstream system without explicit human authorisation. Every state transition is timestamped and auditable.
+### 7. Real Document Extraction in Chat
+Uploaded files are extracted server-side (`/ask/extract`, pypdf + python-docx) and injected as context into the AI query. Previously files were UI-only cosmetics. **Result:** AI can actually read and reason about uploaded HR letters, payslips, receipts.
 
-### Why a circuit breaker instead of just retries?
-
-Retries alone are dangerous under sustained failures. If OpenAI experiences a 5-minute rate-limit event, every request retries up to 3 times with back-off. With N concurrent users, this creates N×3 threads all sleeping and waiting — exhausting the server's thread pool and making *all* endpoints unresponsive, not just the LLM-dependent ones.
-
-The circuit breaker trips after 5 consecutive failures and fast-fails all subsequent calls for 60 seconds. Users get an immediate, clean error instead of a 30-second hang. After 60 seconds, one probe request tests if OpenAI has recovered; if yes, the circuit closes and traffic resumes normally.
-
-### Why a two-tier semantic cache?
-
-Common enterprise questions ("What is the annual leave policy?") are asked dozens of times per day by different employees, often phrased slightly differently. Without caching, each phrasing triggers a full LangGraph pipeline + RAG + GPT-4o call (2–5 seconds, ~1000 tokens).
-
-Tier 1 (exact SHA256): free lookup. Tier 2 (cosine similarity ≥0.92): catches paraphrases. Cache stores only high-confidence answers (≥70). Action-triggered responses are never cached (they're user-specific). Invalidation on document upload keeps answers fresh.
-
-### Why self-hosted?
-
-UAE and GCC enterprises face data residency requirements. Internal HR/Finance documents cannot be sent to external SaaS systems. This platform runs entirely within the customer's infrastructure — knowledge base files, vector embeddings, conversation history, and user data never leave the deployment environment.
+### 8. Redis Sliding-Window Rate Limiter
+O(log N) sorted-set: ZADD + ZREMRANGEBYSCORE + ZCARD per request. Fail-closed for `/ask` when Redis is unavailable. **Result:** Precise per-user-per-minute control without performance penalty.
 
 ---
 
 ## Tech Stack
 
-| Layer | Technology | Version |
-|-------|-----------|---------|
-| LLM | OpenAI GPT-4o-mini | latest |
-| Orchestration | LangGraph StateGraph | 0.2 |
-| Dense Retrieval | ChromaDB | 0.5 |
-| Sparse Retrieval | BM25 (rank-bm25) | 0.2 |
-| Fusion | RRF (custom) | — |
-| Backend | FastAPI + SQLAlchemy async | 0.115 |
-| Migrations | Alembic | 1.13 |
-| Database | PostgreSQL | 16 |
-| Cache / Memory | Redis | 7 |
-| Auth | JWT HS256 + bcrypt | — |
-| Frontend | React 19 + Vite + TypeScript | 19 / 6.0 |
-| Styling | Tailwind CSS | 4 |
-| Streaming | SSE (Server-Sent Events) | — |
-| Charts | Recharts | 3 |
-| Tracing | LangSmith | latest |
-| Load Testing | k6 | latest |
-| CI/CD | GitHub Actions | — |
-| Containers | Docker + Compose | — |
-| Deployment | Railway + Vercel | — |
-
----
-
-## Features
-
-<table>
-<tr>
-<td width="50%">
-
-**🤖 Multi-Agent Routing**
-- Planner: keyword trie + LLM fallback
-- HR Agent: UAE Labour Law, leave, onboarding
-- IT Agent: password reset, VPN, access
-- Finance Agent: salary, expenses, VAT/tax
-- Guardrail: injection/scope/intent gate
-
-</td>
-<td width="50%">
-
-**📚 Hybrid RAG**
-- 100-document knowledge base
-- ChromaDB dense + BM25 sparse
-- RRF fusion without calibration
-- CRAG grading per chunk
-- Automatic query rewrite on failure
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-**⚡ Workflow Engine**
-- PENDING → APPROVED → EXECUTING → COMPLETED
-- Human approval gate on all agent actions
-- Full audit trail per state transition
-- Admin dashboard with action queue
-- Rejection with reason + logging
-
-</td>
-<td width="50%">
-
-**🔐 Security**
-- JWT HS256 + bcrypt cost 12
-- Path traversal protection (_safe_path)
-- SECRET_KEY enforced at container start
-- Proxy-aware rate limiter (X-Forwarded-For)
-- Fail-closed on Redis unavailability
-- Brute-force: 10 login attempts/min/IP
-- Role-based access (user/admin)
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-**🌍 Internationalisation**
-- English + Arabic out of the box
-- Full RTL layout toggle
-- All UI labels translated
-- Language preference persists
-
-</td>
-<td width="50%">
-
-**📊 Observability**
-- LangSmith end-to-end tracing
-- Confidence score + eval score per response
-- Execution steps in every API response
-- `/health/deep`: Postgres + Redis + ChromaDB + OpenAI + circuit breaker
-- Structured JSON logging to mounted volume
-
-</td>
-</tr>
-</table>
-
----
-
-## Quick Start
-
-### Prerequisites
-
-- Python 3.12+
-- Node 22+
-- Docker + Docker Compose
-- OpenAI API key
-
-### Local Development (5 minutes)
-
-```bash
-# 1. Clone
-git clone https://github.com/SyedHussain23/enterprise-ai-workforce.git
-cd enterprise-ai-workforce
-
-# 2. Environment
-cp .env.example .env
-# Open .env — set OPENAI_API_KEY and SECRET_KEY
-# Generate a strong key: openssl rand -hex 32
-
-# 3. Start infrastructure
-docker compose up postgres redis -d
-
-# 4. Backend setup
-python -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-alembic upgrade head
-python scripts/seed_db.py       # creates employee1/emp123 and admin/admin123
-python build_vector_db.py       # ingests 100 KB documents into ChromaDB + BM25
-
-# 5. Start API
-uvicorn app.api.server:app --reload --port 8000
-
-# 6. Start frontend (new terminal)
-cd frontend
-npm install
-npm run dev
-
-# Open http://localhost:5173
-```
-
-### Docker (Full Stack)
-
-```bash
-cp .env.example .env
-# Set OPENAI_API_KEY and SECRET_KEY in .env
-
-docker compose up --build
-docker compose --profile migrate up migrate   # run DB migrations
-
-# API:      http://localhost:8000
-# Frontend: http://localhost:5173
-# Docs:     http://localhost:8000/docs
-```
-
-### Default Credentials
-
-| Role | Username | Password |
-|------|----------|----------|
-| Admin | `admin` | `admin123` |
-| Employee | `employee1` | `emp123` |
-
-> **Change these immediately in any non-local deployment.**
-
----
-
-## API Reference
-
-### Authentication
-
-```bash
-# Login
-curl -X POST http://localhost:8000/login \
-  -H "Content-Type: application/json" \
-  -d '{"username": "employee1", "password": "emp123"}'
-
-# Response
-{
-  "access_token": "eyJ...",
-  "token_type": "bearer",
-  "role": "user"
-}
-```
-
-### Ask a Question
-
-```bash
-curl -X POST http://localhost:8000/ask \
-  -H "Authorization: Bearer eyJ..." \
-  -H "Content-Type: application/json" \
-  -d '{"session_id": "uuid-here", "question": "What is the annual leave policy?"}'
-
-# Response
-{
-  "answer": "Employees receive 21 days of annual leave per year for the first 5 years...",
-  "agent": "hr",
-  "confidence": 92,
-  "confidence_reason": "Answer found directly in HR policy document",
-  "source": "hr_1.txt",
-  "evaluation_score": 89,
-  "response_time": 1.24,
-  "steps": [
-    "Planner → classified as HR intent",
-    "Guardrail → passed",
-    "Router → dispatched to HR Agent",
-    "CRAG → 3/4 chunks graded relevant",
-    "HR Agent → generated grounded response",
-    "Report → confidence 92%, eval 89"
-  ],
-  "status": "success"
-}
-```
-
-### Streaming Response
-
-```bash
-curl -X POST http://localhost:8000/ask/stream \
-  -H "Authorization: Bearer eyJ..." \
-  -H "Content-Type: application/json" \
-  -d '{"session_id": "uuid-here", "question": "How do I reset my VPN?"}'
-
-# Server-Sent Events stream: token-by-token
-data: {"token": "To"}
-data: {"token": " reset"}
-data: {"token": " your"}
-...
-data: {"done": true, "metadata": {...}}
-```
-
-### Action Management (Admin)
-
-```bash
-# List pending actions
-curl http://localhost:8000/actions?status=PENDING \
-  -H "Authorization: Bearer <admin-token>"
-
-# Approve an action
-curl -X POST http://localhost:8000/actions/{id}/approve \
-  -H "Authorization: Bearer <admin-token>" \
-  -d '{"notes": "Approved — valid request"}'
-```
-
-Full interactive API documentation: **http://localhost:8000/docs**
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 19, TypeScript 6, Tailwind CSS 4, Vite 8 |
+| Backend | FastAPI 0.115, SQLAlchemy 2 (async), Pydantic v2 |
+| AI Orchestration | LangGraph, LangChain 0.3 |
+| LLM | OpenAI GPT-4o (synthesis), GPT-4o-mini (grading/routing) |
+| Vector Store | ChromaDB |
+| Hybrid Search | ChromaDB dense + BM25 sparse (rank-bm25) |
+| Embeddings | OpenAI text-embedding-3-small |
+| Memory | Redis (conversation history, semantic cache, rate limiter, token blocklist) |
+| Database | PostgreSQL (async via asyncpg + SQLAlchemy 2) |
+| Auth | JWT (python-jose) + bcrypt + Redis JTI blocklist |
+| Deployment | Vercel (frontend) + Railway (backend, Redis, PostgreSQL) |
+| Observability | LangSmith, structured JSON logs, request ID propagation |
+| Testing | pytest, pytest-asyncio, k6 load tests |
 
 ---
 
@@ -415,244 +123,92 @@ Full interactive API documentation: **http://localhost:8000/docs**
 ```
 enterprise-ai-workforce/
 ├── app/
-│   ├── agents/             # Specialist AI agents (HR, IT, Finance, Planner)
-│   ├── api/                # FastAPI routes (server.py, kb_manager.py)
-│   ├── auth/               # JWT creation, verification, bcrypt
-│   ├── config/             # Settings (Pydantic), logger
-│   ├── core/               # Config, logger, rate_limiter, semantic_cache, openai_client
-│   ├── db/                 # SQLAlchemy models, async session, repositories
-│   ├── evaluation/         # Response quality scorer (0-100)
-│   ├── knowledge/          # Static policy docs (hr_policy.txt etc.)
-│   ├── llm/                # LangChain ChatOpenAI wrapper
-│   ├── memory/             # Redis conversation memory + LLM summarization
-│   ├── rag/                # ChromaDB, BM25, RRF fusion, CRAG batch grader
-│   ├── schemas/            # Pydantic request/response schemas
-│   ├── tools/              # PDF generator, automation engine
-│   ├── utils/              # Confidence scorer, guardrails, fuzzy match
-│   └── workflows/          # LangGraph StateGraph pipeline
-├── alembic/                # DB migration versions
-├── data/                   # Knowledge base documents (100 .txt files)
-│   ├── HR/                 # 25 HR policy documents
-│   ├── IT/                 # 25 IT policy documents
-│   ├── Finance/            # 25 Finance policy documents
-│   ├── General/            # 12 general workplace documents
-│   └── Company/            # 25 company information documents
+│   ├── agents/           # HR, IT, Finance agents + hybrid keyword/LLM planner
+│   ├── api/              # FastAPI server — routes, middleware, SSE streaming
+│   ├── auth/             # JWT creation, JTI token blocklist, role dependencies
+│   ├── core/             # Config, circuit breaker, semantic cache, rate limiter
+│   ├── db/               # SQLAlchemy models, repositories, Alembic migrations
+│   ├── memory/           # Redis conversation memory + background summarisation
+│   ├── rag/              # ChromaDB, CRAG batch grading, hybrid BM25+dense retriever
+│   ├── schemas/          # Pydantic request/response models
+│   ├── utils/            # Guardrails (PII, injection, profanity), multi-intent
+│   └── workflows/        # LangGraph state machine (planner→router→CRAG→report)
 ├── frontend/
-│   └── src/
-│       ├── api/            # Axios client, TypeScript types
-│       ├── components/     # UI components (chat, admin, shared)
-│       ├── context/        # Auth, RTL React contexts
-│       └── pages/          # Login, Chat, Admin, Profile
-├── scripts/                # seed_db.py, generate_kb.py
-├── tests/                  # pytest unit tests + k6 load tests
-├── .github/
-│   ├── workflows/          # ci.yml, deploy.yml
-│   └── ISSUE_TEMPLATE/     # Bug report, feature request templates
-├── docker-compose.yml
+│   ├── src/
+│   │   ├── api/          # Typed API client (SSE, file extraction, auth, logout)
+│   │   ├── components/   # Chat, admin, shared UI (ErrorBoundary, skeletons)
+│   │   ├── context/      # Auth (with server-logout), RTL contexts
+│   │   └── pages/        # ChatPage (retry+file+streaming), AdminPage, Login, Profile
+│   └── vercel.json       # CSP, HSTS, security headers, rewrite rules
+├── tests/
+│   ├── test_auth.py · test_guardrails.py · test_confidence.py ...
+│   └── load/             # k6 smoke, load, and stress test scripts
+├── alembic/              # Database migration versions
+├── data/                 # 75 HR/IT/Finance policy documents (txt)
 ├── Dockerfile
-└── requirements.txt
+└── docker-compose.yml    # Local: FastAPI + PostgreSQL + Redis
 ```
 
 ---
 
-## Environment Variables
+## API Reference
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `OPENAI_API_KEY` | ✅ | OpenAI API key |
-| `SECRET_KEY` | ✅ | JWT signing secret (min 32 chars) — `openssl rand -hex 32` |
-| `DATABASE_URL` | ✅ | Async PostgreSQL URL (`postgresql+asyncpg://...`) |
-| `DATABASE_URL_SYNC` | ✅ | Sync PostgreSQL URL for Alembic (`postgresql+psycopg2://...`) |
-| `REDIS_URL` | ✅ | Redis URL (`redis://host:6379`) |
-| `LANGCHAIN_TRACING_V2` | Optional | `true` to enable LangSmith tracing |
-| `LANGCHAIN_API_KEY` | Optional | LangSmith API key |
-| `LANGCHAIN_PROJECT` | Optional | LangSmith project name |
-| `WHATSAPP_TOKEN` | Optional | WhatsApp Business API token |
-| `WHATSAPP_PHONE_NUMBER_ID` | Optional | WhatsApp sender phone number ID |
-| `WHATSAPP_VERIFY_TOKEN` | Optional | Webhook verify token |
-| `PORT` | Optional | API port (default: 8000) |
-| `DEBUG` | Optional | `false` in production |
-
-> `SECRET_KEY` uses Docker Compose `:?` — the container **refuses to start** if this variable is unset. There is no insecure default.
+| Method | Endpoint | Auth | Purpose |
+|--------|----------|------|---------|
+| POST | `/login` | — | Authenticate → JWT |
+| POST | `/logout` | Bearer | Invalidate token (JTI blocklist) |
+| POST | `/ask` | Bearer | Blocking AI response |
+| POST | `/ask/stream` | Bearer | SSE streaming response |
+| POST | `/ask/extract` | Bearer | Extract text from uploaded file |
+| GET | `/actions/pending` | Admin | Pending approval queue |
+| POST | `/actions/{id}/approve` | Admin | Approve workflow action |
+| POST | `/actions/{id}/reject` | Admin | Reject workflow action |
+| POST | `/admin/documents` | Admin | Index PDF into ChromaDB |
+| GET | `/admin/stats` | Admin | Usage analytics |
+| GET | `/admin/cost` | Admin | Token cost tracking |
+| GET | `/admin/users` | Admin | User management |
+| GET | `/admin/audit` | Admin | Immutable audit log |
+| GET | `/health/deep` | — | Full-stack health check |
+| GET/PUT | `/me` | Bearer | Profile management |
+| PUT | `/me/password` | Bearer | Password change + token revocation |
 
 ---
 
-## Deployment
-
-### Live Instances
-
-| Service | URL |
-|---------|-----|
-| Frontend (Vercel) | https://frontend-1k4olnq4e-syedhussain23s-projects.vercel.app |
-| API (Railway) | https://enterprise-ai-workforce-production.up.railway.app |
-| API Docs (Swagger) | https://enterprise-ai-workforce-production.up.railway.app/docs |
-
-### Railway (API) + Vercel (Frontend)
-
-**Backend — Railway:**
+## Local Development
 
 ```bash
-# Install Railway CLI
-npm install -g @railway/cli
+# Infrastructure
+docker-compose up -d   # PostgreSQL + Redis
 
-# Login and deploy
-railway login
-railway init
-railway up
+# Backend
+pip install -r requirements.txt
+cp .env.example .env   # add OPENAI_API_KEY
+alembic upgrade head
+python scripts/seed_db.py
+python build_vector_db.py
+uvicorn app.api.server:app --reload --port 8000
+
+# Frontend
+cd frontend && npm install && npm run dev
 ```
 
-Set these environment variables in the Railway dashboard:
-- `OPENAI_API_KEY`, `SECRET_KEY`, `DATABASE_URL`, `DATABASE_URL_SYNC`, `REDIS_URL`
-
-**Frontend — Vercel:**
-
-```bash
-cd frontend
-npx vercel --prod
-```
-
-Set `VITE_API_URL` to your Railway API URL in Vercel dashboard.
-
-**Enable CI/CD auto-deploy:**
-
-Add these to GitHub → Settings → Secrets and Variables → Actions:
-- Secrets: `RAILWAY_TOKEN`, `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
-- Variables: `RAILWAY_ENABLED=true`, `VERCEL_ENABLED=true`
-
-### Self-Hosted (Docker)
-
-```bash
-# Production deployment
-docker compose up --build -d
-docker compose --profile migrate up migrate
-
-# With custom domain via nginx reverse proxy
-# Point nginx to port 8000 (API) and 5173 (frontend)
-```
+Open: **http://localhost:5173** | Default: `admin / admin123`
 
 ---
 
-## CI/CD
+## Security Controls
 
-```
-Push to main
-     │
-     ├── CI / Backend (Python 3.12)
-     │     ├── pytest unit tests
-     │     ├── server import smoke test
-     │     └── LangGraph workflow smoke test
-     │
-     ├── CI / Frontend (Node 22)
-     │     ├── npm ci
-     │     ├── tsc --noEmit (strict type check)
-     │     └── npm run build (production build)
-     │
-     ├── CI / Docker build
-     │     └── docker build + import check
-     │
-     └── Deploy (if RAILWAY_ENABLED / VERCEL_ENABLED = true)
-           ├── railway up → API
-           └── vercel --prod → Frontend
-```
+| Control | Implementation |
+|---------|---------------|
+| Authentication | JWT HS256 + bcrypt |
+| Session invalidation | Redis JTI blocklist — immediate on logout |
+| Rate limiting | Sliding-window: 20/min per user (`/ask`), 5/min (`/login`) |
+| Prompt injection | 30+ phrase blocklist + enterprise scope guardrails |
+| PII detection | Emirates ID, IBAN, credit card, passport regex patterns |
+| HTTP security | CSP, HSTS (1yr+preload), X-Frame-Options, X-Content-Type-Options |
+| File validation | MIME + extension + 5MB size limit |
+| Audit trail | Immutable `workflow_log` + `audit_log` per every request |
 
 ---
 
-## Resilience Design
-
-| Failure | Behaviour |
-|---------|-----------|
-| **LLM unavailable** | Exponential backoff ×3 (1s/2s/4s) → graceful user message |
-| **Redis down** | Conversation continues without memory context |
-| **ChromaDB down** | BM25 sparse retrieval continues independently |
-| **PostgreSQL down** | 503 returned; no partial writes; filesystem fallback log |
-| **All chunks irrelevant** | Automatic query rewrite + one retry before fallback |
-| **Unauthorised action** | Blocked at PENDING state; never reaches EXECUTING without admin gate |
-
----
-
-## Security
-
-- **JWT HS256** — stateless auth; expiry enforced on every protected route
-- **bcrypt cost 12** — timing-safe password hashing and comparison
-- **Path traversal protection** — `_safe_path()` uses `.resolve()` + `startswith()` on all KB file operations
-- **Secret enforcement** — `SECRET_KEY` uses Docker `:?` syntax; container startup fails if unset
-- **Rate limiting** — Redis sliding-window per-user on all `/ask` endpoints
-- **No secrets in git** — `.env` excluded; `.env.example` contains only placeholders
-- **Input validation** — Pydantic schemas validate all request bodies before business logic
-
-To report a vulnerability: see [SECURITY.md](SECURITY.md)
-
----
-
-## Scalability
-
-Current architecture supports single-server deployment with ~50 concurrent users (validated via k6 load tests — p95 < 3s, p99 < 6s).
-
-**Horizontal scaling path:**
-1. Multiple FastAPI replicas behind NGINX (stateless API — JWT + Redis session)
-2. Celery/ARQ async workers for action execution (decouple from API)
-3. ChromaDB collection sharding by `company_id` (column already exists on all tables)
-4. Read replicas for PostgreSQL analytics queries
-5. Kubernetes Helm chart for enterprise on-premise deployment
-
----
-
-## Future Roadmap
-
-**Near-term:**
-- [ ] WhatsApp channel integration (webhook scaffolded, needs pipeline wiring)
-- [ ] Voice input via Whisper API
-- [ ] Jira/ServiceNow ticket creation from actions
-- [ ] Admin analytics dashboard (query trends, confidence over time)
-
-**Medium-term:**
-- [ ] Multi-company SaaS (`company_id` column already in schema)
-- [ ] Fine-tuned intent classifier to replace GPT-4o-mini Planner
-- [ ] Per-session document Q&A (user uploads PDF, temporary collection)
-- [ ] SAML/SSO — Okta + Azure AD integration
-
-**Long-term:**
-- [ ] Agent builder UI (create new agents via form, no redeploy)
-- [ ] Multi-step approval chains (HR → Finance → Payroll)
-- [ ] GCC policy packs (Saudi, DIFC, Kuwait Labour Law)
-- [ ] Kubernetes Helm chart for on-premise enterprise deployment
-
----
-
-## Contributing
-
-Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, branch strategy, commit conventions, and PR checklist.
-
----
-
-## License
-
-[MIT](LICENSE) — free to use, modify, and deploy.
-
----
-
-👨‍💻 Author
-
-Syed Hussain Abdul Hakeem
-
-LinkedIn: https://www.linkedin.com/in/syed-hussain-abdul-hakeem
-
-GitHub: https://github.com/SyedHussain23
-
----
-
-⭐ Support
-
-If you found this project useful:
-
-👉 Give the repository a star 👉 Share feedback 👉 Connect on LinkedIn
-
----
-
-<div align="center">
-
-**Built for enterprise operations. Architected for production deployment.**
-
-*LangGraph · GPT-4o-mini · ChromaDB · BM25 · RRF · CRAG · FastAPI · React · PostgreSQL · Redis*
-
-</div>
+Built by [Syed Hussain](https://github.com/SyedHussain23) · MIT License

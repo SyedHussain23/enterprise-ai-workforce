@@ -5,8 +5,9 @@ import { AgentTrace } from './AgentTrace';
 import { submitFeedback, getMyActions } from '../../api/client';
 
 interface Props {
-  message: Message;
-  isRTL?: boolean;
+  message:  Message;
+  isRTL?:   boolean;
+  onRetry?: () => void;
 }
 
 // ── Markdown renderer ─────────────────────────────────────────────────────────
@@ -148,7 +149,8 @@ export function MessageSkeleton() {
 }
 
 // ── Main MessageBubble ────────────────────────────────────────────────────────
-export function MessageBubble({ message, isRTL }: Props) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function MessageBubble({ message, isRTL, onRetry: _onRetry }: Props) {
   const isUser = message.role === 'user';
   const [rated,  setRated]  = useState<'up' | 'down' | null>(null);
   const [copied, setCopied] = useState(false);

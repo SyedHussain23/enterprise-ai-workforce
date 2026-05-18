@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import { login as apiLogin } from '../api/client';
+import { login as apiLogin, serverLogout } from '../api/client';
 
 interface AuthState {
   token: string | null;
@@ -10,7 +10,7 @@ interface AuthState {
 
 interface AuthContextType extends AuthState {
   login: (username: string, password: string) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -104,7 +104,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  function logout() {
+  async function logout() {
+    // Block the token server-side (JTI blocklist) before clearing client state.
+    // This ensures the token is immediately invalid even if intercepted.
+    await serverLogout();
     clearAuth();
     setState({ token: null, role: null, isAdmin: false, isLoading: false });
   }

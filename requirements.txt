@@ -39,6 +39,7 @@ redis>=5.0.0
 
 # ── Document processing ───────────────────────────────────────────────────────
 pypdf>=4.0.0
+python-docx>=1.1.0          # DOCX extraction for /ask/extract endpoint
 
 # ── HTTP client (WhatsApp + testing) ─────────────────────────────────────────
 httpx>=0.28.0

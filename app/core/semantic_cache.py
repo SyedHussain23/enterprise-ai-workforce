@@ -41,7 +41,7 @@ logger = get_logger(__name__)
 # ── Configuration ─────────────────────────────────────────────────────────────
 EXACT_TTL_SECONDS    = 3_600       # 1 hour  — exact matches
 SEMANTIC_TTL_SECONDS = 14_400      # 4 hours — semantic matches
-SIMILARITY_THRESHOLD = 0.92        # cosine similarity to consider a hit
+SIMILARITY_THRESHOLD = 0.85        # cosine similarity to consider a hit
 MIN_CONFIDENCE       = 70          # only cache high-confidence answers
 MAX_SEMANTIC_ENTRIES = 200         # max semantic cache entries per company
 

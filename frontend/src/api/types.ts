@@ -30,6 +30,8 @@ export interface Message {
   role: 'user' | 'assistant';
   content: string;
   streaming?: boolean;
+  /** true when the message represents a failed AI response — shows retry UI */
+  isError?: boolean;
   metadata?: WorkflowResponse;
   timestamp: string;
 }

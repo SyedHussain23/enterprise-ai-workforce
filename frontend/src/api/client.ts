@@ -72,6 +72,45 @@ export async function login(data: LoginRequest): Promise<LoginResponse> {
   });
 }
 
+/**
+ * Server-side logout — adds the current token's JTI to the Redis blocklist.
+ * The token is invalid server-side immediately, even if the client still holds it.
+ * Always call this before clearing localStorage on logout.
+ */
+export async function serverLogout(): Promise<void> {
+  try {
+    await request<void>('/logout', { method: 'POST' });
+  } catch {
+    // Best-effort — if the server is unreachable, we still clear client auth.
+    // The token will expire naturally via its `exp` claim.
+  }
+}
+
+/**
+ * Extract text from an uploaded file for inline chat context injection.
+ * The extracted text is prepended to the user's question for a single turn.
+ * No data is persisted — this is ephemeral extraction only.
+ */
+export async function extractDocument(
+  file: File,
+): Promise<{ filename: string; text: string; chars: number; truncated: boolean }> {
+  const form = new FormData();
+  form.append('file', file);
+
+  const res = await fetch(`${BASE}/ask/extract`, {
+    method: 'POST',
+    headers: authHeaders(),  // No Content-Type — browser sets multipart boundary
+    body: form,
+  });
+
+  if (res.status === 401) throw new AuthError();
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error((body as { detail?: string }).detail ?? `HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
 // ── Chat (non-streaming) ──────────────────────────────────────────────────────
 export async function ask(sessionId: string, question: string): Promise<WorkflowResponse> {
   return request<WorkflowResponse>('/ask', {
