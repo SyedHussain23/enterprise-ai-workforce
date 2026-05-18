@@ -105,12 +105,16 @@ def build_workflow():
             fallback = get_fallback_response(agent_name)
             return {**fallback, "agent": agent_name, "steps": steps}
 
-        confidence, _ = calculate_confidence(
+        signal_confidence, _ = calculate_confidence(
             answer=answer,
             keyword_match=result.keyword_match,
             rag_used=result.rag_used,
             source=result.source,
         )
+        # Trust the agent's own certainty when it's higher than signal-based score.
+        # Hardcoded authoritative responses (keyword_match=True, rag_used=False)
+        # correctly return high confidence that signal scoring undervalues.
+        confidence = max(signal_confidence, result.confidence or 0)
 
         logger.info("node.router.done", agent=agent_name, confidence=confidence, source=result.source)
 

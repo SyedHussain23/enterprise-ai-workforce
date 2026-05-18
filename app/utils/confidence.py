@@ -59,9 +59,11 @@ def calculate_confidence(
 
     if not labels:
         reason = "Low confidence — no signal found"
-    elif score >= 75:
+    elif score >= 80:
         reason = f"High confidence — {' + '.join(labels)}"
-    elif score >= 45:
+    elif score >= 60:
+        reason = f"High confidence — {' + '.join(labels)}"
+    elif score >= 40:
         reason = f"Moderate confidence — {' + '.join(labels)}"
     else:
         reason = f"Low confidence — {' + '.join(labels)}"
