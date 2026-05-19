@@ -53,3 +53,18 @@ def require_admin(user: dict = Depends(get_current_user)) -> dict:
     if user.get("role") not in ("admin", "ADMIN"):
         raise HTTPException(status_code=403, detail="Admin access required.")
     return user
+
+
+def require_approver(user: dict = Depends(get_current_user)) -> dict:
+    """
+    Allow managers and admins to act on approvals.
+
+    Why this exists separately from `require_admin`:
+      Approvals are an operational responsibility belonging to line managers,
+      not only the platform owner. Without this, every approval funnels to
+      a tiny pool of admins — that's a chatbot, not a workforce platform.
+    """
+    role = (user.get("role") or "").lower()
+    if role not in ("admin", "manager"):
+        raise HTTPException(status_code=403, detail="Manager or admin access required.")
+    return user

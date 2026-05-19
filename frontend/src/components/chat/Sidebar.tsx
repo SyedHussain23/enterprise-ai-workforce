@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, type KeyboardEvent } from 'react';
 import {
   Plus, MessageSquare, LogOut, Settings, Globe, UserCircle,
   Search, Trash2, Pin, PinOff, Edit3, Check, X, Bot,
+  Inbox, CheckSquare,
 } from 'lucide-react';
 import clsx from 'clsx';
 import type { Session } from '../../api/types';
@@ -317,6 +318,24 @@ export function Sidebar({
               </span>
             </div>
           </div>
+
+          <button
+            onClick={() => { navigate('/requests'); onClose(); }}
+            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-slate-100 text-xs transition-colors"
+          >
+            <Inbox className="w-4 h-4" />
+            {isRTL ? 'طلباتي' : 'My requests'}
+          </button>
+
+          {(isAdmin || role === 'manager') && (
+            <button
+              onClick={() => { navigate('/approvals'); onClose(); }}
+              className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-slate-100 text-xs transition-colors"
+            >
+              <CheckSquare className="w-4 h-4" />
+              {isRTL ? 'الموافقات' : 'Approvals'}
+            </button>
+          )}
 
           {isAdmin && (
             <button

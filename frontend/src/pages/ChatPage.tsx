@@ -8,6 +8,7 @@ import { askStream, extractDocument } from '../api/client';
 import type { Message, Session, WorkflowResponse } from '../api/types';
 import { useRTL } from '../context/RTLContext';
 import { Bot, Menu, ChevronDown } from 'lucide-react';
+import { NotificationBell } from '../components/shared/NotificationBell';
 
 // ── Storage helpers ───────────────────────────────────────────────────────────
 const SESSIONS_KEY  = 'chat_sessions_v2';
@@ -398,6 +399,7 @@ export function ChatPage() {
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
+            <NotificationBell />
             {/* Online indicator */}
             <span className="hidden sm:flex items-center gap-1.5">
               <span className="relative flex h-2 w-2">

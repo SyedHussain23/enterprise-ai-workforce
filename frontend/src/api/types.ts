@@ -187,3 +187,94 @@ export interface AuditLogsResponse {
   limit: number;
   offset: number;
 }
+
+// ── Request lifecycle ──────────────────────────────────────────────────────────
+export type RequestStatus =
+  | 'pending'
+  | 'approved'
+  | 'rejected'
+  | 'completed'
+  | 'failed'
+  | 'cancelled';
+
+export interface RequestSummary {
+  id: string;
+  action_type: string;
+  department: string;
+  status: RequestStatus | string;
+  requires_approval: boolean;
+  payload: Record<string, unknown>;
+  notes: string | null;
+  requested_by: string | null;
+  created_at: string;
+  approved_at: string | null;
+}
+
+export interface RequestsListResponse {
+  total: number;
+  limit: number;
+  offset: number;
+  requests: RequestSummary[];
+}
+
+export interface RequestComment {
+  id: string;
+  body: string;
+  author: string | null;
+  created_at: string;
+}
+
+export interface RequestTimelineEntry {
+  id: string;
+  event_type: string;
+  payload: Record<string, unknown> | null;
+  created_at: string;
+}
+
+export interface RequestDetailResponse {
+  request: RequestSummary;
+  comments: RequestComment[];
+  timeline: RequestTimelineEntry[];
+}
+
+// ── Approvals ──────────────────────────────────────────────────────────────────
+export interface ApprovalsListResponse {
+  total: number;
+  limit: number;
+  offset: number;
+  items: RequestSummary[];
+}
+
+export interface ApprovalsStats {
+  pending: number;
+}
+
+// ── Notifications ──────────────────────────────────────────────────────────────
+export type NotificationKind =
+  | 'request_submitted'
+  | 'request_approved'
+  | 'request_rejected'
+  | 'request_commented'
+  | 'request_completed'
+  | 'request_escalated'
+  | 'system';
+
+export interface NotificationItem {
+  id: string;
+  kind: NotificationKind | string;
+  title: string;
+  message: string;
+  entity_type: string | null;
+  entity_id: string | null;
+  payload: Record<string, unknown> | null;
+  is_read: boolean;
+  read_at: string | null;
+  created_at: string;
+}
+
+export interface NotificationsResponse {
+  unread_count: number;
+  limit: number;
+  offset: number;
+  notifications: NotificationItem[];
+}

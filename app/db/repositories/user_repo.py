@@ -29,6 +29,17 @@ class UserRepository:
         result = await self._db.execute(stmt)
         return result.scalar_one_or_none()
 
+    async def list_approvers(self, company_id: uuid.UUID) -> list[User]:
+        """Return all active managers and admins for a company — used as
+        the recipient set for new-request notifications."""
+        stmt = select(User).where(
+            User.company_id == company_id,
+            User.is_active == True,
+            User.deleted_at == None,
+            User.role.in_(["manager", "admin"]),
+        )
+        return list((await self._db.execute(stmt)).scalars().all())
+
     async def create(
         self,
         *,

@@ -9,9 +9,11 @@ import { Spinner } from './components/shared/Spinner';
 // ChatPage is eagerly loaded — it's the main screen (fast first paint).
 // AdminPage and ProfilePage are lazy — infrequently visited, save ~40KB on initial load.
 import { ChatPage } from './pages/ChatPage';
-const AdminPage   = lazy(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })));
-const LoginPage   = lazy(() => import('./pages/LoginPage').then((m) => ({ default: m.LoginPage })));
-const ProfilePage = lazy(() => import('./pages/ProfilePage').then((m) => ({ default: m.ProfilePage })));
+const AdminPage     = lazy(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })));
+const LoginPage     = lazy(() => import('./pages/LoginPage').then((m) => ({ default: m.LoginPage })));
+const ProfilePage   = lazy(() => import('./pages/ProfilePage').then((m) => ({ default: m.ProfilePage })));
+const RequestsPage  = lazy(() => import('./pages/RequestsPage').then((m) => ({ default: m.RequestsPage })));
+const ApprovalsPage = lazy(() => import('./pages/ApprovalsPage').then((m) => ({ default: m.ApprovalsPage })));
 
 // ── Route suspense fallback ───────────────────────────────────────────────────
 function PageLoader() {
@@ -40,6 +42,13 @@ function AdminRoute({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 
+function ApproverRoute({ children }: { children: ReactNode }) {
+  const { token, isAdmin, role } = useAuth();
+  if (!token) return <Navigate to="/login" replace />;
+  if (!isAdmin && role !== 'manager') return <Navigate to="/chat" replace />;
+  return <>{children}</>;
+}
+
 // ── Routes ────────────────────────────────────────────────────────────────────
 function AppRoutes() {
   return (
@@ -52,6 +61,14 @@ function AppRoutes() {
         <Route
           path="/chat"
           element={<ProtectedRoute><ChatPage /></ProtectedRoute>}
+        />
+        <Route
+          path="/requests"
+          element={<ProtectedRoute><RequestsPage /></ProtectedRoute>}
+        />
+        <Route
+          path="/approvals"
+          element={<ApproverRoute><ApprovalsPage /></ApproverRoute>}
         />
         <Route
           path="/admin"

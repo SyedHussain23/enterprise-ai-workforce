@@ -16,6 +16,12 @@ import type {
   AuditLogsResponse,
   ConversationsResponse,
   ConversationMessagesResponse,
+  RequestsListResponse,
+  RequestDetailResponse,
+  RequestComment,
+  ApprovalsListResponse,
+  ApprovalsStats,
+  NotificationsResponse,
 } from './types';
 
 const BASE = '/api';
@@ -359,4 +365,86 @@ export async function getConversationMessages(
   return request<ConversationMessagesResponse>(
     `/conversations/${encodeURIComponent(sessionId)}/messages?limit=${limit}`,
   );
+}
+
+// ── Request lifecycle ─────────────────────────────────────────────────────────
+
+export async function listMyRequests(params?: {
+  limit?: number;
+  offset?: number;
+  status?: string;
+}): Promise<RequestsListResponse> {
+  const qs = new URLSearchParams();
+  if (params?.limit  != null) qs.set('limit',  String(params.limit));
+  if (params?.offset != null) qs.set('offset', String(params.offset));
+  if (params?.status)         qs.set('status', params.status);
+  return request<RequestsListResponse>(`/requests/mine?${qs.toString()}`);
+}
+
+export async function getRequestDetail(id: string): Promise<RequestDetailResponse> {
+  return request<RequestDetailResponse>(`/requests/${id}`);
+}
+
+export async function addRequestComment(
+  id: string,
+  body: string,
+): Promise<RequestComment> {
+  return request<RequestComment>(`/requests/${id}/comments`, {
+    method: 'POST',
+    body: JSON.stringify({ body }),
+  });
+}
+
+export async function cancelRequest(
+  id: string,
+  reason?: string,
+): Promise<{ status: string }> {
+  return request<{ status: string }>(`/requests/${id}/cancel`, {
+    method: 'POST',
+    body: JSON.stringify({ reason }),
+  });
+}
+
+// ── Approvals ─────────────────────────────────────────────────────────────────
+
+export async function listPendingApprovals(params?: {
+  limit?: number;
+  offset?: number;
+  department?: string;
+}): Promise<ApprovalsListResponse> {
+  const qs = new URLSearchParams();
+  if (params?.limit  != null) qs.set('limit',  String(params.limit));
+  if (params?.offset != null) qs.set('offset', String(params.offset));
+  if (params?.department)     qs.set('department', params.department);
+  return request<ApprovalsListResponse>(`/approvals/pending?${qs.toString()}`);
+}
+
+export async function getApprovalsStats(): Promise<ApprovalsStats> {
+  return request<ApprovalsStats>('/approvals/stats');
+}
+
+// ── Notifications ─────────────────────────────────────────────────────────────
+
+export async function listNotifications(params?: {
+  limit?: number;
+  offset?: number;
+  unread_only?: boolean;
+}): Promise<NotificationsResponse> {
+  const qs = new URLSearchParams();
+  if (params?.limit       != null) qs.set('limit',       String(params.limit));
+  if (params?.offset      != null) qs.set('offset',      String(params.offset));
+  if (params?.unread_only != null) qs.set('unread_only', String(params.unread_only));
+  return request<NotificationsResponse>(`/notifications?${qs.toString()}`);
+}
+
+export async function getUnreadCount(): Promise<{ unread_count: number }> {
+  return request<{ unread_count: number }>('/notifications/unread/count');
+}
+
+export async function markNotificationRead(id: string): Promise<{ status: string }> {
+  return request<{ status: string }>(`/notifications/${id}/read`, { method: 'POST' });
+}
+
+export async function markAllNotificationsRead(): Promise<{ marked_read: number }> {
+  return request<{ marked_read: number }>('/notifications/read-all', { method: 'POST' });
 }

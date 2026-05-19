@@ -10,6 +10,8 @@ from app.db.models.workflow_log import WorkflowLog  # noqa: F401
 from app.db.models.action import Action, ActionType, ActionStatus  # noqa: F401
 from app.db.models.feedback import Feedback  # noqa: F401
 from app.db.models.audit_log import AuditLog, AuditEventType  # noqa: F401
+from app.db.models.notification import Notification, NotificationKind  # noqa: F401
+from app.db.models.action_comment import ActionComment  # noqa: F401
 
 __all__ = [
     "Company",
@@ -25,4 +27,7 @@ __all__ = [
     "Feedback",
     "AuditLog",
     "AuditEventType",
+    "Notification",
+    "NotificationKind",
+    "ActionComment",
 ]

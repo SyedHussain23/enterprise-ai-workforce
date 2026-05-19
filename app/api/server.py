@@ -99,12 +99,14 @@ async def request_id_middleware(request: Request, call_next):
 
 
 # ── Routers ───────────────────────────────────────────────────────────────────
-from app.api.routes.health        import router as health_router        # noqa: E402
-from app.api.routes.auth          import router as auth_router          # noqa: E402
-from app.api.routes.ai            import router as ai_router            # noqa: E402
-from app.api.routes.actions       import router as actions_router       # noqa: E402
-from app.api.routes.admin         import router as admin_router         # noqa: E402
+from app.api.routes.health        import router as health_router         # noqa: E402
+from app.api.routes.auth          import router as auth_router           # noqa: E402
+from app.api.routes.ai            import router as ai_router             # noqa: E402
+from app.api.routes.actions       import router as actions_router        # noqa: E402
+from app.api.routes.admin         import router as admin_router          # noqa: E402
 from app.api.routes.conversations import router as conversations_router  # noqa: E402
+from app.api.routes.requests      import router as requests_router       # noqa: E402
+from app.api.routes.notifications import router as notifications_router  # noqa: E402
 
 app.include_router(health_router)
 app.include_router(auth_router)
@@ -112,3 +114,5 @@ app.include_router(ai_router)
 app.include_router(actions_router)
 app.include_router(admin_router)
 app.include_router(conversations_router)
+app.include_router(requests_router)
+app.include_router(notifications_router)

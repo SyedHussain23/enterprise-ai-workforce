@@ -27,6 +27,7 @@ from app.db.repositories import (
     ActionRepository,
     AuditLogRepository,
     ConversationRepository,
+    NotificationRepository,
     UserRepository,
     WorkflowLogRepository,
 )
@@ -402,6 +403,50 @@ async def _run_workflow(
                 )
                 action_id_str    = str(action.id)
                 action_status_str = action.status
+
+                # Audit the creation as a distinct lifecycle event so the
+                # /requests/{id} timeline tells the full story.
+                audit_for_action = AuditLogRepository(db)
+                await audit_for_action.log(
+                    "action_created",
+                    company_id=company_uuid,
+                    user_id=user_uuid,
+                    entity_type="action",
+                    entity_id=action.id,
+                    payload={
+                        "action_type": action.action_type,
+                        "department":  action.department,
+                    },
+                )
+
+                # Notify approvers in this tenant — best effort, never block the response
+                try:
+                    notif_repo = NotificationRepository(db)
+                    approvers = await user_repo.list_approvers(company_uuid)
+                    requester_name = db_user.username if db_user else "An employee"
+                    for approver in approvers:
+                        if user_uuid and approver.id == user_uuid:
+                            continue  # don't notify the requester themselves
+                        await notif_repo.emit(
+                            company_id=company_uuid,
+                            recipient_id=approver.id,
+                            actor_id=user_uuid,
+                            kind="request_submitted",
+                            title="New approval required",
+                            message=(
+                                f"{requester_name} submitted a "
+                                f"{action.action_type.replace('_', ' ')} request "
+                                f"in {action.department}."
+                            ),
+                            entity_type="action",
+                            entity_id=action.id,
+                            payload={
+                                "action_type": action.action_type,
+                                "department":  action.department,
+                            },
+                        )
+                except Exception as nexc:
+                    logger.warning("notification.emit_failed", error=str(nexc))
 
             audit = AuditLogRepository(db)
             await audit.log(
