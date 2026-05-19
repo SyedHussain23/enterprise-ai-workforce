@@ -24,12 +24,13 @@ DEPARTMENT_KEYWORDS: Final[dict[str, list[str]]] = {
         "employee", "hr", "human resources", "personnel", "staff", "workforce",
         "headcount", "manpower",
         # Compensation & benefits
-        "gratuity", "end of service", "eosb", "dews", "wps", "wage protection",
-        "salary certificate", "salary advance", "payslip", "pay slip",
+        # NOTE: payslip/salary advance/wps/transport-allowance intentionally omitted here —
+        # they live in Finance keywords only to prevent false multi-intent triggering.
+        # HR agent handles them via agent-level keyword matching independently.
+        "gratuity", "end of service", "eosb", "dews",
         "increment", "appraisal", "performance review", "kpi", "bonus criteria",
         "benefits", "medical insurance", "health insurance", "life insurance",
-        "allowance", "housing allowance", "transport allowance", "flight ticket",
-        "education allowance", "school fees",
+        "housing allowance", "flight ticket", "education allowance", "school fees",
         # Attendance & work arrangement
         "attendance", "overtime", "timesheet", "late", "absent", "wfh",
         "work from home", "remote work", "hybrid", "flexible hours", "ramadan hours",
@@ -44,6 +45,9 @@ DEPARTMENT_KEYWORDS: Final[dict[str, list[str]]] = {
         "emiratization", "diversity", "inclusion", "wellbeing", "eap",
         "counselling", "mental health", "gym", "recognition", "promotion",
         "career", "internal transfer", "transfer request",
+        # Leave status follow-up
+        "approve my leave", "already applied", "leave pending", "leave status",
+        "waiting for approval", "leave approved", "leave rejected",
         # Arabic HR terms (transliterated)
         "ijaza", "rakhsa", "istiqala", "mukafat", "ratib",
     ],

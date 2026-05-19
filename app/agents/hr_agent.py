@@ -32,6 +32,21 @@ _APPLY_LEAVE_PHRASES = [
     "apply for sick leave", "i want leave", "need time off", "book time off",
     "submit a leave", "leave request", "plan to take leave",
 ]
+# Leave approval-status / follow-up phrases — user has already applied and
+# is asking about the approval status or how to get it approved.
+_LEAVE_APPROVAL_PHRASES = [
+    "approve my leave", "approve leave", "need it approved", "need my leave approved",
+    "already applied", "already submitted leave", "submitted my leave",
+    "waiting for approval", "leave pending", "pending leave",
+    "my leave not approved", "leave status", "check my leave",
+    "when will leave be approved", "follow up on leave", "leave follow up",
+]
+# Maternity / pregnancy-related phrases
+_MATERNITY_PHRASES = [
+    "maternity", "maternity leave", "pregnant", "pregnancy", "eighth month",
+    "ninth month", "due date", "labor", "labour", "childbirth", "baby",
+    "newborn", "nursing", "breastfeeding", "paternity",
+]
 _UPDATE_PROFILE_PHRASES = [
     "update my profile", "change my details", "update my information",
     "change my contact", "update my address", "change my name", "update contact",
@@ -79,6 +94,59 @@ _DISCIPLINE_PHRASES = [
 @traceable
 def hr_agent(query: str) -> AgentResponse:
     q = query.lower().strip()
+
+    # ── Maternity / Pregnancy Guidance ────────────────────────────────────────
+    # Must be checked BEFORE generic leave policy (it contains "leave").
+    if any(phrase in q for phrase in _MATERNITY_PHRASES):
+        return AgentResponse(
+            answer=(
+                "**Maternity & Parental Leave Policy**\n\n"
+                f"**Maternity Leave:** {MATERNITY_COMPANY} days at full pay (company enhanced)\n"
+                "- Begins up to 30 days before the expected due date\n"
+                "- Must notify your manager and HR **at least 4 weeks** before leave starts\n"
+                "- Submit a medical certificate confirming expected delivery date\n\n"
+                "**Paternity Leave:** 10 working days at full pay\n"
+                "- To be taken within 3 months of the child's birth\n\n"
+                "**How to notify your manager:**\n"
+                "1. Inform your manager verbally as early as possible (8th month is great timing)\n"
+                "2. Submit the formal notice via **HR Portal → My Leaves → Maternity Leave**\n"
+                "3. Attach your medical certificate (doctor's letter with expected due date)\n"
+                "4. HR acknowledges within 2 business days and coordinates with your manager\n\n"
+                "**Your job is protected** during maternity leave under UAE Labour Law.\n"
+                "Dismissal during maternity leave is prohibited.\n\n"
+                f"Questions: {DEPT_CONTACTS['HR']}"
+            ),
+            confidence=93,
+            source="hr_policy",
+            keyword_match=True,
+        )
+
+    # ── Leave Approval Status / Follow-up ────────────────────────────────────
+    # User has ALREADY submitted a leave request and wants it approved or
+    # is checking the status.  Do NOT trigger a new leave action — inform
+    # about the approval process.
+    if any(phrase in q for phrase in _LEAVE_APPROVAL_PHRASES):
+        return AgentResponse(
+            answer=(
+                "**Leave Approval Status**\n\n"
+                "Your leave request has been submitted and is **awaiting manager approval**.\n\n"
+                "**How leave approval works:**\n"
+                "1. Your manager receives an automatic email notification\n"
+                "2. They approve or reject via **HR Portal → Team Leave Requests**\n"
+                "3. Approval typically takes **1–2 business days**\n"
+                "4. You'll receive an email notification once a decision is made\n\n"
+                "**Check your request status:**\n"
+                "→ HR Portal → My Leaves → My Leave Requests\n\n"
+                "**If still pending after 2 business days:**\n"
+                "- Follow up directly with your manager\n"
+                "- Escalate to HR if needed: hr@company.com | Ext. HR 1000\n\n"
+                "⚠️ Note: Only your manager or HR admin can approve leave — "
+                "this assistant cannot approve requests on their behalf."
+            ),
+            confidence=90,
+            source="hr_policy",
+            keyword_match=True,
+        )
 
     # ── Action: Apply Leave ───────────────────────────────────────────────────
     if any(phrase in q for phrase in _APPLY_LEAVE_PHRASES):

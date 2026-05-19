@@ -34,6 +34,26 @@ _PII_COMPILED: dict[str, re.Pattern] = {
     for name, pattern in PII_PATTERNS.items()
 }
 
+# ── Phrase-set matcher with word-boundary safety ─────────────────────────────
+def _phrase_in(text: str, phrase_set: frozenset, word_tokens: frozenset | None = None) -> bool:
+    """
+    Return True if any phrase in phrase_set appears in text.
+
+    Multi-word phrases and longer tokens use plain substring matching.
+    Short single tokens (≤4 chars) that are listed in word_tokens use
+    regex word-boundary matching to avoid false positives like 'ty'
+    matching inside 'maternity' or 'gratuity'.
+    """
+    for phrase in phrase_set:
+        if word_tokens and phrase in word_tokens:
+            if re.search(rf"\b{re.escape(phrase)}\b", text):
+                return True
+        else:
+            if phrase in text:
+                return True
+    return False
+
+
 # ── Arabic Unicode block range ────────────────────────────────────────────────
 # U+0600–U+06FF covers Arabic script; we detect Arabic queries to skip the
 # vowel-ratio gibberish check (Arabic has far fewer Latin vowels).
@@ -61,18 +81,25 @@ _GREETINGS = frozenset([
 ])
 
 _FAREWELLS = frozenset([
-    "bye", "goodbye", "good bye", "see you", "see ya", "cya", "cu",
+    "bye", "goodbye", "good bye", "see you", "see ya", "cya",
     "have a great day", "have a good day", "have a nice day", "have a great one",
-    "good night", "goodnight", "gn", "take care", "talk later", "talk soon",
+    "good night", "goodnight", "take care", "talk later", "talk soon",
     "thanks bye", "thank you bye", "ok bye", "okay bye", "cheers", "later",
 ])
+# Short farewell tokens that need whole-word matching: "cu" would match "customer",
+# "gn" would match "gnome", etc.
+_FAREWELL_WORD_TOKENS = frozenset(["cu", "gn", "cya"])
 
 _GRATITUDE = frozenset([
-    "thank you", "thanks", "thank u", "thx", "ty", "thankyou",
+    "thank you", "thanks", "thank u", "thx", "thankyou",
     "much appreciated", "appreciate it", "appreciate that",
     "that helped", "that was helpful", "great help", "helpful",
     "great", "perfect", "awesome", "excellent",
 ])
+# Short tokens that must be matched as whole words to avoid substring false
+# positives — e.g. "ty" matches inside "maternity" or "gratuity" via plain
+# `str in str`, so we require word boundaries for these.
+_GRATITUDE_WORD_TOKENS = frozenset(["ty", "thx"])
 
 _WELLBEING_PHRASES = [
     "im not good", "i'm not good", "not doing well", "not feeling well",
@@ -144,7 +171,7 @@ def get_guardrail_response(query: str) -> dict | None:
         }
 
     # ── 1b. Farewell ──────────────────────────────────────────────────────────
-    if _normalised in _FAREWELLS or any(f in lower for f in _FAREWELLS):
+    if _normalised in _FAREWELLS or _phrase_in(lower, _FAREWELLS, _FAREWELL_WORD_TOKENS):
         return {
             "answer": "Goodbye! 👋 Have a wonderful day. If you ever need help with HR, IT, or Finance questions, I'm always here.\n\nTake care! 😊",
             "agent": "assistant",
@@ -162,7 +189,7 @@ def get_guardrail_response(query: str) -> dict | None:
         }
 
     # ── 1c. Gratitude ─────────────────────────────────────────────────────────
-    if _normalised in _GRATITUDE or any(g in lower for g in _GRATITUDE):
+    if _normalised in _GRATITUDE or _phrase_in(lower, _GRATITUDE, _GRATITUDE_WORD_TOKENS):
         return {
             "answer": "You're welcome! 😊 I'm happy I could help.\n\nFeel free to ask anything else about **HR**, **IT**, or **Finance** — I'm here whenever you need me!",
             "agent": "assistant",
