@@ -248,7 +248,17 @@ export async function getAdminStats(): Promise<AdminStats> {
 }
 
 export async function getCostStats(): Promise<CostStats> {
-  return request<CostStats>('/admin/cost');
+  // Backend may return plain numbers OR nested dicts {estimated_cost_usd, prompt_tokens, ...}
+  const raw = await request<Record<string, unknown>>('/admin/cost');
+  const extract = (v: unknown): number => {
+    if (typeof v === 'number' && isFinite(v)) return v;
+    if (v && typeof v === 'object') {
+      const cost = (v as Record<string, unknown>).estimated_cost_usd;
+      if (typeof cost === 'number' && isFinite(cost)) return cost;
+    }
+    return 0;
+  };
+  return { daily: extract(raw.daily), lifetime: extract(raw.lifetime) };
 }
 
 // ── Document Upload ───────────────────────────────────────────────────────────
