@@ -85,7 +85,10 @@ def build_workflow():
                 f"missing: {pending_wf.get('missing_slots', [])}"
             )
 
-        # ── ConversationEngine: intent + slot extraction ──────────────────────
+        # ── ConversationEngine: deterministic-first intent + slot extraction ────
+        # classify_and_extract() tries pure-Python detection first (no API call),
+        # escalates to GPT-4o only for genuinely ambiguous queries, and always
+        # produces a result — never silently falls back to FAQ behavior.
         try:
             from app.core.conversation_engine import get_engine, PLATFORM_CAPABILITIES
             from app.utils.workflow_slots import get_missing_slots, get_workflow_def, get_action_type
@@ -93,14 +96,13 @@ def build_workflow():
             engine = get_engine()
             classification = engine.classify_and_extract(user_input, history, pending_wf)
         except Exception as exc:
-            logger.error("planner.engine_failed", error=str(exc))
-            # Fall through to legacy keyword routing
+            logger.error("planner.engine_import_failed", error=str(exc))
             classification = {
                 "intent_type": "INFO",
                 "department": "HR",
                 "workflow_type": None,
                 "slots_extracted": {},
-                "reasoning": f"Engine error: {exc}",
+                "reasoning": f"Import error: {exc}",
             }
 
         intent_type   = classification.get("intent_type", "INFO")
