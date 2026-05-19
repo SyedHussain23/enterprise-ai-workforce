@@ -525,23 +525,22 @@ def it_agent(query: str) -> AgentResponse:
             keyword_match=True,
         )
 
-    # ── System report ─────────────────────────────────────────────────────────
-    if "system report" in q or "it report" in q:
-        content = (
-            f"IT System Status Report\n"
-            f"Servers: Operational | Uptime: 99.9%\n"
-            f"Security patches: Applied | VPN: Active\n"
-            f"Endpoint Protection ({ANTIVIRUS_TOOL}): All devices covered\n"
-            f"Ticket SLA: {TICKET_RESPONSE_HRS}hr response time met\n"
-        )
-        result = generate_report("system_report", content)
+    # ── IT policy summary (informational — not an approval action) ───────────────
+    if "system report" in q or "it report" in q or "it summary" in q:
         return AgentResponse(
-            answer=result.get("message", "System report generated."),
+            answer=(
+                "**IT Environment Summary**\n\n"
+                f"- **Endpoint Protection:** {ANTIVIRUS_TOOL}\n"
+                f"- **Ticket SLA:** {TICKET_RESPONSE_HRS}hr first response, 24hr resolution\n"
+                "- **VPN:** Cisco AnyConnect — IT Portal → VPN → Download\n"
+                "- **Cloud Storage:** OneDrive (1TB) / SharePoint\n"
+                "- **Email/Collaboration:** Microsoft 365 (Teams, Outlook)\n"
+                "- **Security patches:** Applied monthly during maintenance window\n\n"
+                f"Raise a ticket: IT Portal → New Ticket | Ext. {IT_HELPDESK_EXT}"
+            ),
             confidence=88,
-            source="it_reports",
+            source="it_policy",
             keyword_match=True,
-            action_triggered=True,
-            action_type="generate_report",
         )
 
     # ── RAG fallback ──────────────────────────────────────────────────────────

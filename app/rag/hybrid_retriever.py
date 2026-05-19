@@ -42,11 +42,35 @@ class RetrievedChunk:
     metadata: dict = field(default_factory=dict)
 
 
-# ── BM25 corpus cache ─────────────────────────────────────────────────────────
-# We lazily build BM25 from the current vector store contents.
-# The cache is invalidated by calling `invalidate_bm25_cache()` after uploads.
+# ── BM25 corpus cache — multi-worker safe ─────────────────────────────────────
+# Problem: _bm25_cache is process-local. With multiple uvicorn workers,
+# calling invalidate_bm25_cache() on worker-0 (where the upload landed) does
+# NOT clear the stale index on workers 1, 2, 3. Those workers serve outdated
+# results until they restart.
+#
+# Fix: Redis version counter. Each worker stores the version when it last
+# built the index. On every get_bm25() call we compare against Redis. If Redis
+# has a higher version, we rebuild. invalidate_bm25_cache() increments Redis.
+# Overhead: one Redis GET per hybrid_search call (~0.3ms) — negligible.
 
-_bm25_cache: dict[str, Any] = {}   # {"bm25": BM25Okapi, "docs": list[dict]}
+_bm25_cache: dict[str, Any] = {}   # {"bm25": BM25Okapi, "docs": list[dict], "version": int}
+_BM25_VERSION_KEY = "bm25:version"
+
+
+def _redis_client():
+    """Return a Redis client. Lazy import to avoid import-time failures."""
+    import redis
+    from app.core.config import settings
+    return redis.from_url(settings.REDIS_URL, socket_connect_timeout=1, decode_responses=True)
+
+
+def _get_redis_version() -> int:
+    """Return current BM25 version from Redis. Returns 0 on any error."""
+    try:
+        val = _redis_client().get(_BM25_VERSION_KEY)
+        return int(val) if val is not None else 0
+    except Exception:
+        return 0  # Redis unavailable → treat as current (degrade gracefully)
 
 
 def _tokenise(text: str) -> list[str]:
@@ -77,15 +101,33 @@ def _build_bm25() -> tuple[BM25Okapi, list[dict]]:
 
 
 def get_bm25() -> tuple[BM25Okapi, list[dict]]:
-    if "bm25" not in _bm25_cache:
+    """Return the BM25 index, rebuilding if the Redis version has advanced."""
+    redis_version = _get_redis_version()
+    local_version = _bm25_cache.get("version", -1)
+
+    if "bm25" not in _bm25_cache or local_version < redis_version:
+        if "bm25" in _bm25_cache:
+            logger.info("bm25.stale_rebuild", local=local_version, redis=redis_version)
         bm25, docs = _build_bm25()
         _bm25_cache["bm25"] = bm25
         _bm25_cache["docs"] = docs
+        _bm25_cache["version"] = redis_version
+
     return _bm25_cache["bm25"], _bm25_cache["docs"]
 
 
 def invalidate_bm25_cache() -> None:
-    """Call this after uploading new documents so BM25 re-indexes."""
+    """
+    Increment the Redis version counter so ALL workers detect staleness
+    and rebuild their BM25 index on next request.
+
+    Also clears the local cache (current worker gets fresh index immediately).
+    """
+    try:
+        _redis_client().incr(_BM25_VERSION_KEY)
+        logger.info("bm25.version_incremented")
+    except Exception as exc:
+        logger.warning("bm25.redis_incr_failed", error=str(exc))
     _bm25_cache.clear()
     logger.info("bm25.cache_invalidated")
 

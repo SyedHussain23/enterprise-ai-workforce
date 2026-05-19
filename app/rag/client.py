@@ -22,8 +22,8 @@ from app.core.config import settings
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 VECTOR_DB_PATH = os.path.join(BASE_DIR, "vector_db")
 
-MAX_RETRIEVAL_CHUNKS = 5   # how many raw docs to retrieve before filtering
-MAX_FINAL_CHUNKS = 2       # how many to include in context after filtering
+MAX_RETRIEVAL_CHUNKS = 10  # how many raw docs to retrieve before filtering
+MAX_FINAL_CHUNKS = 5       # how many to include in context after filtering (was 2 — too aggressive)
 
 
 @lru_cache(maxsize=1)

@@ -523,22 +523,23 @@ def finance_agent(query: str) -> AgentResponse:
             keyword_match=True,
         )
 
-    # ── Expense report ────────────────────────────────────────────────────────
-    if "expense report" in q or "finance report" in q:
-        content = (
-            f"Expense Report Summary\n"
-            f"Client meals: AED {MEAL_LIMIT_CLIENT}/person | Internal: AED {MEAL_LIMIT_INTERNAL}/person\n"
-            f"Hotel limit (Grade 5+): AED {HOTEL_LIMIT_GRADE5}/night\n"
-            f"Submit within {EXPENSE_DEADLINE_DAYS} days | UAE VAT: {VAT_RATE}%\n"
-        )
-        result = generate_report("expense_report", content)
+    # ── Expense policy summary (informational — not an approval action) ──────────
+    if "expense report" in q or "finance report" in q or "expense summary" in q:
         return AgentResponse(
-            answer=result.get("message", "Expense report generated."),
+            answer=(
+                "**Expense Policy Summary**\n\n"
+                f"- **Submission Deadline:** Within {EXPENSE_DEADLINE_DAYS} days of incurring the expense\n"
+                f"- **Client Entertainment:** AED {MEAL_LIMIT_CLIENT}/person (manager approval required)\n"
+                f"- **Internal Meals:** AED {MEAL_LIMIT_INTERNAL}/person\n"
+                f"- **Hotel (Grade 5+):** AED {HOTEL_LIMIT_GRADE5}/night | Standard: AED {HOTEL_LIMIT_STANDARD}/night\n"
+                f"- **Travel Approval:** Required for trips > AED {TRAVEL_APPROVAL_LIMIT}\n"
+                f"- **UAE VAT:** {VAT_RATE}% — include VAT invoices for reimbursement\n\n"
+                "To submit an expense: Finance Portal → Expense Claims → New Claim\n"
+                f"Questions: {DEPT_CONTACTS['Finance']}"
+            ),
             confidence=88,
-            source="finance_reports",
+            source="finance_policy",
             keyword_match=True,
-            action_triggered=True,
-            action_type="generate_report",
         )
 
     # ── RAG fallback ──────────────────────────────────────────────────────────

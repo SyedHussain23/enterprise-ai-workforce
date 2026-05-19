@@ -510,22 +510,22 @@ def hr_agent(query: str) -> AgentResponse:
             keyword_match=True,
         )
 
-    # ── Leave report ──────────────────────────────────────────────────────────
-    if "leave report" in q:
-        content = (
-            f"Employee Leave Report\n"
-            f"Annual Leave: {ANNUAL_LEAVE_BASE} days (30 days after 5 years)\n"
-            f"Sick Leave: {SICK_LEAVE_FULL_PAY} days full pay + {SICK_LEAVE_HALF_PAY} days half pay\n"
-            f"Maternity Leave: {MATERNITY_COMPANY} days | Paternity: {PATERNITY_DAYS} days\n"
-        )
-        result = generate_report("leave_report", content)
+    # ── Leave policy summary (informational — NOT an action that needs approval) ──
+    if "leave report" in q or "leave policy" in q or "leave summary" in q:
         return AgentResponse(
-            answer=result.get("message", "Leave report generated."),
+            answer=(
+                "**Leave Policy Summary**\n\n"
+                f"- **Annual Leave:** {ANNUAL_LEAVE_BASE} days/year (30 days after 5 years)\n"
+                f"- **Sick Leave:** {SICK_LEAVE_FULL_PAY} days full pay → {SICK_LEAVE_HALF_PAY} days half pay → {SICK_LEAVE_UNPAID} days unpaid\n"
+                f"- **Maternity Leave:** {MATERNITY_COMPANY} days (company enhanced, full pay)\n"
+                f"- **Paternity Leave:** {PATERNITY_DAYS} working days paid\n"
+                "- **Public Holidays:** As per UAE government calendar\n\n"
+                "To apply for leave: HR Portal → My Leaves → New Request\n"
+                f"Questions: {DEPT_CONTACTS['HR']}"
+            ),
             confidence=88,
-            source="hr_reports",
+            source="hr_policy",
             keyword_match=True,
-            action_triggered=True,
-            action_type="generate_report",
         )
 
     # ── Parental leave info ───────────────────────────────────────────────────

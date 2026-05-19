@@ -1,5 +1,13 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
+import secrets
+
+_INSECURE_DEFAULTS = {
+    "change-me-in-production-use-32-char-min",
+    "secret",
+    "changeme",
+    "your-secret-key",
+}
 
 
 class Settings(BaseSettings):
@@ -34,11 +42,6 @@ class Settings(BaseSettings):
     # Example: https://enterprise-ai-workforce.vercel.app,https://yourdomain.com
     ALLOWED_ORIGINS: str = ""
 
-    # ── WhatsApp (Day 54) ─────────────────────────────────────────────────────
-    WHATSAPP_TOKEN: str = ""              # Meta permanent system user token
-    WHATSAPP_PHONE_NUMBER_ID: str = ""   # From Meta App → WhatsApp → Configuration
-    WHATSAPP_VERIFY_TOKEN: str = "enterprise_ai_verify"  # Set same in Meta webhook config
-
     # ── Connection pool ──────────────────────────────────────────────────────
     DB_POOL_SIZE: int = 10
     DB_MAX_OVERFLOW: int = 20
@@ -53,7 +56,41 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    return Settings()
+    s = Settings()
+
+    # ── Startup security validation ───────────────────────────────────────────
+    # Crash immediately if the insecure default SECRET_KEY is used outside DEBUG.
+    # In DEBUG mode we allow it with a loud warning so local dev still works.
+    if s.SECRET_KEY in _INSECURE_DEFAULTS or len(s.SECRET_KEY) < 32:
+        if not s.DEBUG:
+            raise RuntimeError(
+                "\n\n"
+                "╔══════════════════════════════════════════════════════════════╗\n"
+                "║           SECURITY ERROR — STARTUP ABORTED                  ║\n"
+                "╠══════════════════════════════════════════════════════════════╣\n"
+                "║  SECRET_KEY is using an insecure default or is too short.   ║\n"
+                "║  Generate a secure key and set it in your environment:       ║\n"
+                "║                                                              ║\n"
+                f"║  Suggested key: {secrets.token_hex(32)[:46]}  ║\n"
+                "║                                                              ║\n"
+                "║  Railway: Settings → Variables → SECRET_KEY = <your key>    ║\n"
+                "╚══════════════════════════════════════════════════════════════╝\n"
+            )
+        import warnings
+        warnings.warn(
+            "⚠️  SECRET_KEY is using an insecure default. "
+            "This is fine for local development but MUST be changed before production deployment.",
+            stacklevel=2,
+        )
+
+    # ── OPENAI_API_KEY must be set ────────────────────────────────────────────
+    if not s.OPENAI_API_KEY and not s.DEBUG:
+        raise RuntimeError(
+            "OPENAI_API_KEY is not set. "
+            "Set it in your Railway environment variables before starting the server."
+        )
+
+    return s
 
 
 settings = get_settings()
