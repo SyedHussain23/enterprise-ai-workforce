@@ -4,7 +4,7 @@ Health check endpoints.
 GET /health      — shallow, used by Railway healthcheck probe (fast)
 GET /health/deep — deep connectivity check for monitoring dashboards
 """
-from sqlalchemy import func
+from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import APIRouter, Depends
 
@@ -35,7 +35,7 @@ async def health_deep(db: AsyncSession = Depends(get_db)):
 
     # PostgreSQL
     try:
-        await db.execute(func.now().select())  # type: ignore[attr-defined]
+        await db.execute(text("SELECT 1"))
         checks["postgres"] = "ok"
     except Exception as exc:
         checks["postgres"] = f"error: {str(exc)[:80]}"
