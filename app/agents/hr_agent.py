@@ -110,9 +110,18 @@ _DISCIPLINE_PHRASES = [
 def hr_agent(query: str) -> AgentResponse:
     q = query.lower().strip()
 
+    # Information-intent guard — see app/utils/intent_classifier.py
+    # Stops "How do I submit a leave request?" / "When should I apply for
+    # parental leave?" from silently filing a workflow.
+    from app.utils.intent_classifier import is_informational_query, has_personal_action_intent
+    _is_info = is_informational_query(query)
+    _is_personal_action = has_personal_action_intent(query)
+
     # ── Action: Sick Leave Reporting ──────────────────────────────────────────
     # User is reporting they are sick today / calling in sick.
     # Must be checked BEFORE generic leave policy.
+    # Sick reporting overrides info classification — "I am sick" is always
+    # an action even if phrased as "I think I'm sick, how do I report?".
     if any(phrase in q for phrase in _SICK_LEAVE_REPORT_PHRASES):
         return AgentResponse(
             answer=(
@@ -139,8 +148,59 @@ def hr_agent(query: str) -> AgentResponse:
         )
 
     # ── Maternity / Pregnancy Guidance ────────────────────────────────────────
-    # Must be checked BEFORE generic leave policy (it contains "leave").
+    # Two modes here:
+    #   (a) PERSONAL ACTION ("I need maternity leave", "I'm pregnant and want
+    #       to apply") → return a CLARIFICATION prompt asking for start date,
+    #       duration, and medical documentation. We do NOT auto-create an
+    #       action — we wait for the user to come back with details.
+    #   (b) INFORMATION ("what is the maternity leave policy?", "maternity
+    #       entitlement") → return the policy.
     if any(phrase in q for phrase in _MATERNITY_PHRASES):
+        # Personal-action phrasing detection — broader than the global
+        # override list because maternity-specific signals like "i want
+        # maternity leave" should also trigger clarification.
+        _personal_maternity_signals = (
+            "i need maternity", "i want maternity", "i'd like maternity",
+            "id like maternity", "i need a maternity", "apply for maternity",
+            "applying for maternity", "request maternity", "going on maternity",
+            "starting maternity", "take maternity leave",
+            # Paternity equivalents
+            "i need paternity", "i want paternity", "apply for paternity",
+            "request paternity", "take paternity leave",
+            # First-person physical state
+            "i am pregnant", "im pregnant", "i'm pregnant",
+        )
+        wants_personal_action = (
+            _is_personal_action
+            or any(s in q for s in _personal_maternity_signals)
+        )
+
+        if wants_personal_action and not _is_info:
+            # Clarification intake — gather slots before creating any action.
+            return AgentResponse(
+                answer=(
+                    "I can help you start a **maternity / parental leave** request. "
+                    "Before I file it, I need a few details so your manager and HR "
+                    "have what they need:\n\n"
+                    "1. **Expected start date** — when do you plan to begin leave? "
+                    "(can start up to 30 days before the due date)\n"
+                    "2. **Estimated duration** — the default is **90 days** at full pay; "
+                    "let me know if you plan to take less or extend with annual leave.\n"
+                    "3. **Medical documentation** — do you have a doctor's letter "
+                    "confirming the expected delivery date? (required at submission)\n"
+                    "4. **Return-to-work plan** — full-time return, phased, or part-time?\n\n"
+                    "Once you reply with the details, I'll log the formal request and "
+                    "notify your manager + HR. **Your job is protected** during maternity "
+                    "leave under UAE Labour Law.\n\n"
+                    f"Questions in the meantime: {DEPT_CONTACTS['HR']}"
+                ),
+                confidence=92,
+                source="hr_clarification",
+                keyword_match=True,
+                # Deliberately NO action_triggered=True — wait for user details
+            )
+
+        # Otherwise — informational query about the policy.
         return AgentResponse(
             answer=(
                 "**Maternity & Parental Leave Policy**\n\n"
@@ -150,13 +210,15 @@ def hr_agent(query: str) -> AgentResponse:
                 "- Submit a medical certificate confirming expected delivery date\n\n"
                 "**Paternity Leave:** 10 working days at full pay\n"
                 "- To be taken within 3 months of the child's birth\n\n"
-                "**How to notify your manager:**\n"
-                "1. Inform your manager verbally as early as possible (8th month is great timing)\n"
+                "**How to apply:**\n"
+                "1. Inform your manager verbally as early as possible\n"
                 "2. Submit the formal notice via **HR Portal → My Leaves → Maternity Leave**\n"
                 "3. Attach your medical certificate (doctor's letter with expected due date)\n"
                 "4. HR acknowledges within 2 business days and coordinates with your manager\n\n"
                 "**Your job is protected** during maternity leave under UAE Labour Law.\n"
                 "Dismissal during maternity leave is prohibited.\n\n"
+                "If you'd like me to start a request for you, just say *'I need "
+                "maternity leave'* and I'll walk you through the details.\n\n"
                 f"Questions: {DEPT_CONTACTS['HR']}"
             ),
             confidence=93,
@@ -192,7 +254,9 @@ def hr_agent(query: str) -> AgentResponse:
         )
 
     # ── Action: Apply Leave ───────────────────────────────────────────────────
-    if any(phrase in q for phrase in _APPLY_LEAVE_PHRASES):
+    # Info-guard: "when should I apply for leave?" / "how do I request leave?"
+    # are informational and must NOT auto-submit.
+    if not _is_info and any(phrase in q for phrase in _APPLY_LEAVE_PHRASES):
         return AgentResponse(
             answer=(
                 "✅ **Leave Request Submitted**\n\n"
@@ -217,7 +281,7 @@ def hr_agent(query: str) -> AgentResponse:
         )
 
     # ── Action: Update Profile ────────────────────────────────────────────────
-    if any(phrase in q for phrase in _UPDATE_PROFILE_PHRASES):
+    if not _is_info and any(phrase in q for phrase in _UPDATE_PROFILE_PHRASES):
         return AgentResponse(
             answer=(
                 "✅ **Profile Update Request Submitted**\n\n"

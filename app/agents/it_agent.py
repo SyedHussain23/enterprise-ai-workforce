@@ -82,8 +82,12 @@ _PRINTER_PHRASES = [
 def it_agent(query: str) -> AgentResponse:
     q = query.lower().strip()
 
+    # Info-intent guard — "how do I create an IT ticket?" must NOT raise one.
+    from app.utils.intent_classifier import is_informational_query
+    _is_info = is_informational_query(query)
+
     # ── Action: Create IT Ticket ──────────────────────────────────────────────
-    if any(phrase in q for phrase in _CREATE_TICKET_PHRASES):
+    if not _is_info and any(phrase in q for phrase in _CREATE_TICKET_PHRASES):
         return AgentResponse(
             answer=(
                 "✅ **IT Support Ticket Created**\n\n"
@@ -111,7 +115,7 @@ def it_agent(query: str) -> AgentResponse:
         )
 
     # ── Action: Request Access ────────────────────────────────────────────────
-    if any(phrase in q for phrase in _REQUEST_ACCESS_PHRASES):
+    if not _is_info and any(phrase in q for phrase in _REQUEST_ACCESS_PHRASES):
         return AgentResponse(
             answer=(
                 "✅ **Access Request Submitted**\n\n"

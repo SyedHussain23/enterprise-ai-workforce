@@ -24,10 +24,14 @@ GRATUITY_RATE_2       = 30
 SALARY_ADVANCE_MAX_PCT = 50
 
 _SUBMIT_EXPENSE_PHRASES = [
-    "submit expense", "claim expense", "expense claim", "submit my expense",
+    # Imperative / first-person action phrasings only.
+    # "how do i claim" was intentionally REMOVED — it's an informational query,
+    # not an action. Was causing "How do I submit an expense claim?" to
+    # silently file an expense claim in production.
+    "submit expense", "claim expense", "submit my expense",
     "file expense", "i want to claim", "submit a claim", "raise expense",
-    "expense submission", "reimburse me", "claim reimbursement", "expense report",
-    "expense request", "want to be reimbursed", "how do i claim",
+    "reimburse me", "claim reimbursement",
+    "want to be reimbursed", "please submit my expense", "submit my claim",
 ]
 _REQUEST_ADVANCE_PHRASES = [
     "salary advance", "advance salary", "request advance", "advance payment",
@@ -94,8 +98,16 @@ _SALARY_INCREASE_PHRASES = [
 def finance_agent(query: str) -> AgentResponse:
     q = query.lower().strip()
 
+    # Information-intent guard — short-circuits informational phrasings
+    # ("how do I submit an expense claim?", "what is the salary advance
+    # process?") before any action branch can fire. Action branches below
+    # are only entered when the user is clearly asking the system to *do*
+    # something, not asking how it works.
+    from app.utils.intent_classifier import is_informational_query
+    _is_info = is_informational_query(query)
+
     # ── Action: Submit Expense ────────────────────────────────────────────────
-    if any(phrase in q for phrase in _SUBMIT_EXPENSE_PHRASES):
+    if not _is_info and any(phrase in q for phrase in _SUBMIT_EXPENSE_PHRASES):
         return AgentResponse(
             answer=(
                 "✅ **Expense Claim Submitted**\n\n"
@@ -124,7 +136,7 @@ def finance_agent(query: str) -> AgentResponse:
         )
 
     # ── Action: Request Advance ───────────────────────────────────────────────
-    if any(phrase in q for phrase in _REQUEST_ADVANCE_PHRASES):
+    if not _is_info and any(phrase in q for phrase in _REQUEST_ADVANCE_PHRASES):
         return AgentResponse(
             answer=(
                 "✅ **Salary Advance Request Submitted**\n\n"
@@ -422,7 +434,10 @@ def finance_agent(query: str) -> AgentResponse:
     # User is requesting a pay rise. This is a formal request that must go
     # through a manager → HR → Finance approval chain, NOT just info.
     # Must be checked BEFORE the generic salary info fallback.
-    if any(phrase in q for phrase in _SALARY_INCREASE_PHRASES):
+    # "increase my salary" is in _ACTION_OVERRIDE_PHRASES so is_informational
+    # will correctly return False for it even when phrased with question
+    # words like "can you increase my salary?".
+    if not _is_info and any(phrase in q for phrase in _SALARY_INCREASE_PHRASES):
         return AgentResponse(
             answer=(
                 "📋 **Salary Increase Request Logged**\n\n"

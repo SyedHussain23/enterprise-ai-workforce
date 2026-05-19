@@ -38,12 +38,38 @@ def detect_intents(query: str) -> list[str]:
     Return list of departments whose keywords are genuinely present in query.
     Uses word-boundary matching for short keywords to avoid false positives
     (e.g. 'po' inside 'policy' triggering Finance for an HR question).
+
+    INFORMATIONAL QUERY SHORT-CIRCUIT:
+      A question like "How do I apply for a salary advance?" was triggering
+      multi-intent (HR via "career"/"promotion" keyword + Finance via "salary
+      advance"), producing a confused response with two unrelated agents.
+      Single-question informational queries are coalesced to *at most one*
+      department so we never spuriously split a how-to.
     """
+    from app.utils.intent_classifier import is_informational_query
+
     query_lower = query.lower()
     matched = []
     for dept, keywords in INTENT_KEYWORDS.items():
         if any(_keyword_matches(kw, query_lower) for kw in keywords):
             matched.append(dept)
+
+    # If the user is asking a single informational question, never fan out
+    # to multiple agents — pick the strongest match (the one with the most
+    # keyword hits, falling back to the first deterministic order).
+    if len(matched) > 1 and is_informational_query(query):
+        best = None
+        best_score = -1
+        for dept in matched:
+            score = sum(
+                1 for kw in INTENT_KEYWORDS[dept]
+                if _keyword_matches(kw, query_lower)
+            )
+            if score > best_score:
+                best_score = score
+                best = dept
+        return [best] if best else matched[:1]
+
     return matched
 
 

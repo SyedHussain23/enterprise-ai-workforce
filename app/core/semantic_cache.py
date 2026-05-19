@@ -183,9 +183,24 @@ def set_cached(query: str, company_id: str, response: dict) -> None:
     Only caches:
     - confidence >= MIN_CONFIDENCE
     - non-action responses (actions are user-specific, must not be shared)
+    - non-guardrail responses (see below)
+
+    GUARDRAIL EXCLUSION — important:
+      Guardrail responses (greetings, gratitude, farewells, platform info)
+      come back with confidence 100. If we cache them, the embedding for
+      "thanks" gets stored, and the next user query that is semantically
+      nearby ("What is the UAE gratuity formula?" → "gratitude" is close
+      to "gratuity") will hit the cache and receive the "You're welcome"
+      response. This is exactly the production bug we are fixing.
+      Guardrails are fast (no LLM call), so re-evaluating them per request
+      costs nothing — caching them only causes harm.
     """
     if response.get("action_triggered"):
         return  # Never cache action responses
+    if response.get("source") == "guardrail":
+        return  # Never cache short-circuit guardrail responses (see docstring)
+    if (response.get("agent") == "guardrail"):
+        return  # Belt-and-braces — same reason as above
     if (response.get("confidence") or 0) < MIN_CONFIDENCE:
         return  # Don't cache low-confidence answers
 
