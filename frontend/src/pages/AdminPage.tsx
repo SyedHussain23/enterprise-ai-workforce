@@ -116,19 +116,28 @@ function SystemStatusPanel() {
     { label: 'OpenAI',       icon: <Wifi className="w-4 h-4" />,     key: 'openai'   },
   ];
 
+  // Health response: { status, checks: { postgres, redis, chromadb, openai }, ... }
+  // Top-level 'status' is for API Server; rest live under health.checks
   function parseStatus(key: string): { ok: boolean; label: string } {
     if (!health) return { ok: false, label: 'unreachable' };
-    const val = health[key];
+    // 'status' is a top-level field; all others are under health.checks
+    const val = key === 'status'
+      ? health['status']
+      : (health['checks'] as Record<string, unknown> | undefined)?.[key];
     if (val === undefined || val === null) return { ok: false, label: 'offline' };
     if (typeof val === 'string') {
-      const ok = ['ok','online','closed','available'].includes(val.toLowerCase());
-      return { ok, label: ok ? 'online' : val };
+      const v = val.toLowerCase();
+      // "ok", "ok (701 documents)", "online", "closed", "available" are all healthy
+      const ok = v === 'ok' || v.startsWith('ok ') || v === 'online' || v === 'closed' || v === 'available';
+      // Extract doc count from "ok (701 documents)"
+      const docMatch = val.match(/\((\d+)\s*documents?\)/i);
+      const extra = docMatch ? ` · ${docMatch[1]} docs` : '';
+      return { ok, label: ok ? `online${extra}` : val };
     }
     if (typeof val === 'object') {
       const obj = val as Record<string, unknown>;
       const ok  = String(obj.status ?? '').toLowerCase() === 'ok';
-      const extra = obj.documents !== undefined ? ` · ${obj.documents} docs` : '';
-      return { ok, label: ok ? `online${extra}` : String(obj.status ?? 'error') };
+      return { ok, label: ok ? 'online' : String(obj.status ?? 'error') };
     }
     return { ok: false, label: 'unknown' };
   }

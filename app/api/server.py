@@ -961,9 +961,11 @@ async def admin_feedback(
 @app.get("/admin/cost")
 async def admin_costs(user: dict = Depends(require_admin)):
     company_id = user.get("company_id", "global")
+    daily_data    = get_daily_cost(company_id)
+    lifetime_data = get_lifetime_cost(company_id)
     return {
-        "daily":    get_daily_cost(company_id),
-        "lifetime": get_lifetime_cost(company_id),
+        "daily":    daily_data.get("estimated_cost_usd", 0.0) if daily_data else 0.0,
+        "lifetime": lifetime_data.get("estimated_cost_usd", 0.0) if lifetime_data else 0.0,
     }
 
 
