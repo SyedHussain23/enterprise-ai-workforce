@@ -3,7 +3,7 @@
 > **Multi-agent AI platform for enterprise HR, IT, and Finance.**
 > Built for UAE/GCC organisations. Production-grade architecture: RAG, streaming, human approval workflows, semantic caching, circuit breaker, and full audit trail.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?logo=vercel)](https://frontend-1k4olnq4e-syedhussain23s-projects.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?logo=vercel)](https://frontend-syedhussain23s-projects.vercel.app/)
 [![Backend](https://img.shields.io/badge/API-Railway-purple?logo=railway)](https://enterprise-ai-workforce-production.up.railway.app/docs)
 [![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-teal?logo=fastapi)](https://fastapi.tiangolo.com)
