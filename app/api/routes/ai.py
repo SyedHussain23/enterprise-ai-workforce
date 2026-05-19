@@ -273,25 +273,44 @@ async def _run_workflow(
         guard["response_time"] = rt
         return WorkflowResponse(**guard)
 
+    # ── ACTION / FOLLOWUP bypass: never serve cache for workflow-intent queries ─
+    # classify_deterministic() is pure Python (~0 ms, no API call).  If it
+    # recognises the query as an ACTION or FOLLOWUP we must run the live
+    # workflow so slot-collection and Redis pending-state are handled correctly.
+    # Stale cached policy dumps from before the orchestration fix would
+    # otherwise be returned for these queries indefinitely.
+    _pending_wf = None
+    try:
+        from app.core.conversation_engine import classify_deterministic
+        from app.memory.redis_memory import get_pending_workflow
+        _pending_wf = get_pending_workflow(body.session_id) if body.session_id else None
+        _det = classify_deterministic(question, _pending_wf)
+        _skip_cache = _det is not None and _det.get("intent_type") in ("ACTION", "FOLLOWUP", "SYSTEM")
+    except Exception:
+        _skip_cache = False
+
     # ── Semantic cache ────────────────────────────────────────────────────────
     cache_company = company_id_str or "global"
-    cached = await asyncio.get_event_loop().run_in_executor(
-        None, get_cached, question, cache_company
-    )
-    if cached:
-        rt = round(time.perf_counter() - start, 3)
-        logger.info("ask.cache_hit", cache_type=cached.get("_cache"), rt=rt)
-        return _build_response(
-            status="success",
-            answer=cached.get("answer", ""),
-            agent=cached.get("agent", "cache"),
-            confidence=cached.get("confidence", 80),
-            source=cached.get("source", "cache"),
-            steps=["Cache → semantic match found", "Response served from cache"],
-            confidence_reason=f"Cached response ({cached.get('_cache', 'exact')} match)",
-            evaluation_score=0,
-            response_time=rt,
+    if not _skip_cache:
+        cached = await asyncio.get_event_loop().run_in_executor(
+            None, get_cached, question, cache_company
         )
+        if cached:
+            rt = round(time.perf_counter() - start, 3)
+            logger.info("ask.cache_hit", cache_type=cached.get("_cache"), rt=rt)
+            return _build_response(
+                status="success",
+                answer=cached.get("answer", ""),
+                agent=cached.get("agent", "cache"),
+                confidence=cached.get("confidence", 80),
+                source=cached.get("source", "cache"),
+                steps=["Cache → semantic match found", "Response served from cache"],
+                confidence_reason=f"Cached response ({cached.get('_cache', 'exact')} match)",
+                evaluation_score=0,
+                response_time=rt,
+            )
+    else:
+        logger.info("ask.cache_bypassed", intent=_det.get("intent_type") if _det else "unknown")
 
     # ── Multi-intent ──────────────────────────────────────────────────────────
     intents = detect_intents(question)
@@ -479,8 +498,12 @@ async def _run_workflow(
         workflow_log_id=workflow_log_id_str,
     )
 
-    # Cache non-action responses (async, non-blocking)
-    if not result.get("action_triggered"):
+    # Cache only pure-INFO responses — never cache:
+    #   • action_triggered=True  (workflow confirmations are session-specific)
+    #   • source=workflow_intake (clarification questions are session-specific)
+    #   • source=system          (capabilities page doesn't benefit from caching)
+    _cacheable_source = result.get("source") not in ("workflow_intake", "system", "workflow_created")
+    if not result.get("action_triggered") and _cacheable_source:
         asyncio.get_event_loop().run_in_executor(
             None,
             set_cached,
