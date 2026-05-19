@@ -61,15 +61,15 @@ export interface Action {
 
 export interface AdminStats {
   total_queries: number;
-  avg_confidence: number;
-  avg_response_time: number;
-  agent_distribution: Record<string, number>;
-  daily_volume: Array<{ date: string; count: number }>;
+  avg_confidence: number | null;
+  avg_response_time: number | null;
+  agent_distribution: Record<string, number> | null;
+  daily_volume: Array<{ date: string; count: number }> | null;
 }
 
 export interface CostStats {
-  daily: number;
-  lifetime: number;
+  daily: number | null;
+  lifetime: number | null;
 }
 
 export interface FeedbackRequest {

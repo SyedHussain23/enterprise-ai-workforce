@@ -22,12 +22,12 @@ export function CostPanel({ cost }: Props) {
       <div className="grid grid-cols-2 gap-4">
         <div className="p-3 rounded-xl bg-purple-50">
           <p className="text-xs text-purple-600 font-medium mb-1">Today</p>
-          <p className="text-xl font-bold text-purple-800">${cost.daily.toFixed(4)}</p>
+          <p className="text-xl font-bold text-purple-800">{cost.daily != null ? `$${Number(cost.daily).toFixed(4)}` : '—'}</p>
           <p className="text-xs text-purple-500 mt-1">USD</p>
         </div>
         <div className="p-3 rounded-xl bg-slate-50">
           <p className="text-xs text-slate-600 font-medium mb-1">Lifetime</p>
-          <p className="text-xl font-bold text-slate-800">${cost.lifetime.toFixed(4)}</p>
+          <p className="text-xl font-bold text-slate-800">{cost.lifetime != null ? `$${Number(cost.lifetime).toFixed(4)}` : '—'}</p>
           <p className="text-xs text-slate-500 mt-1">USD</p>
         </div>
       </div>

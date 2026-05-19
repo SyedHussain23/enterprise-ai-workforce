@@ -10,28 +10,28 @@ export function StatsCards({ stats, cost }: Props) {
   const cards = [
     {
       label: 'Total Queries',
-      value: stats.total_queries.toLocaleString(),
+      value: (stats.total_queries ?? 0).toLocaleString(),
       icon: MessageSquare,
       color: 'text-indigo-600',
       bg: 'bg-indigo-50',
     },
     {
       label: 'Avg Confidence',
-      value: `${stats.avg_confidence.toFixed(1)}%`,
+      value: stats.avg_confidence != null ? `${Number(stats.avg_confidence).toFixed(1)}%` : '—',
       icon: TrendingUp,
       color: 'text-emerald-600',
       bg: 'bg-emerald-50',
     },
     {
       label: 'Avg Response Time',
-      value: `${stats.avg_response_time.toFixed(2)}s`,
+      value: stats.avg_response_time != null ? `${Number(stats.avg_response_time).toFixed(2)}s` : '—',
       icon: Clock,
       color: 'text-amber-600',
       bg: 'bg-amber-50',
     },
     {
       label: "Today's Cost",
-      value: `$${cost.daily.toFixed(4)}`,
+      value: cost.daily != null ? `$${Number(cost.daily).toFixed(4)}` : '—',
       icon: DollarSign,
       color: 'text-purple-600',
       bg: 'bg-purple-50',

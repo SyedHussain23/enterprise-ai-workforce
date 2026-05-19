@@ -25,13 +25,13 @@ const DEPT_COLORS: Record<string, string> = {
 };
 
 export function DepartmentChart({ stats }: Props) {
-  const barData = Object.entries(stats.agent_distribution).map(([key, value]) => ({
+  const barData = Object.entries(stats.agent_distribution ?? {}).map(([key, value]) => ({
     name: key.replace('_agent', '').toUpperCase(),
     queries: value,
     fill: DEPT_COLORS[key.replace('_agent', '').toLowerCase()] ?? '#94a3b8',
   }));
 
-  const lineData = stats.daily_volume.map((d) => ({
+  const lineData = (stats.daily_volume ?? []).map((d) => ({
     date: d.date.slice(5), // MM-DD
     queries: d.count,
   }));
