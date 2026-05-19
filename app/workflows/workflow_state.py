@@ -39,3 +39,10 @@ class WorkflowState(TypedDict, total=False):
     confidence_reason: Optional[str]
     evaluation_score: Optional[float]
     timestamp: str
+
+    # ── ConversationEngine short-circuit ──────────────────────────────────────
+    # When True, the planner has fully handled the request (SYSTEM response,
+    # slot-collection clarification, or completed workflow action).  The
+    # conditional edge after planner jumps directly to `report` so the domain
+    # agents (router → crag) are bypassed entirely.
+    short_circuit: bool

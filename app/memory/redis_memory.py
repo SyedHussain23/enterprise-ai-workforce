@@ -207,3 +207,82 @@ def clear_session(session_id: str) -> None:
         logger.info("memory.cleared", session_id=session_id[:8])
     except Exception as exc:
         logger.error("memory.clear_failed", session_id=session_id[:8], error=str(exc))
+
+
+# ── Pending-workflow state (multi-turn slot collection) ───────────────────────
+# When the AI starts collecting slots for an ACTION request but the user hasn't
+# provided all required slots yet, the partial state is stored here so the next
+# message can pick up where it left off.
+
+_PENDING_WF_TTL = 30 * 60   # 30 minutes — enough for a normal workflow conversation
+_PENDING_WF_PREFIX = "wf_pending"
+
+
+def _pending_key(session_id: str) -> str:
+    return f"{_PENDING_WF_PREFIX}:{session_id}"
+
+
+def get_pending_workflow(session_id: str) -> dict | None:
+    """
+    Return the pending workflow state for a session, or None if there is none.
+
+    State shape:
+        {
+            "workflow_type":    str,           # e.g. "apply_leave"
+            "collected_slots":  dict,          # slots we already have
+            "missing_slots":    list[str],     # slots still needed
+        }
+    """
+    if not session_id:
+        return None
+    try:
+        r = _get_client()
+        raw = r.get(_pending_key(session_id))
+        if not raw:
+            return None
+        state = json.loads(raw)
+        logger.info(
+            "pending_wf.loaded",
+            session_id=session_id[:8],
+            workflow_type=state.get("workflow_type"),
+            missing=state.get("missing_slots"),
+        )
+        return state
+    except Exception as exc:
+        logger.warning("pending_wf.load_failed", session_id=session_id[:8], error=str(exc))
+        return None
+
+
+def save_pending_workflow(session_id: str, state: dict) -> None:
+    """
+    Persist a partial workflow state so the next message can continue it.
+    The state is automatically evicted after _PENDING_WF_TTL seconds.
+    """
+    if not session_id:
+        return
+    try:
+        r = _get_client()
+        r.setex(_pending_key(session_id), _PENDING_WF_TTL, json.dumps(state))
+        logger.info(
+            "pending_wf.saved",
+            session_id=session_id[:8],
+            workflow_type=state.get("workflow_type"),
+            missing=state.get("missing_slots"),
+        )
+    except Exception as exc:
+        logger.warning("pending_wf.save_failed", session_id=session_id[:8], error=str(exc))
+
+
+def clear_pending_workflow(session_id: str) -> None:
+    """
+    Remove pending workflow state once the workflow has been completed
+    (all slots collected + action created) or explicitly cancelled.
+    """
+    if not session_id:
+        return
+    try:
+        r = _get_client()
+        r.delete(_pending_key(session_id))
+        logger.info("pending_wf.cleared", session_id=session_id[:8])
+    except Exception as exc:
+        logger.warning("pending_wf.clear_failed", session_id=session_id[:8], error=str(exc))
