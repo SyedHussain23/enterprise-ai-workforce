@@ -435,6 +435,40 @@ def it_agent(query: str) -> AgentResponse:
             keyword_match=True,
         )
 
+    # ── Security: Unauthorized Account Access Attempt ─────────────────────────
+    # Detect requests to change/access passwords on OTHER accounts — this is a
+    # security violation. Flag it clearly before serving any password guidance.
+    _OTHER_ACCOUNT_SIGNALS = [
+        "other account", "another account", "someone else",
+        "my colleague", "coworker account", "their password",
+        "his password", "her password", "friend's account",
+        "other person", "another person's",
+    ]
+    if any(kw in q for kw in ["password", "login", "credentials", "access"]) and \
+       any(signal in q for signal in _OTHER_ACCOUNT_SIGNALS):
+        return AgentResponse(
+            answer=(
+                "⛔ **Security Alert — Unauthorized Access Request**\n\n"
+                "This request involves accessing or modifying **another person's account**, "
+                "which is a **violation of company IT Security Policy**.\n\n"
+                "**What is prohibited:**\n"
+                "- Accessing, changing, or resetting another employee's credentials\n"
+                "- Using someone else's login details — even with their permission\n"
+                "- Sharing passwords between employees\n\n"
+                "**What you should do instead:**\n"
+                "- Each employee must reset their OWN password via self-service\n"
+                "- IT can only assist the **account owner** after identity verification\n"
+                "- If someone is locked out, they must contact IT Helpdesk directly\n\n"
+                "**Self-service password reset:**\n"
+                "https://passwordreset.company.internal (account owner only)\n\n"
+                f"⚠️ Repeated attempts may be flagged for security review.\n"
+                f"Security concerns: security@company.com | Ext. {IT_HELPDESK_EXT}"
+            ),
+            confidence=98,
+            source="it_security",
+            keyword_match=True,
+        )
+
     # ── Password Policy ───────────────────────────────────────────────────────
     if any(kw in q for kw in ["password", "reset", "forgot", "credentials", "locked out", "account locked"]):
         return AgentResponse(

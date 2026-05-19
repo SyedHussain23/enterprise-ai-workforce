@@ -78,7 +78,10 @@ DEPARTMENT_KEYWORDS: Final[dict[str, list[str]]] = {
         # IT support & management
         "ticket", "helpdesk", "it support", "system", "provision",
         "asset", "byod", "personal device", "intune", "mdm",
-        "email", "mailbox", "distribution list", "group",
+        # Use specific email phrases — bare "email" is too generic and
+        # incorrectly pulls IT into "send email to HR" type queries
+        "email not working", "email access", "outlook", "mailbox",
+        "email setup", "email issue", "distribution list", "group email",
         # Infrastructure
         "server", "database", "system down", "outage", "maintenance",
         "patch", "update", "upgrade", "encryption", "bitlocker",

@@ -118,6 +118,12 @@ _PLATFORM_QUERIES = [
     "what can you help with", "what topics", "what subjects",
     "what departments", "which departments", "what do you cover",
     "what does this platform do", "tell me what you can do",
+    # Common natural-language variations users actually type
+    "what can you help for me", "what can you help for",
+    "what can you help", "how can you help", "how you can help",
+    "what do you help with", "what you can do", "what you do",
+    "help me with what", "what are you for", "what is your purpose",
+    "what do you know about", "can you help me with",
 ]
 
 
@@ -544,12 +550,25 @@ def _is_gibberish(lower: str) -> bool:
     if tokens & _COMMON_WORDS:
         return False
 
-    # Vowel-ratio check on alphabetical characters only
+    # Vowel-ratio check on alphabetical characters only.
+    # Threshold 0.15 (was 0.08): one vowel in 9 chars is still gibberish.
+    # Also catch single-token inputs with no spaces that are long consonant
+    # strings — e.g. "hsofbkdcx" (9 chars, 1 vowel = 11% < 15%).
     letters = [c for c in stripped if c.isalpha()]
     if len(letters) > 5:
         vowels      = set("aeiou")
-        vowel_ratio = sum(1 for c in letters if c in vowels) / len(letters)
-        if vowel_ratio < 0.08:
+        vowel_count = sum(1 for c in letters if c in vowels)
+        vowel_ratio = vowel_count / len(letters)
+        if vowel_ratio < 0.15:
+            return True
+
+    # Single unbroken token longer than 8 chars with no recognisable sub-word →
+    # almost certainly keyboard mashing (e.g. "hsofbkdcx", "jkwqxbvf")
+    tokens_list = re.findall(r"\b\w+\b", stripped)
+    if len(tokens_list) == 1 and len(tokens_list[0]) > 8:
+        word = tokens_list[0]
+        # If the word has fewer than 2 vowels it's almost certainly random chars
+        if sum(1 for c in word if c in "aeiou") < 2:
             return True
 
     return False

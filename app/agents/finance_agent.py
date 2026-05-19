@@ -78,6 +78,16 @@ _PETTY_CASH_PHRASES = [
     "petty cash", "cash advance", "corporate card", "company card",
     "credit card", "card reconciliation", "card misuse",
 ]
+# Salary increase / raise request — user is asking for a pay rise.
+# These are formal compensation requests, not salary policy queries.
+_SALARY_INCREASE_PHRASES = [
+    "increase my salary", "raise my salary", "rise my salary",
+    "salary increase", "salary raise", "pay raise", "pay rise",
+    "increment my salary", "want a raise", "need a raise",
+    "i deserve a raise", "salary hike", "hike my salary",
+    "can you increase my salary", "can you raise my salary",
+    "salary increment", "increase pay", "raise pay",
+]
 
 
 @traceable
@@ -406,6 +416,38 @@ def finance_agent(query: str) -> AgentResponse:
             confidence=88,
             source="finance_policy",
             keyword_match=True,
+        )
+
+    # ── Action: Salary Increase Request ─────────────────────────────────────
+    # User is requesting a pay rise. This is a formal request that must go
+    # through a manager → HR → Finance approval chain, NOT just info.
+    # Must be checked BEFORE the generic salary info fallback.
+    if any(phrase in q for phrase in _SALARY_INCREASE_PHRASES):
+        return AgentResponse(
+            answer=(
+                "📋 **Salary Increase Request Logged**\n\n"
+                "Your compensation review request has been submitted for manager consideration.\n\n"
+                "**Approval Chain:**\n"
+                "1. **Manager Review** — your direct manager evaluates the request\n"
+                "2. **HR Validation** — HR benchmarks against grade structure and market rates\n"
+                "3. **Finance Approval** — Finance Director signs off on budget impact\n"
+                "4. **Executive Sign-off** — Required for increases >15% (out-of-cycle)\n\n"
+                "**Expected Timeline:** 10–15 business days for a decision\n\n"
+                "**What strengthens your case:**\n"
+                "- Strong performance rating (4 or 5 in last review)\n"
+                "- 12+ months in current role without a review\n"
+                "- Market rate evidence (salary benchmark data)\n"
+                "- Expanded responsibilities since last review\n\n"
+                "⚠️ **Note:** Salary changes take effect from the **1st of the following month** once approved.\n\n"
+                "Out-of-cycle increases require Finance Director + CHRO approval.\n"
+                f"Payroll queries: payroll@company.com | HR: {DEPT_CONTACTS['HR']}"
+            ),
+            confidence=90,
+            source="finance_action",
+            keyword_match=True,
+            action_triggered=True,
+            action_type="salary_increase_request",
+            action_payload={"raw_request": query, "department": "Finance"},
         )
 
     # ── Salary / Compensation Info ────────────────────────────────────────────

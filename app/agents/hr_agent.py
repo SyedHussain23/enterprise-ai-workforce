@@ -40,6 +40,21 @@ _LEAVE_APPROVAL_PHRASES = [
     "waiting for approval", "leave pending", "pending leave",
     "my leave not approved", "leave status", "check my leave",
     "when will leave be approved", "follow up on leave", "leave follow up",
+    # User asking IF the AI can approve — it cannot
+    "can you approve", "can you accept", "you can approve", "you can accept",
+    "will you approve", "accept my leave", "approve this leave",
+    "you accept my leave", "can ai approve", "can this approve",
+]
+# Sick leave reporting — "send email to HR saying I'm sick", "report sick", etc.
+# These are action intents, not just policy queries.
+_SICK_LEAVE_REPORT_PHRASES = [
+    "i am sick", "i'm sick", "im sick", "feeling sick", "not feeling well",
+    "send email to hr", "email hr", "notify hr i am sick", "report sick",
+    "i am unwell", "i'm unwell", "im unwell", "sick today", "sick tomorrow",
+    "sick leave today", "sick note", "call in sick", "absent today",
+    "absent tomorrow", "taking sick leave", "medical leave today",
+    "i have a fever", "i am ill", "i'm ill", "doctor appointment",
+    "going to doctor", "medical appointment",
 ]
 # Maternity / pregnancy-related phrases
 _MATERNITY_PHRASES = [
@@ -94,6 +109,34 @@ _DISCIPLINE_PHRASES = [
 @traceable
 def hr_agent(query: str) -> AgentResponse:
     q = query.lower().strip()
+
+    # ── Action: Sick Leave Reporting ──────────────────────────────────────────
+    # User is reporting they are sick today / calling in sick.
+    # Must be checked BEFORE generic leave policy.
+    if any(phrase in q for phrase in _SICK_LEAVE_REPORT_PHRASES):
+        return AgentResponse(
+            answer=(
+                "✅ **Sick Leave Reported**\n\n"
+                "Your absence has been logged and your manager will be notified.\n\n"
+                "**What to do:**\n"
+                "1. Notify your direct manager immediately (call or message)\n"
+                "2. Submit sick leave via **HR Portal → My Leaves → Sick Leave**\n"
+                "3. If absent 4+ consecutive days: obtain a medical certificate\n"
+                "4. Attach the certificate when you return\n\n"
+                "**Sick Leave Entitlement (UAE Labour Law):**\n"
+                "- First 15 days: Full pay (100%)\n"
+                "- Next 30 days: Half pay (50%)\n"
+                "- Remaining: Unpaid (max 90 days/year)\n\n"
+                "**Get well soon! 🌿**\n"
+                f"HR support: {DEPT_CONTACTS['HR']}"
+            ),
+            confidence=93,
+            source="hr_action",
+            keyword_match=True,
+            action_triggered=True,
+            action_type="sick_leave_report",
+            action_payload={"raw_request": query, "department": "HR"},
+        )
 
     # ── Maternity / Pregnancy Guidance ────────────────────────────────────────
     # Must be checked BEFORE generic leave policy (it contains "leave").
