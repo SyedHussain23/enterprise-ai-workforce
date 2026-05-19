@@ -204,7 +204,7 @@ function UsersTab({ onAuthError }: { onAuthError: () => void }) {
   const load = useCallback(async (p: number) => {
     setLoading(true); setError(null);
     try {
-      const res = await listUsers({ page: p, page_size: PAGE_SIZE });
+      const res = await listUsers({ limit: PAGE_SIZE, offset: (p - 1) * PAGE_SIZE });
       setUsers(res.users); setTotal(res.total);
     } catch (err) {
       if (err instanceof AuthError) { onAuthError(); return; }
@@ -328,7 +328,7 @@ function AuditTab({ onAuthError }: { onAuthError: () => void }) {
     setLoading(true); setError(null);
     try {
       const res = await getAuditLogs({
-        page: p, page_size: PAGE_SIZE,
+        limit: PAGE_SIZE, offset: (p - 1) * PAGE_SIZE,
         ...(evt ? { event_type: evt } : {}),
       });
       setLogs(res.logs); setTotal(res.total);

@@ -249,9 +249,12 @@ export function MessageBubble({ message, isRTL, onRetry: _onRetry, onRegenerate,
   async function handleRating(rating: 'up' | 'down') {
     if (rated) return;
     setRated(rating);
-    if (message.metadata) {
+    // Use the real database WorkflowLog ID from metadata if available.
+    // message.id is a frontend-generated UUID and will never match a DB row.
+    const wfLogId = message.metadata?.workflow_log_id;
+    if (wfLogId) {
       try {
-        await submitFeedback({ workflow_log_id: message.id, rating: rating === 'up' ? 5 : 1 });
+        await submitFeedback({ workflow_log_id: wfLogId, rating: rating === 'up' ? 5 : 1 });
       } catch { /* non-critical */ }
     }
   }

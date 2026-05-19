@@ -298,16 +298,16 @@ export async function changePassword(data: ChangePasswordRequest): Promise<{ mes
 
 // ── Admin — Users ─────────────────────────────────────────────────────────────
 export async function listUsers(params?: {
-  page?: number;
-  page_size?: number;
+  limit?: number;
+  offset?: number;
   department?: string;
   role?: string;
 }): Promise<AdminUsersResponse> {
   const qs = new URLSearchParams();
-  if (params?.page)        qs.set('page',       String(params.page));
-  if (params?.page_size)   qs.set('page_size',  String(params.page_size));
-  if (params?.department)  qs.set('department', params.department);
-  if (params?.role)        qs.set('role',       params.role);
+  if (params?.limit  != null) qs.set('limit',      String(params.limit));
+  if (params?.offset != null) qs.set('offset',     String(params.offset));
+  if (params?.department)     qs.set('department', params.department);
+  if (params?.role)           qs.set('role',       params.role);
   return request<AdminUsersResponse>(`/admin/users?${qs.toString()}`);
 }
 
@@ -327,13 +327,13 @@ export async function getHealthDeep(): Promise<Record<string, unknown>> {
 
 // ── Admin — Audit Log ─────────────────────────────────────────────────────────
 export async function getAuditLogs(params?: {
-  page?: number;
-  page_size?: number;
+  limit?: number;
+  offset?: number;
   event_type?: string;
 }): Promise<AuditLogsResponse> {
   const qs = new URLSearchParams();
-  if (params?.page)        qs.set('page',       String(params.page));
-  if (params?.page_size)   qs.set('page_size',  String(params.page_size));
-  if (params?.event_type)  qs.set('event_type', params.event_type);
+  if (params?.limit  != null) qs.set('limit',      String(params.limit));
+  if (params?.offset != null) qs.set('offset',     String(params.offset));
+  if (params?.event_type)     qs.set('event_type', params.event_type);
   return request<AuditLogsResponse>(`/admin/audit?${qs.toString()}`);
 }

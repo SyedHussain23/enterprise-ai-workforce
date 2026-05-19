@@ -23,6 +23,8 @@ export interface WorkflowResponse {
   action_id?: string;
   action_type?: string;
   action_status?: string;
+  /** Real database WorkflowLog UUID — use this for feedback submission. */
+  workflow_log_id?: string;
 }
 
 export interface Message {
@@ -123,8 +125,8 @@ export interface AdminUser {
 export interface AdminUsersResponse {
   users: AdminUser[];
   total: number;
-  page: number;
-  page_size: number;
+  limit: number;
+  offset: number;
 }
 
 export interface UpdateUserRequest {
@@ -146,6 +148,6 @@ export interface AuditLogEntry {
 export interface AuditLogsResponse {
   logs: AuditLogEntry[];
   total: number;
-  page: number;
-  page_size: number;
+  limit: number;
+  offset: number;
 }

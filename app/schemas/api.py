@@ -46,6 +46,10 @@ class WorkflowResponse(BaseModel):
     action_id: str | None = None
     action_type: str | None = None
     action_status: str | None = None
+    # The database ID of the persisted WorkflowLog — used by the feedback endpoint.
+    # None for cache hits, guardrail blocks, and multi-intent responses that
+    # don't produce a WorkflowLog row.
+    workflow_log_id: str | None = None
 
 
 # ── User profile schemas ───────────────────────────────────────────────────────

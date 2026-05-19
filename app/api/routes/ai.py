@@ -55,6 +55,7 @@ def _build_response(
     *, status, answer, agent, confidence, source, steps,
     confidence_reason, evaluation_score, response_time,
     action_id=None, action_type=None, action_status=None,
+    workflow_log_id=None,
 ) -> WorkflowResponse:
     return WorkflowResponse(
         status=status, answer=answer, agent=agent, confidence=confidence,
@@ -62,6 +63,7 @@ def _build_response(
         evaluation_score=evaluation_score, response_time=response_time,
         timestamp=datetime.now(timezone.utc).isoformat(),
         action_id=action_id, action_type=action_type, action_status=action_status,
+        workflow_log_id=workflow_log_id,
     )
 
 
@@ -227,6 +229,7 @@ async def ask_stream(
             "action_type": result.action_type,
             "action_status": result.action_status,
             "timestamp": result.timestamp,
+            "workflow_log_id": result.workflow_log_id,
         })}
 
     return EventSourceResponse(generate())
@@ -346,6 +349,7 @@ async def _run_workflow(
     # ── Persist to PostgreSQL ─────────────────────────────────────────────────
     action_id_str: str | None = None
     action_status_str: str | None = None
+    workflow_log_id_str: str | None = None
 
     if company_id_str:
         try:
@@ -383,6 +387,7 @@ async def _run_workflow(
                     "keyword_match": result.get("keyword_match", False),
                 },
             )
+            workflow_log_id_str = str(wf_log.id)
 
             # Action record — only create when agent explicitly signals action intent
             if result.get("action_triggered") and result.get("action_type"):
@@ -426,6 +431,7 @@ async def _run_workflow(
         action_id=action_id_str,
         action_type=result.get("action_type"),
         action_status=action_status_str,
+        workflow_log_id=workflow_log_id_str,
     )
 
     # Cache non-action responses (async, non-blocking)
