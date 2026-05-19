@@ -40,6 +40,7 @@ redis>=5.0.0
 # ── Document processing ───────────────────────────────────────────────────────
 pypdf>=4.0.0
 python-docx>=1.1.0          # DOCX extraction for /ask/extract endpoint
+reportlab>=4.0.0            # PDF generation (app/tools/file_generator.py)
 
 # ── HTTP client (testing) ─────────────────────────────────────────────────────
 httpx>=0.28.0
