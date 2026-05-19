@@ -68,12 +68,13 @@ if settings.DEBUG:
 else:
     _cors_origins = _extra_origins + _dev_origins
     if not _extra_origins:
-        import warnings
-        warnings.warn(
-            "⚠️  ALLOWED_ORIGINS is not set. "
-            "Production frontend will be blocked by CORS. "
-            "Set ALLOWED_ORIGINS=https://your-vercel-app.vercel.app in Railway.",
-            stacklevel=2,
+        logger.warning(
+            "cors.no_allowed_origins",
+            detail=(
+                "ALLOWED_ORIGINS is not set. "
+                "Production frontend will be blocked by CORS. "
+                "Set ALLOWED_ORIGINS=https://your-vercel-app.vercel.app in Railway."
+            ),
         )
 
 app.add_middleware(
