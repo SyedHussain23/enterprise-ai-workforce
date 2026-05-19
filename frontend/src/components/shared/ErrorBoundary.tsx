@@ -80,8 +80,8 @@ export class ErrorBoundary extends Component<Props, State> {
             reload the page to continue.
           </p>
 
-          {/* Error detail — shown only in development */}
-          {import.meta.env.DEV && this.state.error && (
+          {/* Error detail — always shown to diagnose production crash */}
+          {this.state.error && (
             <details className="text-left mb-6 bg-slate-50 rounded-lg p-3 cursor-pointer">
               <summary className="text-xs font-mono text-rose-600 select-none">
                 {this.state.error.message}
