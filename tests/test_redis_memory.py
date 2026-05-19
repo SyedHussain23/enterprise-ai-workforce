@@ -1,5 +1,27 @@
-"""Tests for Redis multi-turn memory."""
+"""Tests for Redis multi-turn memory.
+
+These tests require a live Redis instance. They are skipped automatically
+when Redis is not reachable (e.g. in CI without the redis service or in
+local dev without Docker running).
+"""
 import pytest
+
+# ── Redis availability guard ───────────────────────────────────────────────────
+def _redis_reachable() -> bool:
+    try:
+        import redis as _redis
+        from app.core.config import get_settings
+        settings = get_settings()
+        _redis.from_url(settings.REDIS_URL, socket_connect_timeout=1).ping()
+        return True
+    except Exception:
+        return False
+
+pytestmark = pytest.mark.skipif(
+    not _redis_reachable(),
+    reason="Redis not reachable — skipping memory tests",
+)
+
 from app.memory.redis_memory import clear_session, get_history, save_turn
 
 SESSION = "test-session-memory-pytest"

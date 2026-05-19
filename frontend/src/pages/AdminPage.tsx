@@ -393,10 +393,10 @@ function AuditTab({ onAuthError }: { onAuthError: () => void }) {
                     </span>
                   </td>
                   <td className="px-4 py-3 text-slate-600 text-xs">
-                    {log.username ?? log.user_id ?? '—'}
+                    {log.user_id ?? '—'}
                   </td>
                   <td className="px-4 py-3 text-xs text-slate-500 max-w-xs truncate">
-                    {Object.entries(log.details ?? {}).map(([k, v]) => `${k}: ${v}`).join(' · ') || '—'}
+                    {Object.entries(log.payload ?? {}).map(([k, v]) => `${k}: ${v}`).join(' · ') || '—'}
                   </td>
                 </tr>
               ))}

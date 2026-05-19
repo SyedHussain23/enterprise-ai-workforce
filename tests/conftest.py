@@ -4,6 +4,10 @@ Shared pytest fixtures.
 Uses a separate test database so tests never touch production data.
 Each test gets a fresh transaction that is rolled back after the test —
 no cleanup code needed in individual tests.
+
+DB-dependent fixtures (create_test_tables, db_session, seeded_db, client)
+are automatically skipped when the test Postgres instance is not reachable,
+so the unit-test suites still run cleanly in local dev without Docker.
 """
 import asyncio
 import pytest
@@ -29,6 +33,40 @@ TestSessionLocal = async_sessionmaker(
 )
 
 
+# ── Availability guard ────────────────────────────────────────────────────────
+def _db_reachable() -> bool:
+    """Return True iff the test Postgres instance accepts a connection."""
+    import asyncio as _asyncio
+    import sqlalchemy.exc as _exc
+
+    async def _check():
+        try:
+            async with test_engine.connect() as conn:
+                await conn.execute(
+                    __import__("sqlalchemy").text("SELECT 1")
+                )
+            return True
+        except Exception:
+            return False
+
+    try:
+        loop = _asyncio.new_event_loop()
+        return loop.run_until_complete(_check())
+    except Exception:
+        return False
+    finally:
+        try:
+            loop.close()
+        except Exception:
+            pass
+
+_DB_AVAILABLE = _db_reachable()
+db_required = pytest.mark.skipif(
+    not _DB_AVAILABLE,
+    reason="PostgreSQL test DB not reachable — skipping DB-dependent tests",
+)
+
+
 @pytest.fixture(scope="session")
 def event_loop():
     loop = asyncio.new_event_loop()
@@ -38,6 +76,8 @@ def event_loop():
 
 @pytest_asyncio.fixture(scope="session")
 async def create_test_tables():
+    if not _DB_AVAILABLE:
+        pytest.skip("PostgreSQL test DB not reachable")
     async with test_engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     yield
@@ -47,6 +87,8 @@ async def create_test_tables():
 
 @pytest_asyncio.fixture
 async def db_session(create_test_tables):
+    if not _DB_AVAILABLE:
+        pytest.skip("PostgreSQL test DB not reachable")
     async with TestSessionLocal() as session:
         yield session
         await session.rollback()

@@ -140,8 +140,10 @@ export interface AuditLogEntry {
   id: string;
   event_type: string;
   user_id: string | null;
-  username: string | null;
-  details: Record<string, unknown>;
+  entity_type: string | null;
+  entity_id: string | null;
+  ip_address: string | null;
+  payload: Record<string, unknown>;
   created_at: string;
 }
 
