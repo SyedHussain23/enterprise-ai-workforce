@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.models.conversation import Conversation, Message
@@ -69,3 +69,65 @@ class ConversationRepository:
         self._db.add(msg)
         await self._db.flush()
         return msg
+
+    async def get_user_conversations(
+        self,
+        *,
+        user_id: uuid.UUID,
+        company_id: uuid.UUID,
+        limit: int = 50,
+        offset: int = 0,
+    ) -> list[Conversation]:
+        """Return conversations for a user, newest first."""
+        stmt = (
+            select(Conversation)
+            .where(
+                Conversation.company_id == company_id,
+                Conversation.user_id == user_id,
+            )
+            .order_by(Conversation.updated_at.desc())
+            .limit(min(limit, 200))
+            .offset(offset)
+        )
+        result = await self._db.execute(stmt)
+        return list(result.scalars().all())
+
+    async def count_user_conversations(
+        self,
+        *,
+        user_id: uuid.UUID,
+        company_id: uuid.UUID,
+    ) -> int:
+        stmt = select(func.count()).where(
+            Conversation.company_id == company_id,
+            Conversation.user_id == user_id,
+        )
+        return (await self._db.execute(stmt)).scalar() or 0
+
+    async def get_messages(
+        self,
+        *,
+        session_id: str,
+        company_id: uuid.UUID,
+        user_id: uuid.UUID,
+        limit: int = 100,
+    ) -> list[Message]:
+        """Return messages for a session, oldest first. Validates ownership."""
+        convo_stmt = select(Conversation).where(
+            Conversation.session_id == session_id,
+            Conversation.company_id == company_id,
+            Conversation.user_id == user_id,
+        )
+        convo_result = await self._db.execute(convo_stmt)
+        convo = convo_result.scalar_one_or_none()
+        if convo is None:
+            return []
+
+        msg_stmt = (
+            select(Message)
+            .where(Message.conversation_id == convo.id)
+            .order_by(Message.created_at.asc())
+            .limit(min(limit, 500))
+        )
+        result = await self._db.execute(msg_stmt)
+        return list(result.scalars().all())

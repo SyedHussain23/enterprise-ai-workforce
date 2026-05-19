@@ -14,6 +14,8 @@ import type {
   AdminUsersResponse,
   UpdateUserRequest,
   AuditLogsResponse,
+  ConversationsResponse,
+  ConversationMessagesResponse,
 } from './types';
 
 const BASE = '/api';
@@ -336,4 +338,25 @@ export async function getAuditLogs(params?: {
   if (params?.offset != null) qs.set('offset',     String(params.offset));
   if (params?.event_type)     qs.set('event_type', params.event_type);
   return request<AuditLogsResponse>(`/admin/audit?${qs.toString()}`);
+}
+
+// ── Conversation history ───────────────────────────────────────────────────────
+
+export async function listConversations(params?: {
+  limit?: number;
+  offset?: number;
+}): Promise<ConversationsResponse> {
+  const qs = new URLSearchParams();
+  if (params?.limit  != null) qs.set('limit',  String(params.limit));
+  if (params?.offset != null) qs.set('offset', String(params.offset));
+  return request<ConversationsResponse>(`/conversations?${qs.toString()}`);
+}
+
+export async function getConversationMessages(
+  sessionId: string,
+  limit = 100,
+): Promise<ConversationMessagesResponse> {
+  return request<ConversationMessagesResponse>(
+    `/conversations/${encodeURIComponent(sessionId)}/messages?limit=${limit}`,
+  );
 }

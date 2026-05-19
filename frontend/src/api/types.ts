@@ -135,6 +135,40 @@ export interface UpdateUserRequest {
   department?: string;
 }
 
+// ── Conversation history ───────────────────────────────────────────────────────
+export interface ConversationSummary {
+  session_id: string;
+  title: string | null;
+  department: string | null;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ConversationsResponse {
+  conversations: ConversationSummary[];
+  total: number;
+  limit: number;
+  offset: number;
+}
+
+export interface ServerMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  agent: string | null;
+  confidence: number | null;
+  source: string | null;
+  response_time: number | null;
+  evaluation_score: number | null;
+  created_at: string;
+}
+
+export interface ConversationMessagesResponse {
+  session_id: string;
+  messages: ServerMessage[];
+}
+
 // ── Admin — Audit Log ─────────────────────────────────────────────────────────
 export interface AuditLogEntry {
   id: string;
