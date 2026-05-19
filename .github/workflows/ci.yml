@@ -118,11 +118,15 @@ jobs:
 
       - name: Verify image starts
         run: |
-          docker run --rm -d \
+          docker run --rm \
             -e OPENAI_API_KEY=sk-test \
             -e SECRET_KEY=test-secret-key-32-chars-minimum! \
             -e DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/enterprise_ai \
             -e REDIS_URL=redis://localhost:6379 \
             --entrypoint python \
             enterprise-ai:ci \
-            -c "from app.api.server import app; print('Docker import OK')"
+            -c "
+          from app.api.server import app
+          from app.workflows.workflow_graph import build_workflow
+          print('Docker import OK — routes:', len(app.routes))
+          "

@@ -20,8 +20,18 @@ FROM python:3.12-slim AS runtime
 
 WORKDIR /app
 
+# Runtime shared-library deps:
+#   libpq5       — asyncpg / psycopg2 (PostgreSQL client)
+#   libstdc++6   — C++ extensions (chromadb/hnswlib, etc.)
+#   libgcc-s1    — GCC runtime (needed by any compiled extension)
+#   libfreetype6 — reportlab font rendering
+#   libffi8      — cffi / cryptography (JWT, bcrypt)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
+    libstdc++6 \
+    libgcc-s1 \
+    libfreetype6 \
+    libffi8 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy only the installed packages from builder
